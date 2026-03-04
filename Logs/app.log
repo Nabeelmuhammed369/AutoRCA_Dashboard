@@ -1,0 +1,377 @@
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
+2026-03-04 10:00:01 INFO System Bootstrapped
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:05:22 ERROR DB_CONN_FAIL - Connection timeout
+2026-03-04 10:05:25 ERROR DB_CONN_FAIL - Retrying...
+2026-03-04 10:10:00 INFO User login attempt: admin
+2026-03-04 10:12:45 ERROR NullPointerException in User Module
+2026-03-04 10:12:45 ERROR DB_CONN_FAIL
+2026-03-04 10:12:45 ERROR InnerException: Database connection failed
