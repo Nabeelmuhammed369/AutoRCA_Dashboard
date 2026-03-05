@@ -151,3 +151,20 @@ if st.button("🎫 Create GitHub Incident Ticket"):
         # ... rest of your github code using 'run["classification"]'
     else:
         st.error("Please run a diagnostic first!")      
+
+# In your sidebar or Component Status section
+enable_api = st.toggle("API Health Monitor", value=True)
+enable_logs = st.toggle("Log Analyzer", value=True)
+enable_db = st.toggle("DB Validator", value=True)
+
+if st.button("Run Full Diagnostic"):
+    results = {}
+    # Only run the monitors that are toggled 'On'
+    if enable_api:
+        results['api'] = check_api_health()
+    if enable_logs:
+        results['logs'] = analyze_logs("Logs/app.log")
+    if enable_db:
+        results['db'] = validate_data()
+    
+    st.session_state.last_run = results

@@ -1703,3 +1703,19 @@ google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, '
 2026-03-05 19:04:27,425 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 19:04:27,427 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 19:04:27,429 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 19:19:33,904 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 19:19:35,070 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 19:19:35,077 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 19:19:35,089 | INFO | LOG_ANALYZER | Analysis complete. Found 1269 errors across 6 categories.
+2026-03-05 19:19:35,090 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 19:19:35,096 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 19:19:35,097 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 19:19:35,098 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 19:19:55,987 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 19:19:58,017 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 19:19:58,027 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 19:19:58,043 | INFO | LOG_ANALYZER | Total errors found: 635
+2026-03-05 19:19:58,045 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 19:19:58,053 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 19:19:58,054 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 19:19:58,061 | WARNING | RCA_ENGINE | Data integrity issue detected.
