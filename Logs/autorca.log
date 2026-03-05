@@ -1695,3 +1695,11 @@ Traceback (most recent call last):
     raise ClientError(status_code, response_json, response)
 google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
 2026-03-05 18:47:15,568 | WARNING | API_SERVER | AI fix steps failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 19:04:25,389 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 19:04:27,374 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 19:04:27,382 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 19:04:27,398 | INFO | LOG_ANALYZER | Analysis complete. Found 1269 errors across 6 categories.
+2026-03-05 19:04:27,399 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 19:04:27,425 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 19:04:27,427 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 19:04:27,429 | WARNING | RCA_ENGINE | Data integrity issue detected.
