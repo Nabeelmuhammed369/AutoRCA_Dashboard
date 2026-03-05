@@ -261,7 +261,8 @@ html, body {
   transition: all 0.3s; cursor: default;
   animation: fadeUp 0.4s ease both;
 }
-.kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--accent); }
+.kpi-card:active { transform: translateY(0); }
 .kpi-card::before {
   content: ''; position: absolute;
   top: 0; left: 0; right: 0; height: 3px;
@@ -301,7 +302,7 @@ html, body {
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
 /* ── Chart wrapper ────────────────────────────────────────── */
-.chart-wrap { position: relative; height: 168px; }
+.chart-wrap { position: relative; height: 168px; cursor: pointer; }
 
 /* ── Log viewer ───────────────────────────────────────────── */
 .search-input {
@@ -336,6 +337,45 @@ html, body {
 .log-tag.warn { background: var(--yellow-lt); color: var(--yellow); }
 .log-tag.info { background: var(--blue-lt);   color: var(--blue); }
 .log-empty { padding: 28px; text-align: center; color: var(--text-3); font-size: 12px; }
+
+/* ── Log filter buttons ───────────────────────────────────── */
+.log-filter-btn {
+  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500;
+  cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text-2);
+  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.log-filter-btn:hover { background: var(--accent-lt); color: var(--accent); border-color: var(--accent); }
+.log-filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.log-filter-btn.err.active  { background: var(--red);    border-color: var(--red); }
+.log-filter-btn.crit.active { background: #7c3aed;       border-color: #7c3aed; }
+.log-filter-btn.cat.active  { background: var(--blue);   border-color: var(--blue); color: white; }
+
+/* ── Category chip (in chart) ─────────────────────────────── */
+.cat-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 500;
+  cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text-2);
+  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.cat-chip:hover  { border-color: var(--accent); color: var(--accent); }
+.cat-chip.active { border-color: var(--accent); background: var(--accent); color: white; }
+.cat-chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Critical alert row ───────────────────────────────────── */
+.critical-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 10px; border-radius: var(--radius-sm);
+  background: var(--red-lt); border: 1px solid var(--red);
+  margin-bottom: 6px; font-family: 'DM Mono', monospace;
+  font-size: 10.5px; color: var(--red); line-height: 1.5;
+  animation: fadeUp 0.3s ease both;
+}
+.critical-badge {
+  padding: 1px 7px; border-radius: 4px; font-size: 9px; font-weight: 700;
+  background: var(--red); color: white; flex-shrink: 0; margin-top: 1px;
+}
 
 /* ── RCA ──────────────────────────────────────────────────── */
 .class-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
@@ -737,7 +777,7 @@ html, body {
 
         <!-- KPI row -->
         <div class="kpi-grid">
-          <div class="kpi-card c-green" id="kc-api">
+          <div class="kpi-card c-green" id="kc-api" style="cursor:pointer" title="Click to view API logs" onclick="filterLogsBy('')">
             <div class="kpi-top">
               <div class="kpi-label">API Status</div>
               <div class="kpi-icon c-green" id="ki-api">✓</div>
@@ -753,7 +793,7 @@ html, body {
             <div class="kpi-value" id="kv-lat">—</div>
             <div class="kpi-sub" id="ks-lat">Awaiting scan</div>
           </div>
-          <div class="kpi-card c-yellow">
+          <div class="kpi-card c-yellow" style="cursor:pointer" title="Click to filter all error logs" onclick="filterLogsBy('ERROR')">
             <div class="kpi-top">
               <div class="kpi-label">Total Errors</div>
               <div class="kpi-icon c-yellow">⚠</div>
@@ -761,7 +801,7 @@ html, body {
             <div class="kpi-value" id="kv-err">—</div>
             <div class="kpi-sub">Last log cycle</div>
           </div>
-          <div class="kpi-card c-red" id="kc-db">
+          <div class="kpi-card c-red" id="kc-db" style="cursor:pointer" title="Click to filter DB error logs" onclick="filterLogsBy('DB')">
             <div class="kpi-top">
               <div class="kpi-label">DB Anomalies</div>
               <div class="kpi-icon c-red" id="ki-db">⊘</div>
@@ -774,13 +814,26 @@ html, body {
         <!-- Charts -->
         <div class="grid-2">
           <div class="card">
-            <div class="card-title"><div class="card-title-dot" style="background:var(--yellow)"></div>Error Type Distribution</div>
+            <div class="card-title"><div class="card-title-dot" style="background:var(--yellow)"></div>Error Category Breakdown
+              <span id="cat-active-label" style="margin-left:auto;font-size:10px;font-weight:500;color:var(--accent);display:none;">Filtered</span>
+            </div>
+            <div id="cat-filter-chips" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;"></div>
             <div class="chart-wrap"><canvas id="errorChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title"><div class="card-title-dot" style="background:var(--blue)"></div>API Latency Trend (ms)</div>
             <div class="chart-wrap"><canvas id="latencyChart"></canvas></div>
           </div>
+        </div>
+
+        <!-- Critical Alerts -->
+        <div class="card" id="critical-alerts-card" style="display:none;">
+          <div class="card-title" style="margin-bottom:10px;">
+            <div class="card-title-dot" style="background:var(--red)"></div>
+            Critical Alerts
+            <span id="critical-count-badge" class="kpi-badge bad" style="margin-left:8px;"></span>
+          </div>
+          <div id="critical-alerts-body"></div>
         </div>
 
         <!-- Status + Actions -->
@@ -791,19 +844,19 @@ html, body {
               <tbody>
                 <tr>
                   <td><div class="comp-name">API Health Monitor</div><div class="comp-desc">Endpoint response checker</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-api"><div class="toggle-knob"></div></div></td>
+                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-api" onclick="toggleDot('dot-api')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
                 </tr>
                 <tr>
                   <td><div class="comp-name">Log Analyzer</div><div class="comp-desc">Exception pattern parser</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-log"><div class="toggle-knob"></div></div></td>
+                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-log" onclick="toggleDot('dot-log')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
                 </tr>
                 <tr>
                   <td><div class="comp-name">DB Validator</div><div class="comp-desc">Data integrity checker</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-db"><div class="toggle-knob"></div></div></td>
+                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-db" onclick="toggleDot('dot-db')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
                 </tr>
                 <tr>
                   <td><div class="comp-name">RCA Engine</div><div class="comp-desc">Issue classification AI</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-rca"><div class="toggle-knob"></div></div></td>
+                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-rca" onclick="toggleDot('dot-rca')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
                 </tr>
               </tbody>
             </table>
@@ -843,20 +896,51 @@ html, body {
 
       <!-- ═══════════════════════════════════════════ PAGE: LOG VIEWER -->
       <div class="page" id="page-logs" style="display:none;">
-        <div class="card" style="height:100%;">
-          <div class="card-title"><div class="card-title-dot" style="background:var(--yellow)"></div>Log Viewer — Full Exception List</div>
+        <div class="card">
+          <div class="card-title">
+            <div class="card-title-dot" style="background:var(--yellow)"></div>
+            Log Viewer — Full Exception List
+            <span id="log-active-filter" style="margin-left:auto;font-size:10px;font-weight:500;color:var(--accent);display:none;"></span>
+          </div>
+
+          <!-- Search bar -->
           <input class="search-input" type="text" id="log-search"
-            placeholder="Search exceptions… e.g. timeout, DB, NullPointer" oninput="filterLogs()"/>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div class="log-meta" id="log-count">Showing 0 of 0 entries</div>
-            <div style="display:flex;gap:6px;">
-              <button class="btn btn-ghost-red" style="padding:4px 10px;font-size:11px;width:auto;" onclick="filterByTag('ERROR')">ERR only</button>
-              <button class="btn btn-ghost-warn" style="padding:4px 10px;font-size:11px;width:auto;" onclick="filterByTag('WARN')">WARN only</button>
-              <button class="btn" style="padding:4px 10px;font-size:11px;width:auto;background:var(--surface2);border-color:var(--border);color:var(--text-2);" onclick="filterByTag('')">All</button>
+            placeholder="Search exceptions… e.g. timeout, DB, NullPointer, CRITICAL" oninput="filterLogs()"/>
+
+          <!-- Severity filters -->
+          <div style="margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Severity</div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+              <button class="log-filter-btn active" data-filter="" onclick="applyLogFilter(this,'')">All</button>
+              <button class="log-filter-btn err" data-filter="ERROR" onclick="applyLogFilter(this,'ERROR')">ERROR</button>
+              <button class="log-filter-btn crit" data-filter="CRITICAL" onclick="applyLogFilter(this,'CRITICAL')">CRITICAL</button>
             </div>
           </div>
-          <!-- Tall log box on this dedicated page -->
-          <div class="log-scroll" id="log-box" style="height:calc(100vh - 310px);"></div>
+
+          <!-- Category filters — populated dynamically from log data -->
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Category</div>
+            <div id="log-category-filters" style="display:flex;gap:5px;flex-wrap:wrap;">
+              <button class="log-filter-btn cat active" data-cat="" onclick="applyLogCatFilter(this,'')">All Categories</button>
+              <button class="log-filter-btn cat" data-cat="[Database]" onclick="applyLogCatFilter(this,'[Database]')">Database</button>
+              <button class="log-filter-btn cat" data-cat="[Network]" onclick="applyLogCatFilter(this,'[Network]')">Network</button>
+              <button class="log-filter-btn cat" data-cat="[API]" onclick="applyLogCatFilter(this,'[API]')">API/Gateway</button>
+              <button class="log-filter-btn cat" data-cat="[Firewall]" onclick="applyLogCatFilter(this,'[Firewall]')">Security</button>
+              <button class="log-filter-btn cat" data-cat="[ActiveDirectory]" onclick="applyLogCatFilter(this,'[ActiveDirectory]')">ActiveDirectory</button>
+              <button class="log-filter-btn cat" data-cat="DB_CONN_FAIL" onclick="applyLogCatFilter(this,'DB_CONN_FAIL')">DB Conn</button>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div class="log-meta" id="log-count">Showing 0 of 0 entries</div>
+            <button class="btn" style="padding:4px 10px;font-size:11px;width:auto;background:var(--surface2);border-color:var(--border);color:var(--text-2);" onclick="resetLogFilters()">
+              Reset Filters
+            </button>
+          </div>
+
+          <!-- Log entries -->
+          <div class="log-scroll" id="log-box" style="height:calc(100vh - 380px);"></div>
         </div>
       </div><!-- /page-logs -->
 
@@ -1076,6 +1160,7 @@ let state = null, allLogs = [], scanActive = false;
 let latData   = [98,112,134,109,142,201,167,142];
 let latLabels = ["12:00","12:05","12:10","12:15","12:20","12:25","12:30","12:35"];
 let errChart, latChart;
+let activeErrFilter = null; // tracks active error chart bar filter
 
 // Clock
 setInterval(() => { document.getElementById("live-clock").textContent = new Date().toLocaleTimeString(); }, 1000);
@@ -1085,24 +1170,25 @@ const PAGE_TITLES = {
   dashboard: "Dashboard",
   logs:      "Log Viewer",
   rca:       "RCA Engine",
-  history:   "Run History"
+  history:   "Run History",
+  ai:        "AI Analyzer"
 };
 let currentPage = "dashboard";
 
 function switchPage(pageId, navEl) {
-  // hide all pages
   document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-  // show target
   const target = document.getElementById("page-" + pageId);
-  if (target) { target.style.display = "flex"; target.style.animation = "none"; void target.offsetWidth; target.style.animation = ""; }
-  // update nav highlight
+  if (target) {
+    target.style.display = "flex";
+    target.style.animation = "none";
+    void target.offsetWidth;
+    target.style.animation = "";
+  }
   document.querySelectorAll(".nav-link").forEach(n => n.classList.remove("active"));
-  const navItem = navEl || document.querySelector(`[data-page="${pageId}"]`);
+  const navItem = navEl || document.querySelector('[data-page="' + pageId + '"]');
   if (navItem) navItem.classList.add("active");
-  // update topbar title
   document.getElementById("page-title").textContent = PAGE_TITLES[pageId] || pageId;
   currentPage = pageId;
-  // re-render logs if switching to log page
   if (pageId === "logs") filterLogs();
 }
 
@@ -1161,8 +1247,22 @@ function setScan(on) {
   }
 }
 
-// Toggle pills
-function setDot(id, state) { document.getElementById(id).className = "toggle-pill " + state; }
+// Toggle pills — set status
+function setDot(id, s) {
+  const el = document.getElementById(id);
+  if (el) el.className = "toggle-pill " + s;
+}
+
+// Toggle pill click — manual override for demo/testing purposes
+function toggleDot(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const current = el.classList.contains("on") ? "on" : el.classList.contains("off") ? "off" : "idle";
+  const next = current === "on" ? "off" : current === "off" ? "on" : "on";
+  el.className = "toggle-pill " + next;
+  const names = {"dot-api":"API Monitor","dot-log":"Log Analyzer","dot-db":"DB Validator","dot-rca":"RCA Engine"};
+  toast(names[id] + ": " + (next === "on" ? "Enabled" : "Disabled"), next === "on" ? "success" : "warn");
+}
 
 // Build charts
 function buildCharts() {
@@ -1170,13 +1270,25 @@ function buildCharts() {
   Chart.defaults.font.size = 11;
   const gc = "rgba(0,0,0,0.05)", tc = "#9ca3af", tb = "#ffffff";
 
+  // 6 industry categories from new log_analyzer
+  const CAT_LABELS  = ["Database","Network","API/Gateway","Security","ActiveDirectory","Application"];
+  const CAT_COLORS  = [
+    "rgba(217,119,6,0.18)",   // yellow  — Database
+    "rgba(37,99,235,0.18)",   // blue    — Network
+    "rgba(16,185,129,0.18)",  // green   — API/Gateway
+    "rgba(220,38,38,0.18)",   // red     — Security
+    "rgba(139,92,246,0.18)",  // purple  — ActiveDirectory
+    "rgba(107,114,128,0.15)", // grey    — Application
+  ];
+  const CAT_BORDERS = ["#d97706","#2563eb","#10b981","#dc2626","#8b5cf6","#9ca3af"];
+
   errChart = new Chart(document.getElementById("errorChart"), {
     type: "bar",
     data: {
-      labels: ["DB Issues","Null Ptrs","Connection","Other"],
-      datasets:[{ data:[0,0,0,0],
-        backgroundColor:["rgba(217,119,6,0.15)","rgba(220,38,38,0.15)","rgba(37,99,235,0.15)","rgba(107,114,128,0.12)"],
-        borderColor:["#d97706","#dc2626","#2563eb","#9ca3af"],
+      labels: CAT_LABELS,
+      datasets:[{ data:[0,0,0,0,0,0],
+        backgroundColor: CAT_COLORS,
+        borderColor:     CAT_BORDERS,
         borderWidth:1, borderRadius:4 }]
     },
     options:{
@@ -1188,7 +1300,7 @@ function buildCharts() {
         bodyFont:{family:"'DM Sans', sans-serif"}
       }},
       scales:{
-        x:{grid:{color:gc}, ticks:{color:tc}},
+        x:{grid:{color:gc}, ticks:{color:tc, maxRotation:30}},
         y:{grid:{color:gc}, ticks:{color:tc, stepSize:1}, beginAtZero:true}
       }
     }
@@ -1223,16 +1335,17 @@ function buildCharts() {
 function applyState(d) {
   state = d;
   const { api, logs, db } = d;
-  const apiOk = api.status_code === 200;
-  const latMs = Math.round(api.response_time * 1000);
+  const apiOk = api.status_code === 200 && !api.error;
+  // BUGFIX: handle null/undefined response_time (e.g. when API returns an error object)
+  const latMs = api.response_time != null ? Math.round(api.response_time * 1000) : 0;
 
-  document.getElementById("kv-api").textContent = api.status_code;
-  document.getElementById("kv-lat").textContent = latMs + "ms";
+  document.getElementById("kv-api").textContent = api.status_code || api.error || "ERR";
+  document.getElementById("kv-lat").textContent = latMs > 0 ? latMs + "ms" : "—";
   document.getElementById("kv-err").textContent = logs.total_errors;
   document.getElementById("kv-db").textContent  = db.null_email_count;
-  document.getElementById("ks-lat").textContent = latMs < 300 ? "Nominal" : "Elevated — check infra";
+  document.getElementById("ks-lat").textContent = latMs === 0 ? "Unavailable" : latMs < 300 ? "Nominal" : "Elevated — check infra";
 
-  // API card
+  // API card colour
   const apiBadge = document.getElementById("kb-api");
   if (apiOk) {
     document.getElementById("kc-api").className = "kpi-card c-green";
@@ -1246,40 +1359,141 @@ function applyState(d) {
 
   // Status pill
   const pill = document.getElementById("global-status");
-  const isH = d.classification === "System Healthy";
+  const isH  = d.classification === "System Healthy";
   const isP1 = d.classification === "Infrastructure Issue";
   pill.className = "status-chip " + (isH ? "healthy" : isP1 ? "issue" : "warn");
-  pill.innerHTML = `<div class="chip-dot"></div>${isH ? "All Systems Go" : d.classification}`;
+  pill.innerHTML = '<div class="chip-dot"></div>' + (isH ? "All Systems Go" : d.classification);
 
-  // Dots
+  // Component toggle pills — reactive to real data
   setDot("dot-api", apiOk ? "on" : "off");
-  setDot("dot-log", "on");
+  setDot("dot-log", logs.total_errors > 0 ? "off" : "on");
   setDot("dot-db",  db.null_email_count === 0 ? "on" : "off");
   setDot("dot-rca", "on");
 
-  // Error chart
+  // Error chart — use structured categories from new log_analyzer
   const ex = logs.exceptions || [];
-  const c = [
-    ex.filter(e=>/DB|Database/i.test(e)).length,
-    ex.filter(e=>/NullPointer/i.test(e)).length,
-    ex.filter(e=>/timeout/i.test(e)).length,
-  ];
-  c.push(Math.max(0, ex.length - c[0]-c[1]-c[2]));
-  errChart.data.datasets[0].data = c; errChart.update();
+  const cats = logs.categories || {};
+  const catOrder = ["Database","Network","API/Gateway","Security/Firewall","ActiveDirectory","Application"];
+  const errCounts = catOrder.map(k => cats[k] || 0);
+  errChart.data.datasets[0].data = errCounts;
+  errChart.update();
+
+  // Render category filter chips above chart
+  renderCatChips(cats);
+
+  // Render critical alerts panel
+  renderCriticalAlerts(logs.critical_issues || []);
 
   // Latency chart
-  const now = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-  latData.push(latMs); latLabels.push(now);
-  if (latData.length > 12) { latData.shift(); latLabels.shift(); }
+  const now = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+  if (latMs > 0) {
+    latData.push(latMs); latLabels.push(now);
+    if (latData.length > 12) { latData.shift(); latLabels.shift(); }
+  }
   latChart.data.labels = latLabels;
   latChart.data.datasets[0].data = latData;
   latChart.update();
+
+  // Wire KPI cards to filter logs on click
+  wireKPIFilters(ex);
 
   renderLogs(ex);
   renderRCA(d.classification);
   const ts = new Date().toLocaleTimeString();
   document.getElementById("last-run").textContent = ts;
   addHistoryRun(d, ts);
+}
+
+// ── Category chips above error chart ─────────────────────────────────────────
+const CAT_CHIP_COLORS = {
+  "Database":       "#d97706",
+  "Network":        "#2563eb",
+  "API/Gateway":    "#10b981",
+  "Security/Firewall": "#dc2626",
+  "ActiveDirectory":"#8b5cf6",
+  "Application":    "#9ca3af"
+};
+const CAT_SEARCH_MAP = {
+  "Database":          "[Database]",
+  "Network":           "[Network]",
+  "API/Gateway":       "[API]",
+  "Security/Firewall": "[Firewall]",
+  "ActiveDirectory":   "[ActiveDirectory]",
+  "Application":       ""   // catch-all — search is empty = show all
+};
+
+function renderCatChips(cats) {
+  const wrap = document.getElementById("cat-filter-chips");
+  if (!wrap) return;
+  const total = Object.values(cats).reduce((a,b) => a+b, 0);
+  let html = '<span class="cat-chip active" onclick="catChipClick(this,\'\')" data-cat="">All <span style="opacity:0.7;">(' + total + ')</span></span>';
+  Object.entries(cats).forEach(([name, count]) => {
+    if (!count) return;
+    const color = CAT_CHIP_COLORS[name] || "#9ca3af";
+    html += '<span class="cat-chip" onclick="catChipClick(this,\'' + name + '\')" data-cat="' + name + '">'
+          + '<span class="cat-chip-dot" style="background:' + color + '"></span>'
+          + name + ' <span style="opacity:0.7;">(' + count + ')</span></span>';
+  });
+  wrap.innerHTML = html;
+}
+
+function catChipClick(el, catName) {
+  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  const keyword = catName ? (CAT_SEARCH_MAP[catName] || catName) : "";
+  filterLogsBy(keyword);
+  const label = document.getElementById("cat-active-label");
+  if (label) { label.style.display = catName ? "inline" : "none"; label.textContent = catName || ""; }
+  if (catName) toast("Filtered by " + catName + " — Log Viewer updated", "warn");
+}
+
+// ── KPI card click → filter logs by category ──────────────────────────────────
+function wireKPIFilters(ex) {
+  errChart.options.onClick = (evt, elements) => {
+    if (!elements.length) { filterLogsBy(""); return; }
+    const idx = elements[0].index;
+    const catNames = ["Database","Network","API/Gateway","Security/Firewall","ActiveDirectory","Application"];
+    const catName  = catNames[idx];
+    const keyword  = CAT_SEARCH_MAP[catName] || catName;
+    filterLogsBy(keyword || "");
+    // sync chip state
+    document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => {
+      c.classList.toggle("active", c.dataset.cat === catName);
+    });
+    toast("Filtered: " + catName + " — Log Viewer updated", "warn");
+  };
+}
+
+// Filter allLogs by keyword and navigate to log viewer
+function filterLogsBy(keyword) {
+  const input = document.getElementById("log-search");
+  if (input) input.value = keyword;
+  // reset severity/category button state
+  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.toggle("active", b.dataset.filter === ""));
+  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.toggle("active", b.dataset.cat === ""));
+  filterLogs();
+  if (keyword) switchPage("logs", document.querySelector('[data-page="logs"]'));
+}
+
+// ── Critical alerts panel ─────────────────────────────────────────────────────
+function renderCriticalAlerts(issues) {
+  const card = document.getElementById("critical-alerts-card");
+  const body = document.getElementById("critical-alerts-body");
+  const badge = document.getElementById("critical-count-badge");
+  if (!card || !body) return;
+
+  if (!issues || !issues.length) {
+    card.style.display = "none";
+    return;
+  }
+
+  card.style.display = "block";
+  if (badge) { badge.textContent = issues.length + " critical"; }
+  body.innerHTML = issues.slice(0, 10).map((line, i) =>
+    '<div class="critical-row" style="animation-delay:' + (i*40) + 'ms">'
+    + '<span class="critical-badge">CRIT</span>'
+    + '<span>' + esc(line) + '</span></div>'
+  ).join("");
 }
 
 // ── Run History ───────────────────────────────────────────────────────────────
@@ -1331,29 +1545,96 @@ function renderHistory() {
     </table>`;
 }
 
-// Logs
+// ── Logs ─────────────────────────────────────────────────────────────────────
 function renderLogs(ex) { allLogs = ex || []; filterLogs(); }
-function filterByTag(tag) {
-  document.getElementById("log-search").value = tag;
+
+// Active filter state
+let activeSeverity = "";  // "", "ERROR", "CRITICAL"
+let activeCatFilter = ""; // "[Database]", "[Network]" etc.
+
+function applyLogFilter(btn, severity) {
+  activeSeverity = severity;
+  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
   filterLogs();
 }
+
+function applyLogCatFilter(btn, cat) {
+  activeCatFilter = cat;
+  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  // sync chip in chart
+  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => {
+    const chipCat = c.dataset.cat ? (CAT_SEARCH_MAP[c.dataset.cat] || c.dataset.cat) : "";
+    c.classList.toggle("active", chipCat === cat);
+  });
+  filterLogs();
+  // Update active filter label
+  const label = document.getElementById("log-active-filter");
+  if (label) { label.style.display = cat ? "inline" : "none"; label.textContent = cat ? "Filtered: " + cat : ""; }
+}
+
+function resetLogFilters() {
+  activeSeverity = ""; activeCatFilter = "";
+  const input = document.getElementById("log-search");
+  if (input) input.value = "";
+  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.toggle("active", b.dataset.filter === ""));
+  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.toggle("active", b.dataset.cat === ""));
+  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => c.classList.toggle("active", c.dataset.cat === ""));
+  const label = document.getElementById("log-active-filter");
+  if (label) label.style.display = "none";
+  filterLogs();
+  toast("Filters reset", "success");
+}
+
+function filterByTag(tag) {
+  const input = document.getElementById("log-search");
+  if (input) input.value = tag;
+  filterLogs();
+}
+
 function filterLogs() {
-  const q = document.getElementById("log-search").value.toLowerCase();
-  const f = q ? allLogs.filter(e=>e.toLowerCase().includes(q)) : allLogs;
-  document.getElementById("log-count").textContent = `Showing ${f.length} of ${allLogs.length} entries`;
+  // Safely get search input — only exists on Log Viewer page
+  const input = document.getElementById("log-search");
+  const q = input ? input.value.toLowerCase() : "";
+
+  // Apply all three filter layers: search text + severity + category
+  let f = allLogs;
+  if (activeSeverity) f = f.filter(e => e.includes(activeSeverity));
+  if (activeCatFilter) f = f.filter(e => e.toLowerCase().includes(activeCatFilter.toLowerCase()));
+  if (q) f = f.filter(e => e.toLowerCase().includes(q));
+
+  // Update count
+  const countEl = document.getElementById("log-count");
+  if (countEl) countEl.textContent = "Showing " + f.length + " of " + allLogs.length + " entries";
+
+  // Render log box (only on log viewer page)
   const box = document.getElementById("log-box");
+  if (!box) return;
+
   if (!f.length) {
-    box.innerHTML = `<div class="log-empty">${allLogs.length===0?"No exceptions in log":"No matches found"}</div>`;
+    box.innerHTML = '<div class="log-empty">' + (allLogs.length === 0 ? "Run a diagnostic first" : "No matching log entries") + '</div>';
     return;
   }
-  box.innerHTML = f.slice(-12).map((e,i) => {
-    const tag = /ERROR/.test(e) ? `<span class="log-tag err">ERR</span>`
-              : /WARN/.test(e)  ? `<span class="log-tag warn">WRN</span>`
-              :                   `<span class="log-tag info">INF</span>`;
-    return `<div class="log-row" style="animation-delay:${i*20}ms">${tag}<span>${esc(e)}</span></div>`;
+
+  const limit = currentPage === "logs" ? f.length : Math.min(f.length, 12);
+  box.innerHTML = f.slice(-limit).map((e, i) => {
+    const isCrit = /CRITICAL/.test(e);
+    const isErr  = /ERROR/.test(e);
+    const isWarn = /WARN/.test(e);
+    const tag = isCrit ? '<span class="log-tag" style="background:#ede9fe;color:#7c3aed;">CRIT</span>'
+              : isErr  ? '<span class="log-tag err">ERR</span>'
+              : isWarn ? '<span class="log-tag warn">WRN</span>'
+              :          '<span class="log-tag info">INF</span>';
+    const rowStyle = isCrit
+      ? 'background:rgba(139,92,246,0.06);border-left:2px solid #8b5cf6;'
+      : isErr ? '' : '';
+    return '<div class="log-row" style="' + rowStyle + 'animation-delay:' + (i*15) + 'ms">'
+         + tag + '<span>' + esc(e) + '</span></div>';
   }).join("");
 }
-function esc(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
 // RCA
 function renderRCA(cls) {

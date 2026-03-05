@@ -60,14 +60,16 @@ class AIRequest(BaseModel):
     db_result:      dict
 
 
-# ── Helper: read raw exception lines ─────────────────────────────────────────
-def read_exception_lines(log_file: str, max_lines: int = 50) -> list:
+# ── Helper: read raw exception/critical lines ────────────────────────────────
+def read_exception_lines(log_file: str, max_lines: int = 100) -> list:
+    """Return the last `max_lines` ERROR or CRITICAL lines with their category tag."""
     if not os.path.exists(log_file):
         return []
     try:
         with open(log_file, "r") as f:
             lines = f.readlines()
-        return [l.strip() for l in lines if "ERROR" in l][-max_lines:]
+        filtered = [l.strip() for l in lines if "ERROR" in l or "CRITICAL" in l]
+        return filtered[-max_lines:]
     except Exception:
         logger.exception("Could not read exception lines.")
         return []

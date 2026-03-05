@@ -2498,3 +2498,5 @@
 2026-03-07 06:38:29 CRITICAL [Access] General System Event
 2026-03-07 06:39:55 CRITICAL [Network] BGP Flap
 2026-03-07 06:41:21 INFO [Application] Invalid Input
+
+2026-03-05 22:12:47 ERROR DB_CONN_FAIL: Connection refused by host
