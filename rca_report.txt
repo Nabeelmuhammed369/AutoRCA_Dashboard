@@ -1,15 +1,14 @@
 
-    ===== AUTO RCA REPORT =====
-    Timestamp: 2026-03-04 21:58:14.814659
+===== AUTO RCA REPORT =====
+Timestamp: 2026-03-05 16:34:47.969246
 
-    API Status Code: 200
-    API Response Time: 0.875474
+API Status Code: 200
+API Response Time: 0.726515
 
-    Total Log Errors: 3
-    DB Error Logs: 2
+Total Log Errors: 306
+DB Error Logs: 216
 
-    Null Emails in DB: 1
+Null Emails in DB: 1
 
-    FINAL CLASSIFICATION:
-    >>> Data Integrity Issue
-    
+FINAL CLASSIFICATION:
+>>> Data Integrity Issue

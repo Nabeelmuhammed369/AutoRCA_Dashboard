@@ -1,14 +1,28 @@
 import sqlite3
+import logging
+
+logger = logging.getLogger("DB_VALIDATOR")
 
 def validate_data(db_path):
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
+    try:
+        logger.info(f"Connecting to database: {db_path}")
 
-    cursor.execute("SELECT COUNT(*) FROM users WHERE email IS NULL")
-    null_emails = cursor.fetchone()[0]
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
 
-    conn.close()
+        cursor.execute("SELECT COUNT(*) FROM users WHERE email IS NULL")
+        null_emails = cursor.fetchone()[0]
 
-    return {
-        "null_email_count": null_emails
-    }
+        conn.close()
+
+        logger.info(f"Null email count: {null_emails}")
+
+        return {"null_email_count": null_emails}
+
+    except sqlite3.OperationalError:
+        logger.error("Database table missing or query failed.")
+        return {"null_email_count": 0}
+
+    except Exception:
+        logger.exception("Unexpected database error.")
+        return {"null_email_count": 0}

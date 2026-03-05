@@ -1,0 +1,1697 @@
+2026-03-05 16:34:47,193 | INFO | MAIN | Starting AutoRCA engine...
+2026-03-05 16:34:47,195 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 16:34:47,930 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 16:34:47,936 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 16:34:47,940 | INFO | LOG_ANALYZER | Total errors found: 306
+2026-03-05 16:34:47,942 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 16:34:47,949 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 16:34:47,949 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 16:34:47,950 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 16:34:47,970 | INFO | REPORTER | RCA report generated successfully.
+2026-03-05 16:34:47,971 | INFO | MAIN | AutoRCA execution completed.
+2026-03-05 17:25:14,219 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:25:16,403 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:25:16,410 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:25:16,412 | INFO | LOG_ANALYZER | Total errors found: 307
+2026-03-05 17:25:16,413 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:25:16,419 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:25:16,420 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:25:16,423 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:25:16,427 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:49,179 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:25:51,001 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:25:51,010 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:25:51,015 | INFO | LOG_ANALYZER | Total errors found: 307
+2026-03-05 17:25:51,017 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:25:51,022 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:25:51,024 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:25:51,026 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:25:51,032 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:52,634 | WARNING | API_SERVER | DB crash injected into log file.
+2026-03-05 17:25:52,650 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:25:53,348 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:25:54,522 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:25:54,528 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:25:54,530 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:25:54,531 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:25:54,533 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:25:54,535 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:25:54,536 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:25:54,539 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:55,755 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:25:55,765 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:25:55,776 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:25:55,778 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:25:55,787 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:25:55,789 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:25:55,791 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:25:55,799 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:30:11,170 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:30:12,503 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:30:12,505 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:30:12,506 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:30:12,506 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:30:12,507 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:30:12,508 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:30:12,508 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:30:12,509 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:40:51,121 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:40:52,085 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:40:52,090 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:40:52,092 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:40:52,093 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:40:52,097 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:40:52,098 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:40:52,099 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:40:52,104 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:41:13,379 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:41:14,088 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:41:14,090 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:41:14,091 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:41:14,091 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:41:14,093 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:41:14,093 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:41:14,094 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:41:14,097 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:43:07,976 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:43:08,794 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:43:08,797 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:43:08,798 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:43:08,799 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:43:08,800 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:43:08,801 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:43:08,801 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:43:08,803 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:20,125 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:46:21,002 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:46:21,022 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:46:21,028 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:46:21,050 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:46:21,068 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:46:21,095 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:46:21,113 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:46:21,134 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:26,433 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:46:27,116 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:46:27,118 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:46:27,119 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:46:27,119 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:46:27,120 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:46:27,120 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:46:27,120 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:46:27,121 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:28,924 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:46:28,929 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:46:29,814 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:46:29,818 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:46:29,820 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:46:29,821 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:46:29,824 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:46:29,824 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:46:29,824 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:46:29,825 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:29,882 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:46:29,886 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:46:29,887 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:46:29,888 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:46:29,889 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:46:29,889 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:46:29,889 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:46:29,890 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:55,251 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:46:56,037 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:46:56,042 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:46:56,044 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:46:56,045 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:46:56,048 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:46:56,049 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:46:56,049 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:47:03,697 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:47:04,377 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:47:05,341 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:47:05,345 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:47:05,347 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:47:05,347 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:47:05,351 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:47:05,354 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:47:05,355 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:47:05,869 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:47:05,873 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:47:05,875 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:47:05,875 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:47:05,877 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:47:05,878 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:47:05,878 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:47:19,921 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:47:20,761 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:47:20,768 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:47:20,773 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:47:20,774 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:47:20,778 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:47:20,779 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:47:20,780 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:50:10,580 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:50:12,124 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:50:12,128 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:50:12,131 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:50:12,132 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:50:12,134 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:50:12,136 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:50:12,136 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:52:42,525 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:52:44,172 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:52:44,177 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:52:44,188 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:52:44,189 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:52:44,191 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:52:44,192 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:52:44,192 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:55:16,702 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:55:18,652 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:55:18,662 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:55:18,666 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:55:18,667 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:55:18,671 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:55:18,673 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:55:18,675 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:55:22,749 | INFO | API_SERVER | AI explain requested.
+2026-03-05 17:55:22,755 | INFO | API_SERVER | AI fix steps requested.
+2026-03-05 17:55:23,044 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 17:55:29,026 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:55:29,027 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:55:29,026 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:55:29,661 | ERROR | AI_ANALYZER | Failed to generate AI fix steps.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 125, in suggest_fixes
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.NotFound: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:55:29,674 | WARNING | API_SERVER | AI fix steps failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:55:29,682 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 192, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.NotFound: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:55:29,690 | WARNING | API_SERVER | AI ticket summary failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:55:30,234 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 84, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.NotFound: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:55:30,248 | WARNING | API_SERVER | AI explain failed: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2026-03-05 17:58:47,345 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 17:58:48,951 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 17:58:48,956 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 17:58:48,957 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 17:58:48,958 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 17:58:48,963 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 17:58:48,964 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 17:58:48,965 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 17:58:52,888 | INFO | API_SERVER | AI explain requested.
+2026-03-05 17:58:52,891 | INFO | API_SERVER | AI fix steps requested.
+2026-03-05 17:58:53,196 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 17:58:54,122 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:58:54,123 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:58:54,123 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 17:58:54,586 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 84, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 5.587762976s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 17:58:54,616 | WARNING | API_SERVER | AI explain failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 5.587762976s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 17:58:55,139 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 192, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 5.00830983s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 17:58:55,150 | ERROR | AI_ANALYZER | Failed to generate AI fix steps.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 125, in suggest_fixes
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 5.004754654s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 17:58:55,160 | WARNING | API_SERVER | AI ticket summary failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 5.00830983s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 17:58:55,169 | WARNING | API_SERVER | AI fix steps failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 5.004754654s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 5
+}
+]
+2026-03-05 18:00:01,698 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 18:00:03,505 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 18:00:03,514 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 18:00:03,519 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 18:00:03,521 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 18:00:03,527 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 18:00:03,530 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 18:00:03,534 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 18:00:08,670 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:00:08,980 | INFO | API_SERVER | AI fix steps requested.
+2026-03-05 18:00:08,982 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 18:00:09,984 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 18:00:09,984 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 18:00:09,984 | INFO | AI_ANALYZER | Gemini model initialised successfully.
+2026-03-05 18:00:10,466 | ERROR | AI_ANALYZER | Failed to generate AI fix steps.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 125, in suggest_fixes
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.708022303s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:00:10,470 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 84, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.701928309s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:00:10,480 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 192, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.699093185s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:00:10,511 | WARNING | API_SERVER | AI fix steps failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.708022303s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:00:10,525 | WARNING | API_SERVER | AI explain failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.701928309s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:00:10,535 | WARNING | API_SERVER | AI ticket summary failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-lite
+Please retry in 49.699093185s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash-lite"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 49
+}
+]
+2026-03-05 18:02:33,786 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 18:02:35,129 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 18:02:35,134 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 18:02:35,137 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 18:02:35,139 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 18:02:35,143 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 18:02:35,144 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 18:02:35,145 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 18:02:42,873 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:02:43,195 | INFO | API_SERVER | AI fix steps requested.
+2026-03-05 18:02:43,202 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 18:02:43,862 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 84, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:02:43,865 | ERROR | AI_ANALYZER | Failed to generate AI fix steps.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 125, in suggest_fixes
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:02:43,874 | WARNING | API_SERVER | AI explain failed: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:02:43,877 | WARNING | API_SERVER | AI fix steps failed: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:02:43,938 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 192, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 48, in _call_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:02:43,944 | WARNING | API_SERVER | AI ticket summary failed: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-03-05 18:14:17,370 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-05 18:14:19,385 | INFO | API_MONITOR | API responded with status 200
+2026-03-05 18:14:19,388 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-05 18:14:19,389 | INFO | LOG_ANALYZER | Total errors found: 308
+2026-03-05 18:14:19,391 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-05 18:14:19,395 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-05 18:14:19,396 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-05 18:14:19,398 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-05 18:14:22,043 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:14:26,345 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:14:26,860 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:14:26,865 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 91, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:14:26,892 | WARNING | API_SERVER | AI explain failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:14:52,109 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:14:53,834 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:14:54,129 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:14:54,135 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 91, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:14:54,152 | WARNING | API_SERVER | AI explain failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:15:26,767 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:15:28,427 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:15:28,742 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:15:28,743 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 91, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:15:28,752 | WARNING | API_SERVER | AI explain failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:19:57,290 | INFO | API_SERVER | AI explain requested.
+2026-03-05 18:19:59,580 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:20:00,179 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:20:00,181 | ERROR | AI_ANALYZER | Failed to generate incident explanation.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 91, in explain_incident
+    explanation = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:20:00,194 | WARNING | API_SERVER | AI explain failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:07,377 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 18:47:08,448 | INFO | API_SERVER | AI ticket summary requested.
+2026-03-05 18:47:09,866 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:47:10,334 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:47:10,337 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 199, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:10,345 | WARNING | API_SERVER | AI ticket summary failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:10,841 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:47:11,254 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:47:11,256 | ERROR | AI_ANALYZER | Failed to generate ticket summary.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 199, in generate_ticket_summary
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:11,269 | WARNING | API_SERVER | AI ticket summary failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:13,026 | INFO | API_SERVER | AI fix steps requested.
+2026-03-05 18:47:15,163 | INFO | google_genai.models | AFC is enabled with max remote calls: 10.
+2026-03-05 18:47:15,556 | INFO | httpx | HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 400 Bad Request"
+2026-03-05 18:47:15,558 | ERROR | AI_ANALYZER | Failed to generate AI fix steps.
+Traceback (most recent call last):
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 132, in suggest_fixes
+    raw = _call_gemini(prompt)
+  File "Z:\Nabeel\AutoRCA\Core\ai_analyzer.py", line 52, in _call_gemini
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=prompt
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 5709, in generate_content
+    response = self._generate_content(
+        model=model, contents=contents, config=parsed_config
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\models.py", line 4371, in _generate_content
+    response = self._api_client.request(
+        'post', path, request_dict, http_options
+    )
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1401, in request
+    response = self._request(http_request, http_options, stream=False)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1237, in _request
+    return self._retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 413, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 184, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\_api_client.py", line 1214, in _request_once
+    errors.APIError.raise_for_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 134, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
+2026-03-05 18:47:15,568 | WARNING | API_SERVER | AI fix steps failed: 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'API Key not found. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API Key not found. Please pass a valid API key.'}]}}
