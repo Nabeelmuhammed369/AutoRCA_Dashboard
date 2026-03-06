@@ -1,68 +1,53 @@
 """
-Core/ai_analyzer.py — Gemini AI integration for AutoRCA
-─────────────────────────────────────────────────────────
-Provides three AI-powered features:
-  1. Incident Explanation  — plain English cause analysis
-  2. Fix Steps             — specific remediation from actual log lines
-  3. Ticket Summary        — ready-to-paste GitHub / Slack summary
+Core/ai_analyzer.py — AI integration using Groq (Free, no region restrictions)
+────────────────────────────────────────────────────────────────────────────────
+Switched from Gemini to Groq because Gemini free tier has region restrictions.
+Groq is completely free, faster, and works globally.
 
-Uses google-generativeai with Gemini 1.5 Flash (free tier).
-Falls back gracefully if the API key is missing or quota is exceeded.
+Model: llama-3.3-70b-versatile (Groq free tier)
+Install: pip install groq python-dotenv
+Get key: console.groq.com → API Keys → Create API Key
 """
 
 import os
+import json
 import logging
 from dotenv import load_dotenv
 
-# Support both .env and app.env filenames
 load_dotenv(".env")
 load_dotenv("app.env")
 
 logger = logging.getLogger("AI_ANALYZER")
 
-# ── Load API key & init client ────────────────────────────────────────────────
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-_model = None
 
-def _get_model():
-    """Lazy-init the Gemini model once."""
-    global _model
-    if _model is not None:
-        return _model
-    if not GEMINI_API_KEY:
-        raise ValueError("GEMINI_API_KEY not found in .env / app.env file.")
+def _call_groq(prompt: str) -> str:
+    """Call Groq API — fast, free, no region restrictions."""
+    if not GROQ_API_KEY:
+        raise ValueError(
+            "GROQ_API_KEY not found in .env file. "
+            "Get a free key at console.groq.com"
+        )
     try:
-        import google.generativeai as genai
-        genai.configure(api_key=GEMINI_API_KEY)
-        _model = genai.GenerativeModel("gemini-2.0-flash-lite")
-        logger.info("Gemini model initialised successfully.")
-        return _model
+        from groq import Groq
+        client   = Groq(api_key=GROQ_API_KEY)
+        response = client.chat.completions.create(
+            model    = "llama-3.3-70b-versatile",   # best free model on Groq
+            messages = [{"role": "user", "content": prompt}],
+            temperature = 0.3,   # lower = more consistent, factual responses
+            max_tokens  = 1024,
+        )
+        return response.choices[0].message.content.strip()
     except ImportError:
-        raise ImportError("google-generativeai not installed. Run: pip install google-generativeai")
-
-
-def _get_model():
-    """Not needed for new SDK — kept for compatibility."""
-    return None
-
-def _call_gemini(prompt: str) -> str:
-    from google import genai
-    client = genai.Client(api_key=GEMINI_API_KEY)
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt
-    )
-    return response.text.strip()
+        raise ImportError("groq not installed. Run: pip install groq")
 
 
 # ── Feature 1: Incident Explanation ──────────────────────────────────────────
-def explain_incident(classification: str, exceptions: list, api_result: dict, db_result: dict) -> dict:
+def explain_incident(classification, exceptions, api_result, db_result):
     """
     Returns a plain-English explanation of what caused the incident.
-
-    Returns:
-        { "success": bool, "explanation": str, "error": str | None }
+    Response: { success, explanation, error }
     """
     try:
         error_sample = "\n".join(exceptions[-10:]) if exceptions else "No exceptions found."
@@ -80,30 +65,24 @@ Incident Data:
 - Recent Error Log Lines:
 {error_sample}
 
-Task: Write a clear, concise incident explanation (3-4 sentences) for a technical team.
-Explain:
-1. What specifically went wrong based on the log evidence
-2. Which component is the root cause
-3. What the likely impact on users was
+Write a clear 3-4 sentence incident explanation for a technical team.
+Cover: what specifically went wrong, which component is the root cause, likely user impact.
+Be direct and technical. Write as flowing paragraphs — no bullet points."""
 
-Be direct and technical. Do not use bullet points. Write as flowing paragraphs."""
-
-        explanation = _call_gemini(prompt)
+        explanation = _call_groq(prompt)
         logger.info("Incident explanation generated successfully.")
         return {"success": True, "explanation": explanation, "error": None}
 
     except Exception as e:
-        logger.exception("Failed to generate incident explanation.")
+        logger.exception("Failed to generate explanation.")
         return {"success": False, "explanation": "", "error": str(e)}
 
 
 # ── Feature 2: AI Fix Steps ───────────────────────────────────────────────────
-def suggest_fixes(classification: str, exceptions: list, api_result: dict, db_result: dict) -> dict:
+def suggest_fixes(classification, exceptions, api_result, db_result):
     """
-    Returns specific, actionable fix steps grounded in the actual log lines.
-
-    Returns:
-        { "success": bool, "steps": [ {"step": str, "command": str|None} ], "error": str|None }
+    Returns specific fix steps grounded in the actual log lines.
+    Response: { success, steps: [{step, command}], error }
     """
     try:
         error_sample = "\n".join(exceptions[-15:]) if exceptions else "No exceptions found."
@@ -118,43 +97,39 @@ DB Null Email Count: {null_emails}
 Actual Log Errors:
 {error_sample}
 
-Task: Provide exactly 4 specific, actionable fix steps based on the ACTUAL errors above.
-Each step must reference the specific error patterns you see in the logs.
+Provide exactly 4 specific fix steps based on the ACTUAL errors shown above.
+Each step must reference the specific error patterns you see.
 
-Respond in this EXACT format (JSON array, no markdown, no code fences):
+Respond ONLY as a valid JSON array. No markdown. No code fences. No explanation outside the JSON:
 [
-  {{"step": "Clear description of action", "command": "actual command or null"}},
-  {{"step": "Clear description of action", "command": "actual command or null"}},
-  {{"step": "Clear description of action", "command": "actual command or null"}},
-  {{"step": "Clear description of action", "command": "actual command or null"}}
+  {{"step": "Clear action description", "command": "actual shell command or null"}},
+  {{"step": "Clear action description", "command": "actual shell command or null"}},
+  {{"step": "Clear action description", "command": "actual shell command or null"}},
+  {{"step": "Clear action description", "command": "actual shell command or null"}}
 ]"""
 
-        raw = _call_gemini(prompt)
-
-        # Clean up response — strip any accidental markdown fences
-        raw = raw.replace("```json", "").replace("```", "").strip()
-
-        import json
+        raw   = _call_groq(prompt)
+        # Strip any accidental markdown fences
+        raw   = raw.replace("```json", "").replace("```", "").strip()
+        # Extract just the JSON array if there's extra text
+        start = raw.find("[")
+        end   = raw.rfind("]") + 1
+        if start != -1 and end > start:
+            raw = raw[start:end]
         steps = json.loads(raw)
-        logger.info("AI fix steps generated successfully.")
+        logger.info("Fix steps generated successfully.")
         return {"success": True, "steps": steps, "error": None}
 
     except Exception as e:
-        logger.exception("Failed to generate AI fix steps.")
-        return {
-            "success": False,
-            "steps": [],
-            "error": str(e)
-        }
+        logger.exception("Failed to generate fix steps.")
+        return {"success": False, "steps": [], "error": str(e)}
 
 
 # ── Feature 3: GitHub / Slack Ticket Summary ─────────────────────────────────
-def generate_ticket_summary(classification: str, exceptions: list, api_result: dict, db_result: dict) -> dict:
+def generate_ticket_summary(classification, exceptions, api_result, db_result):
     """
-    Generates a ready-to-paste incident summary for GitHub Issues or Slack.
-
-    Returns:
-        { "success": bool, "github": str, "slack": str, "error": str|None }
+    Generates a GitHub issue body + Slack message.
+    Response: { success, github, slack, error }
     """
     try:
         from datetime import datetime
@@ -163,6 +138,9 @@ def generate_ticket_summary(classification: str, exceptions: list, api_result: d
         api_latency  = api_result.get("response_time", "N/A")
         null_emails  = db_result.get("null_email_count", 0)
         timestamp    = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        sev_emoji = "🔴" if classification == "Infrastructure Issue" else \
+                    "🟡" if classification != "System Healthy" else "✅"
 
         prompt = f"""You are a senior Site Reliability Engineer writing an incident report.
 
@@ -175,49 +153,51 @@ Incident Data:
 - Error Sample:
 {error_sample}
 
-Generate TWO summaries:
+Generate TWO summaries in this EXACT format with no extra text before or after:
 
-1. GITHUB_ISSUE: A GitHub issue body in markdown. Include:
-   - ## Summary (2 sentences)
-   - ## Impact
-   - ## Root Cause
-   - ## Evidence (key log lines)
-   - ## Suggested Fix Steps (3 bullet points)
-   - Labels suggestion at the bottom
-
-2. SLACK_MESSAGE: A Slack message (plain text, use emoji). Should be:
-   - Max 5 lines
-   - Lead with severity emoji (🔴 P1 / 🟡 P2 / ✅ OK)
-   - Include: what happened, impact, who should look at it
-
-Respond in this EXACT format:
 ===GITHUB===
-[github issue content here]
+## Summary
+[2 sentences describing the incident]
+
+## Impact
+[Who was affected and how]
+
+## Root Cause
+[Technical root cause]
+
+## Evidence
+[Key log lines as a markdown code block]
+
+## Suggested Fix Steps
+- [step 1]
+- [step 2]
+- [step 3]
+
+**Labels:** `incident`, `{classification.lower().replace(" ", "-")}`, `priority-{'p1' if classification == 'Infrastructure Issue' else 'p2'}`
 ===SLACK===
-[slack message here]"""
+{sev_emoji} *Incident: {classification}* — {timestamp}
+API: {api_status} | Errors detected | DB anomalies: {null_emails}
+[1 sentence root cause summary]
+[1 sentence recommended action]
+cc: @on-call-engineer"""
 
-        raw = _call_gemini(prompt)
-
-        # Parse the two sections
-        github_text = ""
-        slack_text  = ""
+        raw = _call_groq(prompt)
 
         if "===GITHUB===" in raw and "===SLACK===" in raw:
             parts       = raw.split("===SLACK===")
             github_text = parts[0].replace("===GITHUB===", "").strip()
             slack_text  = parts[1].strip()
         else:
-            # Fallback: use the whole response as github
+            # Fallback if model doesn't follow format perfectly
             github_text = raw
-            slack_text  = f"🔴 *Incident Alert* — {classification}\nDetected at {timestamp}\nAPI: {api_status} | Errors: {len(exceptions)} | DB anomalies: {null_emails}\nPlease investigate immediately."
+            slack_text  = (
+                f"{sev_emoji} *Incident: {classification}* — {timestamp}\n"
+                f"API: {api_status} | DB anomalies: {null_emails}\n"
+                f"Please investigate immediately. cc: @on-call-engineer"
+            )
 
         logger.info("Ticket summary generated successfully.")
-        return {
-            "success": True,
-            "github":  github_text,
-            "slack":   slack_text,
-            "error":   None
-        }
+        return {"success": True, "github": github_text, "slack": slack_text, "error": None}
 
     except Exception as e:
         logger.exception("Failed to generate ticket summary.")

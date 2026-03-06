@@ -1,23 +1,63 @@
-/app.db
-/config.yaml
-/init_db.py
+# ── Secrets — NEVER commit these ─────────────────────────────
 .env
-__pycache__/
-*.pyc
-.streamlit/secrets.toml
-.vscode/
-/logs/autoRCA.log
-/logs/autoRCA_debug.log
-/logs/autoRCA_error.log 
-/logs/autoRCA_critical.log
-/logs/autoRCA_warning.log
-/logs/app.log
-/_init_db.py
-_init_.py
-rca_report.txt
-.streamlit/config.toml
-.DS_Store
-.idea/
-.pytest_cache/
-.mypy_cache/
+app.env
+*.env
+.env.*
+secrets.yaml
 
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# ── Virtual environments ──────────────────────────────────────
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# ── Database files ────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Log files ─────────────────────────────────────────────────
+*.log
+Logs/*.log
+logs/
+
+# ── IDE / Editor ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Test / Coverage ───────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ── Docker ────────────────────────────────────────────────────
+*.env.docker
+
+# ── OS ────────────────────────────────────────────────────────
+.DS_Store
+desktop.ini
