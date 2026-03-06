@@ -1948,3 +1948,2266 @@ Traceback (most recent call last):
   File "C:\Users\hp\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google\genai\errors.py", line 159, in raise_error
     raise ClientError(status_code, response_json, response)
 google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 24.348930699s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '24s'}]}}
+2026-03-06 13:37:12,187 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:37:12,189 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:37:13,893 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:37:13,908 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:37:13,939 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:37:13,942 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:37:13,952 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:37:13,961 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:37:13,964 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:37:18,290 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 13:37:18,374 | INFO | AI_ANALYZER | Fix steps generated successfully.
+2026-03-06 13:37:26,275 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 13:37:26,281 | INFO | AI_ANALYZER | Incident explanation generated successfully.
+2026-03-06 13:37:32,418 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 13:37:32,438 | INFO | AI_ANALYZER | Ticket summary generated successfully.
+2026-03-06 13:41:58,937 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:41:58,938 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:41:59,929 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:41:59,931 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:41:59,934 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:41:59,934 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:41:59,935 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:41:59,935 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:41:59,936 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:42:05,304 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:42:05,304 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:42:05,968 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:42:05,970 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:42:05,976 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:42:05,977 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:42:05,979 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:42:05,979 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:42:05,979 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:42:05,991 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:42:05,992 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:42:06,681 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:42:06,683 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:42:06,689 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:42:06,690 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:42:06,691 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:42:06,691 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:42:06,692 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:42:51,792 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:42:51,793 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:42:52,454 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:42:52,455 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:42:52,605 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:42:52,618 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:42:52,660 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:42:52,701 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:42:52,705 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:42:52,706 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:42:52,706 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:42:53,350 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:42:53,354 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:42:53,359 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:42:53,360 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:42:53,362 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:42:53,363 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:42:53,363 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:45:31,012 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:45:31,013 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:45:31,971 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:45:31,973 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:45:31,976 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:45:31,976 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:45:31,977 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:45:31,977 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:45:31,977 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:45:41,470 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:45:41,470 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:45:42,516 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:45:42,518 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:45:42,521 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:45:42,522 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:45:42,523 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:45:42,523 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:45:42,523 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:45:49,911 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:45:49,912 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:45:50,728 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:45:50,732 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:45:50,743 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:45:50,744 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:45:50,748 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:45:50,749 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:45:50,749 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:45:56,142 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:45:56,142 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:45:57,331 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:45:57,335 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:45:57,341 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:45:57,341 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:45:57,343 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:45:57,344 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:45:57,344 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:23,233 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:23,240 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:24,607 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:24,622 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:24,646 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:24,659 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:24,675 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:24,676 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:24,676 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:42,359 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:42,359 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:43,320 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:43,321 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:44,025 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:44,027 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:44,030 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:44,030 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:44,031 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:44,032 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:44,032 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:44,591 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:44,594 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:44,599 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:44,599 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:44,600 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:44,601 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:44,601 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:45,301 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:45,302 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:45,638 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:45,639 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:46,520 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:46,523 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:46,532 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:46,533 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:46,535 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:46,536 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:46,536 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:46,567 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:46,571 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:46,581 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:46,582 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:46,585 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:46,585 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:46,586 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:48,218 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:48,218 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:48,218 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:48,219 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:49,132 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:49,137 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:49,141 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:49,145 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:49,146 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:49,147 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:49,150 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:49,150 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:49,151 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:49,151 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:49,151 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:49,156 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:49,156 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:49,156 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:46:57,014 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:46:57,016 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:46:57,953 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:46:57,958 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:46:57,969 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:46:57,970 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:46:57,974 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:46:57,975 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:46:57,976 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:47:48,063 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:47:48,063 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:47:49,599 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:47:49,602 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:47:49,608 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:47:49,609 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:47:49,611 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:47:49,611 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:47:49,612 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:48:02,866 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:48:02,867 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:48:04,243 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:48:04,247 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:48:04,254 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:48:04,255 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:48:04,258 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:48:04,259 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:48:04,260 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:48:39,740 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:48:39,741 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:48:41,602 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:48:41,606 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:48:41,614 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:48:41,615 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:48:41,616 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:48:41,616 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:48:41,617 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:48:45,973 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:48:45,974 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:48:46,977 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:48:46,983 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:48:46,997 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:48:46,997 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:48:47,000 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:48:47,000 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:48:47,001 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:03,349 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:03,351 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:04,204 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:04,206 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:04,625 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:04,628 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:04,633 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:04,633 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:04,636 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:04,637 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:04,637 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:05,480 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:05,482 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:05,490 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:05,491 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:05,493 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:05,494 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:05,495 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:24,818 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:24,818 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:25,733 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:25,736 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:25,743 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:25,754 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:25,758 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:25,762 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:25,767 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:31,942 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:31,942 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:34,050 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:34,053 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:34,062 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:34,063 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:34,066 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:34,066 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:34,067 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:37,368 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:37,368 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:39,449 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:39,452 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:39,458 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:39,458 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:39,461 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:39,461 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:39,462 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:43,075 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:43,076 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:44,599 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:44,602 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:44,611 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:44,612 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:44,614 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:44,614 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:44,615 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:49,026 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:49,026 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:50,822 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:50,826 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:50,833 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:50,834 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:50,835 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:50,836 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:50,836 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:55,849 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:55,850 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:57,287 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:49:57,289 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:49:57,292 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:49:57,292 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:49:57,294 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:49:57,294 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:49:57,294 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:49:59,380 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:59,380 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:49:59,381 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:49:59,381 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:00,209 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:00,213 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:00,221 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:00,221 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:00,225 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:00,225 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:00,226 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:00,276 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:00,279 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:00,286 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:00,286 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:00,288 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:00,289 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:00,290 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:20,523 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:20,524 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:21,267 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:21,270 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:21,274 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:21,275 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:21,276 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:21,277 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:21,278 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:25,167 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:25,168 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:25,545 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:25,546 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:26,265 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:26,266 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:26,685 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:26,690 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:26,698 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:26,698 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:26,700 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:26,700 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:26,701 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:27,197 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:27,200 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:27,206 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:27,208 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:27,212 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:27,213 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:27,214 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:27,709 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:27,711 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:27,718 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:27,718 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:27,721 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:27,722 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:27,722 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:44,525 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:44,526 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:45,224 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:45,227 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:45,231 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:45,232 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:45,234 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:45,235 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:45,235 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:47,431 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:47,431 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:47,432 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:47,433 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:48,460 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:48,460 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:48,464 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:48,469 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:48,476 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:48,477 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:48,478 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:48,479 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:48,480 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:48,480 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:48,480 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:48,481 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:48,481 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:48,481 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:53,345 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:53,345 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:53,771 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:53,771 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:54,095 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:54,098 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:54,103 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:54,103 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:54,104 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:54,105 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:54,105 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:54,681 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:54,687 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:54,698 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:54,699 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:54,702 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:54,703 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:54,704 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:57,010 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:57,010 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:57,011 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:57,010 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:50:57,013 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:57,013 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:50:57,907 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:57,913 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:57,919 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:57,920 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:50:57,932 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:57,940 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:50:57,942 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:57,944 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:57,959 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:57,961 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:57,965 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:50:57,966 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:50:57,967 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:57,968 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:57,969 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:57,970 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:57,971 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:50:57,971 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:57,975 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:50:57,976 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:50:57,978 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:03,381 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:03,385 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:04,164 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:04,166 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:04,172 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:04,172 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:04,174 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:04,174 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:04,175 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:05,708 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:05,709 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:05,709 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:05,709 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:06,712 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:06,717 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:06,731 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:06,735 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:06,735 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:06,745 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:06,763 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:06,763 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:06,764 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:06,765 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:06,767 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:06,774 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:06,775 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:06,777 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:18,707 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:18,707 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:19,422 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:19,423 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:19,512 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:19,519 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:19,532 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:19,533 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:19,537 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:19,539 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:19,540 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:20,262 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:20,263 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:20,266 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:20,266 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:20,267 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:20,267 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:20,268 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:21,849 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:21,849 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:21,849 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:21,850 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:22,749 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:22,752 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:22,760 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:22,761 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:22,763 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:22,763 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:22,764 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:22,796 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:22,800 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:22,808 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:22,809 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:22,811 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:22,811 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:22,812 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:31,764 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:31,764 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:32,439 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:32,440 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:32,488 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:32,491 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:32,496 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:32,497 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:32,498 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:32,499 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:32,499 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:33,351 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:33,354 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:33,357 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:33,357 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:33,359 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:33,359 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:33,359 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:35,116 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:35,117 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:36,116 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:36,119 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:36,123 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:36,123 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:36,125 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:36,125 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:36,126 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:51:57,254 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:51:57,269 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:51:58,089 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:51:58,094 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:51:58,106 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:51:58,108 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:51:58,112 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:51:58,117 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:51:58,119 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:52:00,137 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:52:00,138 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:52:01,133 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:52:01,138 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:52:01,151 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:52:01,152 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:52:01,155 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:52:01,156 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:52:01,156 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:52:01,575 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:52:01,576 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:52:02,288 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:52:02,290 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:52:02,295 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:52:02,295 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:52:02,296 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:52:02,297 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:52:02,297 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:55:45,464 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:55:45,464 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:55:46,452 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:55:46,453 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:55:47,010 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:55:47,013 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:55:47,019 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:55:47,020 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:55:47,022 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:55:47,022 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:55:47,023 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:55:47,619 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:55:47,624 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:55:47,632 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:55:47,633 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:55:47,634 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:55:47,635 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:55:47,635 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:56:09,140 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:56:09,140 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:56:10,554 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:56:10,556 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:56:10,560 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:56:10,561 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:56:10,562 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:56:10,563 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:56:10,563 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:56:22,790 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:56:22,791 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:56:24,173 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:56:24,174 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:56:24,179 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:56:24,180 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:56:24,181 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:56:24,182 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:56:24,182 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:57:20,819 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:57:20,820 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:57:22,522 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:57:22,525 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:57:22,534 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:57:22,534 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:57:22,538 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:57:22,539 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:57:22,540 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:57:25,944 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:57:25,944 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:57:27,869 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:57:27,873 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:57:27,879 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:57:27,887 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:57:27,893 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:57:27,893 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:57:27,895 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:57:59,339 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:57:59,347 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:58:01,277 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:58:01,283 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:58:01,294 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:58:01,294 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:58:01,298 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:58:01,299 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:58:01,299 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:58:59,342 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:58:59,343 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:59:00,845 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:59:00,852 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:59:00,867 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:59:00,867 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:59:00,871 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:59:00,872 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:59:00,873 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:59:06,774 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:59:06,775 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:59:07,507 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:59:07,512 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:59:07,520 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:59:07,520 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:59:07,522 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:59:07,523 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:59:07,523 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:59:29,801 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:59:29,802 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:59:31,160 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:59:31,162 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:59:31,167 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:59:31,168 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:59:31,169 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:59:31,170 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:59:31,170 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 13:59:57,267 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 13:59:57,268 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 13:59:58,463 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 13:59:58,468 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 13:59:58,481 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 13:59:58,482 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 13:59:58,485 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 13:59:58,486 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 13:59:58,487 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:00:57,828 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:00:57,828 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:00:58,344 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:00:58,344 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:00:58,867 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:00:58,869 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:00:58,872 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:00:58,872 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:00:58,873 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:00:58,873 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:00:58,874 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:00:58,991 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:00:58,991 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:00:59,130 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:00:59,132 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:00:59,136 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:00:59,137 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:00:59,138 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:00:59,138 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:00:59,139 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:00:59,247 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:00:59,247 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:00:59,465 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:00:59,465 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:00:59,812 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:00:59,814 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:00:59,818 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:00:59,818 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:00:59,819 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:00:59,820 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:00:59,820 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:00,084 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:00,087 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:00,091 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:00,091 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:00,092 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:00,093 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:00,093 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:00,178 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:01:00,180 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:00,181 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:01:00,185 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:00,195 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:00,196 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:00,199 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:00,199 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:00,200 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:00,435 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:01:00,436 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:01:00,697 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:01:00,698 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:01:00,978 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:00,980 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:00,982 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:00,982 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:00,983 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:00,983 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:00,983 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:01,248 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:01,251 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:01,254 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:01,255 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:01,255 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:01,256 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:01,256 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:01,400 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:01:01,400 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:01:01,568 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:01,571 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:01,578 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:01,578 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:01,579 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:01,580 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:01,580 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:01,641 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:01:01,642 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:01:01,919 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:02,327 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:02,329 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:02,332 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:02,332 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:02,334 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:02,334 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:02,334 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:02,343 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:02,488 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:01:02,492 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:01:02,500 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:01:02,501 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:01:02,503 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:01:02,504 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:01:02,504 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:01:02,799 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:03,210 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:03,715 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:04,049 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:04,468 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:04,762 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:05,256 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:05,704 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:06,011 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:06,407 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:06,800 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:07,201 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:07,578 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:08,044 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:08,386 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:08,797 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:09,194 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:09,570 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:09,943 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:10,424 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:10,791 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:11,208 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:11,591 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:12,082 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:12,462 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:12,843 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:13,308 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:13,574 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:14,021 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:01:14,704 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:02:00,239 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:00,239 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:00,967 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:00,967 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:01,136 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:01,137 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:01,140 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:01,140 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:01,141 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:01,141 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:01,141 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:01,609 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:01,609 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:01,678 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:01,683 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:01,687 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:01,688 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:01,689 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:01,690 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:01,690 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:01,875 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:01,875 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:02,103 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:02,103 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:02,406 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:02,410 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:02,419 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:02,420 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:02,422 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:02,424 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:02,424 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:03,033 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:03,035 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:03,036 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:03,045 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:03,053 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:03,053 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:03,055 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:03,055 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:03,055 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:03,418 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:03,418 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:03,472 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:03,474 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:03,480 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:03,481 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:03,482 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:03,483 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:03,483 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:04,098 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:04,099 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:04,599 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:04,603 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:04,611 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:04,612 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:04,614 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:04,614 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:04,615 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:04,795 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:04,798 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:04,803 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:04,804 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:04,807 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:04,808 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:04,808 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:05,586 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:05,589 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:05,597 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:05,597 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:05,599 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:05,599 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:05,600 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:39,636 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:39,636 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:40,416 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:40,418 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:40,422 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:40,423 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:40,424 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:40,424 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:40,424 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:42,852 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:42,852 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:42,853 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:42,853 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:43,737 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:43,739 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:43,743 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:43,744 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:43,746 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:43,746 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:43,747 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:43,748 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:43,751 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:43,756 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:43,757 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:43,758 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:43,758 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:43,759 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:58,600 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:58,601 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:59,250 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:02:59,250 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:02:59,447 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:59,449 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:59,452 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:59,452 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:59,453 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:59,453 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:59,453 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:02:59,929 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:02:59,932 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:02:59,936 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:02:59,936 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:02:59,938 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:02:59,938 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:02:59,938 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:00,084 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:00,086 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:00,984 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:00,994 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:01,012 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:01,021 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:01,022 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:01,023 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:01,023 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:02,641 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:02,642 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:03,545 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:03,548 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:03,553 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:03,553 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:03,556 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:03,556 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:03,557 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:08,450 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:08,450 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:08,783 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:08,783 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:09,409 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:09,412 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:09,418 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:09,419 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:09,420 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:09,421 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:09,421 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:09,447 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:09,448 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:09,516 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:09,519 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:09,526 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:09,527 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:09,531 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:09,531 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:09,532 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:10,452 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:10,455 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:10,463 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:10,463 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:10,466 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:10,466 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:10,467 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:22,189 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:22,190 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:22,801 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:22,802 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:22,931 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:22,933 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:22,938 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:22,938 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:22,939 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:22,940 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:22,940 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:23,587 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:23,589 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:23,592 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:23,592 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:23,593 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:23,593 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:23,594 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:26,856 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:26,857 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:27,229 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:27,229 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:27,679 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:27,681 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:27,685 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:27,686 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:27,687 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:27,687 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:27,687 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:27,908 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:27,914 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:27,925 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:27,927 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:27,928 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:27,930 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:27,932 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:27,932 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:27,934 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:28,163 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:28,163 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:28,434 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:03:28,804 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:03:28,837 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:28,839 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:28,843 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:28,843 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:28,844 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:28,845 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:28,845 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:28,931 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:28,940 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:28,952 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:28,953 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:28,957 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:28,958 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:28,959 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:30,767 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:30,768 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:31,652 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:31,654 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:31,661 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:31,662 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:31,664 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:31,664 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:31,665 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:50,003 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:50,005 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:50,643 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:03:50,643 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:03:50,747 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:50,750 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:50,756 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:50,756 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:50,758 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:50,758 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:50,759 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:03:51,381 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:03:51,382 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:03:51,386 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:03:51,386 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:03:51,387 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:03:51,387 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:03:51,387 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:15,100 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:15,101 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:16,046 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:16,049 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:16,056 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:16,057 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:16,058 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:16,059 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:16,059 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:20,086 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:20,087 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:20,835 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:20,837 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:20,840 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:20,840 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:20,841 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:20,842 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:20,842 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:24,380 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:24,380 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:25,052 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:25,053 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:25,201 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:25,204 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:25,209 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:25,209 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:25,211 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:25,211 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:25,211 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:25,790 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:25,793 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:25,799 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:25,799 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:25,801 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:25,801 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:25,802 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:46,229 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:46,230 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:47,501 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:47,504 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:47,509 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:47,510 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:47,512 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:47,512 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:47,513 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:04:54,745 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:04:54,746 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:04:55,677 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:04:55,679 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:04:55,685 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:04:55,685 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:04:55,687 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:04:55,688 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:04:55,688 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:35,453 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:35,454 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:36,207 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:09:36,208 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:09:36,212 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:09:36,212 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:09:36,213 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:09:36,213 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:09:36,214 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:40,359 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:40,360 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:40,819 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:40,822 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:41,123 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:09:41,125 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:09:41,130 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:09:41,130 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:09:41,133 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:09:41,134 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:09:41,134 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:41,789 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:09:41,790 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:09:41,793 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:09:41,794 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:09:41,795 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:09:41,795 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:09:41,795 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:44,443 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:44,443 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:44,445 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:44,446 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:45,480 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:09:45,480 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:09:45,486 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:09:45,490 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:09:45,509 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:09:45,510 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:09:45,510 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:09:45,511 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:09:45,515 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:09:45,515 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:09:45,516 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:09:45,516 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:09:45,517 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:45,517 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:09:59,385 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:59,386 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:09:59,755 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:09:59,755 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:00,519 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:00,522 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:00,528 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:00,529 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:00,532 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:00,532 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:00,533 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:00,734 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:00,738 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:00,744 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:00,745 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:00,747 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:00,747 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:00,748 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:02,465 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:10:02,466 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:03,604 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:03,613 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:03,628 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:03,629 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:03,634 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:03,635 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:03,636 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:04,508 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:10:04,509 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:04,855 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:10:04,855 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:05,299 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:05,303 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:05,309 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:05,315 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:05,317 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:05,318 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:05,318 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:05,795 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:05,797 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:05,803 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:05,804 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:05,806 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:05,806 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:05,807 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:07,663 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:10:07,663 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:10:07,664 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:07,665 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:10:08,725 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:08,729 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:08,737 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:08,738 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:08,741 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:08,741 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:08,742 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:10:09,004 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:10:09,010 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:10:09,017 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:10:09,018 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:10:09,020 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:10:09,021 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:10:09,021 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:29,831 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:29,832 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:30,177 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:30,178 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:30,829 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:30,829 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:31,014 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:31,016 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:31,019 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:31,019 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:31,021 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:31,021 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:31,021 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:31,225 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:31,227 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:31,229 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:31,230 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:31,230 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:31,231 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:31,231 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:31,595 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:31,595 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:31,656 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:31,660 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:31,662 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:31,663 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:31,664 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:31,664 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:31,664 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:32,271 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:32,272 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:32,861 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:32,862 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:32,865 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:32,866 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:32,867 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:32,867 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:32,867 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:32,880 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:32,880 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:33,436 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:33,442 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:33,453 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:33,454 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:33,459 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:33,460 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:33,461 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:33,589 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:33,590 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:33,608 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:33,619 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:33,645 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:33,646 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:33,650 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:33,651 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:33,652 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:33,846 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:33,846 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:34,380 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:34,381 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:34,881 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:34,882 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:34,885 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:34,885 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:34,887 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:34,887 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:34,888 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:35,029 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:35,031 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:35,034 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:35,034 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:35,035 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:35,036 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:35,036 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:35,109 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:35,109 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:35,211 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:35,213 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:35,218 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:35,220 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:35,222 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:35,223 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:35,224 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:35,369 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:35,738 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:36,274 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:36,294 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:36,297 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:36,302 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:36,306 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:36,308 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:36,309 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:36,310 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:36,666 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:37,033 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:37,476 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:37,867 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:38,321 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:38,742 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:39,088 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:39,573 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 14:11:41,185 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:41,186 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:42,413 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:42,417 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:42,423 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:42,424 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:42,426 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:42,426 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:42,427 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:50,728 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:50,729 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:51,400 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:51,401 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:51,635 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:51,637 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:51,642 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:51,642 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:51,644 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:51,644 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:51,644 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:51,753 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:51,754 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:52,357 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:52,358 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:52,764 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:52,765 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:52,768 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:52,769 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:52,770 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:52,770 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:52,770 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:53,032 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:53,034 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:53,040 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:53,041 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:53,043 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:53,043 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:53,044 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:53,357 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:53,362 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:53,367 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:53,367 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:53,369 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:53,369 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:53,369 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 14:11:54,811 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 14:11:54,811 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 14:11:55,733 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 14:11:55,736 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 14:11:55,740 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 14:11:55,741 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 14:11:55,743 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 14:11:55,743 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 14:11:55,744 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:00:29,710 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:00:29,714 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:00:31,444 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:00:31,447 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:00:31,458 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:00:31,459 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:00:31,463 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:00:31,464 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:00:31,464 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:06,856 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:06,857 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:06,857 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:06,858 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:07,823 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:07,828 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:07,834 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:07,835 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:07,838 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:07,838 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:07,839 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:07,861 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:07,865 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:07,873 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:07,874 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:07,877 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:07,877 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:07,878 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:24,112 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:24,112 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:24,112 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:24,113 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:24,952 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:24,954 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:24,956 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:24,960 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:24,966 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:24,966 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:24,968 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:24,968 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:24,969 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:24,970 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:24,970 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:24,970 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:24,970 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:24,971 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:27,645 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:27,645 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:28,603 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:28,608 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:28,613 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:28,613 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:28,616 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:28,617 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:28,618 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:32,309 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:32,309 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:32,310 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:32,310 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:32,309 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:01:32,311 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:01:33,295 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:33,299 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:33,305 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:33,305 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:33,307 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:33,307 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:33,308 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:33,332 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:33,337 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:33,343 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:33,343 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:33,345 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:33,345 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:33,346 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:01:33,393 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:01:33,396 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:01:33,404 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:01:33,405 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:01:33,407 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:01:33,408 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:01:33,408 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:06:34,699 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:06:34,699 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:06:35,706 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:06:35,709 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:06:35,713 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:06:35,714 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:06:35,715 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:06:35,715 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:06:35,716 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:06:54,974 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:06:54,975 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:06:56,635 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:06:56,638 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:06:56,644 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:06:56,644 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:06:56,648 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:06:56,648 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:06:56,649 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:07:04,442 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:07:04,443 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:07:05,811 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:07:05,813 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:07:05,817 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:07:05,818 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:07:05,819 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:07:05,820 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:07:05,820 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:07:10,955 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:07:10,956 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:07:12,612 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:07:12,615 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:07:12,623 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:07:12,623 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:07:12,625 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:07:12,626 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:07:12,626 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:07:17,259 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:07:17,261 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:07:18,578 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:07:18,580 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:07:18,585 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:07:18,585 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:07:18,587 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:07:18,587 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:07:18,587 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:07:24,434 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:07:24,445 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:07:25,974 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:07:25,976 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:07:25,980 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:07:25,980 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:07:25,981 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:07:25,982 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:07:25,982 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:32,190 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:32,190 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:33,333 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:33,335 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:33,337 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:33,338 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:33,339 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:33,339 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:33,339 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:36,627 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:36,627 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:36,908 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:36,909 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:37,595 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:37,595 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:37,987 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:37,990 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:37,999 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:38,000 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:38,002 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:38,003 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:38,004 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:38,284 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:38,289 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:38,297 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:38,298 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:38,300 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:38,300 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:38,301 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:39,490 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:39,493 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:39,498 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:39,498 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:39,499 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:39,500 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:39,500 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:45,370 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:45,371 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:46,372 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:46,374 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:46,377 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:46,377 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:46,378 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:46,379 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:46,379 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:48,393 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:48,393 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:48,393 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:48,394 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:49,246 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:49,247 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:49,250 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:49,251 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:49,252 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:49,252 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:49,253 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:49,752 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:49,754 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:49,760 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:49,761 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:49,762 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:49,762 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:49,762 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:50,934 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:50,935 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:51,289 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:51,290 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:51,991 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:08:51,992 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:08:52,080 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:52,083 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:52,091 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:52,092 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:52,094 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:52,094 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:52,095 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:53,033 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:53,036 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:53,042 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:53,043 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:53,044 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:53,045 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:53,045 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:08:53,337 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:08:53,340 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:08:53,347 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:08:53,348 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:08:53,350 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:08:53,351 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:08:53,351 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:00,746 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:00,747 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:02,136 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:02,138 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:02,144 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:02,149 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:02,151 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:02,151 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:02,151 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:04,055 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:04,055 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:04,055 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:04,056 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:05,133 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:05,136 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:05,142 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:05,142 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:05,145 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:05,145 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:05,146 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:05,421 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:05,427 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:05,437 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:05,438 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:05,442 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:05,443 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:05,444 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:20,666 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:20,667 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:21,795 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:21,798 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:21,802 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:21,803 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:21,804 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:21,805 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:21,805 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:26,893 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:26,893 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:27,605 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:27,606 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:28,137 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:28,138 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:28,142 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:28,142 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:28,143 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:28,143 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:28,144 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:28,523 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:28,524 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:28,833 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:28,838 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:28,850 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:28,851 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:28,852 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:28,853 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:28,859 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:29,335 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:29,336 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:29,679 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:29,679 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:30,182 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:30,195 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:30,201 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:30,202 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:30,204 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:30,206 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:30,207 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:30,346 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:30,348 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:30,351 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:30,351 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:30,352 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:30,353 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:30,353 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:30,534 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:30,534 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:30,930 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:30,930 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:31,161 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:31,163 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:31,166 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:31,166 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:31,167 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:31,168 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:31,168 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:31,599 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 16:09:31,741 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 16:09:31,753 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:31,756 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:31,761 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:31,761 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:31,763 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:31,763 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:31,764 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:32,097 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:32,100 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:32,108 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:32,109 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:32,111 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:32,111 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:32,112 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:32,176 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 16:09:32,630 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 16:09:33,028 | WARNING | slowapi | ratelimit 10 per 1 minute (127.0.0.1) exceeded at endpoint: /api/run
+2026-03-06 16:09:34,689 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:34,689 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:35,949 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:35,953 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:35,963 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:35,964 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:35,968 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:35,968 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:35,969 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:54,247 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:54,248 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:54,906 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:54,907 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:55,043 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:55,046 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:55,055 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:55,055 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:55,057 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:55,058 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:55,058 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:55,777 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:55,781 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:55,788 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:55,788 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:55,790 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:55,791 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:55,792 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:57,608 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:57,608 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:09:57,608 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:57,609 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:09:58,591 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:58,591 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:09:58,594 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:58,598 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:09:58,611 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:58,611 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:09:58,611 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:58,612 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:09:58,615 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:58,615 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:09:58,616 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:58,616 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:09:58,617 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:09:58,617 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:04,257 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:04,257 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:04,923 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:04,929 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:04,941 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:04,941 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:04,946 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:04,947 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:04,948 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:05,566 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:05,566 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:06,554 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:06,556 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:06,560 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:06,561 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:06,562 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:06,562 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:06,562 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:08,667 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:08,669 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:09,626 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:09,628 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:09,630 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:09,630 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:09,632 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:09,632 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:09,632 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:19,616 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:19,617 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:20,287 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:20,287 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:20,324 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:20,329 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:20,340 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:20,341 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:20,344 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:20,345 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:20,347 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:20,976 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:20,978 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:20,983 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:20,986 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:20,988 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:20,989 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:20,990 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:55,956 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:55,958 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:56,640 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:56,644 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:56,652 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:56,653 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:56,655 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:56,656 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:56,656 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:10:56,773 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:10:56,774 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:10:57,463 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:10:57,465 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:10:57,468 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:10:57,469 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:10:57,470 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:10:57,470 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:10:57,470 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:18,182 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:18,182 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:18,828 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:18,828 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:19,017 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:19,019 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:19,023 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:19,023 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:19,024 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:19,024 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:19,024 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:19,620 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:19,622 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:19,627 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:19,627 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:19,629 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:19,629 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:19,629 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:20,434 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:20,434 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:21,266 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:21,272 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:21,284 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:21,285 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:21,287 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:21,288 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:21,288 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:23,203 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:23,204 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:23,975 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:23,981 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:23,996 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:23,997 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:24,003 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:24,004 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:24,004 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:31,024 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:31,025 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:31,682 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:31,683 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:31,780 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:31,785 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:31,790 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:31,790 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:31,792 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:31,792 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:31,792 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:32,437 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:32,440 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:32,445 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:32,446 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:32,448 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:32,449 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:32,449 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:34,277 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:34,277 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:11:34,278 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:34,279 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:11:35,169 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:35,172 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:35,179 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:35,180 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:35,182 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:35,183 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:35,183 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:11:35,229 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:11:35,234 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:11:35,242 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:11:35,242 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:11:35,244 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:11:35,245 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:11:35,245 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:16:27,549 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:16:27,551 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:16:29,174 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:16:29,181 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:16:29,189 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:16:29,190 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:16:29,194 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:16:29,195 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:16:29,197 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:16:41,014 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 16:16:41,089 | INFO | AI_ANALYZER | Incident explanation generated successfully.
+2026-03-06 16:29:28,729 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:29:28,731 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:29:30,302 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:29:30,308 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:29:30,323 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:29:30,324 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:29:30,330 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:29:30,331 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:29:30,332 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:29:47,736 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:29:47,737 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:29:48,823 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:29:48,825 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:29:48,829 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:29:48,830 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:29:48,832 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:29:48,833 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:29:48,833 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:29:56,701 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:29:56,701 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:29:57,480 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:29:57,485 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:29:57,492 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:29:57,492 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:29:57,494 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:29:57,495 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:29:57,496 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:29:59,383 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:29:59,383 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:29:59,384 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:29:59,384 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:30:00,565 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:00,571 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:00,582 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:00,583 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:00,588 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:00,589 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:00,590 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:00,749 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:00,758 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:00,771 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:00,772 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:00,776 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:00,777 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:00,778 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:09,605 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:30:09,606 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:30:11,420 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:11,422 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:11,425 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:11,426 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:11,428 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:11,429 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:11,429 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:28,019 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:30:28,026 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:30:29,041 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:29,047 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:29,058 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:29,059 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:29,063 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:29,064 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:29,065 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:30,955 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:30:30,956 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:30:30,957 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:30:30,958 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:30:31,938 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:31,942 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:31,953 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:31,953 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:31,956 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:31,957 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:31,958 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:32,103 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:30:32,107 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:30:32,116 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:30:32,117 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:30:32,119 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:30:32,119 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:30:32,120 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:30:59,199 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:30:59,200 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:31:00,141 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:31:00,143 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:31:00,148 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:31:00,150 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:31:00,152 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:31:00,152 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:31:00,155 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:32:11,899 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:32:11,899 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:32:12,788 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:32:12,791 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:32:12,796 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:32:12,797 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:32:12,798 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:32:12,799 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:32:12,799 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:37:46,934 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:37:46,935 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:37:47,804 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:37:47,806 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:37:47,810 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:37:47,811 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:37:47,813 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:37:47,813 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:37:47,813 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:39:53,919 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:39:53,923 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:39:55,020 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:39:55,023 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:39:55,030 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:39:55,030 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:39:55,033 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:39:55,034 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:39:55,034 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:05,242 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:05,244 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:05,932 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:05,933 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:06,091 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:06,094 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:06,099 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:06,100 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:06,102 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:06,103 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:06,103 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:06,724 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:06,727 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:06,735 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:06,736 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:06,737 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:06,738 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:06,738 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:08,321 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:08,322 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:09,156 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:09,162 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:09,171 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:09,172 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:09,174 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:09,175 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:09,176 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:14,694 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:14,694 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:15,606 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:15,615 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:15,633 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:15,634 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:15,640 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:15,641 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:15,644 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:16,062 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:16,063 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:17,293 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:17,297 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:17,303 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:17,303 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:17,304 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:17,305 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:17,305 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:40:19,053 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:40:19,054 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:40:19,907 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:40:19,910 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:40:19,915 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:40:19,915 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:40:19,917 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:40:19,918 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:40:19,918 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:31,417 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:31,417 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:32,227 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:41:32,230 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:41:32,236 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:41:32,237 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:41:32,239 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:41:32,240 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:41:32,240 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:32,292 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:32,292 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:32,916 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:32,916 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:33,161 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:41:33,169 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:41:33,180 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:41:33,182 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:41:33,184 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:41:33,185 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:41:33,185 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:33,943 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:41:33,949 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:41:33,959 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:41:33,960 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:41:33,964 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:41:33,965 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:41:33,966 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:36,084 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:36,084 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:36,085 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:36,086 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:36,815 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:41:36,820 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:41:36,833 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:41:36,835 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:41:36,839 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:41:36,840 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:41:36,840 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:38,418 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:41:38,423 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:41:38,439 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:41:38,440 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:41:38,442 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:41:38,443 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:41:38,444 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:41:59,028 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:59,029 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:41:59,611 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:41:59,612 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:00,002 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:00,006 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:00,016 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:00,021 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:00,023 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:00,024 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:00,029 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:00,305 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:00,306 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:00,673 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:00,673 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:00,700 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:00,702 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:00,704 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:00,705 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:00,706 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:00,706 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:00,706 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:01,085 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:01,087 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:01,090 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:01,091 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:01,092 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:01,092 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:01,093 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:01,528 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:01,531 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:01,537 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:01,537 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:01,539 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:01,540 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:01,541 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:03,764 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:03,764 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:03,764 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:03,764 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:03,765 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:03,765 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:04,694 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:04,702 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:04,703 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:04,710 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:04,737 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:04,740 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:04,741 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:04,743 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:04,748 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:04,750 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:04,750 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:04,758 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:04,760 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:04,761 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:04,763 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:04,772 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:04,786 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:04,799 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:04,805 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:04,806 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:04,807 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 16:42:27,799 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 16:42:27,800 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 16:42:29,653 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 16:42:29,661 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 16:42:29,678 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 16:42:29,680 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 16:42:29,683 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 16:42:29,685 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 16:42:29,686 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:08:52,408 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:08:52,409 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:08:52,926 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:08:52,926 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:08:53,617 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:08:53,620 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:08:53,627 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:08:53,627 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:08:53,629 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:08:53,629 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:08:53,630 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:08:53,766 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:08:53,767 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:08:54,318 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:08:54,323 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:08:54,330 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:08:54,333 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:08:54,336 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:08:54,337 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:08:54,338 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:08:55,153 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:08:55,155 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:08:55,161 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:08:55,161 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:08:55,163 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:08:55,163 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:08:55,164 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:09:20,634 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:09:20,635 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:09:21,327 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:09:21,327 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:09:21,939 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:09:21,943 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:09:21,953 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:09:21,953 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:09:21,955 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:09:21,956 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:09:21,956 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:09:22,699 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:09:22,702 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:09:22,709 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:09:22,709 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:09:22,712 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:09:22,712 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:09:22,712 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:11:34,094 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:11:34,094 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:11:35,341 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:11:35,343 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:11:35,347 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:11:35,347 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:11:35,349 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:11:35,349 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:11:35,350 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:12:24,676 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:12:24,676 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:12:26,243 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:12:26,248 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:12:26,256 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:12:26,257 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:12:26,259 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:12:26,259 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:12:26,260 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:12:31,986 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:12:31,993 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:12:33,501 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:12:33,506 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:12:33,514 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:12:33,515 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:12:33,517 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:12:33,517 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:12:33,518 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:12:37,665 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:12:37,666 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:12:39,331 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:12:39,335 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:12:39,343 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:12:39,344 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:12:39,346 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:12:39,346 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:12:39,347 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:12,514 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:12,514 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:13,454 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:13,454 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:13,731 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:13,733 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:13,738 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:13,739 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:13,741 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:13,742 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:13,742 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:14,466 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:14,469 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:14,475 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:14,476 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:14,477 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:14,478 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:14,478 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:17,123 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:17,123 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:17,124 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:17,125 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:18,539 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:18,547 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:18,564 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:18,565 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:18,570 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:18,571 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:18,571 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:18,623 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:18,626 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:18,633 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:18,633 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:18,635 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:18,635 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:18,636 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:31,953 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:31,954 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:32,653 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:32,653 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:33,279 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:33,282 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:33,289 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:33,290 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:33,291 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:33,292 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:33,292 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:33,689 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:33,694 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:33,700 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:33,700 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:33,702 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:33,703 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:33,703 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:35,781 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:35,782 | INFO | API_SERVER | Diagnostic requested.
+2026-03-06 17:13:35,782 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:35,783 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
+2026-03-06 17:13:37,038 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:37,044 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:37,057 | INFO | API_MONITOR | API responded with status 200
+2026-03-06 17:13:37,065 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
+2026-03-06 17:13:37,067 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:37,068 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:37,079 | INFO | LOG_ANALYZER | Analysis complete. Found 1270 errors across 6 categories.
+2026-03-06 17:13:37,080 | INFO | DB_VALIDATOR | Connecting to database: app.db
+2026-03-06 17:13:37,081 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:37,082 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:37,083 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 17:13:37,084 | INFO | DB_VALIDATOR | Null email count: 1
+2026-03-06 17:13:37,085 | INFO | RCA_ENGINE | Classifying root cause...
+2026-03-06 17:13:37,086 | WARNING | RCA_ENGINE | Data integrity issue detected.

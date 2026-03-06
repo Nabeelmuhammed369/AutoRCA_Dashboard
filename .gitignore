@@ -4,6 +4,7 @@ app.env
 *.env
 .env.*
 secrets.yaml
+*.db
 
 # ── Python ────────────────────────────────────────────────────
 __pycache__/

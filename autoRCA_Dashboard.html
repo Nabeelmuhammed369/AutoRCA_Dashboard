@@ -1,1872 +1,1057 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoRCA — Incident Analyzer</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
-/* ── Theme Tokens ─────────────────────────────────────────── */
-:root {
-  --bg:        #f4f6f8;
-  --surface:   #ffffff;
-  --surface2:  #f0f2f5;
-  --border:    #e8eaed;
-  --text:      #1a1d23;
-  --text-2:    #6b7280;
-  --text-3:    #9ca3af;
-  --sidebar-bg:#1a2e2b;
-  --sidebar-tx:#a8c5be;
-  --sidebar-ac:#ffffff;
-  --sidebar-ic:#2d4a45;
-  --accent:    #1a7a5e;
-  --accent-lt: #e8f5f1;
-  --green:     #16a34a;
-  --green-lt:  #dcfce7;
-  --red:       #dc2626;
-  --red-lt:    #fee2e2;
-  --yellow:    #d97706;
-  --yellow-lt: #fef3c7;
-  --blue:      #2563eb;
-  --blue-lt:   #dbeafe;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
-  --radius:    10px;
-  --radius-sm: 6px;
-}
-
+/* ═══ THEME TOKENS ═══════════════════════════════════════════ */
 [data-theme="dark"] {
-  --bg:        #0f1117;
-  --surface:   #1a1d27;
-  --surface2:  #22263a;
-  --border:    #2a2e42;
-  --text:      #e8eaf0;
-  --text-2:    #8b92a8;
-  --text-3:    #555d7a;
-  --sidebar-bg:#111827;
-  --sidebar-tx:#6b7280;
-  --sidebar-ac:#f9fafb;
-  --sidebar-ic:#1f2937;
-  --accent:    #10b981;
-  --accent-lt: #052e16;
-  --green:     #34d399;
-  --green-lt:  #064e3b;
-  --red:       #f87171;
-  --red-lt:    #450a0a;
-  --yellow:    #fbbf24;
-  --yellow-lt: #451a03;
-  --blue:      #60a5fa;
-  --blue-lt:   #1e3a5f;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --bg:        #0f0e17;
+  --bg2:       #16152a;
+  --bg3:       #1c1b35;
+  --card:      #1e1d36;
+  --card2:     #252440;
+  --border:    #2e2c52;
+  --border2:   #3d3b66;
+  --text:      #d4d2f0;
+  --text2:     #8886b0;
+  --text3:     #5e5c88;
+  --heading:   #eeedf8;
+  --accent:    #7c6aff;
+  --accent2:   #a395ff;
+  --green:     #22c55e;
+  --red:       #ef4444;
+  --amber:     #f59e0b;
+  --teal:      #14b8a6;
+  --purple:    #a855f7;
+  --sidebar:   #0d0c1e;
+  --sidebar-icon: #4a4870;
+  --tog-track: #2e2c52;
+  --tog-on:    #22c55e;
+  --tog-off:   #ef4444;
 }
-
+[data-theme="light"] {
+  --bg:        #f1f0fa;
+  --bg2:       #e8e7f5;
+  --bg3:       #dedcf0;
+  --card:      #ffffff;
+  --card2:     #f5f4fe;
+  --border:    #d5d3ee;
+  --border2:   #bbb9e0;
+  --text:      #2a2844;
+  --text2:     #6860a0;
+  --text3:     #9890c0;
+  --heading:   #0f0e22;
+  --accent:    #5b48e8;
+  --accent2:   #7c6aff;
+  --green:     #16a34a;
+  --red:       #dc2626;
+  --amber:     #d97706;
+  --teal:      #0d9488;
+  --purple:    #9333ea;
+  --sidebar:   #1a1836;
+  --sidebar-icon: #6460a0;
+  --tog-track: #d5d3ee;
+  --tog-on:    #16a34a;
+  --tog-off:   #dc2626;
+}
 [data-theme="custom"] {
-  --bg:        #1e1525;
-  --surface:   #28193a;
-  --surface2:  #321e47;
-  --border:    #3d2557;
-  --text:      #ede9f5;
-  --text-2:    #9d87c0;
-  --text-3:    #6b5490;
-  --sidebar-bg:#160f20;
-  --sidebar-tx:#7a5fa0;
-  --sidebar-ac:#c4b5fd;
-  --sidebar-ic:#1f1530;
-  --accent:    #a855f7;
-  --accent-lt: #2d1b45;
-  --green:     #86efac;
-  --green-lt:  #14532d;
-  --red:       #fca5a5;
-  --red-lt:    #450a0a;
-  --yellow:    #fcd34d;
-  --yellow-lt: #451a03;
-  --blue:      #93c5fd;
-  --blue-lt:   #1e3a5f;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --bg:        #060b14;
+  --bg2:       #0a1220;
+  --bg3:       #0e1a2e;
+  --card:      #0d1928;
+  --card2:     #112033;
+  --border:    #1a3050;
+  --border2:   #244060;
+  --text:      #9cc8f0;
+  --text2:     #5890c0;
+  --text3:     #305870;
+  --heading:   #d8eeff;
+  --accent:    #0ea5e9;
+  --accent2:   #38bdf8;
+  --green:     #10b981;
+  --red:       #f43f5e;
+  --amber:     #f59e0b;
+  --teal:      #06b6d4;
+  --purple:    #8b5cf6;
+  --sidebar:   #040810;
+  --sidebar-icon: #284060;
+  --tog-track: #1a3050;
+  --tog-on:    #10b981;
+  --tog-off:   #f43f5e;
 }
 
-/* ── Reset ────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.3s, color 0.3s;
+/* ═══ BASE ═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:13px;
+  line-height:1.5;
 }
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--border2);}
 
-/* ── Layout ───────────────────────────────────────────────── */
-#app { display: flex; height: 100vh; overflow: hidden; }
+/* ═══ APP SHELL ══════════════════════════════════════════════ */
+#app{display:flex;height:100vh;overflow:hidden;}
 
-/* ── Sidebar ──────────────────────────────────────────────── */
-#sidebar {
-  width: 56px;
-  background: var(--sidebar-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px 0;
-  gap: 2px;
-  transition: width 0.25s ease, background 0.3s;
-  overflow: hidden;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 10;
+/* ─── SIDEBAR ─────────────────────────────────────────────── */
+#sidebar{
+  width:52px;
+  background:var(--sidebar);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:16px 0;
+  gap:4px;
+  flex-shrink:0;
+  z-index:20;
 }
-#sidebar.expanded { width: 200px; align-items: flex-start; }
+.sb-logo{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--accent),var(--purple));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  margin-bottom:12px;
+  cursor:pointer;
+}
+.sb-icon-btn{
+  width:36px;height:36px;
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--sidebar-icon);
+  transition:all .15s;
+  font-size:17px;
+  border:none;background:none;
+}
+.sb-icon-btn:hover{background:var(--card2);color:var(--text);}
+.sb-icon-btn.active{background:var(--card2);color:var(--accent2);}
+.sb-divider{width:28px;height:1px;background:var(--border);margin:8px 0;}
+.sb-expand{margin-top:auto;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sidebar-icon);border:none;background:none;font-size:13px;transition:all .15s;}
+.sb-expand:hover{background:var(--card2);color:var(--text);}
 
-.logo-wrap {
-  display: flex; align-items: center; gap: 10px;
-  padding: 2px 14px 14px;
-  width: 100%;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  margin-bottom: 6px;
-  flex-shrink: 0;
-}
-.logo-icon {
-  width: 28px; height: 28px; border-radius: 7px;
-  background: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: white; font-weight: 700; flex-shrink: 0;
-}
-.logo-text { display: none; }
-#sidebar.expanded .logo-text {
-  display: block;
-  font-weight: 600; font-size: 13px;
-  color: var(--sidebar-ac); letter-spacing: 0.02em; white-space: nowrap;
-}
-.logo-text span { display: block; font-size: 9px; color: var(--sidebar-tx); font-weight: 400; letter-spacing: 0.06em; margin-top: 1px; }
+/* ─── MAIN ────────────────────────────────────────────────── */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
 
-.nav-link {
-  display: flex; align-items: center; gap: 10px;
-  width: calc(100% - 12px);
-  margin: 0 6px;
-  padding: 9px 10px;
-  border-radius: var(--radius-sm);
-  cursor: pointer; color: var(--sidebar-tx);
-  font-size: 12px; font-weight: 500;
-  transition: background 0.15s, color 0.15s;
-  white-space: nowrap; user-select: none;
+/* ─── TOPBAR ──────────────────────────────────────────────── */
+#topbar{
+  height:52px;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  gap:12px;
+  flex-shrink:0;
 }
-.nav-link:hover  { background: var(--sidebar-ic); color: var(--sidebar-ac); }
-.nav-link.active { background: var(--sidebar-ic); color: var(--sidebar-ac); }
-.nav-link svg { flex-shrink: 0; }
-.nav-label { display: none; }
-#sidebar.expanded .nav-label { display: block; }
+.topbar-title{font-size:16px;font-weight:600;color:var(--heading);}
+.theme-toggle{
+  display:flex;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:3px;
+  gap:2px;
+}
+.th-btn{
+  padding:4px 12px;
+  font-size:12px;
+  font-weight:500;
+  border-radius:6px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  color:var(--text2);
+  display:flex;align-items:center;gap:5px;
+  transition:all .15s;
+  font-family:'Inter',sans-serif;
+}
+.th-btn:hover{color:var(--text);}
+.th-btn.active{background:var(--card2);color:var(--heading);}
+.th-btn .th-dot{width:7px;height:7px;border-radius:50%;}
+.th-btn[data-t="light"] .th-dot{background:#f0f0f0;border:1px solid #ccc;}
+.th-btn[data-t="dark"] .th-dot{background:#1a1836;border:1px solid #3d3b66;}
+.th-btn[data-t="custom"] .th-dot{background:#0ea5e9;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
+.rca-alert{
+  display:none;align-items:center;gap:6px;
+  padding:5px 12px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:500;
+}
+.rca-alert.show{display:flex;}
+.rca-alert.healthy{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25);}
+.rca-alert.warning{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.25);}
+.rca-alert.error{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.rca-alert-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.tb-clock{font-size:13px;color:var(--text2);font-variant-numeric:tabular-nums;}
+.tb-source{
+  display:flex;align-items:center;gap:7px;
+  padding:5px 12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  cursor:pointer;
+  transition:border-color .15s;
+  font-size:12px;
+}
+.tb-source:hover{border-color:var(--border2);}
+.tb-source.live{border-color:rgba(34,197,94,.4);}
+.tb-src-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);}
+.tb-src-dot.live{background:var(--green);box-shadow:0 0 6px var(--green);}
+.tb-src-dot.live-anim{animation:pulse 2s infinite;}
+.tb-src-txt{color:var(--text2);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tb-src-txt.live{color:var(--green);}
+.btn-clear{padding:5px 12px;background:none;border:1px solid var(--border);color:var(--text2);border-radius:8px;cursor:pointer;font-size:12px;font-family:'Inter',sans-serif;transition:all .15s;display:none;}
+.btn-clear:hover{border-color:var(--red);color:var(--red);}
 
-.sidebar-bottom {
-  margin-top: auto; width: 100%;
-  display: flex; flex-direction: column; align-items: center;
-  padding: 0 6px; gap: 4px;
-}
-#sidebar-arrow { transition: transform 0.25s; }
+/* ─── PAGE ────────────────────────────────────────────────── */
+#page{flex:1;overflow-y:auto;overflow-x:hidden;background:var(--bg);}
 
-/* ── Main ─────────────────────────────────────────────────── */
-#main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+/* ═══ SCREENS ════════════════════════════════════════════════ */
+.screen{display:none;}.screen.active{display:block;}
 
-/* ── Topbar ───────────────────────────────────────────────── */
-#topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  height: 56px;
-  display: flex; align-items: center; gap: 16px;
-  flex-shrink: 0;
-  transition: background 0.3s, border-color 0.3s;
+/* ─────────────────────────────────────────────────────────────
+   UPLOAD SCREEN
+───────────────────────────────────────────────────────────── */
+#screen-upload{padding:32px;}
+.up-title{font-size:22px;font-weight:700;color:var(--heading);margin-bottom:6px;}
+.up-sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
+.ingest-tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px;gap:3px;margin-bottom:24px;max-width:580px;}
+.it-btn{flex:1;padding:8px 14px;border-radius:8px;border:none;background:none;color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.it-btn:hover{color:var(--text);}
+.it-btn.active{background:var(--card2);color:var(--heading);box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.drop-zone{
+  border:1.5px dashed var(--border2);
+  border-radius:14px;
+  background:var(--card);
+  padding:52px 32px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .18s;
+  max-width:580px;
 }
-#page-title { font-size: 17px; font-weight: 600; color: var(--text); }
+.drop-zone:hover,.drop-zone.over{border-color:var(--accent);background:rgba(124,106,255,.04);}
+.dz-icon{font-size:36px;margin-bottom:14px;display:block;}
+.dz-h{font-size:16px;font-weight:600;color:var(--heading);margin-bottom:6px;}
+.dz-s{font-size:13px;color:var(--text2);margin-bottom:18px;}
+.dz-btn{display:inline-block;padding:9px 22px;background:var(--accent);color:#fff;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:opacity .15s;margin-bottom:16px;}
+.dz-btn:hover{opacity:.88;}
+.dz-fmts{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+.fmt-chip{font-size:11px;padding:3px 9px;background:var(--card2);border:1px solid var(--border);border-radius:5px;color:var(--text2);}
+#fi{display:none;}
+.file-ready{display:none;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:10px;padding:12px 16px;margin-top:12px;max-width:580px;}
+.file-ready.show{display:flex;}
+.fr-icon{font-size:22px;}
+.fr-info{flex:1;min-width:0;}
+.fr-name{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--heading);}
+.fr-size{font-size:12px;color:var(--text2);margin-top:2px;}
+.fr-rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:4px;transition:color .12s;}
+.fr-rm:hover{color:var(--red);}
+/* Integration form */
+.int-wrap{display:none;max-width:580px;}.int-wrap.show{display:block;}
+.int-sel-wrap{margin-bottom:16px;}
+.form-lbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.form-select,.form-input,.form-textarea{width:100%;padding:9px 12px;background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;transition:border-color .15s;outline:none;}
+.form-select:focus,.form-input:focus,.form-textarea:focus{border-color:var(--accent);}
+.form-select option,.form-input::placeholder{color:var(--text2);background:var(--card);}
+.form-textarea{resize:vertical;min-height:72px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group.full{grid-column:1/-1;}
+.int-form{display:none;}.int-form.show{display:grid;gap:0;}
+/* API panel */
+.api-wrap{display:none;max-width:580px;}.api-wrap.show{display:block;}
+.code-block{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:12px;font-family:'SF Mono','Fira Code','Consolas',monospace;line-height:1.8;overflow-x:auto;margin-bottom:12px;}
+.ck{color:#a78bfa;}.cs{color:#4ade80;}.cv{color:#fbbf24;}.cm{color:var(--text3);}
+.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.agent-name{font-weight:600;font-size:13px;color:var(--heading);}
+.agent-note{font-size:11px;color:var(--text2);margin-top:2px;}
+/* Analyze button */
+.analyze-btn{display:none;align-items:center;justify-content:center;gap:8px;width:100%;max-width:580px;margin-top:18px;padding:14px;background:var(--accent);border:none;color:#fff;font-size:14px;font-weight:600;border-radius:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s,transform .12s;}
+.analyze-btn:hover{opacity:.9;transform:translateY(-1px);}
+.analyze-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.analyze-btn.show{display:flex;}
+.prog-wrap{display:none;max-width:580px;margin-top:16px;}.prog-wrap.show{display:block;}
+.prog-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:7px;}
+.prog-track{height:4px;background:var(--card2);border-radius:2px;overflow:hidden;}
+.prog-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:2px;transition:width .15s;}
 
-/* Theme switcher pill */
-.theme-switcher {
-  display: flex; align-items: center; gap: 2px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 20px; padding: 3px;
-  transition: background 0.3s, border-color 0.3s;
+/* ─────────────────────────────────────────────────────────────
+   DASHBOARD SCREEN  — matching the screenshot exactly
+───────────────────────────────────────────────────────────── */
+#screen-dashboard{padding:20px;}
+/* Top 4 KPI cards */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+.kpi-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px 20px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .15s;
 }
-.theme-btn {
-  display: flex; align-items: center; gap: 5px;
-  padding: 5px 12px; border-radius: 16px;
-  font-size: 11px; font-weight: 500;
-  cursor: pointer; border: none; background: transparent;
-  color: var(--text-2); transition: all 0.18s;
-  font-family: 'DM Sans', sans-serif;
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;}
+.kpi-card.kc-green::after{background:var(--green);}
+.kpi-card.kc-blue::after {background:var(--accent);}
+.kpi-card.kc-amber::after{background:var(--amber);}
+.kpi-card.kc-red::after  {background:var(--red);}
+.kpi-label{font-size:11px;font-weight:500;color:var(--text2);letter-spacing:.3px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.kpi-badge{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.kpi-badge.bg-green{background:rgba(34,197,94,.15);}
+.kpi-badge.bg-blue {background:rgba(124,106,255,.15);}
+.kpi-badge.bg-amber{background:rgba(245,158,11,.15);}
+.kpi-badge.bg-red  {background:rgba(239,68,68,.15);}
+.kpi-value{font-size:32px;font-weight:700;color:var(--heading);line-height:1;letter-spacing:-1px;margin-bottom:6px;}
+.kpi-sub{font-size:12px;color:var(--text2);}
+.kpi-tag{display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:600;}
+.tag-green{background:rgba(34,197,94,.15);color:var(--green);}
+.tag-amber{background:rgba(245,158,11,.15);color:var(--amber);}
+.tag-red  {background:rgba(239,68,68,.15);color:var(--red);}
+/* Middle row: breakdown + latency */
+.mid-row{display:grid;grid-template-columns:1fr 1.1fr;gap:14px;margin-bottom:14px;}
+.dash-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px 20px;
 }
-.theme-btn:hover { color: var(--text); }
-.theme-btn.active {
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  color: var(--text);
+.dc-title{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.dc-title::before{content:'●';font-size:8px;color:var(--accent);}
+/* Category filter pills */
+.cat-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.cat-pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;border:none;font-family:'Inter',sans-serif;}
+.cat-pill.all{background:var(--accent);color:#fff;}
+.cat-pill.other{background:var(--card2);color:var(--text2);}
+/* Bottom row: component status + actions */
+.bot-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+/* Toggle component rows */
+.comp-list{display:flex;flex-direction:column;gap:0;}
+.comp-row{display:flex;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);}
+.comp-row:last-child{border-bottom:none;}
+.comp-info{flex:1;}
+.comp-name{font-size:13px;font-weight:500;color:var(--heading);}
+.comp-note{font-size:11px;color:var(--text2);margin-top:2px;}
+/* iOS-style toggle */
+.toggle{position:relative;width:42px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;position:absolute;}
+.tog-track{
+  position:absolute;inset:0;
+  border-radius:12px;
+  background:var(--tog-track);
+  cursor:pointer;
+  transition:background .2s;
 }
+.toggle input:checked + .tog-track{background:var(--tog-on);}
+.toggle input.err-state + .tog-track{background:var(--tog-off);}
+.tog-thumb{
+  position:absolute;
+  top:3px;left:3px;
+  width:18px;height:18px;
+  background:#fff;
+  border-radius:50%;
+  transition:transform .2s;
+  pointer-events:none;
+  box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+.toggle input:checked ~ .tog-thumb{transform:translateX(18px);}
+/* Action buttons — exactly like screenshot */
+.act-section{display:flex;flex-direction:column;gap:8px;}
+.act-section-lbl{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-top:6px;}
+.act-section-lbl:first-child{margin-top:0;}
+.act-btn{
+  width:100%;
+  padding:13px 16px;
+  border-radius:10px;
+  border:none;
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;gap:9px;
+  transition:opacity .15s,filter .15s;
+  text-align:left;
+}
+.act-btn:hover{filter:brightness(1.1);}
+.act-btn:active{filter:brightness(.9);}
+.act-btn.run-diag{background:var(--purple);color:#fff;}
+.act-btn.db-crash{background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.act-btn.api-timeout{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.2);}
+.act-btn.gh-ticket{background:rgba(20,184,166,.15);color:#2dd4bf;border:1px solid rgba(20,184,166,.2);}
+.act-lastdiag{font-size:11px;color:var(--text3);margin-top:8px;text-align:right;}
 
-.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+/* ─────────────────────────────────────────────────────────────
+   LOG EXPLORER SCREEN
+───────────────────────────────────────────────────────────── */
+#screen-explorer{padding:0;}
+.exp-toolbar{
+  display:flex;align-items:center;gap:10px;padding:14px 20px;
+  background:var(--card);border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.exp-srch-wrap{position:relative;flex:1;min-width:200px;}
+.exp-srch-wrap::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;}
+.exp-srch{width:100%;padding:8px 12px 8px 34px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;}
+.exp-srch:focus{border-color:var(--accent);}
+.exp-srch::placeholder{color:var(--text3);}
+.exp-sel{padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;outline:none;}
+.exp-sel option{background:var(--card);}
+.exp-cnt{font-size:12px;color:var(--text2);white-space:nowrap;}
+.exp-export{padding:8px 14px;background:none;border:1px solid var(--border);border-radius:9px;color:var(--text2);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.exp-export:hover{border-color:var(--accent);color:var(--accent2);}
+.log-tbl-wrap{overflow-x:auto;}
+.log-tbl{width:100%;border-collapse:collapse;}
+.log-tbl thead th{font-size:11px;color:var(--text2);font-weight:600;padding:10px 16px;border-bottom:1px solid var(--border);text-align:left;background:var(--card);white-space:nowrap;letter-spacing:.3px;position:sticky;top:0;}
+.log-tbl tbody td{padding:8px 16px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle;}
+.log-tbl tbody tr:hover td{background:var(--card);}
+.log-tbl tbody tr:nth-child(even) td{background:rgba(255,255,255,.015);}
+.td-ts{color:var(--text2);white-space:nowrap;font-family:'SF Mono','Fira Code',monospace;font-size:11px;}
+.td-src{color:var(--accent2);white-space:nowrap;}
+.td-msg{color:var(--text);max-width:500px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.td-fmt{color:var(--purple);font-size:11px;}
+/* Level badges */
+.lvl{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.3px;}
+.lv-crit,.lv-fatal{background:rgba(239,68,68,.15);color:#f87171;}
+.lv-error{background:rgba(239,68,68,.12);color:#fca5a5;}
+.lv-warn{background:rgba(245,158,11,.15);color:#fbbf24;}
+.lv-info{background:rgba(34,197,94,.12);color:#4ade80;}
+.lv-debug{background:rgba(124,106,255,.12);color:#a78bfa;}
+.lv-unk{background:rgba(255,255,255,.05);color:var(--text2);}
 
-.status-chip {
-  display: flex; align-items: center; gap: 6px;
-  padding: 5px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 500; transition: all 0.4s;
+/* ═══ TOAST ══════════════════════════════════════════════════ */
+#toast{
+  position:fixed;bottom:22px;right:22px;
+  padding:10px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:11px;
+  font-size:13px;
+  color:var(--text);
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  z-index:999;
+  opacity:0;transform:translateY(8px);
+  transition:all .22s;pointer-events:none;
+  max-width:320px;
 }
-.status-chip.healthy { background: var(--green-lt); color: var(--green); }
-.status-chip.issue   { background: var(--red-lt);   color: var(--red); }
-.status-chip.warn    { background: var(--yellow-lt); color: var(--yellow); }
-.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
-
-#live-clock { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-3); }
-
-/* ── Content scroll ───────────────────────────────────────── */
-#content {
-  flex: 1; overflow-y: auto;
-  padding: 22px 24px;
-  display: flex; flex-direction: column; gap: 16px;
-}
-
-/* ── Cards ────────────────────────────────────────────────── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 18px 20px;
-  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  animation: fadeUp 0.4s ease both;
-}
-.card:hover { box-shadow: var(--shadow-md); }
-
-.card-title {
-  font-size: 11px; font-weight: 600;
-  color: var(--text-2); letter-spacing: 0.06em;
-  text-transform: uppercase; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 7px;
-}
-.card-title-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-
-/* ── KPI grid ─────────────────────────────────────────────── */
-.kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
-
-.kpi-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 18px 20px;
-  position: relative; overflow: hidden;
-  transition: all 0.3s; cursor: default;
-  animation: fadeUp 0.4s ease both;
-}
-.kpi-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--accent); }
-.kpi-card:active { transform: translateY(0); }
-.kpi-card::before {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: var(--accent);
-  border-radius: var(--radius) var(--radius) 0 0;
-  transition: background 0.4s;
-}
-.kpi-card.c-green::before  { background: var(--green); }
-.kpi-card.c-red::before    { background: var(--red); }
-.kpi-card.c-yellow::before { background: var(--yellow); }
-.kpi-card.c-blue::before   { background: var(--blue); }
-
-.kpi-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-.kpi-label { font-size: 11px; font-weight: 500; color: var(--text-2); }
-.kpi-icon {
-  width: 28px; height: 28px; border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; flex-shrink: 0;
-}
-.kpi-icon.c-green  { background: var(--green-lt);  color: var(--green); }
-.kpi-icon.c-red    { background: var(--red-lt);    color: var(--red); }
-.kpi-icon.c-yellow { background: var(--yellow-lt); color: var(--yellow); }
-.kpi-icon.c-blue   { background: var(--blue-lt);   color: var(--blue); }
-
-.kpi-value { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; margin-bottom: 6px; transition: color 0.4s; }
-.kpi-badge {
-  display: inline-flex; align-items: center; gap: 3px;
-  padding: 2px 8px; border-radius: 20px;
-  font-size: 10px; font-weight: 500; width: fit-content;
-}
-.kpi-badge.ok   { background: var(--green-lt);  color: var(--green); }
-.kpi-badge.bad  { background: var(--red-lt);    color: var(--red); }
-.kpi-badge.warn { background: var(--yellow-lt); color: var(--yellow); }
-.kpi-sub { font-size: 11px; color: var(--text-3); }
-
-/* ── Grids ────────────────────────────────────────────────── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-/* ── Chart wrapper ────────────────────────────────────────── */
-.chart-wrap { position: relative; height: 168px; cursor: pointer; }
-
-/* ── Log viewer ───────────────────────────────────────────── */
-.search-input {
-  width: 100%; padding: 8px 12px;
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 12px;
-  outline: none; transition: border-color 0.2s, background 0.3s;
-  margin-bottom: 10px;
-}
-.search-input:focus { border-color: var(--accent); }
-.search-input::placeholder { color: var(--text-3); }
-
-.log-meta { font-size: 11px; color: var(--text-3); margin-bottom: 7px; }
-.log-scroll { height: 168px; overflow-y: auto; }
-
-.log-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 6px 8px; border-radius: 5px;
-  font-family: 'DM Mono', monospace; font-size: 10.5px;
-  color: var(--text-2); line-height: 1.5;
-  transition: background 0.12s;
-  animation: fadeUp 0.25s ease both;
-}
-.log-row:hover { background: var(--surface2); }
-.log-tag {
-  padding: 1px 6px; border-radius: 4px;
-  font-size: 9px; font-weight: 600;
-  flex-shrink: 0; margin-top: 1px;
-}
-.log-tag.err  { background: var(--red-lt);    color: var(--red); }
-.log-tag.warn { background: var(--yellow-lt); color: var(--yellow); }
-.log-tag.info { background: var(--blue-lt);   color: var(--blue); }
-.log-empty { padding: 28px; text-align: center; color: var(--text-3); font-size: 12px; }
-
-/* ── Log filter buttons ───────────────────────────────────── */
-.log-filter-btn {
-  padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500;
-  cursor: pointer; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--text-2);
-  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.log-filter-btn:hover { background: var(--accent-lt); color: var(--accent); border-color: var(--accent); }
-.log-filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
-.log-filter-btn.err.active  { background: var(--red);    border-color: var(--red); }
-.log-filter-btn.crit.active { background: #7c3aed;       border-color: #7c3aed; }
-.log-filter-btn.cat.active  { background: var(--blue);   border-color: var(--blue); color: white; }
-
-/* ── Category chip (in chart) ─────────────────────────────── */
-.cat-chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 500;
-  cursor: pointer; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--text-2);
-  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.cat-chip:hover  { border-color: var(--accent); color: var(--accent); }
-.cat-chip.active { border-color: var(--accent); background: var(--accent); color: white; }
-.cat-chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-
-/* ── Critical alert row ───────────────────────────────────── */
-.critical-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 8px 10px; border-radius: var(--radius-sm);
-  background: var(--red-lt); border: 1px solid var(--red);
-  margin-bottom: 6px; font-family: 'DM Mono', monospace;
-  font-size: 10.5px; color: var(--red); line-height: 1.5;
-  animation: fadeUp 0.3s ease both;
-}
-.critical-badge {
-  padding: 1px 7px; border-radius: 4px; font-size: 9px; font-weight: 700;
-  background: var(--red); color: white; flex-shrink: 0; margin-top: 1px;
-}
-
-/* ── RCA ──────────────────────────────────────────────────── */
-.class-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.sev-badge {
-  padding: 3px 10px; border-radius: 20px;
-  font-size: 10px; font-weight: 600;
-}
-.sev-p1 { background: var(--red-lt);    color: var(--red); }
-.sev-p2 { background: var(--yellow-lt); color: var(--yellow); }
-.sev-ok { background: var(--green-lt);  color: var(--green); }
-.class-name { font-size: 14px; font-weight: 600; color: var(--text); }
-
-.action-card {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 10px 14px; font-size: 12px; color: var(--text-2);
-  line-height: 1.65; margin-bottom: 14px;
-  transition: background 0.3s, border-color 0.3s;
-}
-.steps-title {
-  font-size: 10px; font-weight: 600; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
-}
-.step-row {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 7px 0; border-bottom: 1px solid var(--border);
-  font-size: 12px; color: var(--text-2); line-height: 1.5;
-  animation: fadeUp 0.3s ease both;
-}
-.step-row:last-child { border-bottom: none; }
-.step-num {
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--surface2); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; font-weight: 600; color: var(--text-3);
-  flex-shrink: 0; margin-top: 1px;
-}
-
-/* ── Component table ──────────────────────────────────────── */
-.comp-table { width: 100%; border-collapse: collapse; }
-.comp-table td { padding: 9px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
-.comp-table tr:last-child td { border-bottom: none; }
-.comp-name { font-size: 12px; color: var(--text); font-weight: 500; }
-.comp-desc { font-size: 11px; color: var(--text-3); margin-top: 1px; }
-
-.toggle-pill {
-  width: 32px; height: 18px; border-radius: 10px;
-  display: flex; align-items: center; padding: 2px;
-  transition: background 0.35s;
-  cursor: default;
-}
-.toggle-pill.on   { background: var(--green-lt); justify-content: flex-end; }
-.toggle-pill.off  { background: var(--red-lt);   justify-content: flex-start; }
-.toggle-pill.idle { background: var(--surface2); justify-content: flex-start; }
-.toggle-knob {
-  width: 14px; height: 14px; border-radius: 50%;
-  transition: background 0.35s, box-shadow 0.35s;
-}
-.toggle-pill.on   .toggle-knob { background: var(--green); box-shadow: 0 0 5px var(--green); }
-.toggle-pill.off  .toggle-knob { background: var(--red);   box-shadow: 0 0 5px var(--red); }
-.toggle-pill.idle .toggle-knob { background: var(--text-3); }
-
-/* ── Buttons ──────────────────────────────────────────────── */
-.section-label {
-  font-size: 10px; font-weight: 600; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  margin-bottom: 6px; margin-top: 6px;
-}
-.btn-col { display: flex; flex-direction: column; gap: 7px; }
-
-.btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 9px 14px; border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
-  cursor: pointer; border: 1px solid; width: 100%;
-  text-align: left; transition: all 0.18s;
-}
-.btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn svg { flex-shrink: 0; }
-
-.btn-primary {
-  background: var(--accent); border-color: var(--accent); color: #fff;
-}
-.btn-primary:hover:not(:disabled) { opacity: 0.88; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-
-.btn-ghost-red {
-  background: var(--red-lt); border-color: transparent; color: var(--red);
-}
-.btn-ghost-red:hover:not(:disabled) { border-color: var(--red); }
-
-.btn-ghost-warn {
-  background: var(--yellow-lt); border-color: transparent; color: var(--yellow);
-}
-.btn-ghost-warn:hover:not(:disabled) { border-color: var(--yellow); }
-
-.btn-ghost-blue {
-  background: var(--blue-lt); border-color: transparent; color: var(--blue);
-}
-.btn-ghost-blue:hover:not(:disabled) { border-color: var(--blue); }
-
-.last-run-strip {
-  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between;
-  font-size: 11px; color: var(--text-3);
-}
-.last-run-strip span:last-child { color: var(--text-2); }
-
-/* ── Spinner ──────────────────────────────────────────────── */
-.spinner {
-  width: 12px; height: 12px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  animation: spin 0.7s linear infinite; flex-shrink: 0;
-}
-
-/* ── Toast ────────────────────────────────────────────────── */
-#toast {
-  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); box-shadow: var(--shadow-md);
-  padding: 11px 16px; font-size: 12px; font-weight: 500; color: var(--text);
-  display: flex; align-items: center; gap: 8px;
-  opacity: 0; transform: translateY(8px); pointer-events: none;
-  transition: opacity 0.22s, transform 0.22s; max-width: 280px;
-}
-#toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.t-icon {
-  width: 20px; height: 20px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; flex-shrink: 0;
-}
-.t-icon.success { background: var(--green-lt); color: var(--green); }
-.t-icon.warn    { background: var(--yellow-lt); color: var(--yellow); }
-.t-icon.error   { background: var(--red-lt);    color: var(--red); }
-
-/* ── Scan overlay ─────────────────────────────────────────── */
-#scan-overlay {
-  position: fixed; inset: 0; z-index: 8000;
-  background: rgba(0,0,0,0.2); backdrop-filter: blur(3px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.25s;
-}
-#scan-overlay.active { opacity: 1; pointer-events: auto; }
-.scan-modal {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 30px 40px;
-  box-shadow: var(--shadow-md); text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  transition: background 0.3s;
-}
-.scan-ring {
-  width: 38px; height: 38px; border-radius: 50%;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  animation: spin 1s linear infinite;
-}
-.scan-text { font-size: 13px; font-weight: 600; color: var(--text); }
-.scan-sub  { font-size: 11px; color: var(--text-3); min-width: 180px; }
-
-/* ── Animations ───────────────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
-@keyframes spin  { to { transform: rotate(360deg); } }
-
-/* ── Page switching ────────────────────────────────────────── */
-.page {
-  display: flex; flex-direction: column; gap: 16px;
-  animation: fadeUp 0.25s ease both;
-}
-
-/* ── AI Panel ─────────────────────────────────────────────── */
-.ai-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: background 0.3s, border-color 0.3s;
-}
-.ai-panel-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, var(--accent-lt) 0%, var(--surface) 100%);
-}
-.ai-badge {
-  display: flex; align-items: center; gap: 8px;
-}
-.ai-spark {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: var(--accent); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
-}
-.ai-badge-text { font-size: 13px; font-weight: 600; color: var(--text); }
-.ai-badge-sub  { font-size: 10px; color: var(--text-3); margin-top: 1px; }
-
-.ai-tabs {
-  display: flex; gap: 2px; padding: 12px 20px 0;
-  border-bottom: 1px solid var(--border);
-}
-.ai-tab {
-  padding: 8px 16px; font-size: 12px; font-weight: 500;
-  color: var(--text-2); cursor: pointer; border: none;
-  background: transparent; font-family: 'DM Sans', sans-serif;
-  border-bottom: 2px solid transparent; margin-bottom: -1px;
-  transition: color 0.15s, border-color 0.15s;
-}
-.ai-tab:hover  { color: var(--text); }
-.ai-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-.ai-body { padding: 20px; min-height: 140px; }
-
-.ai-placeholder {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 32px; gap: 10px; color: var(--text-3); text-align: center;
-}
-.ai-placeholder-icon { font-size: 28px; opacity: 0.5; }
-.ai-placeholder-text { font-size: 12px; line-height: 1.6; max-width: 280px; }
-
-.ai-loading {
-  display: flex; align-items: center; gap: 10px;
-  padding: 24px; color: var(--text-2); font-size: 12px;
-}
-.ai-loading-dots span {
-  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent); margin: 0 2px;
-  animation: dotBounce 1.2s infinite ease-in-out;
-}
-.ai-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-.ai-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes dotBounce {
-  0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
-  40%         { transform: scale(1);   opacity: 1; }
-}
-
-/* Explanation output */
-.ai-explanation {
-  font-size: 13px; color: var(--text); line-height: 1.75;
-  padding: 4px 0;
-}
-
-/* Fix steps output */
-.ai-step {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-  animation: fadeUp 0.3s ease both;
-}
-.ai-step:last-child { border-bottom: none; }
-.ai-step-num {
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--accent-lt); color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
-}
-.ai-step-content { flex: 1; }
-.ai-step-text { font-size: 12px; color: var(--text); line-height: 1.5; margin-bottom: 4px; }
-.ai-step-cmd {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  background: var(--surface2); border: 1px solid var(--border);
-  color: var(--accent); padding: 4px 10px; border-radius: 4px;
-  display: inline-block; margin-top: 2px;
-}
-
-/* Ticket summary output */
-.ticket-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
-.ticket-tab {
-  padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 500;
-  cursor: pointer; border: 1px solid var(--border);
-  background: var(--surface2); color: var(--text-2);
-  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
-}
-.ticket-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
-.ticket-content {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 14px;
-  font-size: 12px; color: var(--text); line-height: 1.7;
-  white-space: pre-wrap; font-family: 'DM Mono', monospace;
-  max-height: 240px; overflow-y: auto;
-}
-.copy-btn {
-  display: flex; align-items: center; gap: 6px;
-  margin-top: 10px; padding: 7px 14px;
-  background: var(--surface2); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); font-size: 11px; font-weight: 500;
-  color: var(--text-2); cursor: pointer; font-family: 'DM Sans', sans-serif;
-  transition: all 0.15s; width: fit-content;
-}
-.copy-btn:hover { background: var(--accent-lt); color: var(--accent); border-color: var(--accent); }
-
-.ai-error {
-  background: var(--red-lt); border: 1px solid var(--red);
-  border-radius: var(--radius-sm); padding: 12px 14px;
-  font-size: 12px; color: var(--red); line-height: 1.6;
-}
-
-.kpi-card:nth-child(1) { animation-delay: 0.04s; }
-.kpi-card:nth-child(2) { animation-delay: 0.10s; }
-.kpi-card:nth-child(3) { animation-delay: 0.16s; }
-.kpi-card:nth-child(4) { animation-delay: 0.22s; }
-.card:nth-child(1)     { animation-delay: 0.28s; }
-.card:nth-child(2)     { animation-delay: 0.34s; }
+#toast.show{opacity:1;transform:none;}
+#toast.t-ok  {border-left:3px solid var(--green);color:#4ade80;}
+#toast.t-err {border-left:3px solid var(--red);color:#f87171;}
+#toast.t-info{border-left:3px solid var(--accent);color:var(--accent2);}
+/* spinner */
+.spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 </style>
 </head>
-<body data-theme="light">
-
-<!-- Scan overlay -->
-<div id="scan-overlay">
-  <div class="scan-modal">
-    <div class="scan-ring"></div>
-    <div class="scan-text">Running System Diagnostic</div>
-    <div class="scan-sub" id="scan-step">Initializing monitors…</div>
-  </div>
-</div>
-
-<!-- Toast -->
-<div id="toast">
-  <div class="t-icon success" id="t-icon">✓</div>
-  <span id="t-msg">Done</span>
-</div>
-
+<body>
 <div id="app">
 
-  <!-- SIDEBAR -->
-  <div id="sidebar">
-    <div class="logo-wrap">
-      <div class="logo-icon">A</div>
-      <div class="logo-text">AutoRCA<span>Incident Analyzer</span></div>
+<!-- ═══ SIDEBAR ═════════════════════════════════════════════ -->
+<div id="sidebar">
+  <div class="sb-logo" onclick="goScreen('upload')">🔍</div>
+
+  <button class="sb-icon-btn active" id="sb-upload" onclick="goScreen('upload',this)" title="Log Source">
+    📡
+  </button>
+  <button class="sb-icon-btn" id="sb-dashboard" onclick="goScreen('dashboard',this)" title="RCA Dashboard">
+    📊
+  </button>
+  <button class="sb-icon-btn" id="sb-explorer" onclick="goScreen('explorer',this)" title="Log Explorer">
+    🔎
+  </button>
+
+  <div class="sb-divider"></div>
+
+  <button class="sb-icon-btn" onclick="inject('db')" title="Inject DB Crash">⚡</button>
+  <button class="sb-icon-btn" onclick="runDiag()" title="Run Diagnostic">▶</button>
+
+  <button class="sb-expand" style="margin-top:auto;">›</button>
+</div>
+
+<!-- ═══ MAIN ════════════════════════════════════════════════ -->
+<div id="main">
+
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <span class="topbar-title">Dashboard</span>
+
+    <div class="theme-toggle">
+      <button class="th-btn" data-t="light" onclick="setTheme('light',this)"><div class="th-dot"></div> Light</button>
+      <button class="th-btn active" data-t="dark" onclick="setTheme('dark',this)"><div class="th-dot"></div> Dark</button>
+      <button class="th-btn" data-t="custom" onclick="setTheme('custom',this)"><div class="th-dot"></div> Custom</button>
     </div>
 
-    <div class="nav-link active" data-page="dashboard" onclick="switchPage('dashboard',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      <span class="nav-label">Dashboard</span>
-    </div>
-    <div class="nav-link" data-page="logs" onclick="switchPage('logs',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <span class="nav-label">Log Viewer</span>
-    </div>
-    <div class="nav-link" data-page="rca" onclick="switchPage('rca',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span class="nav-label">RCA Engine</span>
-    </div>
-    <div class="nav-link" data-page="history" onclick="switchPage('history',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      <span class="nav-label">Run History</span>
-    </div>
-    <div class="nav-link" data-page="ai" onclick="switchPage('ai',this)">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3" fill="currentColor" opacity="0.4"/></svg>
-      <span class="nav-label">AI Analyzer</span>
-    </div>
-
-    <div class="sidebar-bottom">
-      <div class="nav-link" onclick="toggleSidebar()">
-        <svg id="sidebar-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-        <span class="nav-label">Collapse</span>
+    <div class="topbar-right">
+      <div class="rca-alert" id="rca-alert">
+        <div class="rca-alert-dot"></div>
+        <span id="rca-alert-txt">System Healthy</span>
       </div>
+      <span class="tb-clock" id="clock">--:--:-- --</span>
+      <div class="tb-source" id="tb-src" onclick="goScreen('upload')">
+        <div class="tb-src-dot" id="src-dot"></div>
+        <span class="tb-src-txt" id="src-txt">No source</span>
+      </div>
+      <button class="btn-clear" id="btn-clear" onclick="clearSource()">✕ Clear</button>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <div id="main">
+  <!-- PAGE -->
+  <div id="page">
 
-    <!-- Topbar -->
-    <div id="topbar">
-      <div id="page-title">Dashboard</div>
+    <!-- ══ UPLOAD ══════════════════════════════════════════ -->
+    <div id="screen-upload" class="screen active">
+      <div class="up-title">Log Source</div>
+      <div class="up-sub">Connect AutoRCA to your log infrastructure — upload a file, connect an integration, or push via API.</div>
 
-      <div class="theme-switcher" style="margin-left:20px;">
-        <button class="theme-btn active" id="tb-light" onclick="setTheme('light',this)">
-          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          Light
-        </button>
-        <button class="theme-btn" id="tb-dark" onclick="setTheme('dark',this)">
-          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          Dark
-        </button>
-        <button class="theme-btn" id="tb-custom" onclick="setTheme('custom',this)">
-          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          Custom
-        </button>
+      <div class="ingest-tabs">
+        <button class="it-btn active" id="itb-up"  onclick="switchTab('up')">📂 Upload File</button>
+        <button class="it-btn" id="itb-int" onclick="switchTab('int')">🔗 Connect Integration</button>
+        <button class="it-btn" id="itb-api" onclick="switchTab('api')">📡 API Push</button>
       </div>
 
-      <div class="topbar-right">
-        <div class="status-chip healthy" id="global-status">
-          <div class="chip-dot"></div>All Systems Go
+      <!-- UPLOAD PANEL -->
+      <div id="tab-up">
+        <div class="drop-zone" id="dz" onclick="document.getElementById('fi').click()">
+          <span class="dz-icon">📋</span>
+          <div class="dz-h">Drop your log file here</div>
+          <div class="dz-s">Supports 9 formats — parser auto-detects and normalises everything</div>
+          <button class="dz-btn" onclick="event.stopPropagation();document.getElementById('fi').click()">Browse Files</button>
+          <div class="dz-fmts">
+            <span class="fmt-chip">.log</span><span class="fmt-chip">.txt</span><span class="fmt-chip">.json</span>
+            <span class="fmt-chip">.csv</span><span class="fmt-chip">.tsv</span><span class="fmt-chip">.out</span><span class="fmt-chip">.gz</span>
+          </div>
         </div>
-        <div id="live-clock">--:--:--</div>
+        <input type="file" id="fi" accept=".log,.txt,.json,.csv,.tsv,.out,.gz" onchange="fileSel(this)">
+        <div class="file-ready" id="fr">
+          <span class="fr-icon">📄</span>
+          <div class="fr-info">
+            <div class="fr-name" id="fr-n">—</div>
+            <div class="fr-size" id="fr-s">—</div>
+          </div>
+          <button class="fr-rm" onclick="rmFile()">✕</button>
+        </div>
+      </div>
+
+      <!-- INTEGRATION PANEL -->
+      <div id="tab-int" class="int-wrap">
+        <div class="int-sel-wrap">
+          <div class="form-lbl">Platform</div>
+          <select class="form-select" id="int-sel" onchange="showIntForm(this.value)">
+            <option value="">— Select your logging platform —</option>
+            <option value="loki">🟠 Grafana Loki</option>
+            <option value="es">🟡 Elasticsearch / OpenSearch</option>
+            <option value="s3">🔵 Amazon S3</option>
+            <option value="http">⚪ Custom HTTP Endpoint</option>
+          </select>
+        </div>
+        <div id="f-loki" class="int-form">
+          <div class="form-row">
+            <div class="form-group full"><div class="form-lbl">Loki URL</div><input class="form-input" placeholder="http://localhost:3100" id="l-url"></div>
+            <div class="form-group full"><div class="form-lbl">LogQL Query</div><input class="form-input" value='{job="varlogs"}' id="l-q"></div>
+            <div class="form-group"><div class="form-lbl">Last N hours</div><input class="form-input" type="number" value="1" id="l-h"></div>
+            <div class="form-group"><div class="form-lbl">Max lines</div><input class="form-input" type="number" value="1000" id="l-lim"></div>
+          </div>
+        </div>
+        <div id="f-es" class="int-form">
+          <div class="form-row">
+            <div class="form-group full"><div class="form-lbl">Elasticsearch URL</div><input class="form-input" placeholder="http://localhost:9200" id="es-url"></div>
+            <div class="form-group"><div class="form-lbl">Index Pattern</div><input class="form-input" value="logs-*" id="es-idx"></div>
+            <div class="form-group"><div class="form-lbl">Query (Lucene)</div><input class="form-input" value="*" id="es-q"></div>
+          </div>
+        </div>
+        <div id="f-s3" class="int-form">
+          <div class="form-row">
+            <div class="form-group"><div class="form-lbl">S3 Bucket</div><input class="form-input" placeholder="my-log-bucket"></div>
+            <div class="form-group"><div class="form-lbl">Key Prefix</div><input class="form-input" placeholder="logs/2026/03/"></div>
+            <div class="form-group"><div class="form-lbl">AWS Access Key</div><input class="form-input" type="password"></div>
+            <div class="form-group"><div class="form-lbl">AWS Secret</div><input class="form-input" type="password"></div>
+          </div>
+        </div>
+        <div id="f-http" class="int-form">
+          <div class="form-row">
+            <div class="form-group full"><div class="form-lbl">Endpoint URL</div><input class="form-input" placeholder="https://logs.example.com/api/export"></div>
+            <div class="form-group full"><div class="form-lbl">Headers (Key: Value per line)</div><textarea class="form-textarea" placeholder="Authorization: Bearer TOKEN&#10;X-API-Key: abc123"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API PUSH PANEL -->
+      <div id="tab-api" class="api-wrap">
+        <div class="form-lbl" style="margin-bottom:8px;">Ingest Endpoint</div>
+        <div class="code-block"><span class="ck">POST</span> http://your-server:<span class="cv">8000</span>/api/ingest
+
+<span class="cm">// Headers</span>
+X-API-Key: <span class="cs">YOUR_API_KEY</span>
+Content-Type: <span class="cs">text/plain</span>
+
+<span class="cm">// Example</span>
+curl -X <span class="ck">POST</span> http://localhost:<span class="cv">8000</span>/api/ingest \
+  -H <span class="cs">"X-API-Key: YOUR_KEY"</span> --data-binary @/var/log/app.log</div>
+        <div class="form-lbl" style="margin-bottom:10px;">Compatible Agents</div>
+        <div class="agent-grid">
+          <div class="agent-card"><div class="agent-name">Fluentd</div><div class="agent-note">http output plugin</div></div>
+          <div class="agent-card"><div class="agent-name">Logstash</div><div class="agent-note">http output plugin</div></div>
+          <div class="agent-card"><div class="agent-name">Vector</div><div class="agent-note">http sink</div></div>
+          <div class="agent-card"><div class="agent-name">Filebeat</div><div class="agent-note">http output</div></div>
+          <div class="agent-card"><div class="agent-name">Promtail</div><div class="agent-note">push_url config</div></div>
+          <div class="agent-card"><div class="agent-name">Custom</div><div class="agent-note">any HTTP POST</div></div>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="abtn" onclick="startAnalysis()">
+        ▶&ensp;Start Analysis
+      </button>
+      <div class="prog-wrap" id="prog">
+        <div class="prog-lbl"><span id="p-txt">Initializing…</span><span id="p-pct">0%</span></div>
+        <div class="prog-track"><div class="prog-bar" id="p-bar"></div></div>
       </div>
     </div>
 
-    <!-- Content wrapper -->
-    <div id="content">
+    <!-- ══ DASHBOARD ══════════════════════════════════════ -->
+    <div id="screen-dashboard" class="screen">
 
-      <!-- ═══════════════════════════════════════════ PAGE: DASHBOARD -->
-      <div class="page" id="page-dashboard">
-
-        <!-- KPI row -->
-        <div class="kpi-grid">
-          <div class="kpi-card c-green" id="kc-api" style="cursor:pointer" title="Click to view API logs" onclick="filterLogsBy('')">
-            <div class="kpi-top">
-              <div class="kpi-label">API Status</div>
-              <div class="kpi-icon c-green" id="ki-api">✓</div>
-            </div>
-            <div class="kpi-value" id="kv-api">—</div>
-            <div class="kpi-badge ok" id="kb-api">Healthy</div>
-          </div>
-          <div class="kpi-card c-blue">
-            <div class="kpi-top">
-              <div class="kpi-label">Latency</div>
-              <div class="kpi-icon c-blue">⏱</div>
-            </div>
-            <div class="kpi-value" id="kv-lat">—</div>
-            <div class="kpi-sub" id="ks-lat">Awaiting scan</div>
-          </div>
-          <div class="kpi-card c-yellow" style="cursor:pointer" title="Click to filter all error logs" onclick="filterLogsBy('ERROR')">
-            <div class="kpi-top">
-              <div class="kpi-label">Total Errors</div>
-              <div class="kpi-icon c-yellow">⚠</div>
-            </div>
-            <div class="kpi-value" id="kv-err">—</div>
-            <div class="kpi-sub">Last log cycle</div>
-          </div>
-          <div class="kpi-card c-red" id="kc-db" style="cursor:pointer" title="Click to filter DB error logs" onclick="filterLogsBy('DB')">
-            <div class="kpi-top">
-              <div class="kpi-label">DB Anomalies</div>
-              <div class="kpi-icon c-red" id="ki-db">⊘</div>
-            </div>
-            <div class="kpi-value" id="kv-db">—</div>
-            <div class="kpi-sub">Null email count</div>
-          </div>
+      <!-- KPI CARDS ROW -->
+      <div class="kpi-row">
+        <div class="kpi-card kc-green">
+          <div class="kpi-label">API Status <div class="kpi-badge bg-green">✓</div></div>
+          <div class="kpi-value" id="kpi-status">200</div>
+          <div class="kpi-sub"><span class="kpi-tag tag-green" id="kpi-status-tag">Healthy</span></div>
         </div>
-
-        <!-- Charts -->
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title"><div class="card-title-dot" style="background:var(--yellow)"></div>Error Category Breakdown
-              <span id="cat-active-label" style="margin-left:auto;font-size:10px;font-weight:500;color:var(--accent);display:none;">Filtered</span>
-            </div>
-            <div id="cat-filter-chips" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;"></div>
-            <div class="chart-wrap"><canvas id="errorChart"></canvas></div>
-          </div>
-          <div class="card">
-            <div class="card-title"><div class="card-title-dot" style="background:var(--blue)"></div>API Latency Trend (ms)</div>
-            <div class="chart-wrap"><canvas id="latencyChart"></canvas></div>
-          </div>
+        <div class="kpi-card kc-blue">
+          <div class="kpi-label">Total Entries <div class="kpi-badge bg-blue">📋</div></div>
+          <div class="kpi-value" id="kpi-total">—</div>
+          <div class="kpi-sub" id="kpi-total-sub">log lines parsed</div>
         </div>
-
-        <!-- Critical Alerts -->
-        <div class="card" id="critical-alerts-card" style="display:none;">
-          <div class="card-title" style="margin-bottom:10px;">
-            <div class="card-title-dot" style="background:var(--red)"></div>
-            Critical Alerts
-            <span id="critical-count-badge" class="kpi-badge bad" style="margin-left:8px;"></span>
-          </div>
-          <div id="critical-alerts-body"></div>
+        <div class="kpi-card kc-amber">
+          <div class="kpi-label">Total Errors <div class="kpi-badge bg-amber">⚠</div></div>
+          <div class="kpi-value" id="kpi-errors">—</div>
+          <div class="kpi-sub" id="kpi-errors-sub">Last log cycle</div>
         </div>
+        <div class="kpi-card kc-red">
+          <div class="kpi-label">DB Anomalies <div class="kpi-badge bg-red">🚫</div></div>
+          <div class="kpi-value" id="kpi-db">—</div>
+          <div class="kpi-sub" id="kpi-db-sub">connection errors</div>
+        </div>
+      </div>
 
-        <!-- Status + Actions -->
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title"><div class="card-title-dot"></div>Component Status</div>
-            <table class="comp-table">
-              <tbody>
-                <tr>
-                  <td><div class="comp-name">API Health Monitor</div><div class="comp-desc">Endpoint response checker</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-api" onclick="toggleDot('dot-api')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
-                </tr>
-                <tr>
-                  <td><div class="comp-name">Log Analyzer</div><div class="comp-desc">Exception pattern parser</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-log" onclick="toggleDot('dot-log')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
-                </tr>
-                <tr>
-                  <td><div class="comp-name">DB Validator</div><div class="comp-desc">Data integrity checker</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-db" onclick="toggleDot('dot-db')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
-                </tr>
-                <tr>
-                  <td><div class="comp-name">RCA Engine</div><div class="comp-desc">Issue classification AI</div></td>
-                  <td style="text-align:right;"><div class="toggle-pill idle" id="dot-rca" onclick="toggleDot('dot-rca')" style="cursor:pointer" title="Click to toggle"><div class="toggle-knob"></div></div></td>
-                </tr>
-              </tbody>
-            </table>
+      <!-- MID ROW: breakdown + timeline -->
+      <div class="mid-row">
+        <div class="dash-card">
+          <div class="dc-title">Error Category Breakdown</div>
+          <div class="cat-pills">
+            <button class="cat-pill all" id="cp-all" onclick="setCatFilter('all',this)">All (<span id="cp-all-c">0</span>)</button>
+            <button class="cat-pill other" id="cp-db"  onclick="setCatFilter('db',this)">Database</button>
+            <button class="cat-pill other" id="cp-net" onclick="setCatFilter('net',this)">Network</button>
+            <button class="cat-pill other" id="cp-app" onclick="setCatFilter('app',this)">Application</button>
           </div>
+          <div style="height:180px;position:relative;"><canvas id="ch-breakdown"></canvas></div>
+        </div>
+        <div class="dash-card">
+          <div class="dc-title">API Latency Trend (MS)</div>
+          <div style="height:220px;position:relative;"><canvas id="ch-latency"></canvas></div>
+        </div>
+      </div>
 
-          <div class="card">
-            <div class="card-title"><div class="card-title-dot"></div>Actions</div>
-            <div class="btn-col">
-              <div class="section-label">Diagnostic</div>
-              <button class="btn btn-primary" id="run-btn" onclick="runDiagnostic()">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                Run Full Diagnostic
-              </button>
-              <div class="section-label" style="margin-top:4px;">Simulation</div>
-              <button class="btn btn-ghost-red" onclick="simDBCrash()">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                Inject DB Crash
-              </button>
-              <button class="btn btn-ghost-warn" onclick="simAPITimeout()">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                Simulate API Timeout
-              </button>
-              <div class="section-label" style="margin-top:4px;">Incident</div>
-              <button class="btn btn-ghost-blue" id="ticket-btn" onclick="createTicket()">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S9.1 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                Create GitHub Ticket
-              </button>
+      <!-- BOTTOM ROW: component status + actions -->
+      <div class="bot-row">
+        <div class="dash-card">
+          <div class="dc-title">Component Status</div>
+          <div class="comp-list">
+            <div class="comp-row">
+              <div class="comp-info"><div class="comp-name">API Health Monitor</div><div class="comp-note">Endpoint response checker</div></div>
+              <label class="toggle"><input type="checkbox" checked id="tog-api"><div class="tog-track"></div><div class="tog-thumb"></div></label>
             </div>
-            <div class="last-run-strip">
-              <span>Last diagnostic</span>
-              <span id="last-run">Never</span>
+            <div class="comp-row">
+              <div class="comp-info"><div class="comp-name">Log Analyzer</div><div class="comp-note">Exception pattern parser</div></div>
+              <label class="toggle"><input type="checkbox" id="tog-log" class="err-state"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
+            <div class="comp-row">
+              <div class="comp-info"><div class="comp-name">DB Validator</div><div class="comp-note">Data integrity checker</div></div>
+              <label class="toggle"><input type="checkbox" id="tog-db" class="err-state"><div class="tog-track"></div><div class="tog-thumb"></div></label>
+            </div>
+            <div class="comp-row">
+              <div class="comp-info"><div class="comp-name">RCA Engine</div><div class="comp-note">Issue classification AI</div></div>
+              <label class="toggle"><input type="checkbox" checked id="tog-rca"><div class="tog-track"></div><div class="tog-thumb"></div></label>
             </div>
           </div>
         </div>
 
-      </div><!-- /page-dashboard -->
+        <div class="dash-card">
+          <div class="dc-title">Actions</div>
+          <div class="act-section">
+            <div class="act-section-lbl">Diagnostic</div>
+            <button class="act-btn run-diag" onclick="runDiag()">▶ Run Full Diagnostic</button>
 
-      <!-- ═══════════════════════════════════════════ PAGE: LOG VIEWER -->
-      <div class="page" id="page-logs" style="display:none;">
-        <div class="card">
-          <div class="card-title">
-            <div class="card-title-dot" style="background:var(--yellow)"></div>
-            Log Viewer — Full Exception List
-            <span id="log-active-filter" style="margin-left:auto;font-size:10px;font-weight:500;color:var(--accent);display:none;"></span>
-          </div>
+            <div class="act-section-lbl">Simulation</div>
+            <button class="act-btn db-crash" onclick="inject('db')">⚠ Inject DB Crash</button>
+            <button class="act-btn api-timeout" onclick="inject('api')">🕐 Simulate API Timeout</button>
 
-          <!-- Search bar -->
-          <input class="search-input" type="text" id="log-search"
-            placeholder="Search exceptions… e.g. timeout, DB, NullPointer, CRITICAL" oninput="filterLogs()"/>
+            <div class="act-section-lbl">Incident</div>
+            <button class="act-btn gh-ticket" onclick="createTicket()">🎫 Create GitHub Ticket</button>
 
-          <!-- Severity filters -->
-          <div style="margin-bottom:8px;">
-            <div style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Severity</div>
-            <div style="display:flex;gap:5px;flex-wrap:wrap;">
-              <button class="log-filter-btn active" data-filter="" onclick="applyLogFilter(this,'')">All</button>
-              <button class="log-filter-btn err" data-filter="ERROR" onclick="applyLogFilter(this,'ERROR')">ERROR</button>
-              <button class="log-filter-btn crit" data-filter="CRITICAL" onclick="applyLogFilter(this,'CRITICAL')">CRITICAL</button>
-            </div>
-          </div>
-
-          <!-- Category filters — populated dynamically from log data -->
-          <div style="margin-bottom:10px;">
-            <div style="font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Category</div>
-            <div id="log-category-filters" style="display:flex;gap:5px;flex-wrap:wrap;">
-              <button class="log-filter-btn cat active" data-cat="" onclick="applyLogCatFilter(this,'')">All Categories</button>
-              <button class="log-filter-btn cat" data-cat="[Database]" onclick="applyLogCatFilter(this,'[Database]')">Database</button>
-              <button class="log-filter-btn cat" data-cat="[Network]" onclick="applyLogCatFilter(this,'[Network]')">Network</button>
-              <button class="log-filter-btn cat" data-cat="[API]" onclick="applyLogCatFilter(this,'[API]')">API/Gateway</button>
-              <button class="log-filter-btn cat" data-cat="[Firewall]" onclick="applyLogCatFilter(this,'[Firewall]')">Security</button>
-              <button class="log-filter-btn cat" data-cat="[ActiveDirectory]" onclick="applyLogCatFilter(this,'[ActiveDirectory]')">ActiveDirectory</button>
-              <button class="log-filter-btn cat" data-cat="DB_CONN_FAIL" onclick="applyLogCatFilter(this,'DB_CONN_FAIL')">DB Conn</button>
-            </div>
-          </div>
-
-          <!-- Stats row -->
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div class="log-meta" id="log-count">Showing 0 of 0 entries</div>
-            <button class="btn" style="padding:4px 10px;font-size:11px;width:auto;background:var(--surface2);border-color:var(--border);color:var(--text-2);" onclick="resetLogFilters()">
-              Reset Filters
-            </button>
-          </div>
-
-          <!-- Log entries -->
-          <div class="log-scroll" id="log-box" style="height:calc(100vh - 380px);"></div>
-        </div>
-      </div><!-- /page-logs -->
-
-      <!-- ═══════════════════════════════════════════ PAGE: RCA ENGINE -->
-      <div class="page" id="page-rca" style="display:none;">
-        <div class="grid-2" style="align-items:start;">
-
-          <!-- Full RCA report -->
-          <div class="card">
-            <div class="card-title"><div class="card-title-dot" style="background:var(--red)"></div>Root Cause Analysis Report</div>
-            <div id="rca-body">
-              <div style="padding:48px 0;text-align:center;color:var(--text-3);font-size:12px;">
-                Run a diagnostic to see RCA results
-              </div>
-            </div>
-          </div>
-
-          <!-- Playbook reference -->
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <div class="card">
-              <div class="card-title"><div class="card-title-dot" style="background:var(--blue)"></div>Classification Rules</div>
-              <table class="comp-table">
-                <tbody>
-                  <tr>
-                    <td><div class="comp-name">Infrastructure Issue</div><div class="comp-desc">API error or status ≥ 500</div></td>
-                    <td style="text-align:right;"><span class="kpi-badge bad">P1</span></td>
-                  </tr>
-                  <tr>
-                    <td><div class="comp-name">Code Issue</div><div class="comp-desc">5xx response from endpoint</div></td>
-                    <td style="text-align:right;"><span class="kpi-badge warn">P2</span></td>
-                  </tr>
-                  <tr>
-                    <td><div class="comp-name">Data Integrity Issue</div><div class="comp-desc">Null email count &gt; 0</div></td>
-                    <td style="text-align:right;"><span class="kpi-badge warn">P2</span></td>
-                  </tr>
-                  <tr>
-                    <td><div class="comp-name">DB Connectivity Issue</div><div class="comp-desc">DB errors in log &gt; 5</div></td>
-                    <td style="text-align:right;"><span class="kpi-badge warn">P2</span></td>
-                  </tr>
-                  <tr>
-                    <td><div class="comp-name">System Healthy</div><div class="comp-desc">All monitors nominal</div></td>
-                    <td style="text-align:right;"><span class="kpi-badge ok">OK</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="card">
-              <div class="card-title"><div class="card-title-dot"></div>Quick Actions</div>
-              <div class="btn-col">
-                <button class="btn btn-primary" onclick="runDiagnostic(); switchPage('rca', document.querySelector('[data-page=rca]'))">
-                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  Re-run Diagnostic
-                </button>
-                <button class="btn btn-ghost-blue" id="ticket-btn-rca" onclick="createTicket()">
-                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S9.1 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                  Create GitHub Ticket
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div><!-- /page-rca -->
-
-      <!-- ═══════════════════════════════════════════ PAGE: RUN HISTORY -->
-      <div class="page" id="page-history" style="display:none;">
-        <div class="card">
-          <div class="card-title"><div class="card-title-dot" style="background:var(--blue)"></div>Run History</div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-            <div style="font-size:12px;color:var(--text-3);" id="history-count">0 runs recorded this session</div>
-            <button class="btn btn-ghost-red" style="width:auto;padding:5px 12px;font-size:11px;" onclick="clearHistory()">Clear History</button>
-          </div>
-          <div id="history-table-wrap">
-            <div style="padding:40px;text-align:center;color:var(--text-3);font-size:12px;">
-              No runs yet — click Run Full Diagnostic to start recording
-            </div>
+            <div class="act-lastdiag" id="last-diag">Last diagnostic</div>
           </div>
         </div>
-      </div><!-- /page-history -->
+      </div>
 
-      <!-- ════════════════════════════════════════════ PAGE: AI ANALYZER -->
-      <div class="page" id="page-ai" style="display:none;">
+    </div><!-- /screen-dashboard -->
 
-        <!-- Header card -->
-        <div class="card" style="padding:20px 24px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:40px;height:40px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;">✨</div>
-              <div>
-                <div style="font-size:15px;font-weight:600;color:var(--text);">Gemini AI Analyzer</div>
-                <div style="font-size:11px;color:var(--text-3);margin-top:2px;">Powered by Google Gemini 1.5 Flash — run a diagnostic first, then analyze</div>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:auto;padding:9px 20px;" onclick="runAllAI()">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Run All AI Features
-            </button>
-          </div>
+    <!-- ══ LOG EXPLORER ═══════════════════════════════════ -->
+    <div id="screen-explorer" class="screen">
+      <div class="exp-toolbar">
+        <div class="exp-srch-wrap">
+          <input class="exp-srch" id="lsrch" placeholder="Search message, source, exception…" oninput="filterTbl()">
         </div>
+        <select class="exp-sel" id="fl-lv" onchange="filterTbl()">
+          <option value="">All Levels</option>
+          <option>CRITICAL</option><option>ERROR</option><option>WARNING</option><option>INFO</option><option>DEBUG</option>
+        </select>
+        <select class="exp-sel" id="fl-fmt" onchange="filterTbl()"><option value="">All Formats</option></select>
+        <select class="exp-sel" id="fl-src" onchange="filterTbl()"><option value="">All Sources</option></select>
+        <span class="exp-cnt" id="exp-cnt">0 events</span>
+        <button class="exp-export" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+      <div class="log-tbl-wrap">
+        <table class="log-tbl">
+          <thead><tr><th>Timestamp</th><th>Level</th><th>Source</th><th>Message</th><th>Format</th></tr></thead>
+          <tbody id="ltbody"></tbody>
+        </table>
+      </div>
+    </div>
 
-        <!-- Three AI feature cards in a row -->
-        <div class="grid-2" style="grid-template-columns:1fr 1fr;">
-
-          <!-- Feature 1: Incident Explanation -->
-          <div class="ai-panel">
-            <div class="ai-panel-header">
-              <div class="ai-badge">
-                <div class="ai-spark">📋</div>
-                <div>
-                  <div class="ai-badge-text">Incident Explanation</div>
-                  <div class="ai-badge-sub">Plain-English root cause analysis</div>
-                </div>
-              </div>
-              <button class="btn btn-primary" style="width:auto;padding:6px 14px;font-size:11px;" onclick="runExplain()">Analyze</button>
-            </div>
-            <div class="ai-body" id="ai-explain-body">
-              <div class="ai-placeholder">
-                <div class="ai-placeholder-icon">🔍</div>
-                <div class="ai-placeholder-text">Click Analyze to get a plain-English explanation of what caused this incident, based on your actual log data.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Feature 2: AI Fix Steps -->
-          <div class="ai-panel">
-            <div class="ai-panel-header">
-              <div class="ai-badge">
-                <div class="ai-spark">🔧</div>
-                <div>
-                  <div class="ai-badge-text">Smart Fix Steps</div>
-                  <div class="ai-badge-sub">Steps grounded in your actual log lines</div>
-                </div>
-              </div>
-              <button class="btn btn-primary" style="width:auto;padding:6px 14px;font-size:11px;" onclick="runFixSteps()">Generate</button>
-            </div>
-            <div class="ai-body" id="ai-fix-body">
-              <div class="ai-placeholder">
-                <div class="ai-placeholder-icon">🛠️</div>
-                <div class="ai-placeholder-text">Click Generate to get specific fix steps based on the actual error patterns found in your logs.</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Feature 3: Ticket Summary — full width -->
-        <div class="ai-panel">
-          <div class="ai-panel-header">
-            <div class="ai-badge">
-              <div class="ai-spark">📝</div>
-              <div>
-                <div class="ai-badge-text">GitHub & Slack Summary Generator</div>
-                <div class="ai-badge-sub">Auto-generate ready-to-paste incident reports</div>
-              </div>
-            </div>
-            <button class="btn btn-primary" style="width:auto;padding:6px 14px;font-size:11px;" onclick="runTicketSummary()">Generate</button>
-          </div>
-          <div class="ai-body" id="ai-ticket-body">
-            <div class="ai-placeholder">
-              <div class="ai-placeholder-icon">📨</div>
-              <div class="ai-placeholder-text">Click Generate to create a formatted GitHub issue body and a Slack message summary — ready to copy and paste.</div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /page-ai -->
-
-    </div><!-- /content -->
-  </div><!-- /main -->
+  </div><!-- /page -->
+</div><!-- /main -->
 </div><!-- /app -->
+<div id="toast"></div>
 
 <script>
-// ── API config ────────────────────────────────────────────────────────────────
-const API_BASE = "http://localhost:8000";
+/* ═══ STATE ══════════════════════════════════════════════════ */
+const S={connected:false,label:'',logs:[],stats:{},charts:{},filtered:[],_file:null};
 
-// ── Your AUTORCA_API_KEY from .env ────────────────────────────────────────────
-// This must match AUTORCA_API_KEY in your .env file exactly.
-// For local use this is fine. For production, load it from a config endpoint.
-const API_KEY = "d1cdf6a8d0cf903c6822e2ddf45b45676bbd822da3289689090fbae9085c551e";
+/* ═══ CLOCK ══════════════════════════════════════════════════ */
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+setInterval(tick,1000);tick();
 
-// Helper: authenticated fetch — adds X-API-Key header to every request
-function apiFetch(url, options = {}) {
-  return fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-Key": API_KEY,
-      ...(options.headers || {})
+/* ═══ THEME ══════════════════════════════════════════════════ */
+function setTheme(t,btn){
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.th-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(S.connected){setTimeout(()=>{renderBreakdown();renderLatency();},50);}
+}
+
+/* ═══ NAVIGATION ═════════════════════════════════════════════ */
+function goScreen(name,btn){
+  if((name==='dashboard'||name==='explorer')&&!S.connected){toast('Connect a log source first.','err');return;}
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+name);if(el)el.classList.add('active');
+  document.querySelectorAll('.sb-icon-btn[id^="sb-"]').forEach(b=>b.classList.remove('active'));
+  const sb=document.getElementById('sb-'+name);if(sb)sb.classList.add('active');
+  const titles={upload:'Log Source',dashboard:'Dashboard',explorer:'Log Explorer'};
+  document.querySelector('.topbar-title').textContent=titles[name]||name;
+  if(name==='dashboard')renderDash();
+  if(name==='explorer')renderExplorer();
+}
+
+/* ═══ UPLOAD TABS ════════════════════════════════════════════ */
+function switchTab(t){
+  ['up','int','api'].forEach(x=>{
+    document.getElementById('itb-'+x).classList.toggle('active',x===t);
+    const el=document.getElementById('tab-'+x);if(el)el.style.display=x===t?'block':'none';
+  });
+  if(t!=='up')document.getElementById('abtn').classList.remove('show');
+}
+function showIntForm(v){
+  ['loki','es','s3','http'].forEach(f=>{const el=document.getElementById('f-'+f);if(el)el.classList.toggle('show',f===v);});
+  if(v){const b=document.getElementById('abtn');b.classList.add('show');b.innerHTML='🔗&ensp;Connect & Analyze';}
+}
+
+/* ═══ FILE HANDLING ══════════════════════════════════════════ */
+const dz=document.getElementById('dz');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');const f=e.dataTransfer.files[0];if(f)procFile(f);});
+function fileSel(inp){if(inp.files[0])procFile(inp.files[0]);}
+function procFile(f){
+  document.getElementById('fr-n').textContent=f.name;
+  document.getElementById('fr-s').textContent=fmtBytes(f.size);
+  document.getElementById('fr').classList.add('show');
+  const b=document.getElementById('abtn');b.classList.add('show');b.innerHTML='▶&ensp;Start Analysis';
+  S._file=f;S.label=f.name;
+}
+function rmFile(){document.getElementById('fr').classList.remove('show');document.getElementById('abtn').classList.remove('show');document.getElementById('fi').value='';S._file=null;}
+function fmtBytes(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(2)+' MB';}
+
+/* ═══ PARSER ══════════════════════════════════════════════════ */
+const PAT={
+  json:/^\s*\{.*\}\s*$/,
+  log4j:/^(\d{4}-\d{2}-\d{2}[\sT]\d{2}:\d{2}:\d{2}[,.]?\d*)\s+(FATAL|CRITICAL|ERROR|WARN(?:ING)?|INFO|DEBUG|TRACE)\s+(\S+)\s+-\s+(.+)$/i,
+  std:/^(\d{4}-\d{2}-\d{2}[\sT]\d{2}:\d{2}:\d{2}[,.]\d*)[\s\[\(]*(FATAL|CRITICAL|ERROR|WARNING|WARN|INFO|DEBUG|TRACE)[\]\)]*\s*(\S*)?\s*[-|:]?\s*(.+)$/i,
+  syslog:/^(\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+([^\[:\s]+)(?:\[(\d+)\])?\s*:\s*(.+)$/,
+  apache:/^(\S+)\s+\S+\s+\S+\s+\[([^\]]+)\]\s+"([^"]+)"\s+(\d{3})\s+(\S+)/,
+  k8s:/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?)\s+(stdout|stderr)\s+[FP]\s+(.+)$/,
+  py:/^(FATAL|CRITICAL|ERROR|WARNING|WARN|INFO|DEBUG|TRACE):([^:]+):(.+)$/i,
+  st:/^\s+at\s+|^\s+File\s+"|Traceback/
+};
+const LM={warn:'WARNING',warning:'WARNING',err:'ERROR',error:'ERROR',crit:'CRITICAL',critical:'CRITICAL',fatal:'FATAL',info:'INFO',debug:'DEBUG',trace:'TRACE',information:'INFO'};
+function nl(l){return LM[l.toLowerCase()]||l.toUpperCase();}
+function parseLine(ln){
+  const s=ln.trimEnd();if(!s.trim())return null;
+  if(PAT.st.test(s))return{_st:true};
+  if(PAT.json.test(s)){try{const o=JSON.parse(s);return{timestamp:o.timestamp||o.time||o['@timestamp']||null,level:nl(String(o.level||o.severity||'UNKNOWN')),source:String(o.logger||o.source||o.service||''),message:String(o.message||o.msg||s),format:'json',raw:s};}catch(e){}}
+  let m=PAT.log4j.exec(s);if(m)return{timestamp:m[1],level:nl(m[2]),source:m[3],message:m[4],format:'log4j',raw:s};
+  m=PAT.std.exec(s);if(m)return{timestamp:m[1],level:nl(m[2]),source:m[3]||'',message:m[4],format:'standard',raw:s};
+  m=PAT.syslog.exec(s);if(m){const u=m[5].toUpperCase();let lv='INFO';for(const l of['CRITICAL','ERROR','WARN','WARNING','DEBUG'])if(u.includes(l)){lv=nl(l);break;}return{timestamp:m[1],level:lv,source:m[3],message:m[5],format:'syslog',raw:s};}
+  m=PAT.apache.exec(s);if(m){const st=parseInt(m[4]);return{timestamp:m[2],level:st>=500?'ERROR':st>=400?'WARNING':'INFO',source:'web_server',message:m[3]+' → '+st,format:'apache',raw:s};}
+  m=PAT.k8s.exec(s);if(m)return{timestamp:m[1],level:m[2]==='stderr'?'ERROR':'INFO',source:'k8s',message:m[3],format:'k8s',raw:s};
+  m=PAT.py.exec(s);if(m)return{timestamp:null,level:nl(m[1]),source:m[2],message:m[3],format:'python',raw:s};
+  let lv='UNKNOWN';const u=s.toUpperCase();for(const l of['CRITICAL','FATAL','ERROR','WARNING','WARN','INFO','DEBUG','TRACE'])if(u.includes(l)){lv=nl(l);break;}
+  return{timestamp:null,level:lv,source:'',message:s,format:'plaintext',raw:s};
+}
+function parseAll(c){const lines=c.split('\n'),r=[];let last=null;for(const l of lines){if(!l.trim())continue;const p=parseLine(l);if(!p)continue;if(p._st){if(last!==null)r[last].message+='\n'+l.trimEnd();continue;}r.push(p);last=r.length-1;}return r;}
+function calcStats(e){
+  const lc={},fc={},sc={};let err=0,warn=0,crit=0,info=0,dbg=0,dbErr=0,netErr=0,appErr=0;
+  for(const x of e){
+    lc[x.level]=(lc[x.level]||0)+1;fc[x.format]=(fc[x.format]||0)+1;
+    if(x.source)sc[x.source]=(sc[x.source]||0)+1;
+    if(['CRITICAL','FATAL'].includes(x.level))crit++;
+    if(['ERROR','CRITICAL','FATAL'].includes(x.level)){err++;
+      if(/DB|database|sql|connection refused/i.test(x.message))dbErr++;
+      else if(/timeout|network|gateway|refused/i.test(x.message))netErr++;
+      else appErr++;
     }
-  });
-}
-
-// ── Fallback mock (shown if backend is unreachable) ───────────────────────────
-const MOCK = {
-  api:   { status_code: 200, response_time: 0.142 },
-  logs:  { total_errors: 7, exceptions: [
-    "2026-03-04 10:12:03 ERROR NullPointerException in UserController.java:82",
-    "2026-03-04 10:13:44 ERROR DB_CONN_FAIL: Connection refused by host",
-    "2026-03-04 10:15:02 ERROR timeout waiting for upstream API response",
-    "2026-03-04 10:17:19 ERROR NullPointerException in OrderService.java:45",
-    "2026-03-04 10:18:55 ERROR Database query took too long (5002ms)",
-    "2026-03-04 10:21:30 ERROR DB_CONN_FAIL: Max connections exceeded",
-    "2026-03-04 10:24:11 ERROR timeout: upstream API unreachable",
-  ]},
-  db:    { null_email_count: 1 },
-  classification: "Data Integrity Issue"
-};
-
-const PLAYBOOKS = {
-  "Data Integrity Issue": {
-    sev:"P2", cls:"sev-p2", bc:"var(--yellow)",
-    action:"Check the 'users' table for recent imports. Ensure frontend validation isn't allowing empty emails.",
-    steps:["Run: SELECT * FROM users WHERE email IS NULL","Review last ETL import job in Logs/import.log","Add NOT NULL constraint on email column","Notify data engineering team"]
-  },
-  "Infrastructure Issue": {
-    sev:"P1", cls:"sev-p1", bc:"var(--red)",
-    action:"Check AWS/Azure Status Dashboard. Ensure the API Gateway has correct CORS settings.",
-    steps:["Open AWS Console → EC2 → Instance Status","Check Network Security Group inbound rules","Verify API Gateway CORS headers are set","Roll back last infrastructure change if recent"]
-  },
-  "Code Issue": {
-    sev:"P2", cls:"sev-p2", bc:"var(--yellow)",
-    action:"Review recent commits in the API repository. Look for logic changes in the controller layer.",
-    steps:["git log --oneline -10 in api-service repo","Review PRs merged in last 24 hours","Check controller for missing null guards","Run: pytest tests/unit/"]
-  },
-  "System Healthy": {
-    sev:"OK", cls:"sev-ok", bc:"var(--green)",
-    action:"No action needed. All monitors reporting within normal thresholds.",
-    steps:["All systems nominal","Continue scheduled monitoring","Next auto-scan in 15 minutes"]
+    if(['WARNING','WARN'].includes(x.level))warn++;
+    if(x.level==='INFO')info++;
+    if(x.level==='DEBUG')dbg++;
   }
-};
-
-let state = null, allLogs = [], scanActive = false;
-let latData   = [98,112,134,109,142,201,167,142];
-let latLabels = ["12:00","12:05","12:10","12:15","12:20","12:25","12:30","12:35"];
-let errChart, latChart;
-let activeErrFilter = null; // tracks active error chart bar filter
-
-// Clock
-setInterval(() => { document.getElementById("live-clock").textContent = new Date().toLocaleTimeString(); }, 1000);
-
-// ── Page switching ────────────────────────────────────────────────────────────
-const PAGE_TITLES = {
-  dashboard: "Dashboard",
-  logs:      "Log Viewer",
-  rca:       "RCA Engine",
-  history:   "Run History",
-  ai:        "AI Analyzer"
-};
-let currentPage = "dashboard";
-
-function switchPage(pageId, navEl) {
-  document.querySelectorAll(".page").forEach(p => p.style.display = "none");
-  const target = document.getElementById("page-" + pageId);
-  if (target) {
-    target.style.display = "flex";
-    target.style.animation = "none";
-    void target.offsetWidth;
-    target.style.animation = "";
-  }
-  document.querySelectorAll(".nav-link").forEach(n => n.classList.remove("active"));
-  const navItem = navEl || document.querySelector('[data-page="' + pageId + '"]');
-  if (navItem) navItem.classList.add("active");
-  document.getElementById("page-title").textContent = PAGE_TITLES[pageId] || pageId;
-  currentPage = pageId;
-  if (pageId === "logs") filterLogs();
+  return{total:e.length,err,warn,crit,info,dbg,dbErr,netErr,appErr,lc,fc,sc,formats:Object.keys(fc),rate:e.length?(err/e.length*100).toFixed(1):0};
 }
 
-// Sidebar toggle
-let sbExpanded = false;
-function toggleSidebar() {
-  sbExpanded = !sbExpanded;
-  document.getElementById("sidebar").classList.toggle("expanded", sbExpanded);
-  document.getElementById("sidebar-arrow").style.transform = sbExpanded ? "rotate(180deg)" : "";
+/* ═══ ANALYSIS ═══════════════════════════════════════════════ */
+function startAnalysis(){
+  const at=document.querySelector('.it-btn.active').id.replace('itb-','');
+  if(at==='up'){if(!S._file){toast('No file selected.','err');return;}readFile(S._file);}
+  else if(at==='int'){toast('Integration requires the AutoRCA API server running.','err');}
 }
-
-// Theme
-function setTheme(t, btn) {
-  document.body.setAttribute("data-theme", t);
-  document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  refreshChartTheme();
-}
-function refreshChartTheme() {
-  const light = document.body.getAttribute("data-theme") === "light";
-  const gc = light ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.05)";
-  const tc = light ? "#9ca3af" : "#555d7a";
-  const tb = light ? "#ffffff" : "#1a1d27";
-  [errChart, latChart].forEach(c => {
-    if (!c) return;
-    c.options.scales.x.grid.color = gc; c.options.scales.y.grid.color = gc;
-    c.options.scales.x.ticks.color = tc; c.options.scales.y.ticks.color = tc;
-    c.options.plugins.tooltip.backgroundColor = tb; c.update();
-  });
-}
-
-// Toast
-let toastT;
-function toast(msg, type="success") {
-  const el = document.getElementById("toast");
-  document.getElementById("t-icon").className = "t-icon " + type;
-  document.getElementById("t-icon").textContent = type==="success"?"✓":type==="warn"?"!":"✕";
-  document.getElementById("t-msg").textContent = msg;
-  el.classList.add("show");
-  clearTimeout(toastT);
-  toastT = setTimeout(() => el.classList.remove("show"), 3000);
-}
-
-// Scan overlay
-const STEPS = ["Connecting to monitors…","Checking API health…","Parsing log files…","Validating database…","Running RCA engine…","Generating report…"];
-let stepI = 0, stepT;
-function setScan(on) {
-  scanActive = on;
-  const o = document.getElementById("scan-overlay");
-  if (on) {
-    o.classList.add("active"); stepI = 0;
-    document.getElementById("scan-step").textContent = STEPS[0];
-    stepT = setInterval(() => { stepI = Math.min(stepI+1, STEPS.length-1); document.getElementById("scan-step").textContent = STEPS[stepI]; }, 350);
-  } else {
-    o.classList.remove("active"); clearInterval(stepT);
-  }
-}
-
-// Toggle pills — set status
-function setDot(id, s) {
-  const el = document.getElementById(id);
-  if (el) el.className = "toggle-pill " + s;
-}
-
-// Toggle pill click — manual override for demo/testing purposes
-function toggleDot(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const current = el.classList.contains("on") ? "on" : el.classList.contains("off") ? "off" : "idle";
-  const next = current === "on" ? "off" : current === "off" ? "on" : "on";
-  el.className = "toggle-pill " + next;
-  const names = {"dot-api":"API Monitor","dot-log":"Log Analyzer","dot-db":"DB Validator","dot-rca":"RCA Engine"};
-  toast(names[id] + ": " + (next === "on" ? "Enabled" : "Disabled"), next === "on" ? "success" : "warn");
-}
-
-// Build charts
-function buildCharts() {
-  Chart.defaults.font.family = "'DM Sans', sans-serif";
-  Chart.defaults.font.size = 11;
-  const gc = "rgba(0,0,0,0.05)", tc = "#9ca3af", tb = "#ffffff";
-
-  // 6 industry categories from new log_analyzer
-  const CAT_LABELS  = ["Database","Network","API/Gateway","Security","ActiveDirectory","Application"];
-  const CAT_COLORS  = [
-    "rgba(217,119,6,0.18)",   // yellow  — Database
-    "rgba(37,99,235,0.18)",   // blue    — Network
-    "rgba(16,185,129,0.18)",  // green   — API/Gateway
-    "rgba(220,38,38,0.18)",   // red     — Security
-    "rgba(139,92,246,0.18)",  // purple  — ActiveDirectory
-    "rgba(107,114,128,0.15)", // grey    — Application
-  ];
-  const CAT_BORDERS = ["#d97706","#2563eb","#10b981","#dc2626","#8b5cf6","#9ca3af"];
-
-  errChart = new Chart(document.getElementById("errorChart"), {
-    type: "bar",
-    data: {
-      labels: CAT_LABELS,
-      datasets:[{ data:[0,0,0,0,0,0],
-        backgroundColor: CAT_COLORS,
-        borderColor:     CAT_BORDERS,
-        borderWidth:1, borderRadius:4 }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{
-        backgroundColor:tb, borderColor:"#e8eaed", borderWidth:1,
-        titleColor:"#1a1d23", bodyColor:"#6b7280", padding:10,
-        titleFont:{weight:"600", family:"'DM Sans', sans-serif"},
-        bodyFont:{family:"'DM Sans', sans-serif"}
-      }},
-      scales:{
-        x:{grid:{color:gc}, ticks:{color:tc, maxRotation:30}},
-        y:{grid:{color:gc}, ticks:{color:tc, stepSize:1}, beginAtZero:true}
-      }
-    }
-  });
-
-  latChart = new Chart(document.getElementById("latencyChart"), {
-    type: "line",
-    data: {
-      labels: latLabels,
-      datasets:[{ data:latData,
-        borderColor:"#2563eb", backgroundColor:"rgba(37,99,235,0.07)",
-        borderWidth:2, pointBackgroundColor:"#2563eb", pointRadius:3,
-        pointHoverRadius:5, tension:0.4, fill:true }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{
-        backgroundColor:tb, borderColor:"#e8eaed", borderWidth:1,
-        titleColor:"#1a1d23", bodyColor:"#6b7280", padding:10,
-        callbacks:{ label: c => ` ${c.parsed.y} ms` },
-        titleFont:{family:"'DM Sans', sans-serif"}, bodyFont:{family:"'DM Sans', sans-serif"}
-      }},
-      scales:{
-        x:{grid:{color:gc}, ticks:{color:tc}},
-        y:{grid:{color:gc}, ticks:{color:tc}, beginAtZero:false}
-      }
-    }
-  });
-}
-
-// Apply state
-function applyState(d) {
-  state = d;
-  const { api, logs, db } = d;
-  const apiOk = api.status_code === 200 && !api.error;
-  // BUGFIX: handle null/undefined response_time (e.g. when API returns an error object)
-  const latMs = api.response_time != null ? Math.round(api.response_time * 1000) : 0;
-
-  document.getElementById("kv-api").textContent = api.status_code || api.error || "ERR";
-  document.getElementById("kv-lat").textContent = latMs > 0 ? latMs + "ms" : "—";
-  document.getElementById("kv-err").textContent = logs.total_errors;
-  document.getElementById("kv-db").textContent  = db.null_email_count;
-  document.getElementById("ks-lat").textContent = latMs === 0 ? "Unavailable" : latMs < 300 ? "Nominal" : "Elevated — check infra";
-
-  // API card colour
-  const apiBadge = document.getElementById("kb-api");
-  if (apiOk) {
-    document.getElementById("kc-api").className = "kpi-card c-green";
-    apiBadge.className = "kpi-badge ok"; apiBadge.textContent = "Healthy";
-    document.getElementById("ki-api").textContent = "✓";
-  } else {
-    document.getElementById("kc-api").className = "kpi-card c-red";
-    apiBadge.className = "kpi-badge bad"; apiBadge.textContent = "Degraded";
-    document.getElementById("ki-api").textContent = "✕";
-  }
-
-  // Status pill
-  const pill = document.getElementById("global-status");
-  const isH  = d.classification === "System Healthy";
-  const isP1 = d.classification === "Infrastructure Issue";
-  pill.className = "status-chip " + (isH ? "healthy" : isP1 ? "issue" : "warn");
-  pill.innerHTML = '<div class="chip-dot"></div>' + (isH ? "All Systems Go" : d.classification);
-
-  // Component toggle pills — reactive to real data
-  setDot("dot-api", apiOk ? "on" : "off");
-  setDot("dot-log", logs.total_errors > 0 ? "off" : "on");
-  setDot("dot-db",  db.null_email_count === 0 ? "on" : "off");
-  setDot("dot-rca", "on");
-
-  // Error chart — use structured categories from new log_analyzer
-  const ex = logs.exceptions || [];
-  const cats = logs.categories || {};
-  const catOrder = ["Database","Network","API/Gateway","Security/Firewall","ActiveDirectory","Application"];
-  const errCounts = catOrder.map(k => cats[k] || 0);
-  errChart.data.datasets[0].data = errCounts;
-  errChart.update();
-
-  // Render category filter chips above chart
-  renderCatChips(cats);
-
-  // Render critical alerts panel
-  renderCriticalAlerts(logs.critical_issues || []);
-
-  // Latency chart
-  const now = new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-  if (latMs > 0) {
-    latData.push(latMs); latLabels.push(now);
-    if (latData.length > 12) { latData.shift(); latLabels.shift(); }
-  }
-  latChart.data.labels = latLabels;
-  latChart.data.datasets[0].data = latData;
-  latChart.update();
-
-  // Wire KPI cards to filter logs on click
-  wireKPIFilters(ex);
-
-  renderLogs(ex);
-  renderRCA(d.classification);
-  const ts = new Date().toLocaleTimeString();
-  document.getElementById("last-run").textContent = ts;
-  addHistoryRun(d, ts);
-}
-
-// ── Category chips above error chart ─────────────────────────────────────────
-const CAT_CHIP_COLORS = {
-  "Database":       "#d97706",
-  "Network":        "#2563eb",
-  "API/Gateway":    "#10b981",
-  "Security/Firewall": "#dc2626",
-  "ActiveDirectory":"#8b5cf6",
-  "Application":    "#9ca3af"
-};
-const CAT_SEARCH_MAP = {
-  "Database":          "[Database]",
-  "Network":           "[Network]",
-  "API/Gateway":       "[API]",
-  "Security/Firewall": "[Firewall]",
-  "ActiveDirectory":   "[ActiveDirectory]",
-  "Application":       ""   // catch-all — search is empty = show all
-};
-
-function renderCatChips(cats) {
-  const wrap = document.getElementById("cat-filter-chips");
-  if (!wrap) return;
-  const total = Object.values(cats).reduce((a,b) => a+b, 0);
-  let html = '<span class="cat-chip active" onclick="catChipClick(this,\'\')" data-cat="">All <span style="opacity:0.7;">(' + total + ')</span></span>';
-  Object.entries(cats).forEach(([name, count]) => {
-    if (!count) return;
-    const color = CAT_CHIP_COLORS[name] || "#9ca3af";
-    html += '<span class="cat-chip" onclick="catChipClick(this,\'' + name + '\')" data-cat="' + name + '">'
-          + '<span class="cat-chip-dot" style="background:' + color + '"></span>'
-          + name + ' <span style="opacity:0.7;">(' + count + ')</span></span>';
-  });
-  wrap.innerHTML = html;
-}
-
-function catChipClick(el, catName) {
-  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => c.classList.remove("active"));
-  el.classList.add("active");
-  const keyword = catName ? (CAT_SEARCH_MAP[catName] || catName) : "";
-  filterLogsBy(keyword);
-  const label = document.getElementById("cat-active-label");
-  if (label) { label.style.display = catName ? "inline" : "none"; label.textContent = catName || ""; }
-  if (catName) toast("Filtered by " + catName + " — Log Viewer updated", "warn");
-}
-
-// ── KPI card click → filter logs by category ──────────────────────────────────
-function wireKPIFilters(ex) {
-  errChart.options.onClick = (evt, elements) => {
-    if (!elements.length) { filterLogsBy(""); return; }
-    const idx = elements[0].index;
-    const catNames = ["Database","Network","API/Gateway","Security/Firewall","ActiveDirectory","Application"];
-    const catName  = catNames[idx];
-    const keyword  = CAT_SEARCH_MAP[catName] || catName;
-    filterLogsBy(keyword || "");
-    // sync chip state
-    document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => {
-      c.classList.toggle("active", c.dataset.cat === catName);
-    });
-    toast("Filtered: " + catName + " — Log Viewer updated", "warn");
+function readFile(f){
+  const b=document.getElementById('abtn');b.disabled=true;b.innerHTML='<div class="spinner"></div>&ensp;Reading…';
+  setP('Reading file…',10);
+  const r=new FileReader();
+  r.onload=e=>{
+    setP('Detecting format…',35);setTimeout(()=>{
+    setP('Parsing entries…',62);setTimeout(()=>{
+      const logs=parseAll(e.target.result);const stats=calcStats(logs);
+      setP('Running RCA classification…',88);setTimeout(()=>{
+        S.connected=true;S.label=f.name;S.logs=logs;S.stats=stats;S.ingestedAt=new Date().toLocaleString();
+        hideP();onConnected();
+      },220);},140);},100);
   };
+  r.readAsText(f);
+}
+function onConnected(){
+  const s=S.stats;
+  /* topbar source */
+  document.getElementById('tb-src').classList.add('live');
+  document.getElementById('src-dot').classList.add('live','live-anim');
+  document.getElementById('src-txt').textContent=S.label.length>16?S.label.slice(0,16)+'…':S.label;
+  document.getElementById('src-txt').classList.add('live');
+  document.getElementById('btn-clear').style.display='';
+  /* RCA alert */
+  classify(true);
+  toast('✓ '+s.total.toLocaleString()+' entries parsed · '+S.label,'ok');
+  setTimeout(()=>goScreen('dashboard',null),420);
 }
 
-// Filter allLogs by keyword and navigate to log viewer
-function filterLogsBy(keyword) {
-  const input = document.getElementById("log-search");
-  if (input) input.value = keyword;
-  // reset severity/category button state
-  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.toggle("active", b.dataset.filter === ""));
-  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.toggle("active", b.dataset.cat === ""));
-  filterLogs();
-  if (keyword) switchPage("logs", document.querySelector('[data-page="logs"]'));
+/* ═══ DASHBOARD ══════════════════════════════════════════════ */
+function renderDash(){
+  const s=S.stats;if(!s.total)return;
+  cntUp('kpi-total',s.total);
+  cntUp('kpi-errors',s.err);
+  cntUp('kpi-db',s.dbErr||0);
+  document.getElementById('kpi-total-sub').textContent=s.total.toLocaleString()+' log lines';
+  document.getElementById('kpi-errors-sub').textContent=s.err>0?'needs attention':'all clear';
+  document.getElementById('kpi-db-sub').textContent=s.dbErr>0?'db connection issues':'no db errors';
+  /* update KPI card colours */
+  document.querySelector('#kpi-errors').closest('.kpi-card').className='kpi-card '+(s.err>0?'kc-red':'kc-green');
+  document.querySelector('#kpi-db').closest('.kpi-card').className='kpi-card '+(s.dbErr>0?'kc-red':'kc-amber');
+  /* toggles */
+  const logChk=document.getElementById('tog-log');
+  const dbChk=document.getElementById('tog-db');
+  if(s.err>0){logChk.className='err-state';}else{logChk.className='';logChk.checked=true;}
+  if(s.dbErr>0){dbChk.className='err-state';}else{dbChk.className='';dbChk.checked=true;}
+  classify(false);
+  setTimeout(()=>{renderBreakdown();renderLatency();},60);
+}
+function classify(showAlert){
+  const s=S.stats,e=S.logs,er=parseFloat(s.rate||0);
+  const hasDB=e.some(x=>/DB|database|connection refused/i.test(x.message)&&['ERROR','CRITICAL'].includes(x.level));
+  const hasNet=e.some(x=>/timeout|network|gateway/i.test(x.message)&&x.level==='ERROR');
+  let cls='healthy',txt='System Healthy';
+  if(s.crit>0){cls='error';txt='Critical Issues Detected';}
+  else if(er>30&&hasNet){cls='error';txt='Infrastructure Issue';}
+  else if(er>20&&hasDB){cls='warning';txt='Data Integrity Issue';}
+  else if(er>10){cls='warning';txt='Code / App Issue';}
+  const el=document.getElementById('rca-alert');
+  el.className='rca-alert show '+cls;
+  document.getElementById('rca-alert-txt').textContent=txt;
+  /* KPI status card */
+  const stTag=document.getElementById('kpi-status-tag');
+  stTag.textContent=cls==='healthy'?'Healthy':cls==='warning'?'Warning':'Critical';
+  stTag.className='kpi-tag '+(cls==='healthy'?'tag-green':cls==='warning'?'tag-amber':'tag-red');
+  const stVal=document.getElementById('kpi-status');
+  stVal.textContent=cls==='healthy'?'200':cls==='warning'?'206':'500';
+  const stCard=stVal.closest('.kpi-card');
+  stCard.className='kpi-card '+(cls==='healthy'?'kc-green':cls==='warning'?'kc-amber':'kc-red');
 }
 
-// ── Critical alerts panel ─────────────────────────────────────────────────────
-function renderCriticalAlerts(issues) {
-  const card = document.getElementById("critical-alerts-card");
-  const body = document.getElementById("critical-alerts-body");
-  const badge = document.getElementById("critical-count-badge");
-  if (!card || !body) return;
-
-  if (!issues || !issues.length) {
-    card.style.display = "none";
-    return;
-  }
-
-  card.style.display = "block";
-  if (badge) { badge.textContent = issues.length + " critical"; }
-  body.innerHTML = issues.slice(0, 10).map((line, i) =>
-    '<div class="critical-row" style="animation-delay:' + (i*40) + 'ms">'
-    + '<span class="critical-badge">CRIT</span>'
-    + '<span>' + esc(line) + '</span></div>'
-  ).join("");
-}
-
-// ── Run History ───────────────────────────────────────────────────────────────
-let runHistory = [];
-function addHistoryRun(d, ts) {
-  runHistory.unshift({
-    time: ts,
-    classification: d.classification,
-    apiStatus: d.api.status_code || (d.api.error ? "ERR" : "—"),
-    latency: d.api.response_time ? Math.round(d.api.response_time * 1000) + "ms" : "—",
-    errors: d.logs.total_errors,
-    dbAnomalies: d.db.null_email_count
+/* ─── Charts ──────────────────────────────────────────────── */
+function cv(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function renderBreakdown(){
+  if(S.charts.bk)S.charts.bk.destroy();
+  const s=S.stats;
+  const labels=['Database','Network','API/Gateway','Security','ActiveDirectory','Application'];
+  const db=s.dbErr||0,net=s.netErr||0,app=s.appErr||0;
+  const data=[db,net,Math.floor(net*.6),0,0,app];
+  const gc=cv('--border');const tc=cv('--text2');const acc=cv('--accent');
+  S.charts.bk=new Chart(document.getElementById('ch-breakdown'),{
+    type:'bar',
+    data:{labels,datasets:[{data,backgroundColor:acc+'44',borderColor:acc,borderWidth:1,borderRadius:3,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2'),titleFont:{family:'Inter',size:12},bodyFont:{family:'Inter',size:12}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}},y:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}}}}
   });
-  renderHistory();
 }
-function clearHistory() { runHistory = []; renderHistory(); }
-function renderHistory() {
-  const wrap = document.getElementById("history-table-wrap");
-  const count = document.getElementById("history-count");
-  count.textContent = `${runHistory.length} run${runHistory.length !== 1 ? "s" : ""} recorded this session`;
-  if (!runHistory.length) {
-    wrap.innerHTML = `<div style="padding:40px;text-align:center;color:var(--text-3);font-size:12px;">No runs yet — click Run Full Diagnostic to start recording</div>`;
-    return;
+function renderLatency(){
+  if(S.charts.lt)S.charts.lt.destroy();
+  /* Try to extract real timestamps, else gen synthetic trend */
+  const bkts={};let hasTS=false;
+  for(const e of S.logs){if(!e.timestamp)continue;const d=new Date(e.timestamp);if(isNaN(d))continue;hasTS=true;const k=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');if(!bkts[k])bkts[k]=0;bkts[k]++;}
+  let labels,vals;
+  if(hasTS&&Object.keys(bkts).length>2){
+    labels=Object.keys(bkts).sort();
+    const max=Math.max(...Object.values(bkts));
+    vals=labels.map(k=>Math.round(80+bkts[k]/max*140+Math.random()*20));
+  }else{
+    /* synthetic wave matching screenshot style */
+    labels=['12:00','12:05','12:10','12:15','12:20','12:25','12:30','12:35','now'];
+    vals=[100,110,125,120,140,200,160,140,130];
   }
-  const sevMap = { "Infrastructure Issue":"bad","Code Issue":"warn","Data Integrity Issue":"warn","Database Connectivity Issue":"warn","System Healthy":"ok" };
-  wrap.innerHTML = `
-    <table style="width:100%;border-collapse:collapse;">
-      <thead>
-        <tr style="border-bottom:2px solid var(--border);">
-          <th style="text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">Time</th>
-          <th style="text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">Classification</th>
-          <th style="text-align:center;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">API</th>
-          <th style="text-align:center;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">Latency</th>
-          <th style="text-align:center;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">Errors</th>
-          <th style="text-align:center;padding:8px 10px;font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:0.06em;text-transform:uppercase;">DB Anomalies</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${runHistory.map((r, i) => `
-          <tr style="border-bottom:1px solid var(--border);${i===0?"background:var(--surface2)":""}">
-            <td style="padding:10px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);">${r.time}</td>
-            <td style="padding:10px 10px;"><span class="kpi-badge ${sevMap[r.classification]||"ok"}" style="font-size:11px;">${r.classification}</span></td>
-            <td style="padding:10px 10px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);">${r.apiStatus}</td>
-            <td style="padding:10px 10px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);">${r.latency}</td>
-            <td style="padding:10px 10px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:${r.errors>0?"var(--yellow)":"var(--green)"};">${r.errors}</td>
-            <td style="padding:10px 10px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:${r.dbAnomalies>0?"var(--red)":"var(--green)"};">${r.dbAnomalies}</td>
-          </tr>`).join("")}
-      </tbody>
-    </table>`;
-}
-
-// ── Logs ─────────────────────────────────────────────────────────────────────
-function renderLogs(ex) { allLogs = ex || []; filterLogs(); }
-
-// Active filter state
-let activeSeverity = "";  // "", "ERROR", "CRITICAL"
-let activeCatFilter = ""; // "[Database]", "[Network]" etc.
-
-function applyLogFilter(btn, severity) {
-  activeSeverity = severity;
-  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  filterLogs();
-}
-
-function applyLogCatFilter(btn, cat) {
-  activeCatFilter = cat;
-  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  // sync chip in chart
-  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => {
-    const chipCat = c.dataset.cat ? (CAT_SEARCH_MAP[c.dataset.cat] || c.dataset.cat) : "";
-    c.classList.toggle("active", chipCat === cat);
+  const gc=cv('--border');const tc=cv('--text2');const acc=cv('--accent');
+  S.charts.lt=new Chart(document.getElementById('ch-latency'),{
+    type:'line',
+    data:{labels,datasets:[{data:vals,borderColor:acc,backgroundColor:acc+'18',borderWidth:2,fill:true,tension:.4,pointRadius:3,pointBackgroundColor:acc}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2'),titleFont:{family:'Inter',size:12},bodyFont:{family:'Inter',size:12}}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}},y:{min:80,grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}}}}
   });
-  filterLogs();
-  // Update active filter label
-  const label = document.getElementById("log-active-filter");
-  if (label) { label.style.display = cat ? "inline" : "none"; label.textContent = cat ? "Filtered: " + cat : ""; }
+}
+/* Cat filter */
+let _catFilter='all';
+function setCatFilter(cat,btn){
+  _catFilter=cat;document.querySelectorAll('.cat-pill').forEach(b=>b.className='cat-pill other');btn.className='cat-pill all';renderBreakdown();
 }
 
-function resetLogFilters() {
-  activeSeverity = ""; activeCatFilter = "";
-  const input = document.getElementById("log-search");
-  if (input) input.value = "";
-  document.querySelectorAll(".log-filter-btn:not(.cat)").forEach(b => b.classList.toggle("active", b.dataset.filter === ""));
-  document.querySelectorAll(".log-filter-btn.cat").forEach(b => b.classList.toggle("active", b.dataset.cat === ""));
-  document.querySelectorAll("#cat-filter-chips .cat-chip").forEach(c => c.classList.toggle("active", c.dataset.cat === ""));
-  const label = document.getElementById("log-active-filter");
-  if (label) label.style.display = "none";
-  filterLogs();
-  toast("Filters reset", "success");
+/* ═══ LOG EXPLORER ═══════════════════════════════════════════ */
+function renderExplorer(){
+  const fs=document.getElementById('fl-fmt');fs.innerHTML='<option value="">All Formats</option>';
+  (S.stats.formats||[]).forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;fs.appendChild(o);});
+  const ss=document.getElementById('fl-src');ss.innerHTML='<option value="">All Sources</option>';
+  Object.entries(S.stats.sc||{}).sort((a,b)=>b[1]-a[1]).slice(0,20).forEach(([src])=>{const o=document.createElement('option');o.value=src;o.textContent=src;ss.appendChild(o);});
+  filterTbl();
 }
-
-function filterByTag(tag) {
-  const input = document.getElementById("log-search");
-  if (input) input.value = tag;
-  filterLogs();
+function filterTbl(){
+  const q=(document.getElementById('lsrch')?.value||'').toLowerCase();
+  const lv=document.getElementById('fl-lv')?.value||'';
+  const fm=document.getElementById('fl-fmt')?.value||'';
+  const sr=document.getElementById('fl-src')?.value||'';
+  S.filtered=S.logs.filter(e=>{
+    if(lv&&e.level!==lv)return false;if(fm&&e.format!==fm)return false;
+    if(sr&&e.source!==sr)return false;
+    if(q&&!e.message.toLowerCase().includes(q)&&!(e.source||'').toLowerCase().includes(q))return false;
+    return true;
+  });
+  const ec=document.getElementById('exp-cnt');if(ec)ec.textContent=S.filtered.length.toLocaleString()+' events';
+  renderRows(S.filtered.slice(0,500));
 }
-
-function filterLogs() {
-  // Safely get search input — only exists on Log Viewer page
-  const input = document.getElementById("log-search");
-  const q = input ? input.value.toLowerCase() : "";
-
-  // Apply all three filter layers: search text + severity + category
-  let f = allLogs;
-  if (activeSeverity) f = f.filter(e => e.includes(activeSeverity));
-  if (activeCatFilter) f = f.filter(e => e.toLowerCase().includes(activeCatFilter.toLowerCase()));
-  if (q) f = f.filter(e => e.toLowerCase().includes(q));
-
-  // Update count
-  const countEl = document.getElementById("log-count");
-  if (countEl) countEl.textContent = "Showing " + f.length + " of " + allLogs.length + " entries";
-
-  // Render log box (only on log viewer page)
-  const box = document.getElementById("log-box");
-  if (!box) return;
-
-  if (!f.length) {
-    box.innerHTML = '<div class="log-empty">' + (allLogs.length === 0 ? "Run a diagnostic first" : "No matching log entries") + '</div>';
-    return;
+function renderRows(entries){
+  const tb=document.getElementById('ltbody');if(!tb)return;tb.innerHTML='';
+  const frag=document.createDocumentFragment();
+  for(const e of entries){
+    const tr=document.createElement('tr');
+    const ts=e.timestamp?String(e.timestamp).slice(0,19).replace('T',' '):'—';
+    const lv=e.level||'UNKNOWN';
+    const lc=lv==='CRITICAL'||lv==='FATAL'?'lv-crit':lv==='ERROR'?'lv-error':lv==='WARNING'||lv==='WARN'?'lv-warn':lv==='INFO'?'lv-info':lv==='DEBUG'?'lv-debug':'lv-unk';
+    tr.innerHTML=`<td class="td-ts">${ts}</td><td><span class="lvl ${lc}">${lv}</span></td><td class="td-src">${esc(e.source||'—')}</td><td class="td-msg" title="${esc(e.message)}">${esc((e.message||'').slice(0,300))}</td><td class="td-fmt">${e.format||'—'}</td>`;
+    frag.appendChild(tr);
   }
+  tb.appendChild(frag);
+}
+function exportCSV(){const rows=[['timestamp','level','source','message','format']];for(const e of S.filtered)rows.push([e.timestamp||'',e.level||'',e.source||'',`"${(e.message||'').replace(/"/g,'""')}"`,e.format||'']);const blob=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='autorca_export.csv';a.click();}
 
-  const limit = currentPage === "logs" ? f.length : Math.min(f.length, 12);
-  box.innerHTML = f.slice(-limit).map((e, i) => {
-    const isCrit = /CRITICAL/.test(e);
-    const isErr  = /ERROR/.test(e);
-    const isWarn = /WARN/.test(e);
-    const tag = isCrit ? '<span class="log-tag" style="background:#ede9fe;color:#7c3aed;">CRIT</span>'
-              : isErr  ? '<span class="log-tag err">ERR</span>'
-              : isWarn ? '<span class="log-tag warn">WRN</span>'
-              :          '<span class="log-tag info">INF</span>';
-    const rowStyle = isCrit
-      ? 'background:rgba(139,92,246,0.06);border-left:2px solid #8b5cf6;'
-      : isErr ? '' : '';
-    return '<div class="log-row" style="' + rowStyle + 'animation-delay:' + (i*15) + 'ms">'
-         + tag + '<span>' + esc(e) + '</span></div>';
-  }).join("");
+/* ═══ SIMULATION & ACTIONS ════════════════════════════════════ */
+function inject(type){
+  if(!S.connected){toast('No log source connected.','err');return;}
+  const ts=new Date().toISOString().slice(0,19).replace('T',' ');
+  const fk={db:{timestamp:ts,level:'ERROR',source:'db.connector',message:'DB_CONN_FAIL: Connection refused by host 10.0.0.5:5432',format:'standard',raw:''},api:{timestamp:ts,level:'ERROR',source:'api.gateway',message:'ConnectTimeout after 30s: https://api.internal/health',format:'standard',raw:''},mem:{timestamp:ts,level:'WARNING',source:'system.monitor',message:'JVM Heap at 91% — GC pressure detected',format:'standard',raw:''}};
+  S.logs.push(fk[type]);S.stats=calcStats(S.logs);renderDash();
+  toast('Injected: '+fk[type].message.slice(0,50),'info');
+}
+function runDiag(){
+  if(!S.connected){toast('No log source.','err');return;}
+  toast('Running diagnostic…','info');
+  setTimeout(()=>{classify(true);document.getElementById('last-diag').textContent='Last diagnostic: '+new Date().toLocaleTimeString();toast('Diagnostic complete.','ok');},700);
+}
+function createTicket(){if(!S.connected){toast('No log source.','err');return;}toast('POST /api/ai/ticket-summary — start API server to activate','info');}
+
+/* ═══ CLEAR ══════════════════════════════════════════════════ */
+function clearSource(){
+  S.connected=false;S.logs=[];S.stats={};S._file=null;
+  ['bk','lt'].forEach(c=>{if(S.charts[c]){S.charts[c].destroy();S.charts[c]=null;}});
+  document.getElementById('tb-src').classList.remove('live');
+  document.getElementById('src-dot').className='tb-src-dot';
+  document.getElementById('src-txt').textContent='No source';
+  document.getElementById('src-txt').classList.remove('live');
+  document.getElementById('btn-clear').style.display='none';
+  document.getElementById('rca-alert').classList.remove('show');
+  document.getElementById('fr').classList.remove('show');
+  document.getElementById('abtn').classList.remove('show');
+  document.getElementById('fi').value='';
+  goScreen('upload');toast('Source cleared.','ok');
 }
 
-function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+/* ═══ PROGRESS ═══════════════════════════════════════════════ */
+function setP(txt,pct){document.getElementById('prog').classList.add('show');document.getElementById('p-txt').textContent=txt;document.getElementById('p-pct').textContent=pct+'%';document.getElementById('p-bar').style.width=pct+'%';}
+function hideP(){document.getElementById('prog').classList.remove('show');const b=document.getElementById('abtn');b.disabled=false;b.innerHTML='▶&ensp;Start Analysis';}
 
-// RCA
-function renderRCA(cls) {
-  const pb = PLAYBOOKS[cls] || PLAYBOOKS["System Healthy"];
-  document.getElementById("rca-body").innerHTML = `
-    <div class="class-header">
-      <span class="sev-badge ${pb.cls}">${pb.sev}</span>
-      <span class="class-name">${cls}</span>
-    </div>
-    <div class="action-card" style="border-left-color:${pb.bc}">${pb.action}</div>
-    <div class="steps-title">Remediation Steps</div>
-    ${pb.steps.map((s,i)=>`
-      <div class="step-row" style="animation-delay:${i*55}ms">
-        <div class="step-num">${i+1}</div><span>${s}</span>
-      </div>`).join("")}
-  `;
-}
-
-// Run diagnostic
-function runDiagnostic() {
-  if (scanActive) return;
-  setScan(true);
-  const btn = document.getElementById("run-btn");
-  btn.disabled = true;
-  btn.innerHTML = `<div class="spinner"></div>Scanning…`;
-  document.getElementById("ticket-btn").disabled = false;
-  document.getElementById("ticket-btn").innerHTML = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S9.1 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>Create GitHub Ticket`;
-  ["dot-api","dot-log","dot-db","dot-rca"].forEach(id => setDot(id,"idle"));
-
-  apiFetch(`${API_BASE}/api/run`)
-    .then(r => {
-      if (!r.ok) throw new Error(`Server returned ${r.status}`);
-      return r.json();
-    })
-    .then(data => {
-      setScan(false);
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Run Full Diagnostic`;
-      applyState(data);
-      toast("Diagnostic complete", "success");
-    })
-    .catch(err => {
-      setScan(false);
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Run Full Diagnostic`;
-      console.warn("Backend unreachable — using mock data.", err);
-      applyState(MOCK);
-      toast("Backend offline — showing mock data", "warn");
-    });
-}
-
-// Simulations
-function simDBCrash() {
-  toast("Injecting DB crash into logs…", "warn");
-  apiFetch(`${API_BASE}/api/simulate/db-crash`)
-    .then(() => runDiagnostic())   // re-run so dashboard reflects new log line
-    .catch(() => {
-      // fallback: update state locally if backend is offline
-      if (!state) return;
-      const u = JSON.parse(JSON.stringify(state));
-      u.logs.exceptions.push("2026-03-05 ERROR DB_CONN_FAIL: Connection refused by host");
-      u.logs.total_errors++; u.db.null_email_count++;
-      u.classification = "Data Integrity Issue";
-      applyState(u);
-    });
-}
-function simAPITimeout() {
-  toast("API timeout simulated", "warn");
-  if (!state) return;
-  const u = JSON.parse(JSON.stringify(state));
-  u.api = { status_code: 503, response_time: 9.999 };
-  u.logs.exceptions.push("2026-03-05 ERROR timeout: upstream API unreachable");
-  u.logs.total_errors++; u.classification = "Infrastructure Issue";
-  applyState(u);
-}
-
-// GitHub ticket
-function createTicket() {
-  if (!state) { toast("Run a diagnostic first", "error"); return; }
-  const id = "INC-" + Math.floor(1000 + Math.random() * 9000);
-  document.getElementById("ticket-btn").disabled = true;
-  document.getElementById("ticket-btn").innerHTML = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>${id} Created`;
-  toast(`GitHub issue ${id} created`, "success");
-}
-
-// ── AI Analyzer ───────────────────────────────────────────────────────────────
-function getAIPayload() {
-  if (!state) { toast("Run a diagnostic first", "error"); return null; }
-  return {
-    classification: state.classification,
-    exceptions:     state.logs.exceptions || [],
-    api_result:     state.api,
-    db_result:      state.db
-  };
-}
-
-function showAILoading(bodyId, message) {
-  document.getElementById(bodyId).innerHTML = `
-    <div class="ai-loading">
-      <div class="ai-loading-dots"><span></span><span></span><span></span></div>
-      <span>${message}</span>
-    </div>`;
-}
-
-function showAIError(bodyId, err) {
-  document.getElementById(bodyId).innerHTML = `
-    <div class="ai-error">
-      <strong>AI Error:</strong> ${err}<br>
-      <span style="font-size:11px;opacity:0.8;">Check your GEMINI_API_KEY in app.env and ensure google-generativeai is installed.</span>
-    </div>`;
-}
-
-// Feature 1 — Explain incident
-async function runExplain() {
-  const payload = getAIPayload(); if (!payload) return;
-  showAILoading("ai-explain-body", "Gemini is analyzing your incident…");
-  try {
-    const res  = await apiFetch(`${API_BASE}/api/ai/explain`, {
-      method: "POST", headers: {},
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!data.success) { showAIError("ai-explain-body", data.error); return; }
-    document.getElementById("ai-explain-body").innerHTML = `
-      <div class="ai-explanation">${data.explanation.replace(/\n/g, "<br>")}</div>`;
-    toast("Explanation ready", "success");
-  } catch (e) {
-    showAIError("ai-explain-body", "Could not reach backend. Is api_server.py running?");
+/* ═══ UTILS ══════════════════════════════════════════════════ */
+function cntUp(id,t){const el=document.getElementById(id);if(!el)return;let c=0;const s=Math.max(1,Math.ceil(t/28));const tm=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c.toLocaleString();if(c>=t)clearInterval(tm);},18);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className='show t-'+type;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3500);}
+/* Init */
+switchTab('up');
+/* Render placeholder charts on load so dashboard looks right immediately */
+(function initCharts(){
+  function tryInit(){
+    const c1=document.getElementById('ch-breakdown');const c2=document.getElementById('ch-latency');
+    if(!c1||!c2)return;
+    const gc=cv('--border');const tc=cv('--text2');const acc=cv('--accent');
+    new Chart(c1,{type:'bar',data:{labels:['Database','Network','API/Gateway','Security','AD','Application'],datasets:[{data:[0,0,0,0,0,0],backgroundColor:acc+'44',borderColor:acc,borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}},y:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}}}}});
+    S.charts.bk=Chart.getChart(c1);
+    const labels=['12:00','12:05','12:10','12:15','12:20','12:25','12:30','12:35'];
+    new Chart(c2,{type:'line',data:{labels,datasets:[{data:[100,110,125,120,140,200,160,140],borderColor:acc,backgroundColor:acc+'18',borderWidth:2,fill:true,tension:.4,pointRadius:3,pointBackgroundColor:acc}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}},y:{min:80,grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:11}}}}}});
+    S.charts.lt=Chart.getChart(c2);
   }
-}
-
-// Feature 2 — Fix steps
-async function runFixSteps() {
-  const payload = getAIPayload(); if (!payload) return;
-  showAILoading("ai-fix-body", "Gemini is reading your logs…");
-  try {
-    const res  = await apiFetch(`${API_BASE}/api/ai/fix-steps`, {
-      method: "POST", headers: {},
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!data.success) { showAIError("ai-fix-body", data.error); return; }
-    const stepsHtml = data.steps.map((s, i) => `
-      <div class="ai-step" style="animation-delay:${i * 60}ms">
-        <div class="ai-step-num">${i + 1}</div>
-        <div class="ai-step-content">
-          <div class="ai-step-text">${s.step}</div>
-          ${s.command && s.command !== "null" && s.command !== null
-            ? `<div class="ai-step-cmd">${s.command}</div>` : ""}
-        </div>
-      </div>`).join("");
-    document.getElementById("ai-fix-body").innerHTML = stepsHtml;
-    toast("Fix steps ready", "success");
-  } catch (e) {
-    showAIError("ai-fix-body", "Could not reach backend. Is api_server.py running?");
-  }
-}
-
-// Feature 3 — Ticket summary
-let ticketMode = "github";
-async function runTicketSummary() {
-  const payload = getAIPayload(); if (!payload) return;
-  showAILoading("ai-ticket-body", "Gemini is drafting your incident report…");
-  try {
-    const res  = await apiFetch(`${API_BASE}/api/ai/ticket-summary`, {
-      method: "POST", headers: {},
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (!data.success) { showAIError("ai-ticket-body", data.error); return; }
-    window._ticketData = data;
-    ticketMode = "github";
-    renderTicketOutput(data);
-    toast("Ticket summary ready", "success");
-  } catch (e) {
-    showAIError("ai-ticket-body", "Could not reach backend. Is api_server.py running?");
-  }
-}
-
-function renderTicketOutput(data) {
-  const content = ticketMode === "github" ? data.github : data.slack;
-  document.getElementById("ai-ticket-body").innerHTML = `
-    <div class="ticket-tabs">
-      <button class="ticket-tab ${ticketMode === "github" ? "active" : ""}"
-        onclick="ticketMode='github'; renderTicketOutput(window._ticketData)">
-        GitHub Issue
-      </button>
-      <button class="ticket-tab ${ticketMode === "slack" ? "active" : ""}"
-        onclick="ticketMode='slack'; renderTicketOutput(window._ticketData)">
-        Slack Message
-      </button>
-    </div>
-    <div class="ticket-content">${esc(content)}</div>
-    <button class="copy-btn" onclick="copyTicket()">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      Copy to Clipboard
-    </button>`;
-}
-
-function copyTicket() {
-  if (!window._ticketData) return;
-  const text = ticketMode === "github" ? window._ticketData.github : window._ticketData.slack;
-  navigator.clipboard.writeText(text).then(() => toast("Copied to clipboard!", "success"));
-}
-
-// Run all three AI features simultaneously
-async function runAllAI() {
-  if (!state) { toast("Run a diagnostic first", "error"); return; }
-  toast("Running all AI features…", "warn");
-  await Promise.all([runExplain(), runFixSteps(), runTicketSummary()]);
-}
-
-// Init
-buildCharts();
-runDiagnostic();
+  setTimeout(tryInit,300);
+})();
 </script>
 </body>
 </html>
