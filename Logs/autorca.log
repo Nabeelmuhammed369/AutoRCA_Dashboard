@@ -4211,3 +4211,5 @@ google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429,
 2026-03-06 17:13:37,084 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-06 17:13:37,085 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-06 17:13:37,086 | WARNING | RCA_ENGINE | Data integrity issue detected.
+2026-03-06 23:45:43,061 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-06 23:46:31,486 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
