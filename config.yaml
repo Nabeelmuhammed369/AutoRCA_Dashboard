@@ -1,9 +1,23 @@
+# config.yaml — AutoRCA Configuration
+# ──────────────────────────────────────────────────────────────────────────────
+# IMPORTANT: Log file path has been REMOVED from this config.
+# Logs are now ingested via:
+#   [1] Streamlit UI  →  pages/1_Log_Source.py  (upload or integration)
+#   [2] API push      →  POST /api/ingest        (log agents / pipelines)
+#
+# This file only configures optional supporting services (API health, DB check).
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Optional: external API to health-check during RCA diagnostics
+# Leave url blank ("") to skip API health check
 api:
   url: "https://jsonplaceholder.typicode.com/posts/1"
   timeout: 3
 
+# Optional: SQLite database path for data integrity checks
+# Leave path blank ("") to skip DB validation
 database:
   path: "app.db"
 
-log:
-  file: "Z:/Nabeel/AutoRCA/Logs/app.log"
+# Log source is now managed at runtime via the UI or /api/ingest.
+# No hardcoded path here.
