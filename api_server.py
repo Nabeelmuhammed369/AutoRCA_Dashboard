@@ -86,9 +86,13 @@ CORS_ORIGINS = [
     ALLOWED_ORIGIN,
     "http://localhost:8501",   # Streamlit default port
     "http://127.0.0.1:8501",
-    "http://localhost:5500",
-    "null",
+    "http://localhost:5500",   # Live Server
+    "http://127.0.0.1:5500",
+    "null",                    # file:// protocol
 ]
+
+# Allow ALL localhost ports (Five Server uses random ports like 54856)
+CORS_ORIGIN_REGEX = r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
 
 # ── App ───────────────────────────────────────────────────────────────────────
 app = FastAPI(title="AutoRCA API", version="4.0.0", docs_url="/docs", redoc_url=None)
@@ -97,8 +101,10 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
-    allow_methods=["GET", "POST"],
+    allow_origin_regex=CORS_ORIGIN_REGEX,
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["X-API-Key", "Content-Type"],
+    allow_credentials=False,
 )
 
 
