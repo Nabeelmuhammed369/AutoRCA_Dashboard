@@ -434,6 +434,103 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 /* ═══ HOVER LIFT (global) ════════════════════════════════════ */
 .hover-lift{transition:transform .2s ease, box-shadow .2s ease;}
 .hover-lift:hover{transform:translateY(-3px);box-shadow:0 8px 32px #0005;}
+
+/* ═══ AUTO-REFRESH BAR ═══════════════════════════════════════ */
+#refresh-bar{display:none;align-items:center;gap:10px;padding:6px 20px;background:var(--accent)0d;border-bottom:1px solid var(--accent)25;font-size:11px;color:var(--accent2);flex-shrink:0;}
+#refresh-bar.active{display:flex;}
+.rb-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse-dot 1.5s infinite;flex-shrink:0;}
+.rb-progress{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.rb-fill{height:100%;background:var(--accentg);border-radius:2px;transition:width .5s linear;}
+.rb-btns{display:flex;gap:4px;}
+.rb-btn{padding:2px 8px;border-radius:5px;border:1px solid var(--accent)40;background:none;color:var(--accent2);cursor:pointer;font-size:10px;font-family:inherit;transition:all .15s;}
+.rb-btn:hover{background:var(--accent)20;}
+.rb-btn.active{background:var(--accent)30;font-weight:600;}
+
+/* ═══ ALERT THRESHOLD BANNER ════════════════════════════════ */
+#alert-banner{display:none;align-items:center;gap:10px;padding:8px 20px;background:var(--red)12;border-bottom:2px solid var(--red)50;font-size:12px;color:var(--red);flex-shrink:0;animation:alert-slide .3s ease;}
+#alert-banner.show{display:flex;}
+@keyframes alert-slide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.ab-icon{font-size:16px;animation:pulse-dot 1s infinite;}
+.ab-txt{flex:1;font-weight:500;}
+.ab-close{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:0 4px;}
+
+/* ═══ INCIDENT TIMELINE ══════════════════════════════════════ */
+#screen-timeline{padding:20px 24px;}
+.tl-header{margin-bottom:16px;}
+.tl-title{font-size:20px;font-weight:700;color:var(--heading);margin-bottom:4px;}
+.tl-sub{font-size:13px;color:var(--text2);}
+.tl-chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px;}
+.tl-chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.tl-chart-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;}
+.tl-chart-body{height:200px;position:relative;}
+.tl-spikes{margin-top:16px;}
+.tl-spike-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;}
+.tl-spike-list{display:flex;flex-direction:column;gap:6px;}
+.tl-spike{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;transition:all .15s;}
+.tl-spike:hover{border-color:var(--border2);background:var(--bg3);}
+.tl-spike.critical{border-left:3px solid var(--red);}
+.tl-spike.warning{border-left:3px solid var(--amber);}
+.tl-spike.info{border-left:3px solid var(--accent);}
+.tl-spike-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap;min-width:50px;}
+.tl-spike-bar-wrap{flex:1;height:14px;background:var(--border);border-radius:3px;overflow:hidden;}
+.tl-spike-bar{height:100%;border-radius:3px;transition:width .5s ease;}
+.tl-spike-count{font-size:12px;font-weight:700;color:var(--heading);font-family:'JetBrains Mono',monospace;min-width:36px;text-align:right;}
+.tl-spike-lbl{font-size:10px;color:var(--text2);min-width:60px;}
+.tl-empty{padding:40px;text-align:center;color:var(--text3);font-size:13px;}
+
+/* ═══ MULTI-SOURCE COMPARISON ════════════════════════════════ */
+#screen-compare{padding:20px 24px;}
+.cmp-header{margin-bottom:16px;}
+.cmp-title{font-size:20px;font-weight:700;color:var(--heading);margin-bottom:4px;}
+.cmp-sub{font-size:13px;color:var(--text2);}
+.cmp-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+.cmp-slot{background:var(--card);border:2px dashed var(--border2);border-radius:14px;padding:16px;min-height:180px;display:flex;flex-direction:column;}
+.cmp-slot.loaded{border-style:solid;border-color:var(--border);}
+.cmp-slot-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.cmp-slot-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;}
+.cmp-slot-badge{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.cmp-slot-name{font-size:13px;font-weight:600;color:var(--heading);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cmp-slot-stats{display:flex;flex-direction:column;gap:5px;flex:1;}
+.cmp-stat-row{display:flex;justify-content:space-between;font-size:11px;}
+.cmp-stat-label{color:var(--text2);}
+.cmp-stat-val{font-weight:600;color:var(--heading);font-family:'JetBrains Mono',monospace;}
+.cmp-slot-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3);font-size:12px;}
+.cmp-slot-add{padding:6px 14px;border-radius:8px;border:1px dashed var(--border2);background:none;color:var(--text3);cursor:pointer;font-size:12px;font-family:inherit;transition:all .15s;}
+.cmp-slot-add:hover{border-color:var(--accent);color:var(--accent2);}
+.cmp-remove{padding:2px 6px;border-radius:5px;border:none;background:none;color:var(--text3);cursor:pointer;font-size:12px;}
+.cmp-remove:hover{color:var(--red);}
+.cmp-chart-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cmp-chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;}
+.cmp-chart-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;}
+.cmp-chart-body{height:160px;position:relative;}
+
+/* ═══ AI HISTORY ══════════════════════════════════════════════ */
+.ai-hist-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;}
+.ai-hist-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.ai-hist-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;}
+.ai-hist-list{display:flex;flex-direction:column;gap:6px;}
+.ai-hist-item{padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;}
+.ai-hist-item:hover{border-color:var(--border2);background:var(--bg3);}
+.ai-hist-item-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.ai-hist-type{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--accent)20;color:var(--accent2);}
+.ai-hist-time{font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;}
+.ai-hist-preview{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ai-hist-empty{font-size:12px;color:var(--text3);font-style:italic;padding:8px 0;}
+
+/* ═══ CONNECTION HEALTH DOT (sidebar) ═══════════════════════ */
+#sb-api-health{display:flex;align-items:center;gap:8px;margin:0 8px 8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;}
+.sb-health-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sb-health-dot.up{background:var(--green);box-shadow:0 0 6px var(--green)66;animation:pulse-dot 2s infinite;}
+.sb-health-dot.down{background:var(--red);}
+.sb-health-dot.checking{background:var(--amber);animation:pulse-dot 1s infinite;}
+.sb-health-dot.unknown{background:var(--text3);}
+#sb-health-txt{font-size:10px;color:var(--text2);}
+
+/* ═══ PDF EXPORT ══════════════════════════════════════════════ */
+.export-btn{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:11px;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px;}
+.export-btn:hover{border-color:var(--accent)60;color:var(--accent2);}
+.copy-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:11px;font-family:inherit;transition:all .15s;}
+.copy-btn:hover{border-color:var(--green)60;color:var(--green);}
 </style>
 </head>
 <body>
@@ -465,6 +562,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
     </button>
 
     <div class="sb-section-title">Monitors</div>
+    <button class="sb-nav-item" id="sb-timeline" onclick="goScreen('timeline',this)">
+      <span class="sb-icon">📈</span><span class="sb-label">Timeline</span>
+    </button>
+    <button class="sb-nav-item" id="sb-compare" onclick="goScreen('compare',this)">
+      <span class="sb-icon">⚖</span><span class="sb-label">Compare Sources</span>
+    </button>
+  </div>
+
+  <!-- API Server Health (Feature 13) -->
+  <div id="sb-api-health">
+    <div class="sb-health-dot unknown" id="sb-health-dot"></div>
+    <span id="sb-health-txt">API: not checked</span>
   </div>
 
   <!-- Component status in sidebar -->
@@ -523,6 +632,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <span id="src-txt">No source</span>
       </div>
       <button id="btn-clear" onclick="clearSource()">✕ Clear</button>
+      <button id="btn-autorefresh" onclick="toggleAutoRefresh()" title="Toggle Auto-Refresh" style="padding:4px 8px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);cursor:pointer;font-size:11px;font-family:inherit;transition:all .15s;">⟳ Refresh</button>
+      <button onclick="exportDashboardPDF()" title="Export PDF Report" style="padding:4px 8px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);cursor:pointer;font-size:11px;font-family:inherit;transition:all .15s;">⬇ PDF</button>
+      <button onclick="openSettings()" title="API Settings" style="padding:4px 8px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);cursor:pointer;font-size:13px;">⚙</button>
       <span id="clock"></span>
     </div>
   </div>
@@ -531,6 +643,27 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
   <div id="rca-alert">
     <div class="rca-alert-dot"></div>
     <span id="rca-alert-txt"></span>
+  </div>
+
+  <!-- Alert Threshold Banner (Feature 11) -->
+  <div id="alert-banner">
+    <span class="ab-icon">🚨</span>
+    <span class="ab-txt" id="alert-banner-txt"></span>
+    <button class="ab-close" onclick="dismissAlert()">✕</button>
+  </div>
+
+  <!-- Auto-Refresh Bar (Feature 6) -->
+  <div id="refresh-bar">
+    <div class="rb-dot"></div>
+    <span id="rb-label" style="white-space:nowrap;font-weight:500;">Auto-refresh</span>
+    <div class="rb-progress"><div class="rb-fill" id="rb-fill" style="width:100%"></div></div>
+    <span id="rb-countdown" style="white-space:nowrap;font-family:'JetBrains Mono',monospace;min-width:40px;text-align:right;"></span>
+    <div class="rb-btns">
+      <button class="rb-btn" id="rb-30" onclick="setRefreshInterval(30)">30s</button>
+      <button class="rb-btn" id="rb-60" onclick="setRefreshInterval(60)">1m</button>
+      <button class="rb-btn" id="rb-300" onclick="setRefreshInterval(300)">5m</button>
+      <button class="rb-btn" onclick="stopRefresh()" style="border-color:var(--red)40;color:var(--red);">■ Stop</button>
+    </div>
   </div>
 
   <!-- Page -->
@@ -842,13 +975,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
                 <div class="ai-card-desc">Auto-generate ready-to-paste incident reports</div>
               </div>
             </div>
-            <button class="ai-gen-btn" id="btn-ticket" onclick="genTicket()">✦ Generate</button>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button class="copy-btn" id="btn-copy-ticket" onclick="copyTicket()" title="Copy to clipboard">⎘ Copy</button>
+              <button class="ai-gen-btn" id="btn-ticket" onclick="genTicket()">✦ Generate</button>
+            </div>
           </div>
           <div class="ticket-tabs">
             <button class="ticket-tab active" onclick="switchTicketTab('gh',this)">GitHub Issue</button>
             <button class="ticket-tab" onclick="switchTicketTab('slack',this)">Slack Message</button>
           </div>
           <div class="ticket-output empty" id="ai-ticket-out">Click Generate to create an incident report for your team.</div>
+        </div>
+
+        <!-- AI Analysis History (Feature 10) -->
+        <div class="ai-hist-panel hover-lift">
+          <div class="ai-hist-head">
+            <div class="ai-hist-title">📚 Analysis History</div>
+            <button onclick="clearAIHistory()" style="padding:3px 8px;border-radius:5px;border:1px solid var(--border);background:none;color:var(--text3);cursor:pointer;font-size:10px;font-family:inherit;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">Clear All</button>
+          </div>
+          <div id="ai-hist-list" class="ai-hist-list"><div class="ai-hist-empty">No saved analyses yet — run Analyze, Fix Steps, or Generate to build history.</div></div>
         </div>
       </div>
     </div>
@@ -859,8 +1004,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <div class="exp-title">Log Explorer</div>
         <div class="exp-sub">Filter, search and export your parsed log entries</div>
       </div>
+      <!-- Toolbar row 1 -->
       <div class="exp-toolbar">
-        <input class="exp-srch" id="lsrch" placeholder="Search message, source, exception…" oninput="filterTbl()">
+        <div style="position:relative;flex:1;min-width:200px;">
+          <input class="exp-srch" id="lsrch" placeholder="Search message, source… (✦ for regex)" oninput="filterTbl()" style="padding-right:72px;">
+          <button id="regex-toggle" title="Toggle Regex mode" onclick="toggleRegex()" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;font-size:10px;padding:2px 6px;border-radius:4px;font-family:inherit;transition:all .15s;">✦ Regex</button>
+        </div>
         <select class="exp-sel" id="fl-lv" onchange="filterTbl()">
           <option value="">All Levels</option>
           <option>CRITICAL</option><option>ERROR</option><option>WARNING</option><option>INFO</option><option>DEBUG</option>
@@ -868,13 +1017,111 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <select class="exp-sel" id="fl-fmt" onchange="filterTbl()"><option value="">All Formats</option></select>
         <select class="exp-sel" id="fl-src" onchange="filterTbl()"><option value="">All Sources</option></select>
         <span class="exp-cnt" id="exp-cnt">0 events</span>
-        <button class="exp-export" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="exp-export" onclick="exportCSV()">⬇ CSV</button>
+      </div>
+      <!-- Toolbar row 2: AND filter -->
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;">
+        <input class="exp-srch" id="lsrch2" placeholder="AND: additional keyword filter…" oninput="filterTbl()" style="flex:1;min-width:150px;">
+        <select class="exp-sel" id="fl-lv2" onchange="filterTbl()">
+          <option value="">+ Second level filter</option>
+          <option>CRITICAL</option><option>ERROR</option><option>WARNING</option><option>INFO</option><option>DEBUG</option>
+        </select>
+        <button onclick="clearFilters()" style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text3);cursor:pointer;font-size:12px;font-family:inherit;" onmouseover="this.style.color='var(--red)';this.style.borderColor='var(--red)40'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">✕ Clear</button>
+        <div id="regex-err" style="font-size:11px;color:var(--red);display:none;">⚠ Invalid regex pattern</div>
       </div>
       <div class="log-tbl-wrap">
         <table class="log-tbl">
-          <thead><tr><th>Timestamp</th><th>Level</th><th>Source</th><th>Message</th><th>Format</th></tr></thead>
+          <thead><tr><th>Timestamp</th><th>Level</th><th>Source</th><th>Message</th><th>Format</th><th style="width:36px;text-align:center"></th></tr></thead>
           <tbody id="ltbody"></tbody>
         </table>
+      </div>
+      <!-- Pagination -->
+      <div id="exp-pager" style="display:flex;align-items:center;justify-content:space-between;padding:10px 4px;font-size:12px;color:var(--text2);"></div>
+    </div>
+
+    <!-- ══ INCIDENT TIMELINE ══ -->
+    <div id="screen-timeline" class="screen">
+      <div class="tl-header">
+        <div class="tl-title">Incident Timeline</div>
+        <div class="tl-sub">Chronological error spike analysis — when things went wrong and how bad it got</div>
+      </div>
+      <div id="tl-empty" style="display:none;padding:40px;text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;opacity:.5;">📈</div>
+        <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:8px;">No log source connected</div>
+        <div style="font-size:13px;color:var(--text2);">Connect a log source to see the incident timeline.</div>
+        <div style="margin-top:20px;"><button class="empty-cta-btn" onclick="goScreen('upload',document.getElementById('sb-upload'))">Connect Log Source →</button></div>
+      </div>
+      <div id="tl-content">
+        <div class="tl-chart-card hover-lift">
+          <div class="tl-chart-head">
+            <div class="tl-chart-title">Error Events Over Time</div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);"><div style="width:10px;height:3px;background:var(--red);border-radius:2px;"></div>Errors</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);"><div style="width:10px;height:3px;background:var(--amber);border-radius:2px;"></div>Warnings</div>
+            </div>
+          </div>
+          <div class="tl-chart-body"><canvas id="ch-timeline"></canvas></div>
+        </div>
+        <div class="tl-spikes">
+          <div class="tl-spike-title">Top Error Spikes</div>
+          <div id="tl-spike-list" class="tl-spike-list"><div class="tl-empty">Timestamps required for spike detection.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ COMPARE SOURCES ══ -->
+    <div id="screen-compare" class="screen">
+      <div class="cmp-header">
+        <div class="cmp-title">Compare Sources</div>
+        <div class="cmp-sub">Load up to 3 log sources side-by-side to compare error rates and patterns</div>
+      </div>
+      <div class="cmp-slots">
+        <div class="cmp-slot" id="cmp-slot-0">
+          <div class="cmp-slot-head">
+            <div class="cmp-slot-label">Source A</div>
+            <div class="cmp-slot-badge" style="background:#7c6aff;"></div>
+          </div>
+          <div id="cmp-body-0" class="cmp-slot-empty">
+            <div style="font-size:24px;opacity:.4;">📂</div>
+            <div>No source loaded</div>
+            <button class="cmp-slot-add" onclick="cmpAddSlot(0)">+ Load Log File</button>
+            <input type="file" id="cmp-fi-0" style="display:none" accept=".log,.txt,.json,.csv,.tsv,.out" onchange="cmpFileSelected(0,this)">
+          </div>
+        </div>
+        <div class="cmp-slot" id="cmp-slot-1">
+          <div class="cmp-slot-head">
+            <div class="cmp-slot-label">Source B</div>
+            <div class="cmp-slot-badge" style="background:#22c55e;"></div>
+          </div>
+          <div id="cmp-body-1" class="cmp-slot-empty">
+            <div style="font-size:24px;opacity:.4;">📂</div>
+            <div>No source loaded</div>
+            <button class="cmp-slot-add" onclick="cmpAddSlot(1)">+ Load Log File</button>
+            <input type="file" id="cmp-fi-1" style="display:none" accept=".log,.txt,.json,.csv,.tsv,.out" onchange="cmpFileSelected(1,this)">
+          </div>
+        </div>
+        <div class="cmp-slot" id="cmp-slot-2">
+          <div class="cmp-slot-head">
+            <div class="cmp-slot-label">Source C</div>
+            <div class="cmp-slot-badge" style="background:#f59e0b;"></div>
+          </div>
+          <div id="cmp-body-2" class="cmp-slot-empty">
+            <div style="font-size:24px;opacity:.4;">📂</div>
+            <div>No source loaded</div>
+            <button class="cmp-slot-add" onclick="cmpAddSlot(2)">+ Load Log File</button>
+            <input type="file" id="cmp-fi-2" style="display:none" accept=".log,.txt,.json,.csv,.tsv,.out" onchange="cmpFileSelected(2,this)">
+          </div>
+        </div>
+      </div>
+      <div class="cmp-chart-row">
+        <div class="cmp-chart-card hover-lift">
+          <div class="cmp-chart-title">Error Rate Comparison (%)</div>
+          <div class="cmp-chart-body"><canvas id="ch-cmp-err"></canvas></div>
+        </div>
+        <div class="cmp-chart-card hover-lift">
+          <div class="cmp-chart-title">Error Category Breakdown</div>
+          <div class="cmp-chart-body"><canvas id="ch-cmp-cat"></canvas></div>
+        </div>
       </div>
     </div>
 
@@ -882,6 +1129,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 </div><!-- /main -->
 </div><!-- /app -->
 
+
+<!-- Settings Modal -->
+<div id="settings-modal" style="display:none;position:fixed;inset:0;background:#0008;z-index:2000;align-items:center;justify-content:center;">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;width:420px;max-width:90vw;">
+    <div style="font-size:15px;font-weight:700;color:var(--heading);margin-bottom:4px;">⚙ API Settings</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:18px;">Configure connection to your local api_server.py</div>
+    <label style="font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px;">API Base URL</label>
+    <input id="cfg-base" style="width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:inherit;outline:none;margin-bottom:12px;" placeholder="http://localhost:8000">
+    <label style="font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px;">AUTORCA_API_KEY <span style="color:var(--text3);font-weight:400;">(from your .env file)</span></label>
+    <input id="cfg-key" type="password" style="width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:'JetBrains Mono',monospace;outline:none;margin-bottom:6px;" placeholder="Paste full key here">
+    <div id="cfg-status" style="font-size:11px;color:var(--text3);margin-bottom:12px;"></div>
+    <div style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:8px;">🔔 Alert Thresholds</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <label style="font-size:11px;color:var(--text2);flex:1;">Alert if error rate exceeds (%)</label>
+        <input id="cfg-threshold" type="number" min="1" max="100" style="width:70px;padding:5px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;font-family:'JetBrains Mono',monospace;outline:none;" placeholder="e.g. 20">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <label style="font-size:11px;color:var(--text2);flex:1;">Browser notifications</label>
+        <label style="position:relative;width:36px;height:20px;flex-shrink:0;"><input type="checkbox" id="cfg-notif" style="opacity:0;width:0;height:0;"><span id="cfg-notif-slider" onclick="toggleNotifPref()" style="position:absolute;cursor:pointer;inset:0;background:var(--tog-off);border-radius:20px;transition:.3s;"><span style="position:absolute;width:16px;height:16px;left:2px;top:2px;background:#fff;border-radius:50%;transition:.3s;" id="cfg-notif-knob"></span></span></label>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button onclick="testConnection()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:12px;font-family:inherit;">Test Connection</button>
+      <button onclick="saveSettings()" style="padding:7px 16px;border-radius:8px;border:none;background:var(--accentg);color:#fff;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">Save</button>
+      <button onclick="closeSettings()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:12px;font-family:inherit;">Cancel</button>
+    </div>
+  </div>
+</div>
 <div id="toast"></div>
 <input type="file" id="fi" style="display:none">
 
@@ -926,7 +1202,13 @@ function goScreen(name,btn){
     if(!S.connected){document.getElementById('ai-empty').style.display='';document.getElementById('ai-content').style.display='none';}
     else{document.getElementById('ai-empty').style.display='none';document.getElementById('ai-content').style.display='';}
   }
-  if(name==='explorer'){if(S.connected)renderExplorer();else{const tb=document.getElementById('ltbody');if(tb)tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:40px">Connect a log source to explore entries</td></tr>';}}
+  if(name==='explorer'){if(S.connected)renderExplorer();else{const tb=document.getElementById('ltbody');if(tb)tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:40px">Connect a log source to explore entries</td></tr>';}}
+  if(name==='timeline'){
+    const te=document.getElementById('tl-empty');const tc2=document.getElementById('tl-content');
+    if(!S.connected){if(te)te.style.display='';if(tc2)tc2.style.display='none';}
+    else{if(te)te.style.display='none';if(tc2)tc2.style.display='';renderTimeline();}
+  }
+  if(name==='ai'){renderAIHistory();}
 }
 
 /* ═══ UPLOAD TABS ════════════════════════════════════════════ */
@@ -1008,8 +1290,23 @@ function calcStats(e){
 /* ═══ ANALYSIS ═══════════════════════════════════════════════ */
 function startAnalysis(){
   const at=document.querySelector('.it-btn.active').id.replace('itb-','');
-  if(at==='up'){if(!S._file){toast('No file selected.','err');return;}readFile(S._file);}
-  else if(at==='int'){toast('Integration requires the AutoRCA API server running.','err');}
+  if(at==='up'){
+    if(!S._file){toast('No file selected — drag a log file or click Browse.','err');return;}
+    if(S._file.size===0){toast('File is empty (0 bytes). Choose a valid log file.','err');return;}
+    const ext=S._file.name.split('.').pop().toLowerCase();
+    const ok=['log','txt','json','csv','tsv','out','gz'];
+    if(!ok.includes(ext)){toast('Unsupported file type .'+ext+'. Use .log, .txt, .json, .csv, .tsv, .out or .gz','err');return;}
+    readFile(S._file);
+  }
+  else if(at==='int'){
+    // Validate required integration field
+    const sel=document.querySelector('.int-card.selected');
+    if(!sel){toast('Select an integration first (Loki, Elasticsearch, S3, or HTTP).','err');return;}
+    const form=document.querySelector('.int-form.show');
+    const firstInput=form&&form.querySelector('input');
+    if(!firstInput||!firstInput.value.trim()){toast('Fill in the required connection URL / endpoint.','err');return;}
+    toast('Integration requires the AutoRCA API server running. Start api_server.py first.','err');
+  }
   else{toast('Start the AutoRCA API server and configure your log agent.','info');}
 }
 function readFile(f){
@@ -1043,6 +1340,7 @@ function onConnected(){
   document.getElementById('s-db').className='sb-status-dot '+(s.dbErr>0?'warn':'on');
   classify(true);
   toast('✓ '+s.total.toLocaleString()+' entries parsed · '+S.label,'ok');
+  checkAlertThreshold(); /* Feature 11 */
   setTimeout(()=>goScreen('dashboard',document.getElementById('sb-dashboard')),420);
 }
 
@@ -1112,8 +1410,27 @@ function setCatFilter(cat,btn){_catFilter=cat;document.querySelectorAll('.cat-pi
 /* ═══ AI ANALYZER ════════════════════════════════════════════ */
 /* ── Config: points to your local api_server.py ── */
 const API_BASE   = 'http://localhost:8000';
-const API_KEY    = 'd1cdf6a8d0cf903c6822e2ddf45b45676bbd822da3289689090fbae9085c551e';   /* matches AUTORCA_API_KEY in .env */
+let API_KEY = localStorage.getItem('autorca_api_key') || 'd1cdf6a8d0cf903c6822e2ddf45b45676bbd822da3289689090fbae9085c551e';
+let _aiInFlight = false; /* Bug Fix 5: in-flight lock prevents concurrent AI calls */
 
+function _aiGuard(){
+  if(!S.connected){toast('No log source connected.','err');return false;}
+  if(!S.logs||S.logs.length===0){toast('No log entries loaded — connect a log source first.','err');return false;}
+  const errors=S.logs.filter(x=>['ERROR','CRITICAL','FATAL'].includes(x.level));
+  if(errors.length===0&&S.stats.total>0){
+    // Allow but warn — logs loaded but zero errors
+    toast('No errors found in logs — AI analysis may be minimal.','info');
+  }
+  if(_aiInFlight){toast('AI request already in progress…','info');return false;}
+  return true;
+}
+function _aiLock(lock){
+  _aiInFlight=lock;
+  /* Dim whole AI content panel while any request is running (Fix 5) */
+  const panel=document.getElementById('ai-content');
+  if(panel){panel.style.opacity=lock?'0.7':'1';panel.style.pointerEvents=lock?'none':'';}
+
+}
 function typewrite(el,text,speed=12){
   el.classList.remove('empty');el.textContent='';
   let i=0;const cursor=document.createElement('span');cursor.className='typing-cursor';el.appendChild(cursor);
@@ -1139,17 +1456,10 @@ function getAIPayload(){
     db_result:   {null_email_count:s.dbErr||0}
   };
 }
-async function aiPost(endpoint){
-  const res=await fetch(`${API_BASE}${endpoint}`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json','X-API-Key':API_KEY},
-    body:JSON.stringify(getAIPayload())
-  });
-  if(!res.ok){const t=await res.text();throw new Error(`${res.status}: ${t}`);}
-  return res.json();
-}
+async function aiPost(endpoint){return aiPostEnhanced(endpoint);}
 async function genExplain(){
-  if(!S.connected){toast('No log source connected.','err');return;}
+  if(!_aiGuard())return;
+  _aiLock(true);
   const btn=document.getElementById('btn-explain');
   btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
   const out=document.getElementById('ai-explain-out');
@@ -1158,6 +1468,7 @@ async function genExplain(){
     const d=await aiPost('/api/ai/explain');
     const text=d.explanation||d.text||JSON.stringify(d);
     typewrite(out,text);
+    addAIHistory('Explanation',text);
     toast('Incident explanation ready','ok');
   }catch(err){
     out.textContent='Error: '+err.message+'\n\nMake sure api_server.py is running:\n  python api_server.py';
@@ -1165,9 +1476,11 @@ async function genExplain(){
     toast('API server not reachable','err');
   }
   btn.disabled=false;btn.innerHTML='✦ Analyze';
+  _aiLock(false);
 }
 async function genFix(){
-  if(!S.connected){toast('No log source connected.','err');return;}
+  if(!_aiGuard())return;
+  _aiLock(true);
   const btn=document.getElementById('btn-fix');
   btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
   const out=document.getElementById('ai-fix-out');
@@ -1187,12 +1500,14 @@ async function genFix(){
       out.textContent=JSON.stringify(d,null,2);
     }
     toast('Fix steps ready','ok');
+    addAIHistory('Fix Steps',document.getElementById('ai-fix-out')?.textContent||JSON.stringify(d));
   }catch(err){
     out.textContent='Error: '+err.message+'\n\nMake sure api_server.py is running:\n  python api_server.py';
     out.classList.add('empty');
     toast('API server not reachable','err');
   }
   btn.disabled=false;btn.innerHTML='✦ Generate';
+  _aiLock(false);
 }
 let _ticketMode='gh';
 function switchTicketTab(mode,btn){
@@ -1201,7 +1516,8 @@ function switchTicketTab(mode,btn){
   if(btn)btn.classList.add('active');
 }
 async function genTicket(){
-  if(!S.connected){toast('No log source connected.','err');return;}
+  if(!_aiGuard())return;
+  _aiLock(true);
   const btn=document.getElementById('btn-ticket');
   btn.disabled=true;btn.innerHTML='<div class="spinner"></div>';
   const out=document.getElementById('ai-ticket-out');
@@ -1212,6 +1528,7 @@ async function genTicket(){
       ?(d.github_issue||d.github||d.summary||JSON.stringify(d))
       :(d.slack_message||d.slack||d.summary||JSON.stringify(d));
     out.textContent=text;
+    addAIHistory((_ticketMode==='gh'?'GitHub Ticket':'Slack Ticket'),text);
     toast('Report generated','ok');
   }catch(err){
     out.textContent='Error: '+err.message+'\n\nMake sure api_server.py is running:\n  python api_server.py';
@@ -1219,43 +1536,131 @@ async function genTicket(){
     toast('API server not reachable','err');
   }
   btn.disabled=false;btn.innerHTML='✦ Generate';
+  _aiLock(false);
 }
 
 /* ═══ LOG EXPLORER ═══════════════════════════════════════════ */
+let _regexMode=false;
+let _expPage=0;
+const _PAGE_SIZE=200;
+
+function toggleRegex(){
+  _regexMode=!_regexMode;
+  const btn=document.getElementById('regex-toggle');
+  if(btn){btn.style.background=_regexMode?'var(--accent)':'none';btn.style.color=_regexMode?'#fff':'var(--text3)';btn.style.borderColor=_regexMode?'var(--accent)':'var(--border)';}
+  document.getElementById('regex-err').style.display='none';
+  filterTbl();
+}
+function clearFilters(){
+  ['lsrch','lsrch2'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['fl-lv','fl-fmt','fl-src','fl-lv2'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('regex-err').style.display='none';
+  filterTbl();
+}
 function renderExplorer(){
   const fs=document.getElementById('fl-fmt');fs.innerHTML='<option value="">All Formats</option>';
   (S.stats.formats||[]).forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;fs.appendChild(o);});
   const ss=document.getElementById('fl-src');ss.innerHTML='<option value="">All Sources</option>';
   Object.entries(S.stats.sc||{}).sort((a,b)=>b[1]-a[1]).slice(0,20).forEach(([src])=>{const o=document.createElement('option');o.value=src;o.textContent=src;ss.appendChild(o);});
+  _expPage=0; /* always reset to page 0 on re-render */
   filterTbl();
 }
 function filterTbl(){
-  const q=(document.getElementById('lsrch')?.value||'').toLowerCase();
+  const q1=(document.getElementById('lsrch')?.value||'');
+  const q2=(document.getElementById('lsrch2')?.value||'').toLowerCase();
   const lv=document.getElementById('fl-lv')?.value||'';
+  const lv2=document.getElementById('fl-lv2')?.value||'';
   const fm=document.getElementById('fl-fmt')?.value||'';
   const sr=document.getElementById('fl-src')?.value||'';
+  const errEl=document.getElementById('regex-err');
+
+  /* Build regex or plain matcher for q1 */
+  let rx=null;
+  if(_regexMode&&q1){
+    try{rx=new RegExp(q1,'i');if(errEl)errEl.style.display='none';}
+    catch(e){if(errEl){errEl.style.display='';errEl.textContent='⚠ Invalid regex: '+e.message;}S.filtered=[];renderRows([]);return;}
+  }
+
   S.filtered=S.logs.filter(e=>{
-    if(lv&&e.level!==lv)return false;if(fm&&e.format!==fm)return false;
+    /* Primary level + format + source filters */
+    if(lv&&e.level!==lv)return false;
+    if(fm&&e.format!==fm)return false;
     if(sr&&e.source!==sr)return false;
-    if(q&&!e.message.toLowerCase().includes(q)&&!(e.source||'').toLowerCase().includes(q))return false;
+    /* Primary search (regex or plain) */
+    if(q1){
+      const msg=(e.message||'');const src=(e.source||'');
+      if(rx){if(!rx.test(msg)&&!rx.test(src))return false;}
+      else{const lo=q1.toLowerCase();if(!msg.toLowerCase().includes(lo)&&!src.toLowerCase().includes(lo))return false;}
+    }
+    /* AND: second filter (level + keyword) */
+    if(lv2&&e.level!==lv2)return false;
+    if(q2){const msg=(e.message||'').toLowerCase();const src=(e.source||'').toLowerCase();if(!msg.includes(q2)&&!src.includes(q2))return false;}
     return true;
   });
+
+  /* Bug Fix 3: always reset page to 0 when filters change */
+  _expPage=0;
   const ec=document.getElementById('exp-cnt');if(ec)ec.textContent=S.filtered.length.toLocaleString()+' events';
-  renderRows(S.filtered.slice(0,500));
+  renderRows(S.filtered.slice(0,_PAGE_SIZE));
+  renderPager();
+}
+function highlight(text,q1,rx){
+  const s=esc(text);
+  if(!q1)return s;
+  try{
+    const pat=rx||(new RegExp('('+q1.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'));
+    return s.replace(pat,(m)=>`<mark style="background:var(--accent)33;color:var(--accent2);border-radius:2px;padding:0 1px">${m}</mark>`);
+  }catch{return s;}
 }
 function renderRows(entries){
   const tb=document.getElementById('ltbody');if(!tb)return;tb.innerHTML='';
-  if(!entries.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:30px">No entries match your filters</td></tr>';return;}
+  if(!entries.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:30px">No entries match your filters</td></tr>';return;}
+  const q1=document.getElementById('lsrch')?.value||'';
+  let rx=null;try{if(_regexMode&&q1)rx=new RegExp(q1,'i');}catch{}
   const frag=document.createDocumentFragment();
   for(const e of entries){
     const tr=document.createElement('tr');
     const ts=e.timestamp?String(e.timestamp).slice(0,19).replace('T',' '):'—';
     const lv=e.level||'UNKNOWN';
     const lc=lv==='CRITICAL'||lv==='FATAL'?'lv-crit':lv==='ERROR'?'lv-error':lv==='WARNING'||lv==='WARN'?'lv-warn':lv==='INFO'?'lv-info':lv==='DEBUG'?'lv-debug':'lv-unk';
-    tr.innerHTML=`<td class="td-ts">${ts}</td><td><span class="lvl ${lc}">${lv}</span></td><td class="td-src">${esc(e.source||'—')}</td><td class="td-msg" title="${esc(e.message)}">${esc((e.message||'').slice(0,300))}</td><td class="td-fmt">${e.format||'—'}</td>`;
+    const msgHL=highlight((e.message||'').slice(0,300),q1,rx);
+    const srcHL=highlight(e.source||'—',q1,rx);
+    const rawForCopy=esc(JSON.stringify({timestamp:ts,level:lv,source:e.source||'',message:e.message||'',format:e.format||''}));
+    tr.innerHTML=`<td class="td-ts">${ts}</td><td><span class="lvl ${lc}">${lv}</span></td><td class="td-src" title="${esc(e.source||'')}">${srcHL}</td><td class="td-msg" title="${esc(e.message)}">${msgHL}</td><td class="td-fmt">${e.format||'—'}</td><td style="text-align:center"><button onclick="copyRow(this)" data-row='${rawForCopy}' title="Copy row as JSON" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:12px;padding:2px 4px;border-radius:4px;transition:color .15s;" onmouseover="this.style.color='var(--accent2)'" onmouseout="this.style.color='var(--text3)'">⎘</button></td>`;
     frag.appendChild(tr);
   }
   tb.appendChild(frag);
+}
+function copyRow(btn){
+  const text=btn.getAttribute('data-row')||'';
+  try{
+    navigator.clipboard.writeText(text.replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>'));
+    btn.textContent='✓';btn.style.color='var(--green)';
+    setTimeout(()=>{btn.textContent='⎘';btn.style.color='var(--text3)';},1500);
+  }catch{toast('Copy not supported in this browser','err');}
+}
+function renderPager(){
+  const total=S.filtered.length;
+  const pages=Math.ceil(total/_PAGE_SIZE);
+  const pager=document.getElementById('exp-pager');if(!pager)return;
+  if(pages<=1){pager.innerHTML='';return;}
+  const start=_expPage*_PAGE_SIZE+1;
+  const end=Math.min((_expPage+1)*_PAGE_SIZE,total);
+  pager.innerHTML=`
+    <span>Showing ${start.toLocaleString()}–${end.toLocaleString()} of ${total.toLocaleString()}</span>
+    <div style="display:flex;gap:4px;">
+      <button onclick="goPager(${_expPage-1})" ${_expPage===0?'disabled':''} style="padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:11px;font-family:inherit;" ${_expPage===0?'style="opacity:.4;cursor:default;"':''}>← Prev</button>
+      <span style="padding:4px 10px;color:var(--text3);">Page ${_expPage+1} / ${pages}</span>
+      <button onclick="goPager(${_expPage+1})" ${_expPage>=pages-1?'disabled':''} style="padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:11px;font-family:inherit;">Next →</button>
+    </div>`;
+}
+function goPager(p){
+  const total=S.filtered.length;
+  const pages=Math.ceil(total/_PAGE_SIZE);
+  _expPage=Math.max(0,Math.min(p,pages-1));
+  renderRows(S.filtered.slice(_expPage*_PAGE_SIZE,(_expPage+1)*_PAGE_SIZE));
+  renderPager();
+  document.getElementById('screen-explorer').scrollTop=0;
 }
 function exportCSV(){const rows=[['timestamp','level','source','message','format']];for(const e of S.filtered)rows.push([e.timestamp||'',e.level||'',e.source||'',`"${(e.message||'').replace(/"/g,'""')}"`,e.format||'']);const blob=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='autorca_export.csv';a.click();}
 
@@ -1282,6 +1687,8 @@ function createTicket(){
 /* ═══ CLEAR ══════════════════════════════════════════════════ */
 function clearSource(){
   S.connected=false;S.logs=[];S.stats={};S._file=null;
+  stopRefresh(); /* Feature 6 */
+  document.getElementById('alert-banner').classList.remove('show'); /* Feature 11 */
   ['bk','lt'].forEach(c=>{if(S.charts[c]){S.charts[c].destroy();S.charts[c]=null;}});
   document.getElementById('tb-src').classList.remove('live');
   document.getElementById('src-dot').className='tb-src-dot';
@@ -1308,9 +1715,467 @@ function cntUp(id,t){const el=document.getElementById(id);if(!el)return;let c=0;
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className='show t-'+type;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3500);}
 
-/* Init */
+/* ═══ SETTINGS ══════════════════════════════════════════════ */
+let API_BASE_MUTABLE = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+// Patch API_BASE to use mutable version
+function getApiBase(){return localStorage.getItem('autorca_api_base')||'http://localhost:8000';}
+
+/* Fix 4: show persistent topbar indicator of settings status */
+function updateSettingsBadge(){
+  const hasKey=!!(localStorage.getItem('autorca_api_key')||'').trim();
+  const gear=document.querySelector('[onclick="openSettings()"]');
+  if(!gear)return;
+  gear.title=hasKey?'API Settings (key configured ✓)':'API Settings (no key — click to configure)';
+  gear.style.color=hasKey?'var(--green)':'var(--amber)';
+  gear.style.borderColor=hasKey?'var(--green)40':'var(--amber)40';
+}
+function openSettings(){
+  document.getElementById('cfg-base').value=getApiBase();
+  document.getElementById('cfg-key').value=localStorage.getItem('autorca_api_key')||'';
+  const st=document.getElementById('cfg-status');
+  const hasKey=!!(localStorage.getItem('autorca_api_key')||'').trim();
+  st.textContent=hasKey?'Key is saved — click Test Connection to verify':'No API key saved yet';
+  st.style.color=hasKey?'var(--green)':'var(--amber)';
+  const m=document.getElementById('settings-modal');m.style.display='flex';
+}
+function closeSettings(){document.getElementById('settings-modal').style.display='none';}
+function saveSettings(){
+  const base=document.getElementById('cfg-base').value.trim().replace(/\/$/,'');
+  const key=document.getElementById('cfg-key').value.trim();
+  if(base)localStorage.setItem('autorca_api_base',base);
+  if(key){localStorage.setItem('autorca_api_key',key);API_KEY=key;}
+  saveSettingsThreshold(); /* Feature 11 */
+  updateSettingsBadge();
+  closeSettings();toast('Settings saved','ok');
+}
+async function testConnection(){
+  const base=document.getElementById('cfg-base').value.trim().replace(/\/$/,'');
+  const key=document.getElementById('cfg-key').value.trim();
+  const st=document.getElementById('cfg-status');
+  st.textContent='Testing…';st.style.color='var(--text2)';
+  try{
+    const res=await fetch(base+'/api/health',{headers:{'X-API-Key':key}});
+    const d=await res.json();
+    if(d.status==='ok'){st.textContent='✓ Connected — server is running';st.style.color='var(--green)';}
+    else{st.textContent='⚠ Server responded but status: '+d.status;st.style.color='var(--amber)';}
+  }catch(e){st.textContent='✗ Cannot reach server. Is api_server.py running?';st.style.color='var(--red)';}
+}
+document.getElementById('settings-modal').addEventListener('click',function(e){if(e.target===this)closeSettings();});
+updateSettingsBadge(); /* Fix 4: run on load */
+
+/* ═══ AUTO-REFRESH (Feature 6) ══════════════════════════════ */
+let _refreshInterval=0,_refreshTimer=null,_refreshCountdown=0,_refreshCountdownTimer=null;
+let _refreshActive=false;
+
+function toggleAutoRefresh(){
+  if(_refreshActive){stopRefresh();return;}
+  if(!S.connected){toast('Connect a log source before enabling auto-refresh.','err');return;}
+  // Default to 60s if none chosen
+  setRefreshInterval(_refreshInterval||60);
+}
+function setRefreshInterval(secs){
+  if(!S.connected){toast('Connect a log source first.','err');return;}
+  stopRefresh();
+  _refreshInterval=secs;
+  _refreshActive=true;
+  document.getElementById('refresh-bar').classList.add('active');
+  document.getElementById('btn-autorefresh').style.color='var(--green)';
+  document.getElementById('btn-autorefresh').style.borderColor='var(--green)40';
+  document.querySelectorAll('.rb-btn').forEach(b=>b.classList.remove('active'));
+  const btnId='rb-'+secs;const rb=document.getElementById(btnId);if(rb)rb.classList.add('active');
+  _startRefreshCountdown(secs);
+  toast('Auto-refresh every '+( secs<60?secs+'s':(secs/60)+'m'),'ok');
+}
+function _startRefreshCountdown(secs){
+  _refreshCountdown=secs;
+  _updateRefreshUI();
+  _refreshCountdownTimer=setInterval(()=>{
+    _refreshCountdown--;
+    _updateRefreshUI();
+    if(_refreshCountdown<=0){
+      _doRefresh();
+      _refreshCountdown=_refreshInterval;
+    }
+  },1000);
+}
+function _updateRefreshUI(){
+  const fill=document.getElementById('rb-fill');
+  const cd=document.getElementById('rb-countdown');
+  if(fill)fill.style.width=((_refreshCountdown/_refreshInterval)*100)+'%';
+  if(cd)cd.textContent=_refreshCountdown+'s';
+}
+function _doRefresh(){
+  if(!S._file||!S.connected)return;
+  document.getElementById('rb-label').textContent='Refreshing…';
+  const r=new FileReader();
+  r.onload=e=>{
+    const logs=parseAll(e.target.result);const stats=calcStats(logs);
+    S.logs=logs;S.stats=stats;
+    if(S.connected)renderDash();
+    if(document.getElementById('screen-timeline').classList.contains('active'))renderTimeline();
+    document.getElementById('rb-label').textContent='Auto-refresh';
+    document.getElementById('sb-source-time').textContent='Refreshed: '+new Date().toLocaleTimeString();
+    checkAlertThreshold();
+    toast('Dashboard refreshed','ok');
+  };
+  r.readAsText(S._file);
+}
+function stopRefresh(){
+  _refreshActive=false;
+  clearInterval(_refreshCountdownTimer);
+  clearInterval(_refreshTimer);
+  document.getElementById('refresh-bar').classList.remove('active');
+  document.getElementById('btn-autorefresh').style.color='';
+  document.getElementById('btn-autorefresh').style.borderColor='';
+}
+
+/* ═══ ALERT THRESHOLDS (Feature 11) ══════════════════════════ */
+let _alertDismissed=false;
+let _notifEnabled=false;
+function checkAlertThreshold(){
+  const threshold=parseInt(localStorage.getItem('autorca_threshold')||'0');
+  if(!threshold||!S.connected)return;
+  const rate=parseFloat(S.stats.rate||0);
+  if(rate>threshold&&!_alertDismissed){
+    showAlertBanner(`Error rate ${rate}% exceeds your threshold of ${threshold}% — ${S.stats.err} errors in ${S.stats.total} log entries`);
+    if(_notifEnabled&&'Notification' in window&&Notification.permission==='granted'){
+      new Notification('AutoRCA Alert',{body:`Error rate ${rate}% exceeds threshold ${threshold}%`,icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">⚡</text></svg>'});
+    }
+  }
+}
+function showAlertBanner(msg){
+  const b=document.getElementById('alert-banner');
+  document.getElementById('alert-banner-txt').textContent=msg;
+  b.classList.add('show');
+}
+function dismissAlert(){
+  document.getElementById('alert-banner').classList.remove('show');
+  _alertDismissed=true;
+  setTimeout(()=>_alertDismissed=false,60000); /* re-enable after 1 min */
+}
+function toggleNotifPref(){
+  _notifEnabled=!_notifEnabled;
+  const slider=document.getElementById('cfg-notif-slider');
+  const knob=document.getElementById('cfg-notif-knob');
+  if(slider){slider.style.background=_notifEnabled?'var(--tog-on)':'var(--tog-off)';}
+  if(knob){knob.style.transform=_notifEnabled?'translateX(16px)':'';}
+  if(_notifEnabled&&'Notification' in window&&Notification.permission==='default'){
+    Notification.requestPermission().then(p=>{if(p!=='granted'){_notifEnabled=false;if(slider)slider.style.background='var(--tog-off)';if(knob)knob.style.transform='';toast('Browser notifications denied — check browser settings','err');}});
+  }
+}
+function saveSettingsThreshold(){
+  const val=document.getElementById('cfg-threshold')?.value.trim();
+  if(val&&parseInt(val)>0){localStorage.setItem('autorca_threshold',val);}
+  else{localStorage.removeItem('autorca_threshold');}
+}
+
+/* ═══ INCIDENT TIMELINE (Feature 7) ══════════════════════════ */
+function renderTimeline(){
+  const tl=document.getElementById('tl-empty');
+  const tc=document.getElementById('tl-content');
+  if(!S.connected||!S.logs.length){if(tl)tl.style.display='';if(tc)tc.style.display='none';return;}
+  if(tl)tl.style.display='none';if(tc)tc.style.display='';
+
+  /* Bucket logs by minute */
+  const errBkts={},warnBkts={},allBkts={};let hasTS=false;
+  for(const e of S.logs){
+    if(!e.timestamp)continue;
+    const d=new Date(e.timestamp);if(isNaN(d))continue;
+    hasTS=true;
+    const k=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+    allBkts[k]=(allBkts[k]||0)+1;
+    if(['ERROR','CRITICAL','FATAL'].includes(e.level))errBkts[k]=(errBkts[k]||0)+1;
+    if(['WARNING','WARN'].includes(e.level))warnBkts[k]=(warnBkts[k]||0)+1;
+  }
+
+  if(!hasTS){
+    if(S.charts.tl)S.charts.tl.destroy();
+    document.getElementById('tl-spike-list').innerHTML='<div class="tl-empty">⏱ No timestamps found in logs — timeline requires parseable timestamps.</div>';
+    return;
+  }
+
+  const labels=Object.keys(allBkts).sort();
+  const errVals=labels.map(k=>errBkts[k]||0);
+  const warnVals=labels.map(k=>warnBkts[k]||0);
+
+  if(S.charts.tl)S.charts.tl.destroy();
+  const gc=cv('--border'),tc2=cv('--text2'),red=cv('--red'),amber=cv('--amber');
+  S.charts.tl=new Chart(document.getElementById('ch-timeline'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'Errors',data:errVals,backgroundColor:red+'55',borderColor:red,borderWidth:1,borderRadius:2},
+      {label:'Warnings',data:warnVals,backgroundColor:amber+'44',borderColor:amber,borderWidth:1,borderRadius:2}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},scales:{x:{stacked:false,grid:{color:gc},ticks:{color:tc2,font:{family:'DM Sans',size:10},maxTicksLimit:20}},y:{grid:{color:gc},ticks:{color:tc2,font:{family:'DM Sans',size:11}}}}}
+  });
+
+  /* Build spike list */
+  const maxErr=Math.max(...errVals,1);
+  const spikes=labels.map((k,i)=>({time:k,errs:errVals[i],warns:warnVals[i]}))
+    .filter(s=>s.errs>0).sort((a,b)=>b.errs-a.errs).slice(0,10);
+
+  const sl=document.getElementById('tl-spike-list');
+  if(!spikes.length){sl.innerHTML='<div class="tl-empty">✅ No error spikes detected in this log file.</div>';return;}
+  sl.innerHTML=spikes.map(s=>{
+    const pct=Math.round(s.errs/maxErr*100);
+    const cls=s.errs>=5?'critical':s.errs>=2?'warning':'info';
+    const barColor=cls==='critical'?'var(--red)':cls==='warning'?'var(--amber)':'var(--accent)';
+    return `<div class="tl-spike ${cls}">
+      <div class="tl-spike-time">${s.time}</div>
+      <div class="tl-spike-bar-wrap"><div class="tl-spike-bar" style="width:${pct}%;background:${barColor};"></div></div>
+      <div class="tl-spike-count">${s.errs}</div>
+      <div class="tl-spike-lbl">${s.errs===1?'error':'errors'}${s.warns?' + '+s.warns+'w':''}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ MULTI-SOURCE COMPARE (Feature 9) ═══════════════════════ */
+const CMP={sources:[null,null,null],charts:{}};
+const CMP_COLORS=['#7c6aff','#22c55e','#f59e0b'];
+const CMP_LABELS=['A','B','C'];
+
+function cmpAddSlot(i){document.getElementById('cmp-fi-'+i).click();}
+function cmpFileSelected(i,inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const logs=parseAll(e.target.result);const stats=calcStats(logs);
+    CMP.sources[i]={label:f.name,logs,stats};
+    renderCmpSlot(i);renderCmpCharts();
+    toast('Source '+CMP_LABELS[i]+' loaded: '+f.name,'ok');
+  };
+  r.readAsText(f);
+}
+function renderCmpSlot(i){
+  const src=CMP.sources[i];if(!src)return;
+  const slot=document.getElementById('cmp-slot-'+i);
+  slot.classList.add('loaded');
+  const s=src.stats;
+  document.getElementById('cmp-body-'+i).innerHTML=`
+    <div class="cmp-slot-name" title="${esc(src.label)}">${esc(src.label)}</div>
+    <div class="cmp-slot-stats">
+      <div class="cmp-stat-row"><span class="cmp-stat-label">Total Entries</span><span class="cmp-stat-val">${s.total.toLocaleString()}</span></div>
+      <div class="cmp-stat-row"><span class="cmp-stat-label">Error Rate</span><span class="cmp-stat-val" style="color:${parseFloat(s.rate)>10?'var(--red)':'var(--green)'}">${s.rate}%</span></div>
+      <div class="cmp-stat-row"><span class="cmp-stat-label">Errors</span><span class="cmp-stat-val" style="color:var(--red)">${s.err}</span></div>
+      <div class="cmp-stat-row"><span class="cmp-stat-label">Warnings</span><span class="cmp-stat-val" style="color:var(--amber)">${s.warn}</span></div>
+      <div class="cmp-stat-row"><span class="cmp-stat-label">DB Errors</span><span class="cmp-stat-val">${s.dbErr}</span></div>
+    </div>
+    <button class="cmp-remove" onclick="cmpRemoveSlot(${i})" title="Remove source">✕ Remove</button>`;
+}
+function cmpRemoveSlot(i){
+  CMP.sources[i]=null;
+  const body=document.getElementById('cmp-body-'+i);
+  document.getElementById('cmp-slot-'+i).classList.remove('loaded');
+  body.innerHTML=`<div style="font-size:24px;opacity:.4;">📂</div><div>No source loaded</div><button class="cmp-slot-add" onclick="cmpAddSlot(${i})">+ Load Log File</button><input type="file" id="cmp-fi-${i}" style="display:none" accept=".log,.txt,.json,.csv,.tsv,.out" onchange="cmpFileSelected(${i},this)">`;
+  renderCmpCharts();
+}
+function renderCmpCharts(){
+  const loaded=CMP.sources.filter(Boolean);
+  if(!loaded.length)return;
+  const names=CMP.sources.map((s,i)=>s?s.label.slice(0,14)+'…':'—');
+  const gc=cv('--border'),tc=cv('--text2');
+
+  /* Error Rate bar chart */
+  if(CMP.charts.err)CMP.charts.err.destroy();
+  CMP.charts.err=new Chart(document.getElementById('ch-cmp-err'),{
+    type:'bar',
+    data:{labels:names.map((n,i)=>CMP.sources[i]?'Src '+CMP_LABELS[i]:null).filter(Boolean),
+      datasets:[{data:CMP.sources.map(s=>s?parseFloat(s.stats.rate):null).filter(v=>v!==null),
+        backgroundColor:CMP_COLORS.filter((_,i)=>CMP.sources[i]),borderColor:CMP_COLORS.filter((_,i)=>CMP.sources[i]),borderWidth:1,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},scales:{x:{grid:{color:gc},ticks:{color:tc}},y:{grid:{color:gc},ticks:{color:tc,callback:v=>v+'%'}}}}
+  });
+
+  /* Category breakdown grouped bar */
+  if(CMP.charts.cat)CMP.charts.cat.destroy();
+  const cats=['DB','Network','App'];
+  const datasets=CMP.sources.map((s,i)=>{if(!s)return null;return{label:'Src '+CMP_LABELS[i],data:[s.stats.dbErr||0,s.stats.netErr||0,s.stats.appErr||0],backgroundColor:CMP_COLORS[i]+'66',borderColor:CMP_COLORS[i],borderWidth:1,borderRadius:3};}).filter(Boolean);
+  CMP.charts.cat=new Chart(document.getElementById('ch-cmp-cat'),{
+    type:'bar',data:{labels:cats,datasets},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:tc,font:{family:'DM Sans',size:10},boxWidth:10}},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},scales:{x:{grid:{color:gc},ticks:{color:tc}},y:{grid:{color:gc},ticks:{color:tc}}}}
+  });
+}
+
+/* ═══ AI HISTORY (Feature 10) ════════════════════════════════ */
+const AI_HIST_KEY='autorca_ai_history';
+const AI_HIST_MAX=10;
+
+function loadAIHistory(){return JSON.parse(localStorage.getItem(AI_HIST_KEY)||'[]');}
+function saveAIHistory(hist){localStorage.setItem(AI_HIST_KEY,JSON.stringify(hist));}
+function addAIHistory(type,text){
+  const hist=loadAIHistory();
+  hist.unshift({type,text,time:new Date().toLocaleString(),source:S.label,preview:text.slice(0,120)});
+  if(hist.length>AI_HIST_MAX)hist.length=AI_HIST_MAX;
+  saveAIHistory(hist);
+  renderAIHistory();
+}
+function renderAIHistory(){
+  const hist=loadAIHistory();
+  const el=document.getElementById('ai-hist-list');if(!el)return;
+  if(!hist.length){el.innerHTML='<div class="ai-hist-empty">No saved analyses yet — run Analyze, Fix Steps, or Generate to build history.</div>';return;}
+  el.innerHTML=hist.map((h,i)=>`
+    <div class="ai-hist-item" onclick="restoreAIHistory(${i})">
+      <div class="ai-hist-item-head">
+        <span class="ai-hist-type">${esc(h.type)}</span>
+        <span class="ai-hist-time">${esc(h.time)}</span>
+      </div>
+      <div class="ai-hist-preview">${esc(h.source)} — ${esc(h.preview)}…</div>
+    </div>`).join('');
+}
+function restoreAIHistory(i){
+  const hist=loadAIHistory();const h=hist[i];if(!h)return;
+  if(h.type==='Explanation'){const out=document.getElementById('ai-explain-out');out.classList.remove('empty');typewrite(out,h.text);}
+  else if(h.type==='Fix Steps'){const out=document.getElementById('ai-fix-out');out.classList.remove('empty');out.textContent=h.text;}
+  else if(h.type.includes('Ticket')){const out=document.getElementById('ai-ticket-out');out.textContent=h.text;}
+  toast('Restored: '+h.type+' from '+h.time,'ok');
+}
+function clearAIHistory(){saveAIHistory([]);renderAIHistory();toast('History cleared','ok');}
+
+/* ═══ PDF EXPORT (Feature 8) ═════════════════════════════════ */
+function exportDashboardPDF(){
+  if(!S.connected){toast('Connect a log source first.','err');return;}
+  const s=S.stats;
+  const explainText=document.getElementById('ai-explain-out')?.textContent||'(not generated)';
+  const fixText=document.getElementById('ai-fix-out')?.textContent||'(not generated)';
+  const ticketText=document.getElementById('ai-ticket-out')?.textContent||'(not generated)';
+  const ts=new Date().toLocaleString();
+  const errRate=s.rate||0;
+  const clsColors={'healthy':'#22c55e','warning':'#f59e0b','error':'#ef4444'};
+  let cls='healthy';
+  if(s.crit>0)cls='error';else if(parseFloat(errRate)>10)cls='warning';
+  const clsColor=clsColors[cls]||'#22c55e';
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>AutoRCA Incident Report — ${s.label||S.label}</title>
+<style>
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0b0a14;color:#c8c6e8;margin:0;padding:0;}
+  .page{max-width:900px;margin:0 auto;padding:40px;}
+  .header{display:flex;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid #2a2850;}
+  .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#7c6aff,#a855f7);display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .header-info h1{font-size:22px;font-weight:700;color:#eceaf8;margin:0 0 4px;}
+  .header-info .sub{font-size:13px;color:#7e7ca8;}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+  .kpi{padding:14px;background:#1a1836;border-radius:10px;border:1px solid #2a2850;}
+  .kpi-lbl{font-size:10px;font-weight:600;color:#4e4c78;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+  .kpi-val{font-size:24px;font-weight:700;color:#eceaf8;font-family:'Courier New',monospace;}
+  .kpi-sub{font-size:11px;color:#7e7ca8;margin-top:3px;}
+  .section{margin-bottom:24px;}
+  .section-title{font-size:13px;font-weight:700;color:#eceaf8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2a2850;}
+  .ai-block{background:#111029;border:1px solid #2a2850;border-radius:10px;padding:14px;font-size:13px;line-height:1.7;white-space:pre-wrap;color:#c8c6e8;}
+  .footer{margin-top:32px;padding-top:16px;border-top:1px solid #2a2850;font-size:11px;color:#4e4c78;display:flex;justify-content:space-between;}
+  @media print{body{background:#fff;color:#222;}  .kpi{background:#f5f4fe;border-color:#d0ceee;} .ai-block{background:#f0effa;border-color:#d0ceee;color:#282644;} .header,.section-title{border-color:#d0ceee;}}
+</style></head><body><div class="page">
+  <div class="header">
+    <div class="logo">⚡</div>
+    <div class="header-info">
+      <h1>AutoRCA Incident Report</h1>
+      <div class="sub">Generated ${ts} &nbsp;·&nbsp; Source: ${esc(S.label)} &nbsp;·&nbsp; <span class="badge" style="background:${clsColor}25;color:${clsColor};">${cls.toUpperCase()}</span></div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-lbl">Total Entries</div><div class="kpi-val">${(s.total||0).toLocaleString()}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Error Rate</div><div class="kpi-val" style="color:${parseFloat(errRate)>10?'#ef4444':'#22c55e'}">${errRate}%</div><div class="kpi-sub">${s.err||0} errors</div></div>
+    <div class="kpi"><div class="kpi-lbl">DB Errors</div><div class="kpi-val">${s.dbErr||0}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Warnings</div><div class="kpi-val">${s.warn||0}</div></div>
+  </div>
+  <div class="section"><div class="section-title">📝 Incident Explanation</div><div class="ai-block">${esc(explainText)}</div></div>
+  <div class="section"><div class="section-title">🔧 Fix Steps</div><div class="ai-block">${esc(fixText)}</div></div>
+  <div class="section"><div class="section-title">🎫 Ticket / Report</div><div class="ai-block">${esc(ticketText)}</div></div>
+  <div class="footer"><span>AutoRCA v2.0 — Powered by Claude AI</span><span>Report ID: ${Date.now()}</span></div>
+</div></body></html>`;
+
+  const w=window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(()=>{w.print();},400);
+  toast('PDF report opened — use browser print to save','ok');
+}
+
+/* ═══ COPY TICKET (Feature 8b) ═══════════════════════════════ */
+function copyTicket(){
+  const text=document.getElementById('ai-ticket-out')?.textContent||'';
+  if(!text||text.includes('Click Generate')){toast('Generate a report first.','err');return;}
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('btn-copy-ticket');
+    if(btn){btn.textContent='✓ Copied';btn.style.color='var(--green)';btn.style.borderColor='var(--green)40';}
+    setTimeout(()=>{if(btn){btn.textContent='⎘ Copy';btn.style.color='';btn.style.borderColor='';}},2000);
+    toast('Ticket copied to clipboard','ok');
+  }).catch(()=>toast('Copy failed — try manually selecting the text','err'));
+}
+
+/* ═══ API SERVER HEALTH (Feature 13) ════════════════════════ */
+let _healthCheckTimer=null;
+async function checkApiHealth(){
+  const dot=document.getElementById('sb-health-dot');
+  const txt=document.getElementById('sb-health-txt');
+  if(!dot||!txt)return;
+  const base=localStorage.getItem('autorca_api_base')||'http://localhost:8000';
+  const key=localStorage.getItem('autorca_api_key')||'';
+  dot.className='sb-health-dot checking';
+  txt.textContent='API: checking…';
+  try{
+    const res=await fetch(base+'/api/health',{headers:{'X-API-Key':key},signal:AbortSignal.timeout(5000)});
+    const d=await res.json();
+    if(d.status==='ok'){
+      dot.className='sb-health-dot up';
+      txt.textContent='API: online ✓';
+      txt.style.color='var(--green)';
+    } else {
+      dot.className='sb-health-dot down';
+      txt.textContent='API: bad status';
+      txt.style.color='var(--amber)';
+    }
+  }catch(e){
+    dot.className='sb-health-dot down';
+    txt.textContent='API: offline ✗';
+    txt.style.color='var(--red)';
+  }
+}
+function startHealthChecks(){
+  checkApiHealth();
+  _healthCheckTimer=setInterval(checkApiHealth,30000);
+}
+
+/* ═══ BETTER ERROR MESSAGES (Feature 14) ════════════════════ */
+async function aiPostEnhanced(endpoint){
+  const base=localStorage.getItem('autorca_api_base')||'http://localhost:8000';
+  const key=localStorage.getItem('autorca_api_key')||API_KEY;
+  let res;
+  try{
+    res=await fetch(`${base}${endpoint}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-API-Key':key},
+      body:JSON.stringify(getAIPayload()),
+      signal:AbortSignal.timeout(30000)
+    });
+  }catch(e){
+    if(e.name==='TimeoutError')throw new Error('Request timed out after 30s — is api_server.py still running?');
+    if(e.message.includes('Failed to fetch'))throw new Error('Cannot connect to '+base+' — make sure api_server.py is running with: python api_server.py');
+    throw new Error('Network error: '+e.message);
+  }
+  if(!res.ok){
+    let detail='';
+    try{const j=await res.json();detail=j.detail||j.message||j.error||JSON.stringify(j);}
+    catch{try{detail=await res.text();}catch{}}
+    const status=res.status;
+    if(status===401)throw new Error('401 Unauthorized — check your AUTORCA_API_KEY in Settings ⚙');
+    if(status===422)throw new Error('422 Validation Error — '+detail);
+    if(status===500)throw new Error('500 Server Error — '+detail);
+    throw new Error(`HTTP ${status}: ${detail||res.statusText}`);
+  }
+  return res.json();
+}
+
+/* ═══ NAVIGATION EXTENSION ════════════════════════════════════ */
+/* (timeline/compare/ai handled via extra logic in goScreen below) */
+
+
 switchTab('up');
 goScreen('upload',document.getElementById('sb-upload'));
+startHealthChecks(); /* Feature 13: API health monitor */
+renderAIHistory();   /* Feature 10: load saved history */
+/* Load saved threshold into settings field */
+(function(){const t=localStorage.getItem('autorca_threshold');if(t){const el=document.getElementById('cfg-threshold');if(el)el.value=t;}})();
 /* Placeholder charts */
 (function initCharts(){
   function tryInit(){

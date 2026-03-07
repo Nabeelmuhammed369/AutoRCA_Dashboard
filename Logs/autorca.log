@@ -17,7 +17,7 @@
 2026-03-05 17:25:16,419 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:25:16,420 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:25:16,423 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:25:16,427 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:16,427 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:25:49,179 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:25:51,001 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:25:51,010 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -26,7 +26,7 @@
 2026-03-05 17:25:51,022 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:25:51,024 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:25:51,026 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:25:51,032 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:51,032 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:25:52,634 | WARNING | API_SERVER | DB crash injected into log file.
 2026-03-05 17:25:52,650 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:25:53,348 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
@@ -37,7 +37,7 @@
 2026-03-05 17:25:54,533 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:25:54,535 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:25:54,536 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:25:54,539 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:54,539 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:25:55,755 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:25:55,765 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
 2026-03-05 17:25:55,776 | INFO | LOG_ANALYZER | Total errors found: 308
@@ -45,7 +45,7 @@
 2026-03-05 17:25:55,787 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:25:55,789 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:25:55,791 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:25:55,799 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:25:55,799 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:30:11,170 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:30:12,503 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:30:12,505 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -54,7 +54,7 @@
 2026-03-05 17:30:12,507 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:30:12,508 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:30:12,508 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:30:12,509 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:30:12,509 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:40:51,121 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:40:52,085 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:40:52,090 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -63,7 +63,7 @@
 2026-03-05 17:40:52,097 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:40:52,098 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:40:52,099 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:40:52,104 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:40:52,104 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:41:13,379 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:41:14,088 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:41:14,090 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -72,7 +72,7 @@
 2026-03-05 17:41:14,093 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:41:14,093 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:41:14,094 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:41:14,097 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:41:14,097 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:43:07,976 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:43:08,794 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:43:08,797 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -81,7 +81,7 @@
 2026-03-05 17:43:08,800 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:43:08,801 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:43:08,801 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:43:08,803 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:43:08,803 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:46:20,125 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:46:21,002 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:46:21,022 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -90,7 +90,7 @@
 2026-03-05 17:46:21,068 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:46:21,095 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:46:21,113 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:46:21,134 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:21,134 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:46:26,433 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:46:27,116 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:46:27,118 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -99,7 +99,7 @@
 2026-03-05 17:46:27,120 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:46:27,120 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:46:27,120 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:46:27,121 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:27,121 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:46:28,924 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:46:28,929 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:46:29,814 | INFO | API_MONITOR | API responded with status 200
@@ -109,7 +109,7 @@
 2026-03-05 17:46:29,824 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:46:29,824 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:46:29,824 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:46:29,825 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:29,825 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:46:29,882 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:46:29,886 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
 2026-03-05 17:46:29,887 | INFO | LOG_ANALYZER | Total errors found: 308
@@ -117,7 +117,7 @@
 2026-03-05 17:46:29,889 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 17:46:29,889 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 17:46:29,889 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 17:46:29,890 | INFO | API_SERVER | Diagnostic complete — classification: Data Integrity Issue
+2026-03-05 17:46:29,890 | INFO | API_SERVER | Diagnostic complete ï¿½ classification: Data Integrity Issue
 2026-03-05 17:46:55,251 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 17:46:56,037 | INFO | API_MONITOR | API responded with status 200
 2026-03-05 17:46:56,042 | INFO | LOG_ANALYZER | Analyzing log file: Z:/Nabeel/AutoRCA/Logs/app.log
@@ -1887,8 +1887,8 @@ google.genai.errors.ClientError: 403 PERMISSION_DENIED. {'error': {'code': 403, 
 2026-03-05 22:31:44,842 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-05 22:31:44,843 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-05 22:31:44,845 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-05 22:31:47,483 | WARNING | API_SERVER | AUTORCA_API_KEY not set — all requests will be rejected.
-2026-03-05 22:31:47,671 | WARNING | API_SERVER | AUTORCA_API_KEY not set — all requests will be rejected.
+2026-03-05 22:31:47,483 | WARNING | API_SERVER | AUTORCA_API_KEY not set ï¿½ all requests will be rejected.
+2026-03-05 22:31:47,671 | WARNING | API_SERVER | AUTORCA_API_KEY not set ï¿½ all requests will be rejected.
 2026-03-05 22:43:22,363 | INFO | API_SERVER | Diagnostic requested.
 2026-03-05 22:43:22,365 | INFO | API_MONITOR | Checking API health: https://jsonplaceholder.typicode.com/posts/1
 2026-03-05 22:43:24,140 | INFO | API_MONITOR | API responded with status 200
@@ -4211,5 +4211,27 @@ google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429,
 2026-03-06 17:13:37,084 | INFO | DB_VALIDATOR | Null email count: 1
 2026-03-06 17:13:37,085 | INFO | RCA_ENGINE | Classifying root cause...
 2026-03-06 17:13:37,086 | WARNING | RCA_ENGINE | Data integrity issue detected.
-2026-03-06 23:45:43,061 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-06 23:46:31,486 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-06 23:45:43,061 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-06 23:46:31,486 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-06 23:48:34,856 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 23:48:34,910 | INFO | AI_ANALYZER | Incident explanation generated successfully.
+2026-03-06 23:48:50,757 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 23:48:50,762 | INFO | AI_ANALYZER | Ticket summary generated successfully.
+2026-03-06 23:48:56,338 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 23:48:56,342 | INFO | AI_ANALYZER | Ticket summary generated successfully.
+2026-03-06 23:49:03,760 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 23:49:03,764 | INFO | AI_ANALYZER | Fix steps generated successfully.
+2026-03-06 23:57:53,389 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 23:57:53,394 | INFO | AI_ANALYZER | Incident explanation generated successfully.
+2026-03-07 00:12:14,941 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:12:54,672 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:12:56,215 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:12:56,885 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:12:58,257 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:13:00,402 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:13:01,098 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:18:30,107 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:18:32,285 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:18:32,964 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:19:33,904 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 00:19:33,989 | INFO | AI_ANALYZER | Fix steps generated successfully.
