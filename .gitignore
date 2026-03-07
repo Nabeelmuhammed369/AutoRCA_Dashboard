@@ -4,6 +4,7 @@ app.env
 *.env
 .env.*
 secrets.yaml
+*.db
 
 # ── Python ────────────────────────────────────────────────────
 __pycache__/
@@ -61,3 +62,8 @@ coverage.xml
 # ── OS ────────────────────────────────────────────────────────
 .DS_Store
 desktop.ini
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.env

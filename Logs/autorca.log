@@ -4223,16 +4223,16 @@ google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429,
 2026-03-06 23:49:03,764 | INFO | AI_ANALYZER | Fix steps generated successfully.
 2026-03-06 23:57:53,389 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-03-06 23:57:53,394 | INFO | AI_ANALYZER | Incident explanation generated successfully.
-2026-03-07 00:12:14,941 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:12:54,672 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:12:56,215 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:12:56,885 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:12:58,257 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:13:00,402 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:13:01,098 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:18:30,107 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:18:32,285 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
-2026-03-07 00:18:32,964 | WARNING | API_SERVER | Rejected request — invalid or missing API key.
+2026-03-07 00:12:14,941 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:12:54,672 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:12:56,215 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:12:56,885 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:12:58,257 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:13:00,402 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:13:01,098 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:18:30,107 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:18:32,285 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
+2026-03-07 00:18:32,964 | WARNING | API_SERVER | Rejected request ï¿½ invalid or missing API key.
 2026-03-07 00:19:33,904 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-03-07 00:19:33,989 | INFO | AI_ANALYZER | Fix steps generated successfully.
 2026-03-07 15:32:55,549 | INFO | API_SERVER | Diagnostic requested.
