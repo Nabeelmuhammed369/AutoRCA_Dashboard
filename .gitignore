@@ -7,6 +7,10 @@ secrets.yaml
 *.db
 # Add to .gitignore
 Add-Content .gitignore "`nLogs/`n*.log"
+
+# Add to .gitignore
+Add-Content .gitignore "`n# IDE & tooling`n.vscode/`n.streamlit/`n`n# Logs`nLogs/`n*.log`n`n# Python`n__pycache__/`n*.pyc`n*.pyo`n.env`napp.env`n`n# OS`n.DS_Store`nThumbs.db"
+
 # ── Python ────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
