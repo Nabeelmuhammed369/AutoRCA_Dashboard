@@ -14,6 +14,8 @@ Add-Content .gitignore "`n# IDE & tooling`n.vscode/`n.streamlit/`n`n# Logs`nLogs
 # Update .gitignore
 Add-Content .gitignore "`n# Generated files`nrca_report.txt`napp.db`n*.db`n`n# Duplicate HTML fixes`n*_DUPFIX.html`n*_FINAL.html`n*_backup.html`n`n# Secrets`n.env`napp.env`n*.env"
 
+Add-Content .gitignore "`nautorca_dashboard_DUPFIX.html`nrca_report.txt"
+
 # ── Python ────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
