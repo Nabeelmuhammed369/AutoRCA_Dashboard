@@ -184,7 +184,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt httpx --quiet
+        run: pip install -r requirements.txt httpx pytest pytest-timeout --quiet
 
       - name: Start API server
         run: |
