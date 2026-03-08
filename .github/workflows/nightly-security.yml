@@ -1,0 +1,123 @@
+name: Nightly Security Audit
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 03:00 UTC every night
+  workflow_dispatch:
+
+jobs:
+
+  dependency-audit:
+    name: Dependency Vulnerability Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install tools
+        run: pip install safety pip-audit --quiet
+
+      - name: pip-audit (OSV database)
+        run: pip-audit --requirement requirements.txt --format json --output pip-audit.json
+        continue-on-error: true
+
+      - name: Safety check
+        run: safety check -r requirements.txt --json > safety.json
+        continue-on-error: true
+
+      - name: Parse and summarise findings
+        run: |
+          python3 - << 'EOF'
+          import json, sys
+          
+          try:
+              with open('pip-audit.json') as f:
+                  data = json.load(f)
+              vulns = [d for d in data.get('dependencies', []) if d.get('vulns')]
+              if vulns:
+                  print(f"⚠️  pip-audit found {len(vulns)} vulnerable packages:")
+                  for v in vulns:
+                      for vuln in v['vulns']:
+                          print(f"  • {v['name']}=={v['version']} — {vuln['id']}: {vuln['description'][:80]}")
+              else:
+                  print("✅ pip-audit: no vulnerabilities found")
+          except Exception as e:
+              print(f"Could not parse pip-audit output: {e}")
+          EOF
+
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-${{ github.run_id }}
+          path: |
+            pip-audit.json
+            safety.json
+          retention-days: 90
+
+      - name: Create issue on vulnerabilities found
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = `## 🔐 Nightly Security Audit — ${new Date().toISOString().slice(0,10)}\n\n`;
+            body += `Run: [#${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\n\n`;
+            body += `Review the attached artifacts for full vulnerability details.`;
+            
+            // Only create issue if not already open today
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'security,automated',
+              state: 'open'
+            });
+            
+            const today = new Date().toISOString().slice(0,10);
+            const alreadyOpen = issues.data.some(i => i.title.includes(today));
+            
+            if (!alreadyOpen) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Security Audit — ${today}`,
+                body,
+                labels: ['security', 'automated']
+              });
+            }
+        continue-on-error: true
+
+  outdated-deps:
+    name: Check Outdated Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check outdated packages
+        run: |
+          pip install -r requirements.txt --quiet
+          pip list --outdated --format=columns
+
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+          queries: security-and-quality
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:python"
