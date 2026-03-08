@@ -215,9 +215,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .rca-alert-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse-dot 1.5s infinite;}
 
 /* Page */
-#page{flex:1;overflow-y:auto;overflow-x:hidden;background:var(--bg);}
-.screen{display:none !important;}
-.screen.active{display:block !important;}
+#page{flex:1;overflow:hidden;background:var(--bg);display:flex;flex-direction:column;}
+.screen{display:none !important;flex:1;min-height:0;}
+.screen.active{display:flex !important;flex-direction:column;}
+/* Screens that need old block layout get overridden below */
+#screen-upload.active,#screen-dashboard.active,#screen-ai.active,#screen-explorer.active,
+#screen-compare.active,#screen-error-drill.active,#screen-comp-api.active,
+#screen-comp-log.active,#screen-comp-db.active,#screen-comp-rca.active,
+#screen-rca-report.active{display:block !important;overflow-y:auto;}
 
 /* ═══ UPLOAD SCREEN ══════════════════════════════════════════ */
 #screen-upload{padding:24px 28px;}
@@ -543,28 +548,149 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .ab-close{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:0 4px;}
 
 /* ═══ INCIDENT TIMELINE ══════════════════════════════════════ */
-#screen-timeline{padding:20px 24px;}
-.tl-header{margin-bottom:16px;}
-.tl-title{font-size:20px;font-weight:700;color:var(--heading);margin-bottom:4px;}
-.tl-sub{font-size:13px;color:var(--text2);}
-.tl-chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:16px;}
-.tl-chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.tl-chart-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;}
-.tl-chart-body{height:200px;position:relative;}
-.tl-spikes{margin-top:16px;}
-.tl-spike-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;}
-.tl-spike-list{display:flex;flex-direction:column;gap:6px;}
-.tl-spike{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;transition:all .15s;}
-.tl-spike:hover{border-color:var(--border2);background:var(--bg3);}
-.tl-spike.critical{border-left:3px solid var(--red);}
-.tl-spike.warning{border-left:3px solid var(--amber);}
-.tl-spike.info{border-left:3px solid var(--accent);}
-.tl-spike-time{font-family:'Fira Code',monospace;font-size:11px;color:var(--text3);white-space:nowrap;min-width:50px;}
-.tl-spike-bar-wrap{flex:1;height:14px;background:var(--border);border-radius:3px;overflow:hidden;}
-.tl-spike-bar{height:100%;border-radius:3px;transition:width .5s ease;}
-.tl-spike-count{font-size:12px;font-weight:700;color:var(--heading);font-family:'Fira Code',monospace;min-width:36px;text-align:right;}
-.tl-spike-lbl{font-size:10px;color:var(--text2);min-width:60px;}
+#screen-timeline{padding:0;display:flex;flex-direction:column;overflow:hidden;height:100%;min-height:0;}
 .tl-empty{padding:40px;text-align:center;color:var(--text3);font-size:13px;}
+
+/* Control Bar */
+.tl-controlbar{background:var(--card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;flex-direction:column;gap:10px;flex-shrink:0;z-index:15;}
+.tl-cb-row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tl-cb-row2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tl-page-title{font-size:15px;font-weight:800;color:var(--heading);margin-right:4px;}
+.tl-page-sub{font-size:11px;color:var(--text3);}
+
+/* Time range pills */
+.tl-range-group{display:flex;gap:2px;background:var(--bg3);border-radius:8px;padding:3px;}
+.tl-range-pill{padding:4px 10px;border-radius:6px;border:none;background:none;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.tl-range-pill.active{background:var(--card);color:var(--heading);box-shadow:0 1px 4px #0003;}
+.tl-range-pill:hover:not(.active){color:var(--text2);}
+
+/* Query bar */
+.tl-query-wrap{flex:1;min-width:220px;position:relative;}
+.tl-query-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;}
+.tl-query-input{width:100%;padding:7px 32px 7px 32px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:12px;font-family:'Fira Code',monospace;outline:none;transition:border-color .15s;box-sizing:border-box;}
+.tl-query-input:focus{border-color:var(--accent);}
+.tl-query-input::placeholder{color:var(--text3);font-family:'Outfit',sans-serif;}
+.tl-query-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;padding:2px;display:none;}
+.tl-query-clear.visible{display:block;}
+
+/* Filter chips */
+.tl-filter-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.tl-filter-chip:hover{border-color:var(--accent)40;background:var(--card);}
+.tl-filter-chip.active{border-color:var(--accent)60;background:var(--accent)12;color:var(--accent2);}
+.tl-filter-chip.crit.active{border-color:var(--red)50;background:var(--red)12;color:var(--red);}
+.tl-filter-chip.err.active{border-color:var(--red)40;background:var(--red)08;color:#f87171;}
+.tl-filter-chip.warn.active{border-color:var(--amber)50;background:var(--amber)12;color:var(--amber);}
+.tl-filter-chip.info.active{border-color:var(--green)40;background:var(--green)10;color:var(--green);}
+
+.tl-divider{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+.tl-sel{padding:5px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:7px;color:var(--text2);font-size:11px;font-family:inherit;outline:none;cursor:pointer;}
+.tl-results-count{margin-left:auto;font-size:11px;color:var(--text3);white-space:nowrap;}
+.tl-collapse-charts-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.tl-collapse-charts-btn:hover{background:var(--bg3);color:var(--text2);}
+
+/* Active filter tags */
+.tl-active-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 20px;background:var(--accent)08;border-bottom:1px solid var(--accent)20;font-size:11px;flex-shrink:0;}
+.tl-af-label{color:var(--text3);font-weight:600;}
+.tl-af-tag{display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;background:var(--accent)15;border:1px solid var(--accent)30;color:var(--accent2);font-weight:600;}
+.tl-af-tag button{background:none;border:none;color:var(--accent2);cursor:pointer;padding:0;font-size:11px;line-height:1;}
+.tl-af-clear{color:var(--text3);cursor:pointer;text-decoration:underline;margin-left:4px;}
+
+/* Charts zone */
+.tl-charts-zone{flex-shrink:0;border-bottom:1px solid var(--border);background:var(--bg2);min-height:0;}
+.tl-charts-zone.collapsed{display:none;}
+.tl-charts-row{display:grid;grid-template-columns:1fr 1fr 260px;gap:0;height:190px;}
+.tl-chart-panel{border-right:1px solid var(--border);padding:12px 14px;display:flex;flex-direction:column;position:relative;height:100%;box-sizing:border-box;}
+.tl-chart-panel:last-child{border-right:none;}
+.tl-chart-panel-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.tl-chart-canvas-wrap{flex:1;position:relative;min-height:0;overflow:hidden;}
+/* ── VIZ SWITCHER ────────────────────────────────────────────── */
+.tl-viz-menu-btn{display:flex;align-items:center;gap:3px;padding:2px 7px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text3);font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;margin-left:auto;}
+.tl-viz-menu-btn:hover{background:var(--bg3);color:var(--text2);}
+.tl-viz-dropdown{position:absolute;top:calc(100% + 4px);right:0;z-index:30;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px #0005;padding:4px;min-width:140px;display:none;}
+.tl-viz-dropdown.open{display:block;}
+.tl-viz-opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;border:none;background:none;color:var(--text2);font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;width:100%;text-align:left;transition:background .1s;}
+.tl-viz-opt:hover{background:var(--bg3);}
+.tl-viz-opt.active{background:var(--accent)15;color:var(--accent2);font-weight:700;}
+.tl-viz-opt-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:var(--bg3);flex-shrink:0;}
+.tl-viz-opt.active .tl-viz-opt-icon{background:var(--accent)20;color:var(--accent2);}
+.tl-viz-sep{height:1px;background:var(--border);margin:3px 0;}
+
+/* tile view */
+.tl-tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;height:100%;align-content:start;overflow-y:auto;}
+.tl-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);cursor:default;}
+.tl-tile:nth-child(3n){border-right:none;}
+.tl-tile-val{font-size:18px;font-weight:800;font-family:'Fira Code',monospace;color:var(--heading);}
+.tl-tile-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;text-align:center;}
+.tl-tile-sub{font-size:10px;font-weight:600;margin-top:1px;}
+
+/* number view */
+.tl-number-view{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:4px;}
+.tl-number-main{font-size:42px;font-weight:900;font-family:'Fira Code',monospace;line-height:1;}
+.tl-number-sub{font-size:11px;color:var(--text3);text-align:center;}
+.tl-number-sub2{font-size:13px;font-weight:700;margin-top:4px;}
+
+/* no-data placeholder */
+.tl-chart-nodata{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:6px;color:var(--text3);font-size:11px;}
+.tl-chart-nodata-icon{font-size:24px;opacity:.4;}
+
+.tl-chart-canvas-wrap canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;}
+.tl-swimlane-zone{flex-shrink:0;border-bottom:1px solid var(--border);background:var(--card);height:180px;overflow-y:auto;}
+.tl-swimlane-zone.collapsed{display:none;}
+.tl-swimlane-hdr{padding:7px 20px;display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--border);background:var(--card);position:sticky;top:0;z-index:5;flex-shrink:0;}
+.tl-swimlane-row{display:flex;align-items:center;gap:0;height:36px;border-bottom:1px solid var(--border);}
+.tl-swimlane-row:last-child{border-bottom:none;}
+.tl-swimlane-row:hover{background:var(--bg3);}
+.tl-swimlane-label{width:180px;flex-shrink:0;padding:0 16px;font-size:11px;font-weight:600;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid var(--border);}
+.tl-swimlane-track{flex:1;position:relative;height:100%;overflow:hidden;}
+.tl-swimlane-pip{position:absolute;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;}
+.tl-swimlane-pip.crit{background:var(--red);box-shadow:0 0 4px var(--red)80;}
+.tl-swimlane-pip.err{background:#f87171;}
+.tl-swimlane-pip.warn{background:var(--amber);}
+.tl-swimlane-count{width:50px;flex-shrink:0;font-size:10px;font-family:'Fira Code',monospace;color:var(--text3);text-align:right;padding-right:12px;}
+
+/* Incident list */
+.tl-list-zone{flex:1;overflow-y:auto;padding:0;min-height:0;}
+.tl-list-header{display:grid;grid-template-columns:28px 90px 110px 1fr 90px 80px 80px 36px;gap:0;padding:7px 20px;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:0;z-index:5;flex-shrink:0;}
+.tl-list-hdr-cell{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;gap:3px;user-select:none;}
+.tl-list-hdr-cell:hover{color:var(--text2);}
+.tl-group-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
+.tl-group-row:hover{background:var(--bg3);}
+.tl-group-row.expanded{background:var(--accent)05;box-shadow:inset 3px 0 0 var(--accent);}
+.tl-group-cells{display:grid;grid-template-columns:28px 90px 110px 1fr 90px 80px 80px 36px;gap:0;padding:9px 20px;align-items:center;}
+.tl-group-expand{color:var(--text3);transition:transform .2s;font-size:12px;}
+.tl-group-expand.open{transform:rotate(90deg);}
+.tl-gcell{font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tl-gcell.name{font-weight:700;color:var(--heading);}
+.tl-gcell.ts{font-family:'Fira Code',monospace;font-size:10px;color:var(--text3);}
+.tl-gcell.msg{color:var(--text2);}
+
+/* Severity badges in list */
+.tl-sev{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800;white-space:nowrap;}
+.tl-sev.critical{background:var(--red)18;color:var(--red);border:1px solid var(--red)30;}
+.tl-sev.high{background:var(--amber)15;color:var(--amber);border:1px solid var(--amber)25;}
+.tl-sev.medium{background:#38bdf815;color:#38bdf8;border:1px solid #38bdf825;}
+.tl-sev.low{background:var(--green)12;color:var(--green);border:1px solid var(--green)20;}
+.tl-cat-tag{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;white-space:nowrap;}
+.tl-count-badge{font-family:'Fira Code',monospace;font-size:11px;font-weight:700;color:var(--heading);}
+
+/* Expanded entries */
+.tl-entries-block{border-top:1px solid var(--border);background:var(--bg2);}
+.tl-entry-row{display:grid;grid-template-columns:28px 90px 110px 1fr 90px 80px 80px 36px;gap:0;padding:6px 20px;border-bottom:1px solid var(--border);align-items:start;cursor:pointer;transition:background .1s;}
+.tl-entry-row:last-child{border-bottom:none;}
+.tl-entry-row:hover{background:var(--bg3);}
+.tl-entry-cell{font-size:11px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tl-entry-cell.ts{font-family:'Fira Code',monospace;font-size:10px;color:var(--text3);}
+.tl-entry-cell.msg{white-space:normal;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.tl-highlight{background:var(--amber)35;border-radius:2px;padding:0 2px;color:var(--heading);font-weight:700;}
+.tl-entry-open{color:var(--text3);opacity:0;transition:opacity .1s;}
+.tl-entry-row:hover .tl-entry-open{opacity:1;}
+.tl-no-results{padding:60px 20px;text-align:center;color:var(--text3);}
+.tl-no-results-icon{font-size:36px;margin-bottom:12px;opacity:.4;}
+
+/* Legend dots in chart header */
+.tl-legend{display:flex;gap:10px;align-items:center;margin-left:auto;}
+.tl-legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);}
+.tl-legend-dot{width:8px;height:8px;border-radius:2px;}
 
 /* ═══ MULTI-SOURCE COMPARISON ════════════════════════════════ */
 #screen-compare{padding:20px 24px;}
@@ -1657,32 +1783,207 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 
     <!-- ══ INCIDENT TIMELINE ══ -->
     <div id="screen-timeline" class="screen">
-      <div class="tl-header">
-        <div class="tl-title">Incident Timeline</div>
-        <div class="tl-sub">Chronological error spike analysis — when things went wrong and how bad it got</div>
-      </div>
-      <div id="tl-empty" style="display:none;padding:40px;text-align:center;">
-        <div style="font-size:40px;margin-bottom:12px;opacity:.5;">📈</div>
-        <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:8px;">No log source connected</div>
-        <div style="font-size:13px;color:var(--text2);">Connect a log source to see the incident timeline.</div>
-        <div style="margin-top:20px;"><button class="empty-cta-btn" onclick="goScreen('upload',document.getElementById('sb-upload'))"><i data-lucide="arrow-right" class="icon-sm"></i> Connect Log Source</button></div>
-      </div>
-      <div id="tl-content">
-        <div class="tl-chart-card hover-lift">
-          <div class="tl-chart-head">
-            <div class="tl-chart-title">Error Events Over Time</div>
-            <div style="display:flex;gap:6px;align-items:center;">
-              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);"><div style="width:10px;height:3px;background:var(--red);border-radius:2px;"></div>Errors</div>
-              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);"><div style="width:10px;height:3px;background:var(--amber);border-radius:2px;"></div>Warnings</div>
+
+      <!-- ── CONTROL BAR ── -->
+      <div class="tl-controlbar" id="tl-controlbar">
+        <div class="tl-cb-row1">
+          <span class="tl-page-title">Incident Timeline</span>
+          <span class="tl-page-sub" id="tl-page-sub">Connect a log source to begin</span>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <!-- Time range pills -->
+            <div class="tl-range-group" id="tl-range-group">
+              <button class="tl-range-pill active" data-range="all" onclick="tlSetRange('all',this)">All</button>
+              <button class="tl-range-pill" data-range="1h" onclick="tlSetRange('1h',this)">1h</button>
+              <button class="tl-range-pill" data-range="6h" onclick="tlSetRange('6h',this)">6h</button>
+              <button class="tl-range-pill" data-range="12h" onclick="tlSetRange('12h',this)">12h</button>
+              <button class="tl-range-pill" data-range="24h" onclick="tlSetRange('24h',this)">24h</button>
+              <button class="tl-range-pill" data-range="7d" onclick="tlSetRange('7d',this)">7d</button>
             </div>
+            <button class="tl-collapse-charts-btn" id="tl-toggle-charts" onclick="tlToggleCharts()">
+              <i data-lucide="layout-panel-top" style="width:12px;height:12px;"></i> Charts
+            </button>
           </div>
-          <div class="tl-chart-body"><canvas id="ch-timeline"></canvas></div>
         </div>
-        <div class="tl-spikes">
-          <div class="tl-spike-title">Top Error Spikes</div>
-          <div id="tl-spike-list" class="tl-spike-list"><div class="tl-empty">Timestamps required for spike detection.</div></div>
+        <div class="tl-cb-row2">
+          <!-- Query bar -->
+          <div class="tl-query-wrap">
+            <i data-lucide="search" class="tl-query-icon" style="width:13px;height:13px;"></i>
+            <input id="tl-query" class="tl-query-input" placeholder='Search: level:ERROR source:api "connection refused" keyword…' oninput="tlQueryInput(this)">
+            <button class="tl-query-clear" id="tl-query-clear" onclick="tlClearQuery()"><i data-lucide="x" style="width:11px;height:11px;"></i></button>
+          </div>
+          <div class="tl-divider"></div>
+          <!-- Level filters -->
+          <button class="tl-filter-chip crit" id="fc-CRITICAL" onclick="tlToggleLevel('CRITICAL',this)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;display:inline-block;"></span>Critical
+          </button>
+          <button class="tl-filter-chip err" id="fc-ERROR" onclick="tlToggleLevel('ERROR',this)">
+            <span style="width:6px;height:6px;border-radius:50%;background:#f87171;flex-shrink:0;display:inline-block;"></span>Error
+          </button>
+          <button class="tl-filter-chip warn" id="fc-WARNING" onclick="tlToggleLevel('WARNING',this)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;display:inline-block;"></span>Warning
+          </button>
+          <button class="tl-filter-chip info" id="fc-INFO" onclick="tlToggleLevel('INFO',this)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;display:inline-block;"></span>Info
+          </button>
+          <div class="tl-divider"></div>
+          <!-- Service & Category dropdowns -->
+          <select class="tl-sel" id="tl-sel-service" onchange="tlApplyFilters()">
+            <option value="">All Services</option>
+          </select>
+          <select class="tl-sel" id="tl-sel-category" onchange="tlApplyFilters()">
+            <option value="">All Categories</option>
+            <option value="db">Database</option>
+            <option value="net">Network</option>
+            <option value="api">API/Gateway</option>
+            <option value="sec">Security</option>
+            <option value="app">Application</option>
+          </select>
+          <!-- Sort -->
+          <select class="tl-sel" id="tl-sel-sort" onchange="tlApplyFilters()">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="severity">By Severity</option>
+            <option value="count">By Event Count</option>
+          </select>
+          <span class="tl-results-count" id="tl-results-count"></span>
         </div>
       </div>
+
+      <!-- Active filter tags -->
+      <div id="tl-active-filters" style="display:none;" class="tl-active-filters">
+        <span class="tl-af-label">Active:</span>
+        <div id="tl-af-tags"></div>
+        <span class="tl-af-clear" onclick="tlClearAll()">Clear all</span>
+      </div>
+
+      <!-- Empty state -->
+      <div id="tl-empty" style="display:none;flex:1;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;opacity:.4;">📈</div>
+          <div style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:8px;">No log source connected</div>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:20px;">Connect a log source to see the incident timeline.</div>
+          <button class="empty-cta-btn" onclick="goScreen('upload',document.getElementById('sb-upload'))"><i data-lucide="arrow-right" class="icon-sm"></i> Connect Log Source</button>
+        </div>
+      </div>
+
+      <div id="tl-content" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0;">
+
+        <!-- ── CHARTS ZONE ── -->
+        <div class="tl-charts-zone" id="tl-charts-zone">
+          <div class="tl-charts-row">
+
+            <!-- ── Panel 1: Event Volume ── -->
+            <div class="tl-chart-panel" id="tl-panel-vol">
+              <div class="tl-chart-panel-title">
+                <i data-lucide="bar-chart-2" style="width:11px;height:11px;"></i>
+                <span id="tl-vol-title">Event Volume Over Time</span>
+                <div class="tl-legend" id="tl-vol-legend" style="display:flex;margin-left:6px;">
+                  <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--red);"></div>Errors</div>
+                  <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--amber);"></div>Warn</div>
+                  <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--accent);opacity:.6;"></div>Info</div>
+                </div>
+                <div style="position:relative;margin-left:auto;">
+                  <button class="tl-viz-menu-btn" onclick="tlVizMenu('vol',this)">
+                    <i data-lucide="layout-dashboard" style="width:10px;height:10px;"></i>
+                    <span id="tl-vol-viz-label">Bar</span>
+                    <i data-lucide="chevron-down" style="width:9px;height:9px;"></i>
+                  </button>
+                  <div class="tl-viz-dropdown" id="tl-viz-drop-vol">
+                    <button class="tl-viz-opt active" onclick="tlSetViz('vol','bar',this)"><div class="tl-viz-opt-icon"><i data-lucide="bar-chart-2" style="width:13px;height:13px;"></i></div>Bar Chart</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('vol','line',this)"><div class="tl-viz-opt-icon"><i data-lucide="trending-up" style="width:13px;height:13px;"></i></div>Line Chart</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('vol','area',this)"><div class="tl-viz-opt-icon"><i data-lucide="activity" style="width:13px;height:13px;"></i></div>Area Chart</button>
+                    <div class="tl-viz-sep"></div>
+                    <button class="tl-viz-opt" onclick="tlSetViz('vol','tile',this)"><div class="tl-viz-opt-icon"><i data-lucide="grid-3x3" style="width:13px;height:13px;"></i></div>Tile View</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('vol','number',this)"><div class="tl-viz-opt-icon"><i data-lucide="hash" style="width:13px;height:13px;"></i></div>Number</button>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-chart-canvas-wrap" id="tl-vol-body">
+                <canvas id="ch-tl-volume"></canvas>
+              </div>
+            </div>
+
+            <!-- ── Panel 2: Error Rate ── -->
+            <div class="tl-chart-panel" id="tl-panel-rate">
+              <div class="tl-chart-panel-title">
+                <i data-lucide="trending-up" style="width:11px;height:11px;"></i>
+                <span id="tl-rate-title">Error Rate % Over Time</span>
+                <div style="position:relative;margin-left:auto;">
+                  <button class="tl-viz-menu-btn" onclick="tlVizMenu('rate',this)">
+                    <i data-lucide="layout-dashboard" style="width:10px;height:10px;"></i>
+                    <span id="tl-rate-viz-label">Line</span>
+                    <i data-lucide="chevron-down" style="width:9px;height:9px;"></i>
+                  </button>
+                  <div class="tl-viz-dropdown" id="tl-viz-drop-rate">
+                    <button class="tl-viz-opt" onclick="tlSetViz('rate','bar',this)"><div class="tl-viz-opt-icon"><i data-lucide="bar-chart-2" style="width:13px;height:13px;"></i></div>Bar Chart</button>
+                    <button class="tl-viz-opt active" onclick="tlSetViz('rate','line',this)"><div class="tl-viz-opt-icon"><i data-lucide="trending-up" style="width:13px;height:13px;"></i></div>Line Chart</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('rate','area',this)"><div class="tl-viz-opt-icon"><i data-lucide="activity" style="width:13px;height:13px;"></i></div>Area Chart</button>
+                    <div class="tl-viz-sep"></div>
+                    <button class="tl-viz-opt" onclick="tlSetViz('rate','tile',this)"><div class="tl-viz-opt-icon"><i data-lucide="grid-3x3" style="width:13px;height:13px;"></i></div>Tile View</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('rate','number',this)"><div class="tl-viz-opt-icon"><i data-lucide="hash" style="width:13px;height:13px;"></i></div>Number</button>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-chart-canvas-wrap" id="tl-rate-body">
+                <canvas id="ch-tl-rate"></canvas>
+              </div>
+            </div>
+
+            <!-- ── Panel 3: Category ── -->
+            <div class="tl-chart-panel" id="tl-panel-cat" style="padding:10px 12px;">
+              <div class="tl-chart-panel-title">
+                <i data-lucide="pie-chart" style="width:11px;height:11px;"></i>
+                <span id="tl-cat-title">By Category</span>
+                <div style="position:relative;margin-left:auto;">
+                  <button class="tl-viz-menu-btn" onclick="tlVizMenu('cat',this)">
+                    <i data-lucide="layout-dashboard" style="width:10px;height:10px;"></i>
+                    <span id="tl-cat-viz-label">Donut</span>
+                    <i data-lucide="chevron-down" style="width:9px;height:9px;"></i>
+                  </button>
+                  <div class="tl-viz-dropdown" id="tl-viz-drop-cat">
+                    <button class="tl-viz-opt active" onclick="tlSetViz('cat','donut',this)"><div class="tl-viz-opt-icon"><i data-lucide="pie-chart" style="width:13px;height:13px;"></i></div>Donut</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('cat','pie',this)"><div class="tl-viz-opt-icon"><i data-lucide="circle" style="width:13px;height:13px;"></i></div>Pie Chart</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('cat','bar',this)"><div class="tl-viz-opt-icon"><i data-lucide="bar-chart" style="width:13px;height:13px;"></i></div>Bar Chart</button>
+                    <div class="tl-viz-sep"></div>
+                    <button class="tl-viz-opt" onclick="tlSetViz('cat','tile',this)"><div class="tl-viz-opt-icon"><i data-lucide="grid-3x3" style="width:13px;height:13px;"></i></div>Tile View</button>
+                    <button class="tl-viz-opt" onclick="tlSetViz('cat','number',this)"><div class="tl-viz-opt-icon"><i data-lucide="hash" style="width:13px;height:13px;"></i></div>Number</button>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-chart-canvas-wrap" id="tl-cat-body">
+                <canvas id="ch-tl-cat"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── SERVICE SWIMLANES ── -->
+        <div class="tl-swimlane-zone" id="tl-swimlane-zone">
+          <div class="tl-swimlane-hdr">
+            <i data-lucide="layers" style="width:11px;height:11px;"></i>
+            Service Activity Swimlanes
+            <span style="margin-left:auto;font-size:10px;color:var(--text3);" id="tl-swimlane-range-label"></span>
+          </div>
+          <div id="tl-swimlanes"></div>
+        </div>
+
+        <!-- ── INCIDENT LIST ── -->
+        <div class="tl-list-zone" id="tl-list-zone">
+          <div class="tl-list-header">
+            <div class="tl-list-hdr-cell"></div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('severity')">Severity <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('time')">Time <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell">Group / Message</div>
+            <div class="tl-list-hdr-cell">Category</div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('count')">Events <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell">Service</div>
+            <div class="tl-list-hdr-cell"></div>
+          </div>
+          <div id="tl-list-inner"></div>
+        </div>
+
+      </div><!-- /tl-content -->
     </div>
 
     <!-- ══ COMPARE SOURCES ══ -->
@@ -2311,11 +2612,7 @@ function goScreen(name,btn){
     renderAIHistory();
   }
   if(name==='explorer'){if(S.connected)renderExplorer();else{const tb=document.getElementById('ltbody');if(tb)tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:40px">Connect a log source to explore entries</td></tr>';}}
-  if(name==='timeline'){
-    const te=document.getElementById('tl-empty');const tc2=document.getElementById('tl-content');
-    if(!S.connected){if(te)te.style.display='';if(tc2)tc2.style.display='none';}
-    else{if(te)te.style.display='none';if(tc2)tc2.style.display='';renderTimeline();}
-  }
+  if(name==='timeline'){renderTimeline();}
   if(name==='comp-api'){_apiPage=0;renderApiBoard();}
   if(name==='comp-log'){_logPage=0;renderLogBoard();}
   if(name==='comp-db'){_dbPage=0;renderDbBoard();}
@@ -3114,69 +3411,682 @@ function saveSettingsThreshold(){
 }
 
 /* ═══ INCIDENT TIMELINE (Feature 7) ══════════════════════════ */
-function renderTimeline(){
-  const tl=document.getElementById('tl-empty');
-  const tc=document.getElementById('tl-content');
-  if(!S.connected||!S.logs.length){if(tl)tl.style.display='';if(tc)tc.style.display='none';return;}
-  if(tl)tl.style.display='none';if(tc)tc.style.display='';
+/* ═══════════════════════════════════════════════════════════════
+   INCIDENT TIMELINE — Full observability-grade module
+   ═══════════════════════════════════════════════════════════════ */
 
-  /* Bucket logs by minute */
-  const errBkts={},warnBkts={},allBkts={};let hasTS=false;
-  for(const e of S.logs){
+// State
+let _tlRange='all', _tlLevels=new Set(), _tlService='', _tlCategory='',
+    _tlSort='newest', _tlQuery='', _tlChartsVisible=true,
+    _tlFiltered=[], _tlGroupsFiltered=[], _tlExpandedGroups=new Set();
+
+function renderTimeline(){
+  const te=document.getElementById('tl-empty');
+  const tc=document.getElementById('tl-content');
+  if(!S.connected||!S.logs.length){
+    if(te){te.style.display='flex';}
+    if(tc)tc.style.display='none';
+    return;
+  }
+  if(te){te.style.display='none';}
+  if(tc){tc.style.display='flex';}
+  // Populate service dropdown
+  _tlPopulateServiceDropdown();
+  // Apply all filters and render
+  tlApplyFilters();
+}
+
+function _tlPopulateServiceDropdown(){
+  const sel=document.getElementById('tl-sel-service');
+  if(!sel)return;
+  const sources=new Set(S.logs.map(e=>e.source).filter(Boolean));
+  const cur=sel.value;
+  sel.innerHTML='<option value="">All Services</option>'+
+    [...sources].sort().map(s=>`<option value="${esc(s)}" ${s===cur?'selected':''}>${esc(s.slice(0,40))}</option>`).join('');
+}
+
+function tlSetRange(range, btn){
+  _tlRange=range;
+  document.querySelectorAll('.tl-range-pill').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  tlApplyFilters();
+}
+
+function tlToggleLevel(level, btn){
+  if(_tlLevels.has(level))_tlLevels.delete(level);
+  else _tlLevels.add(level);
+  btn.classList.toggle('active',_tlLevels.has(level));
+  tlApplyFilters();
+}
+
+function tlQueryInput(input){
+  _tlQuery=input.value;
+  const clr=document.getElementById('tl-query-clear');
+  if(clr)clr.classList.toggle('visible',_tlQuery.length>0);
+  tlApplyFilters();
+}
+
+function tlClearQuery(){
+  _tlQuery='';
+  const inp=document.getElementById('tl-query');
+  if(inp)inp.value='';
+  const clr=document.getElementById('tl-query-clear');
+  if(clr)clr.classList.remove('visible');
+  tlApplyFilters();
+}
+
+function tlClearAll(){
+  _tlQuery=''; _tlLevels.clear(); _tlService=''; _tlCategory=''; _tlSort='newest'; _tlRange='all';
+  const inp=document.getElementById('tl-query'); if(inp)inp.value='';
+  document.querySelectorAll('.tl-filter-chip').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tl-range-pill').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.tl-range-pill[data-range="all"]')?.classList.add('active');
+  const ss=document.getElementById('tl-sel-service');if(ss)ss.value='';
+  const sc=document.getElementById('tl-sel-category');if(sc)sc.value='';
+  const so=document.getElementById('tl-sel-sort');if(so)so.value='newest';
+  document.getElementById('tl-query-clear')?.classList.remove('visible');
+  tlApplyFilters();
+}
+
+function tlSortBy(field){
+  const map={severity:'severity',time:'newest',count:'count'};
+  _tlSort=map[field]||'newest';
+  const so=document.getElementById('tl-sel-sort');
+  if(so)so.value=_tlSort;
+  tlApplyFilters();
+}
+
+function tlToggleCharts(){
+  _tlChartsVisible=!_tlChartsVisible;
+  document.getElementById('tl-charts-zone')?.classList.toggle('collapsed',!_tlChartsVisible);
+  document.getElementById('tl-swimlane-zone')?.classList.toggle('collapsed',!_tlChartsVisible);
+  const btn=document.getElementById('tl-toggle-charts');
+  if(btn)btn.style.opacity=_tlChartsVisible?'1':'0.5';
+}
+
+/* ── Parse query string into structured filters ─────────────── */
+function _tlParseQuery(raw){
+  const tokens={level:null,source:null,phrases:[],keywords:[]};
+  if(!raw.trim())return tokens;
+  // Extract key:value tokens
+  const kvRe=/([a-zA-Z]+):([^\s"]+)/g;
+  let qCopy=raw;
+  let m;
+  while((m=kvRe.exec(raw))!==null){
+    const k=m[1].toLowerCase(),v=m[2].toLowerCase();
+    if(k==='level')tokens.level=v.toUpperCase();
+    else if(k==='source'||k==='service')tokens.source=v;
+    qCopy=qCopy.replace(m[0],'');
+  }
+  // Extract quoted phrases
+  const phraseRe=/"([^"]+)"/g;
+  while((m=phraseRe.exec(qCopy))!==null){tokens.phrases.push(m[1].toLowerCase());qCopy=qCopy.replace(m[0],'');}
+  // Remaining words as keywords
+  tokens.keywords=qCopy.trim().split(/\s+/).filter(w=>w.length>1).map(w=>w.toLowerCase());
+  return tokens;
+}
+
+function _tlEntryMatchesQuery(e,tokens){
+  const msg=(e.message||'').toLowerCase();
+  const src=(e.source||'').toLowerCase();
+  const lvl=(e.level||'').toLowerCase();
+  if(tokens.level&&lvl!==tokens.level.toLowerCase())return false;
+  if(tokens.source&&!src.includes(tokens.source))return false;
+  for(const ph of tokens.phrases)if(!msg.includes(ph))return false;
+  for(const kw of tokens.keywords)if(!msg.includes(kw)&&!src.includes(kw)&&!lvl.includes(kw))return false;
+  return true;
+}
+
+function _tlGetCutoffTime(range){
+  const now=new Date();
+  const map={'1h':3600000,'6h':21600000,'12h':43200000,'24h':86400000,'7d':604800000};
+  if(!map[range])return null;
+  return new Date(now-map[range]);
+}
+
+/* ── DETECT LOG CATEGORY ─────────────────────────────────────── */
+function _tlCat(msg){
+  if(!msg)return'app';
+  if(/DB|database|sql|connection refused|deadlock|transaction/i.test(msg))return'db';
+  if(/timeout|network|gateway|refused|socket|dns|ping/i.test(msg))return'net';
+  if(/api|endpoint|http|401|403|500|502|503|gateway/i.test(msg))return'api';
+  if(/auth|unauthori|forbidden|token|ssl|certificate/i.test(msg))return'sec';
+  return'app';
+}
+
+/* ── MAIN FILTER + RENDER ────────────────────────────────────── */
+function tlApplyFilters(){
+  if(!S.connected||!S.logs)return;
+
+  _tlService=document.getElementById('tl-sel-service')?.value||'';
+  _tlCategory=document.getElementById('tl-sel-category')?.value||'';
+  _tlSort=document.getElementById('tl-sel-sort')?.value||'newest';
+
+  const cutoff=_tlGetCutoffTime(_tlRange);
+  const qTokens=_tlParseQuery(_tlQuery);
+
+  // Filter logs
+  _tlFiltered=S.logs.filter(e=>{
+    // Time range
+    if(cutoff&&e.timestamp){const d=new Date(e.timestamp);if(!isNaN(d)&&d<cutoff)return false;}
+    // Level chips
+    if(_tlLevels.size>0){
+      const l=e.level||'';
+      const match=_tlLevels.has(l)||(_tlLevels.has('CRITICAL')&&l==='FATAL')||(_tlLevels.has('WARNING')&&l==='WARN');
+      if(!match)return false;
+    }
+    // Service
+    if(_tlService&&(e.source||'')!==_tlService)return false;
+    // Category
+    if(_tlCategory&&_tlCat(e.message)!==_tlCategory)return false;
+    // Query
+    if(_tlQuery.trim()&&!_tlEntryMatchesQuery(e,qTokens))return false;
+    return true;
+  });
+
+  // Update active filter display
+  _tlUpdateActiveFilters(qTokens);
+
+  // Re-group filtered logs using incident grouping logic
+  _tlGroupsFiltered=_tlBuildGroups(_tlFiltered);
+
+  // Sort groups
+  const sevW={critical:4,high:3,medium:2,low:1};
+  if(_tlSort==='newest')_tlGroupsFiltered.sort((a,b)=>(b.firstTime||0)-(a.firstTime||0));
+  else if(_tlSort==='oldest')_tlGroupsFiltered.sort((a,b)=>(a.firstTime||0)-(b.firstTime||0));
+  else if(_tlSort==='severity')_tlGroupsFiltered.sort((a,b)=>(sevW[b.sev]||0)-(sevW[a.sev]||0));
+  else if(_tlSort==='count')_tlGroupsFiltered.sort((a,b)=>b.count-a.count);
+
+  // Update count label
+  const countEl=document.getElementById('tl-results-count');
+  if(countEl)countEl.textContent=_tlFiltered.length.toLocaleString()+' events · '+_tlGroupsFiltered.length+' groups';
+  document.getElementById('tl-page-sub').textContent=S.label+' · '+S.logs.length.toLocaleString()+' total entries';
+
+  // Render charts — defer to next frame so DOM is fully laid out
+  requestAnimationFrame(()=>_tlRenderCharts(_tlFiltered));
+  // Render swimlanes
+  _tlRenderSwimlanes(_tlFiltered);
+  // Render incident list
+  _tlRenderList();
+
+  setTimeout(()=>{if(typeof lucide!=='undefined')lucide.createIcons();},50);
+}
+
+function _tlUpdateActiveFilters(tokens){
+  const tags=[];
+  if(_tlRange!=='all')tags.push({label:'Time: '+_tlRange,clear:()=>tlSetRange('all',document.querySelector('.tl-range-pill[data-range="all"]'))});
+  _tlLevels.forEach(l=>tags.push({label:'Level: '+l,clear:()=>{_tlLevels.delete(l);document.getElementById('fc-'+l)?.classList.remove('active');tlApplyFilters();}}));
+  if(_tlService)tags.push({label:'Service: '+_tlService.slice(0,20),clear:()=>{document.getElementById('tl-sel-service').value='';_tlService='';tlApplyFilters();}});
+  if(_tlCategory)tags.push({label:'Cat: '+_tlCategory,clear:()=>{document.getElementById('tl-sel-category').value='';_tlCategory='';tlApplyFilters();}});
+  if(tokens.level)tags.push({label:'q:level:'+tokens.level,clear:()=>tlClearQuery()});
+  if(tokens.source)tags.push({label:'q:source:'+tokens.source,clear:()=>tlClearQuery()});
+  tokens.phrases.forEach(p=>tags.push({label:'"'+p+'"',clear:()=>tlClearQuery()}));
+  tokens.keywords.forEach(k=>tags.push({label:'kw:'+k,clear:()=>tlClearQuery()}));
+  const wrap=document.getElementById('tl-active-filters');
+  const tagsEl=document.getElementById('tl-af-tags');
+  if(!wrap||!tagsEl)return;
+  if(!tags.length){wrap.style.display='none';return;}
+  wrap.style.display='flex';
+  tagsEl.innerHTML=''; // clear
+  tags.forEach((t,i)=>{
+    const span=document.createElement('span');span.className='tl-af-tag';
+    span.innerHTML=`${esc(t.label)} <button onclick="arguments[0].stopPropagation()">×</button>`;
+    span.querySelector('button').onclick=()=>t.clear();
+    tagsEl.appendChild(span);
+  });
+}
+
+/* ── GROUP FILTERED LOGS ─────────────────────────────────────── */
+function _tlBuildGroups(logs){
+  const errLogs=logs.filter(e=>['ERROR','CRITICAL','FATAL','WARNING','WARN'].includes(e.level));
+  if(!errLogs.length){
+    // If only info logs, put them all in one group
+    if(logs.length)return[{id:0,name:'Info Events',entries:logs,sev:'low',topCat:'app',
+      cfg:{label:'Application',color:'#34d399',icon:'info'},critCount:0,errCount:0,
+      timeRange:'',topSrc:'',reprMsg:logs[0]?.message||'',firstTime:null,lastTime:null,count:logs.length}];
+    return[];
+  }
+  const TIME_WINDOW=60000;
+  const timed=errLogs.filter(e=>e.timestamp).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+  const untimed=errLogs.filter(e=>!e.timestamp);
+  const rawGroups=[];let cur=null;
+  for(const e of timed){
+    const t=new Date(e.timestamp);
+    if(!cur||t-cur._last>TIME_WINDOW){cur={entries:[],_first:t,_last:t};rawGroups.push(cur);}
+    cur.entries.push(e);cur._last=new Date(e.timestamp);
+  }
+  if(untimed.length)rawGroups.push({entries:untimed,_first:null,_last:null});
+  return rawGroups.filter(g=>g.entries.length>0).map((g,idx)=>{
+    const entries=g.entries;
+    const cats={db:0,net:0,api:0,sec:0,app:0};
+    entries.forEach(e=>{cats[_tlCat(e.message)]++;});
+    const topCat=Object.entries(cats).sort((a,b)=>b[1]-a[1])[0][0];
+    const cfgMap={db:{label:'Database',color:'#a78bfa',icon:'database'},net:{label:'Network',color:'#38bdf8',icon:'wifi-off'},
+      api:{label:'API/Gateway',color:'#34d399',icon:'zap'},sec:{label:'Security',color:'#fb7185',icon:'shield-alert'},
+      app:{label:'Application',color:'#fb923c',icon:'code'}};
+    const cfg=cfgMap[topCat];
+    const critCount=entries.filter(e=>['CRITICAL','FATAL'].includes(e.level)).length;
+    const errCount=entries.filter(e=>e.level==='ERROR').length;
+    const sev=critCount>0?'critical':errCount>entries.length*.5?'high':errCount>0?'medium':'low';
+    const srcMap={};entries.forEach(e=>{if(e.source){srcMap[e.source]=(srcMap[e.source]||0)+1;}});
+    const topSrc=Object.entries(srcMap).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
+    const topMsg=entries.find(e=>['CRITICAL','ERROR'].includes(e.level))?.message||entries[0]?.message||'';
+    let timeRange='';
+    if(g._first&&g._last){
+      const fmt=t=>t.toTimeString().slice(0,8);
+      timeRange=g._first.getTime()===g._last.getTime()?fmt(g._first):`${fmt(g._first)} – ${fmt(g._last)}`;
+    }
+    const name=_nameGroup?_nameGroup(topCat,topMsg,entries.length):cfg.label+' Incident';
+    return{id:idx,name,entries,topCat,cfg,sev,critCount,errCount,timeRange,topSrc,
+      reprMsg:topMsg,firstTime:g._first,lastTime:g._last,count:entries.length};
+  });
+}
+
+/* ── CHARTS ──────────────────────────────────────────────────── */
+/* ── VIZ STATE ──────────────────────────────────────────────── */
+const _tlVizState={vol:'bar',rate:'line',cat:'donut'};
+let _tlLastLogs=[];
+
+/* ── VIZ MENU CONTROL ─────────────────────────────────────────── */
+function tlVizMenu(panel,btn){
+  // Close all other open dropdowns
+  document.querySelectorAll('.tl-viz-dropdown').forEach(d=>{
+    if(d.id!=='tl-viz-drop-'+panel)d.classList.remove('open');
+  });
+  document.getElementById('tl-viz-drop-'+panel)?.classList.toggle('open');
+  // Close on outside click
+  setTimeout(()=>document.addEventListener('click',_tlCloseMenus,{once:true}),10);
+}
+function _tlCloseMenus(){
+  document.querySelectorAll('.tl-viz-dropdown').forEach(d=>d.classList.remove('open'));
+}
+function tlSetViz(panel,type,optBtn){
+  _tlVizState[panel]=type;
+  // Update active state in dropdown
+  const drop=document.getElementById('tl-viz-drop-'+panel);
+  if(drop)drop.querySelectorAll('.tl-viz-opt').forEach(b=>b.classList.remove('active'));
+  if(optBtn)optBtn.classList.add('active');
+  // Update label
+  const labelMap={bar:'Bar',line:'Line',area:'Area',donut:'Donut',pie:'Pie',tile:'Tile',number:'Number'};
+  const lbl=document.getElementById('tl-'+panel+'-viz-label');
+  if(lbl)lbl.textContent=labelMap[type]||type;
+  // Re-render this panel only
+  if(panel==='vol')_tlRenderVolumeChart(_tlLastLogs);
+  else if(panel==='rate')_tlRenderRateChart(_tlLastLogs);
+  else if(panel==='cat')_tlRenderCatChart(_tlLastLogs);
+  document.getElementById('tl-viz-drop-'+panel)?.classList.remove('open');
+  setTimeout(()=>{if(typeof lucide!=='undefined')lucide.createIcons();},30);
+}
+
+/* ── HELPER: get bucketed time data ─────────────────────────── */
+function _tlBucket(logs){
+  const bkts={};let hasTS=false;
+  for(const e of logs){
     if(!e.timestamp)continue;
     const d=new Date(e.timestamp);if(isNaN(d))continue;
     hasTS=true;
     const k=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
-    allBkts[k]=(allBkts[k]||0)+1;
-    if(['ERROR','CRITICAL','FATAL'].includes(e.level))errBkts[k]=(errBkts[k]||0)+1;
-    if(['WARNING','WARN'].includes(e.level))warnBkts[k]=(warnBkts[k]||0)+1;
+    if(!bkts[k])bkts[k]={err:0,warn:0,info:0,total:0};
+    if(['ERROR','CRITICAL','FATAL'].includes(e.level)){bkts[k].err++;bkts[k].total++;}
+    else if(['WARNING','WARN'].includes(e.level)){bkts[k].warn++;bkts[k].total++;}
+    else{bkts[k].info++;bkts[k].total++;}
   }
+  return{bkts,hasTS,labels:Object.keys(bkts).sort()};
+}
 
-  if(!hasTS){
-    if(S.charts.tl)S.charts.tl.destroy();
-    document.getElementById('tl-spike-list').innerHTML='<div class="tl-empty">⏱ No timestamps found in logs — timeline requires parseable timestamps.</div>';
+/* ── HELPER: no-data fallback using counts ────────────────────── */
+function _tlVolFallback(logs,bodyEl){
+  // No timestamps — show level breakdown as horizontal bars
+  const counts={Errors:0,Warnings:0,Info:0,Debug:0};
+  logs.forEach(e=>{
+    if(['ERROR','CRITICAL','FATAL'].includes(e.level))counts.Errors++;
+    else if(['WARNING','WARN'].includes(e.level))counts.Warnings++;
+    else if(e.level==='INFO')counts.Info++;
+    else counts.Debug++;
+  });
+  const colors={Errors:'var(--red)',Warnings:'var(--amber)',Info:'var(--green)',Debug:'var(--text3)'};
+  const max=Math.max(...Object.values(counts),1);
+  const viz=_tlVizState.vol;
+  if(viz==='number'){
+    const total=logs.filter(e=>['ERROR','CRITICAL','FATAL'].includes(e.level)).length;
+    bodyEl.innerHTML=`<div class="tl-number-view"><div class="tl-number-main" style="color:var(--red);">${total.toLocaleString()}</div><div class="tl-number-sub">Total Errors</div><div class="tl-number-sub2" style="color:var(--text2);">${logs.length.toLocaleString()} total events</div></div>`;
+    return;
+  }
+  if(viz==='tile'){
+    bodyEl.innerHTML=`<div class="tl-tile-grid">${Object.entries(counts).map(([k,v])=>`<div class="tl-tile"><div class="tl-tile-val" style="color:${colors[k]};">${v.toLocaleString()}</div><div class="tl-tile-lbl">${k}</div></div>`).join('')}<div class="tl-tile"><div class="tl-tile-val">${logs.length.toLocaleString()}</div><div class="tl-tile-lbl">Total</div></div><div class="tl-tile"><div class="tl-tile-val" style="color:var(--accent2);">${logs.length?+(counts.Errors/logs.length*100).toFixed(1):0}%</div><div class="tl-tile-lbl">Error Rate</div></div></div>`;
+    return;
+  }
+  // Default: horizontal bar fallback
+  bodyEl.innerHTML=`<div style="padding:8px 0;height:100%;display:flex;flex-direction:column;justify-content:center;gap:6px;">${Object.entries(counts).filter(([,v])=>v>0).map(([k,v])=>`<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--text3);width:52px;flex-shrink:0;">${k}</span><div style="flex:1;height:14px;background:var(--bg3);border-radius:4px;overflow:hidden;"><div style="height:100%;width:${(v/max*100).toFixed(0)}%;background:${colors[k]};border-radius:4px;opacity:.8;transition:width .4s;"></div></div><span style="font-size:10px;font-weight:700;color:var(--heading);font-family:'Fira Code',monospace;min-width:28px;text-align:right;">${v}</span></div>`).join('')}<div style="font-size:9px;color:var(--text3);text-align:center;margin-top:4px;">No timestamps — showing event counts</div></div>`;
+}
+
+/* ── CHARTS: render all ─────────────────────────────────────── */
+function _tlRenderCharts(logs){
+  _tlLastLogs=logs;
+  _tlRenderVolumeChart(logs);
+  _tlRenderRateChart(logs);
+  _tlRenderCatChart(logs);
+}
+
+/* ── PANEL 1: Event Volume ─────────────────────────────────── */
+function _tlRenderVolumeChart(logs){
+  const bodyEl=document.getElementById('tl-vol-body');
+  if(!bodyEl)return;
+  if(S.charts.tlVol){S.charts.tlVol.destroy();S.charts.tlVol=null;}
+  const viz=_tlVizState.vol;
+  const{bkts,hasTS,labels}=_tlBucket(logs);
+  const total={err:0,warn:0,info:0};
+  logs.forEach(e=>{if(['ERROR','CRITICAL','FATAL'].includes(e.level))total.err++;else if(['WARNING','WARN'].includes(e.level))total.warn++;else total.info++;});
+
+  // Non-chart views
+  if(viz==='tile'){
+    bodyEl.innerHTML=`<div class="tl-tile-grid">
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--red);">${total.err.toLocaleString()}</div><div class="tl-tile-lbl">Errors</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--amber);">${total.warn.toLocaleString()}</div><div class="tl-tile-lbl">Warnings</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--green);">${total.info.toLocaleString()}</div><div class="tl-tile-lbl">Info</div></div>
+      <div class="tl-tile"><div class="tl-tile-val">${logs.length.toLocaleString()}</div><div class="tl-tile-lbl">Total</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--accent2);">${labels.length||'—'}</div><div class="tl-tile-lbl">Time Slots</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--red);">${logs.length?+(total.err/logs.length*100).toFixed(1):0}%</div><div class="tl-tile-lbl">Error Rate</div></div>
+    </div>`;
+    return;
+  }
+  if(viz==='number'){
+    bodyEl.innerHTML=`<div class="tl-number-view"><div class="tl-number-main" style="color:var(--red);">${total.err.toLocaleString()}</div><div class="tl-number-sub">Errors in selection</div><div class="tl-number-sub2" style="color:var(--amber);">${total.warn.toLocaleString()} warnings · ${total.info.toLocaleString()} info</div></div>`;
     return;
   }
 
-  const labels=Object.keys(allBkts).sort();
-  const errVals=labels.map(k=>errBkts[k]||0);
-  const warnVals=labels.map(k=>warnBkts[k]||0);
+  if(!hasTS||!labels.length){_tlVolFallback(logs,bodyEl);return;}
 
-  if(S.charts.tl)S.charts.tl.destroy();
-  const gc=cv('--border'),tc2=cv('--text2'),red=cv('--red'),amber=cv('--amber');
-  S.charts.tl=new Chart(document.getElementById('ch-timeline'),{
-    type:'bar',
+  // Restore canvas
+  bodyEl.innerHTML='<canvas id="ch-tl-volume"></canvas>';
+  const gc=cv('--border'),tc2=cv('--text3');
+  const isLine=viz==='line'||viz==='area';
+  const makeds=(label,key,bg,bc)=>isLine
+    ?{label,data:labels.map(k=>bkts[k][key]),borderColor:bc,backgroundColor:bg,borderWidth:1.5,fill:viz==='area',tension:.35,pointRadius:0,pointHoverRadius:3}
+    :{label,data:labels.map(k=>bkts[k][key]),backgroundColor:bg,borderColor:bc,borderWidth:1,borderRadius:2,stack:'s'};
+  S.charts.tlVol=new Chart(document.getElementById('ch-tl-volume'),{
+    type:isLine?'line':'bar',
     data:{labels,datasets:[
-      {label:'Errors',data:errVals,backgroundColor:red+'55',borderColor:red,borderWidth:1,borderRadius:2},
-      {label:'Warnings',data:warnVals,backgroundColor:amber+'44',borderColor:amber,borderWidth:1,borderRadius:2}
+      makeds('Errors','err','rgba(239,68,68,.5)','rgba(239,68,68,.8)'),
+      makeds('Warnings','warn','rgba(245,158,11,.4)','rgba(245,158,11,.7)'),
+      makeds('Info','info','rgba(52,211,153,.2)','rgba(52,211,153,.4)')
     ]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},scales:{x:{stacked:false,grid:{color:gc},ticks:{color:tc2,font:{family:'Outfit',size:10},maxTicksLimit:20}},y:{grid:{color:gc},ticks:{color:tc2,font:{family:'Outfit',size:11}}}}}
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},
+      scales:{x:{stacked:!isLine,grid:{color:gc},ticks:{color:tc2,font:{size:9},maxTicksLimit:12}},y:{stacked:!isLine,grid:{color:gc},ticks:{color:tc2,font:{size:9}}}}}
+  });
+}
+
+/* ── PANEL 2: Error Rate ───────────────────────────────────── */
+function _tlRenderRateChart(logs){
+  const bodyEl=document.getElementById('tl-rate-body');
+  if(!bodyEl)return;
+  if(S.charts.tlRate){S.charts.tlRate.destroy();S.charts.tlRate=null;}
+  const viz=_tlVizState.rate;
+  const{bkts,hasTS,labels}=_tlBucket(logs);
+  const errCount=logs.filter(e=>['ERROR','CRITICAL','FATAL'].includes(e.level)).length;
+  const overallRate=logs.length?+(errCount/logs.length*100).toFixed(1):0;
+
+  if(viz==='tile'){
+    const peakRate=labels.length?Math.max(...labels.map(k=>bkts[k].total?+(bkts[k].err/bkts[k].total*100).toFixed(1):0)):0;
+    const avgRate=labels.length?+(labels.reduce((s,k)=>s+(bkts[k].total?bkts[k].err/bkts[k].total*100:0),0)/labels.length).toFixed(1):0;
+    bodyEl.innerHTML=`<div class="tl-tile-grid">
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--red);">${overallRate}%</div><div class="tl-tile-lbl">Overall Rate</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--amber);">${peakRate}%</div><div class="tl-tile-lbl">Peak Rate</div></div>
+      <div class="tl-tile"><div class="tl-tile-val" style="color:var(--accent2);">${avgRate}%</div><div class="tl-tile-lbl">Avg Rate</div></div>
+      <div class="tl-tile"><div class="tl-tile-val">${errCount.toLocaleString()}</div><div class="tl-tile-lbl">Errors</div></div>
+      <div class="tl-tile"><div class="tl-tile-val">${logs.length.toLocaleString()}</div><div class="tl-tile-lbl">Total</div></div>
+      <div class="tl-tile"><div class="tl-tile-val">${labels.length||'—'}</div><div class="tl-tile-lbl">Intervals</div></div>
+    </div>`;
+    return;
+  }
+  if(viz==='number'){
+    bodyEl.innerHTML=`<div class="tl-number-view"><div class="tl-number-main" style="color:${overallRate>30?'var(--red)':overallRate>10?'var(--amber)':'var(--green)'};">${overallRate}%</div><div class="tl-number-sub">Error Rate</div><div class="tl-number-sub2" style="color:var(--text2);">${errCount.toLocaleString()} errors / ${logs.length.toLocaleString()} total</div></div>`;
+    return;
+  }
+  if(!hasTS||!labels.length){
+    bodyEl.innerHTML=`<div class="tl-number-view"><div class="tl-number-main" style="color:${overallRate>30?'var(--red)':overallRate>10?'var(--amber)':'var(--green)'};">${overallRate}%</div><div class="tl-number-sub">Overall Error Rate</div><div class="tl-number-sub2" style="color:var(--text3);">No timestamps for trend</div></div>`;
+    return;
+  }
+  bodyEl.innerHTML='<canvas id="ch-tl-rate"></canvas>';
+  const rates=labels.map(k=>bkts[k].total?+(bkts[k].err/bkts[k].total*100).toFixed(1):0);
+  const gc=cv('--border'),tc2=cv('--text3'),red=cv('--red');
+  const isBar=viz==='bar';
+  S.charts.tlRate=new Chart(document.getElementById('ch-tl-rate'),{
+    type:isBar?'bar':'line',
+    data:{labels,datasets:[{label:'Error Rate %',data:rates,
+      borderColor:red,backgroundColor:isBar?'rgba(239,68,68,.5)':red+'22',
+      borderWidth:isBar?1:2,fill:viz==='area',tension:.35,borderRadius:isBar?2:0,
+      pointRadius:0,pointHoverRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2'),callbacks:{label:ctx=>ctx.parsed.y.toFixed(1)+'%'}}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc2,font:{size:9},maxTicksLimit:12}},
+              y:{grid:{color:gc},ticks:{color:tc2,font:{size:9},callback:v=>v+'%'},suggestedMax:100,min:0}}}
+  });
+}
+
+/* ── PANEL 3: Category ─────────────────────────────────────── */
+function _tlRenderCatChart(logs){
+  const bodyEl=document.getElementById('tl-cat-body');
+  if(!bodyEl)return;
+  if(S.charts.tlCat){S.charts.tlCat.destroy();S.charts.tlCat=null;}
+  const viz=_tlVizState.cat;
+  const catNames={db:'Database',net:'Network',api:'API/Gateway',sec:'Security',app:'Application'};
+  const colors={db:'#a78bfa',net:'#38bdf8',api:'#34d399',sec:'#fb7185',app:'#fb923c'};
+  const cats={db:0,net:0,api:0,sec:0,app:0};
+  logs.forEach(e=>{if(['ERROR','CRITICAL','FATAL'].includes(e.level))cats[_tlCat(e.message)]++;});
+  const total=Object.values(cats).reduce((a,b)=>a+b,0);
+  const entries=Object.entries(cats).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+
+  if(viz==='tile'){
+    bodyEl.innerHTML=`<div class="tl-tile-grid" style="grid-template-columns:1fr 1fr;">${entries.map(([k,v])=>`<div class="tl-tile"><div class="tl-tile-val" style="color:${colors[k]};">${v}</div><div class="tl-tile-lbl" style="color:${colors[k]}80;">${catNames[k]}</div><div class="tl-tile-sub" style="color:var(--text3);">${total?+(v/total*100).toFixed(0):0}%</div></div>`).join('')}</div>`;
+    return;
+  }
+  if(viz==='number'){
+    const top=entries[0];
+    bodyEl.innerHTML=top?`<div class="tl-number-view"><div class="tl-number-main" style="color:${colors[top[0]]};">${top[1]}</div><div class="tl-number-sub" style="color:${colors[top[0]]};">Top: ${catNames[top[0]]}</div><div class="tl-number-sub2" style="color:var(--text3);">${total} total errors</div></div>`:`<div class="tl-chart-nodata"><div class="tl-chart-nodata-icon">📊</div>No errors</div>`;
+    return;
+  }
+  if(!entries.length){bodyEl.innerHTML=`<div class="tl-chart-nodata"><div class="tl-chart-nodata-icon">📊</div>No errors in selection</div>`;return;}
+
+  const labels=entries.map(([k])=>catNames[k]);
+  const data=entries.map(([,v])=>v);
+  const bgColors=entries.map(([k])=>colors[k]+'cc');
+  const bdColors=entries.map(([k])=>colors[k]);
+
+  if(viz==='bar'){
+    bodyEl.innerHTML='<canvas id="ch-tl-cat"></canvas>';
+    const gc=cv('--border'),tc2=cv('--text3');
+    S.charts.tlCat=new Chart(document.getElementById('ch-tl-cat'),{
+      type:'bar',
+      data:{labels,datasets:[{data,backgroundColor:bgColors,borderColor:bdColors,borderWidth:1,borderRadius:3}]},
+      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+        plugins:{legend:{display:false},tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2')}},
+        scales:{x:{grid:{color:gc},ticks:{color:tc2,font:{size:9}}},y:{grid:{display:false},ticks:{color:tc2,font:{size:9}}}}}
+    });
+    return;
+  }
+  // donut or pie
+  bodyEl.innerHTML='<canvas id="ch-tl-cat"></canvas>';
+  S.charts.tlCat=new Chart(document.getElementById('ch-tl-cat'),{
+    type:'doughnut',
+    data:{labels,datasets:[{data,backgroundColor:bgColors,borderColor:bdColors,borderWidth:1.5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      cutout:viz==='pie'?'0%':'56%',
+      layout:{padding:2},
+      plugins:{legend:{display:true,position:'bottom',labels:{color:cv('--text3'),font:{size:8},boxWidth:7,padding:4,usePointStyle:true}},
+        tooltip:{backgroundColor:cv('--card'),borderColor:cv('--border'),borderWidth:1,titleColor:cv('--heading'),bodyColor:cv('--text2'),callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed} (${total?+(ctx.parsed/total*100).toFixed(1):0}%)`}}}}
+  });
+}
+
+/* ── SWIMLANES ───────────────────────────────────────────────── */
+function _tlRenderSwimlanes(logs){
+  const container=document.getElementById('tl-swimlanes');
+  if(!container)return;
+  // Use all error/warning logs — timed for positioning, untimed grouped by source
+  const allErrLogs=logs.filter(e=>['ERROR','CRITICAL','FATAL','WARNING','WARN'].includes(e.level));
+  const errLogs=allErrLogs.filter(e=>e.timestamp);
+  if(!allErrLogs.length){container.innerHTML='<div style="padding:10px 20px;font-size:11px;color:var(--text3);">No error entries to display.</div>';return;}
+  // If no timed entries, fall back to bar chart per service
+  if(!errLogs.length){
+    const srcMap={};
+    allErrLogs.forEach(e=>{const s=(e.source||'Unknown').slice(0,40);srcMap[s]=(srcMap[s]||0)+1;});
+    const max=Math.max(...Object.values(srcMap),1);
+    const top=Object.entries(srcMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    container.innerHTML=top.map(([src,cnt])=>{
+      const pct=(cnt/max*100).toFixed(0);
+      return`<div class="tl-swimlane-row">
+        <div class="tl-swimlane-label" title="${esc(src)}">${esc(src)}</div>
+        <div class="tl-swimlane-track" style="padding:8px 12px;display:flex;align-items:center;">
+          <div style="height:6px;width:${pct}%;background:var(--red);border-radius:3px;opacity:.7;"></div>
+        </div>
+        <div class="tl-swimlane-count">${cnt}</div>
+      </div>`;
+    }).join('');
+    document.getElementById('tl-swimlane-range-label').textContent='Event counts (no timestamps)';
+    return;
+  }
+
+  // Get time range of filtered data
+  const times=errLogs.map(e=>new Date(e.timestamp)).filter(d=>!isNaN(d));
+  if(!times.length){container.innerHTML='';return;}
+  const minT=times.reduce((a,b)=>a<b?a:b),maxT=times.reduce((a,b)=>a>b?a:b);
+  const span=maxT-minT||1;
+
+  // Group by source
+  const srcMap={};
+  errLogs.forEach(e=>{
+    const src=(e.source||'Unknown').slice(0,40);
+    if(!srcMap[src])srcMap[src]=[];
+    srcMap[src].push(e);
   });
 
-  /* Build spike list */
-  const maxErr=Math.max(...errVals,1);
-  const spikes=labels.map((k,i)=>({time:k,errs:errVals[i],warns:warnVals[i]}))
-    .filter(s=>s.errs>0).sort((a,b)=>b.errs-a.errs).slice(0,10);
+  // Top 8 services by event count
+  const topSrcs=Object.entries(srcMap).sort((a,b)=>b[1].length-a[1].length).slice(0,8);
 
-  const sl=document.getElementById('tl-spike-list');
-  if(!spikes.length){sl.innerHTML='<div class="tl-empty">✅ No error spikes detected in this log file.</div>';return;}
-  sl.innerHTML=spikes.map(s=>{
-    const pct=Math.round(s.errs/maxErr*100);
-    const cls=s.errs>=5?'critical':s.errs>=2?'warning':'info';
-    const barColor=cls==='critical'?'var(--red)':cls==='warning'?'var(--amber)':'var(--accent)';
-    return `<div class="tl-spike ${cls}">
-      <div class="tl-spike-time">${s.time}</div>
-      <div class="tl-spike-bar-wrap"><div class="tl-spike-bar" style="width:${pct}%;background:${barColor};"></div></div>
-      <div class="tl-spike-count">${s.errs}</div>
-      <div class="tl-spike-lbl">${s.errs===1?'error':'errors'}${s.warns?' + '+s.warns+'w':''}</div>
+  // Update label
+  if(times.length){
+    const fmt=t=>new Date(t).toTimeString().slice(0,8);
+    document.getElementById('tl-swimlane-range-label').textContent=fmt(minT)+' – '+fmt(maxT);
+  }
+
+  container.innerHTML=topSrcs.map(([src,entries])=>{
+    const pips=entries.slice(0,80).map(e=>{
+      const t=new Date(e.timestamp);if(isNaN(t))return'';
+      const pct=((t-minT)/span*100).toFixed(2);
+      const cls=['CRITICAL','FATAL'].includes(e.level)?'crit':e.level==='ERROR'?'err':'warn';
+      return`<div class="tl-swimlane-pip ${cls}" style="left:${pct}%;" title="${esc(e.level+' '+_fmtTs(e.timestamp))}"></div>`;
+    }).join('');
+    const errC=entries.filter(e=>['ERROR','CRITICAL','FATAL'].includes(e.level)).length;
+    return`<div class="tl-swimlane-row">
+      <div class="tl-swimlane-label" title="${esc(src)}">${esc(src)}</div>
+      <div class="tl-swimlane-track">${pips}</div>
+      <div class="tl-swimlane-count">${entries.length}</div>
     </div>`;
   }).join('');
 }
 
-/* ═══ MULTI-SOURCE COMPARE (Feature 9) ═══════════════════════ */
-const CMP={sources:[null,null,null],charts:{}};
-const CMP_COLORS=['#7c6aff','#22c55e','#f59e0b'];
-const CMP_LABELS=['A','B','C'];
+/* ── INCIDENT LIST ───────────────────────────────────────────── */
+function _tlRenderList(){
+  const zone=document.getElementById('tl-list-inner');
+  if(!zone)return;
+  const groups=_tlGroupsFiltered;
+
+  if(!groups.length){
+    zone.innerHTML=`<div class="tl-no-results">
+      <div class="tl-no-results-icon">🔍</div>
+      <div style="font-size:15px;font-weight:700;color:var(--heading);margin-bottom:8px;">No incidents match your filters</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:16px;">Try adjusting the time range, level filters, or query.</div>
+      <button class="empty-cta-btn" style="font-size:12px;padding:8px 16px;" onclick="tlClearAll()">Clear all filters</button>
+    </div>`;
+    return;
+  }
+
+  const catColors={db:'#a78bfa',net:'#38bdf8',api:'#34d399',sec:'#fb7185',app:'#fb923c'};
+  const qTerms=_tlGetHighlightTerms();
+
+  zone.innerHTML=groups.map(g=>{
+    const col=catColors[g.topCat]||'#fb923c';
+    const sevCls=g.sev;
+    const expanded=_tlExpandedGroups.has(g.id);
+    const timeStr=g.firstTime?g.firstTime.toLocaleTimeString():'—';
+
+    // Expanded entries
+    const entriesHtml=expanded?`<div class="tl-entries-block">
+      ${g.entries.slice(0,50).map((e,ei)=>{
+        const lc=['CRITICAL','FATAL'].includes(e.level)?'lv-crit':e.level==='ERROR'?'lv-error':e.level==='WARNING'||e.level==='WARN'?'lv-warn':'lv-info';
+        const ts=e.timestamp?new Date(e.timestamp).toTimeString().slice(0,8):'—';
+        const msg=_tlHighlight(esc((e.message||'').slice(0,200)),qTerms);
+        return`<div class="tl-entry-row" onclick="openRowPreview(_tlGetEntry(${g.id},${ei}))">
+          <div></div>
+          <div class="tl-entry-cell"><span class="lvl ${lc}" style="font-size:9px;">${e.level}</span></div>
+          <div class="tl-entry-cell ts">${ts}</div>
+          <div class="tl-entry-cell msg">${msg}</div>
+          <div class="tl-entry-cell" style="font-size:10px;color:${col};">${esc(g.cfg.label)}</div>
+          <div class="tl-entry-cell"></div>
+          <div class="tl-entry-cell" style="font-size:10px;color:var(--text3);">${esc((e.source||'').slice(0,20))}</div>
+          <div class="tl-entry-open"><i data-lucide="maximize-2" style="width:11px;height:11px;"></i></div>
+        </div>`;
+      }).join('')}
+      ${g.entries.length>50?`<div style="padding:8px 20px;font-size:11px;color:var(--text3);">… and ${g.entries.length-50} more entries. <span style="color:var(--accent2);cursor:pointer;" onclick="goScreen('explorer',document.getElementById('sb-explorer'))">Open Log Explorer →</span></div>`:''}
+    </div>`:'';
+
+    const reprMsg=_tlHighlight(esc((g.reprMsg||'').slice(0,120)),qTerms);
+    return`<div class="tl-group-row${expanded?' expanded':''}" id="tlg-${g.id}">
+      <div class="tl-group-cells" onclick="tlToggleGroup(${g.id})">
+        <div class="tl-group-expand${expanded?' open':''}"><i data-lucide="chevron-right" style="width:14px;height:14px;color:var(--text3);"></i></div>
+        <div class="tl-gcell"><span class="tl-sev ${sevCls}">${g.sev.toUpperCase()}</span></div>
+        <div class="tl-gcell ts">${timeStr}</div>
+        <div class="tl-gcell name" title="${esc(g.name)}">${esc(g.name)}<div class="tl-gcell msg" style="font-size:10px;font-weight:400;margin-top:2px;">${reprMsg}</div></div>
+        <div class="tl-gcell"><span class="tl-cat-tag" style="background:${col}18;color:${col};">${esc(g.cfg.label)}</span></div>
+        <div class="tl-gcell"><span class="tl-count-badge">${g.count}</span></div>
+        <div class="tl-gcell" style="font-size:10px;color:var(--text3);">${esc((g.topSrc||'').slice(0,22))}</div>
+        <div onclick="event.stopPropagation();openRCAReport&&S._rcaSummary?openRCAReport():toast('Generate RCA Summary first','info')" title="Open RCA Report" style="cursor:pointer;color:var(--accent2);opacity:.7;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.7">
+          <i data-lucide="file-search" style="width:14px;height:14px;"></i>
+        </div>
+      </div>
+      ${entriesHtml}
+    </div>`;
+  }).join('');
+
+  // Store groups for entry lookup
+  window._tlGroupsRef=groups;
+  setTimeout(()=>{if(typeof lucide!=='undefined')lucide.createIcons();},30);
+}
+
+function tlToggleGroup(id){
+  if(_tlExpandedGroups.has(id))_tlExpandedGroups.delete(id);
+  else _tlExpandedGroups.add(id);
+  _tlRenderList();
+}
+
+function _tlGetEntry(groupId,entryIdx){
+  const g=(window._tlGroupsRef||[]).find(x=>x.id===groupId);
+  return g?g.entries[entryIdx]:null;
+}
+
+function _tlGetHighlightTerms(){
+  const terms=[];
+  if(!_tlQuery.trim())return terms;
+  const tokens=_tlParseQuery(_tlQuery);
+  tokens.keywords.forEach(k=>terms.push(k));
+  tokens.phrases.forEach(p=>terms.push(p));
+  if(tokens.level)terms.push(tokens.level.toLowerCase());
+  if(tokens.source)terms.push(tokens.source);
+  return terms;
+}
+
+function _tlHighlight(html,terms){
+  if(!terms.length)return html;
+  terms.forEach(term=>{
+    try{
+      const re=new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+      html=html.replace(re,'<span class="tl-highlight">$1</span>');
+    }catch(e){}
+  });
+  return html;
+}
+
 
 function cmpAddSlot(i){document.getElementById('cmp-fi-'+i).click();}
 function cmpFileSelected(i,inp){
