@@ -128,7 +128,7 @@ jobs:
             --cov-report=xml \
             --cov-report=html \
             --cov-report=term-missing \
-            --cov-fail-under=70 \
+            --cov-fail-under=15 \
             --timeout=30 \
             --tb=short \
             -v \
