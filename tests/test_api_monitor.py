@@ -11,16 +11,17 @@ Tests cover:
   ✅ Return type is always a dict
 """
 
-import pytest
-from unittest.mock import patch, MagicMock
-from requests.exceptions import Timeout, ConnectionError as ReqConnectionError
+from unittest.mock import MagicMock, patch
 
+import pytest
+from requests.exceptions import ConnectionError as ReqConnectionError
+from requests.exceptions import Timeout
 
 # We import the function directly — this tests YOUR real code
 from Monitors.api_monitor import check_api_health
 
-
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
 
 def make_mock_response(status_code: int, elapsed_seconds: float = 0.142):
     """Build a fake requests.Response object."""
@@ -32,8 +33,8 @@ def make_mock_response(status_code: int, elapsed_seconds: float = 0.142):
 
 # ── Success cases ─────────────────────────────────────────────────────────────
 
-class TestAPIMonitorSuccess:
 
+class TestAPIMonitorSuccess:
     @patch("Monitors.api_monitor.requests.get")
     def test_healthy_200_returns_status_code(self, mock_get):
         """A 200 response should return status_code: 200."""
@@ -74,8 +75,8 @@ class TestAPIMonitorSuccess:
 
 # ── Non-200 status codes ──────────────────────────────────────────────────────
 
-class TestAPIMonitorNon200:
 
+class TestAPIMonitorNon200:
     @patch("Monitors.api_monitor.requests.get")
     def test_500_returns_status_code_500(self, mock_get):
         """A 500 response should still return status_code (not an error dict)."""
@@ -105,8 +106,8 @@ class TestAPIMonitorNon200:
 
 # ── Error / exception cases ───────────────────────────────────────────────────
 
-class TestAPIMonitorErrors:
 
+class TestAPIMonitorErrors:
     @patch("Monitors.api_monitor.requests.get", side_effect=Timeout())
     def test_timeout_returns_error_key(self, mock_get):
         """A Timeout should return a dict with an 'error' key."""

@@ -1,6 +1,7 @@
 import logging
 import os
 
+
 def setup_logger():
     if not os.path.exists("logs"):
         os.makedirs("logs")
@@ -8,10 +9,7 @@ def setup_logger():
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-        handlers=[
-            logging.FileHandler("logs/autorca.log"),
-            logging.StreamHandler()
-        ]
+        handlers=[logging.FileHandler("logs/autorca.log"), logging.StreamHandler()],
     )
 
     return logging.getLogger()

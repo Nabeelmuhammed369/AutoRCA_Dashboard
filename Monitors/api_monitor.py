@@ -1,7 +1,9 @@
-import requests
 import logging
 
+import requests
+
 logger = logging.getLogger("API_MONITOR")
+
 
 def check_api_health(url, timeout):
     try:
@@ -13,7 +15,7 @@ def check_api_health(url, timeout):
 
         return {
             "status_code": response.status_code,
-            "response_time": response.elapsed.total_seconds()
+            "response_time": response.elapsed.total_seconds(),
         }
 
     except requests.exceptions.Timeout:

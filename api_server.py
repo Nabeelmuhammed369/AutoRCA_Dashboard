@@ -13,33 +13,32 @@ HOW TO RUN:
   or: uvicorn api_server:app --host 0.0.0.0 --port 8000 --reload
 """
 
-import os
 import logging
-import yaml
+import os
 from datetime import datetime
-from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Request, Depends, Body
+import yaml
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
-from dotenv import load_dotenv
 from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 load_dotenv(".env")
 load_dotenv("app.env")
 
-from Monitors.api_monitor  import check_api_health
-from Monitors.db_validator import validate_data
-from Core.rca_engine       import classify_issue
-from Core.logger           import setup_logger
-from Core.ai_analyzer      import explain_incident, suggest_fixes, generate_ticket_summary
+from Core.ai_analyzer import explain_incident, generate_ticket_summary, suggest_fixes
+from Core.logger import setup_logger
+from Core.rca_engine import classify_issue
 
 # ── Import log parser (no Streamlit dependency) ───────────────────────────────
 from log_parser import parse_log_content, summarise
+from Monitors.api_monitor import check_api_health
+from Monitors.db_validator import validate_data
 
 setup_logger()
 logger = logging.getLogger("API_SERVER")
@@ -53,11 +52,11 @@ with open("config.yaml") as f:
 # For multi-worker deployments, replace with Redis or a DB.
 # ─────────────────────────────────────────────
 _log_store: dict = {
-    "raw":        None,   # str: raw log text
-    "df":         None,   # pd.DataFrame from parse_log_content()
-    "stats":      None,   # dict from summarise()
+    "raw": None,  # str: raw log text
+    "df": None,  # pd.DataFrame from parse_log_content()
+    "stats": None,  # dict from summarise()
     "ingested_at": None,  # ISO timestamp
-    "source":     None,   # label string
+    "source": None,  # label string
 }
 
 
@@ -67,6 +66,7 @@ if not AUTORCA_API_KEY:
     logger.warning("AUTORCA_API_KEY not set — all requests will be rejected.")
 
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
 
 def verify_api_key(key: str = Depends(api_key_header)):
     if not AUTORCA_API_KEY:
@@ -84,11 +84,11 @@ limiter = Limiter(key_func=get_remote_address)
 ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "http://localhost:8501")
 CORS_ORIGINS = [
     ALLOWED_ORIGIN,
-    "http://localhost:8501",   # Streamlit default port
+    "http://localhost:8501",  # Streamlit default port
     "http://127.0.0.1:8501",
-    "http://localhost:5500",   # Live Server
+    "http://localhost:5500",  # Live Server
     "http://127.0.0.1:5500",
-    "null",                    # file:// protocol
+    "null",  # file:// protocol
 ]
 
 # Allow ALL localhost ports (Five Server uses random ports like 54856)
@@ -110,13 +110,14 @@ app.add_middleware(
 
 # ── Models ────────────────────────────────────────────────────────────────────
 class AIRequest(BaseModel):
-    classification: str  = Field(..., max_length=100)
-    exceptions:     list = Field(default_factory=list)
-    api_result:     dict
-    db_result:      dict
+    classification: str = Field(..., max_length=100)
+    exceptions: list = Field(default_factory=list)
+    api_result: dict
+    db_result: dict
+
 
 class IngestMetadata(BaseModel):
-    source: Optional[str] = "api_push"
+    source: str | None = "api_push"
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -125,13 +126,13 @@ def _log_result_from_store() -> dict:
     df = _log_store.get("df")
     if df is None or df.empty:
         return {"total_errors": 0, "total_warnings": 0, "exceptions": [], "formats": []}
-    errors   = df[df["is_error"]]
+    errors = df[df["is_error"]]
     warnings = df[df["is_warning"]]
     return {
-        "total_errors":   int(errors.shape[0]),
+        "total_errors": int(errors.shape[0]),
         "total_warnings": int(warnings.shape[0]),
-        "exceptions":     errors["message"].tolist()[:50],
-        "formats":        df["format"].unique().tolist(),
+        "exceptions": errors["message"].tolist()[:50],
+        "formats": df["format"].unique().tolist(),
     }
 
 
@@ -139,19 +140,20 @@ def _log_result_from_store() -> dict:
 # ENDPOINTS
 # ─────────────────────────────────────────────
 
+
 @app.get("/api/health")
 def health():
     """Public health check — no auth needed."""
     has_logs = _log_store["raw"] is not None
     return {
-        "status":      "ok",
-        "version":     "4.0.0",
+        "status": "ok",
+        "version": "4.0.0",
         "logs_loaded": has_logs,
         "ingested_at": _log_store.get("ingested_at"),
-        "source":      _log_store.get("source"),
+        "source": _log_store.get("source"),
         "checks": {
             "api_key_set": "ok" if AUTORCA_API_KEY else "not set",
-        }
+        },
     }
 
 
@@ -184,25 +186,27 @@ async def ingest_logs(request: Request):
     source_label = request.headers.get("X-Source-Label", "api_push")
     logger.info(f"Ingesting logs from source='{source_label}', size={len(raw_text)} bytes")
 
-    df    = parse_log_content(raw_text)
+    df = parse_log_content(raw_text)
     stats = summarise(df)
 
-    _log_store["raw"]         = raw_text
-    _log_store["df"]          = df
-    _log_store["stats"]       = stats
+    _log_store["raw"] = raw_text
+    _log_store["df"] = df
+    _log_store["stats"] = stats
     _log_store["ingested_at"] = datetime.utcnow().isoformat() + "Z"
-    _log_store["source"]      = source_label
+    _log_store["source"] = source_label
 
-    return JSONResponse(content={
-        "status":      "ingested",
-        "lines":       len(raw_text.splitlines()),
-        "entries":     stats.get("total", 0),
-        "errors":      stats.get("errors", 0),
-        "warnings":    stats.get("warnings", 0),
-        "formats":     stats.get("formats", []),
-        "ingested_at": _log_store["ingested_at"],
-        "source":      source_label,
-    })
+    return JSONResponse(
+        content={
+            "status": "ingested",
+            "lines": len(raw_text.splitlines()),
+            "entries": stats.get("total", 0),
+            "errors": stats.get("errors", 0),
+            "warnings": stats.get("warnings", 0),
+            "formats": stats.get("formats", []),
+            "ingested_at": _log_store["ingested_at"],
+            "source": source_label,
+        }
+    )
 
 
 @app.get("/api/run", dependencies=[Depends(verify_api_key)])
@@ -213,27 +217,26 @@ def run_diagnostic(request: Request):
     Logs must be loaded first via POST /api/ingest.
     """
     if _log_store["raw"] is None:
-        raise HTTPException(
-            status_code=400,
-            detail="No logs loaded. POST raw log content to /api/ingest first."
-        )
+        raise HTTPException(status_code=400, detail="No logs loaded. POST raw log content to /api/ingest first.")
 
     logger.info("Running diagnostic on ingested logs.")
-    log_result     = _log_result_from_store()
-    api_result     = check_api_health(config["api"]["url"], config["api"].get("timeout", 3))
-    db_path        = config.get("database", {}).get("path", "")
-    db_result      = validate_data(db_path) if db_path else {"null_email_count": 0}
+    log_result = _log_result_from_store()
+    api_result = check_api_health(config["api"]["url"], config["api"].get("timeout", 3))
+    db_path = config.get("database", {}).get("path", "")
+    db_result = validate_data(db_path) if db_path else {"null_email_count": 0}
     classification = classify_issue(api_result, log_result, db_result)
 
-    return JSONResponse(content={
-        "api":            api_result,
-        "logs":           log_result,
-        "db":             db_result,
-        "classification": classification,
-        "stats":          _log_store["stats"],
-        "ingested_at":    _log_store["ingested_at"],
-        "source":         _log_store["source"],
-    })
+    return JSONResponse(
+        content={
+            "api": api_result,
+            "logs": log_result,
+            "db": db_result,
+            "classification": classification,
+            "stats": _log_store["stats"],
+            "ingested_at": _log_store["ingested_at"],
+            "source": _log_store["source"],
+        }
+    )
 
 
 @app.get("/api/stats", dependencies=[Depends(verify_api_key)])
@@ -241,14 +244,17 @@ def get_stats(request: Request):
     """Return stats for the currently loaded logs without running full diagnostic."""
     if _log_store["stats"] is None:
         raise HTTPException(status_code=404, detail="No logs loaded yet.")
-    return JSONResponse(content={
-        "stats":       _log_store["stats"],
-        "ingested_at": _log_store["ingested_at"],
-        "source":      _log_store["source"],
-    })
+    return JSONResponse(
+        content={
+            "stats": _log_store["stats"],
+            "ingested_at": _log_store["ingested_at"],
+            "source": _log_store["source"],
+        }
+    )
 
 
 # ── AI Endpoints (unchanged from v3) ──────────────────────────────────────────
+
 
 @app.post("/api/ai/explain", dependencies=[Depends(verify_api_key)])
 @limiter.limit("5/minute")
@@ -256,11 +262,13 @@ def ai_explain(req: AIRequest, request: Request):
     result = explain_incident(req.classification, req.exceptions, req.api_result, req.db_result)
     return JSONResponse(content=result)
 
+
 @app.post("/api/ai/fix-steps", dependencies=[Depends(verify_api_key)])
 @limiter.limit("5/minute")
 def ai_fix_steps(req: AIRequest, request: Request):
     result = suggest_fixes(req.classification, req.exceptions, req.api_result, req.db_result)
     return JSONResponse(content=result)
+
 
 @app.post("/api/ai/ticket-summary", dependencies=[Depends(verify_api_key)])
 @limiter.limit("5/minute")
@@ -271,4 +279,5 @@ def ai_ticket_summary(req: AIRequest, request: Request):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("api_server:app", host="0.0.0.0", port=8000, reload=True)

@@ -6,7 +6,7 @@ Tests cover:
   ✅ All 6 categories detected correctly
   ✅ CRITICAL lines tracked in critical_issues
   ✅ Empty log file → zero counts
-  ✅ Log file with no errors → zero counts  
+  ✅ Log file with no errors → zero counts
   ✅ Missing log file → safe fallback (no crash)
   ✅ Mixed content → only ERROR/CRITICAL counted
   ✅ DB_CONN_FAIL and DEADLOCK → categorised as Database
@@ -14,13 +14,13 @@ Tests cover:
 """
 
 import pytest
-from Monitors.log_analyzer import analyze_logs
 
+from Monitors.log_analyzer import analyze_logs
 
 # ── Return structure ──────────────────────────────────────────────────────────
 
-class TestLogAnalyzerStructure:
 
+class TestLogAnalyzerStructure:
     def test_returns_dict(self, empty_log_file):
         result = analyze_logs(empty_log_file)
         assert isinstance(result, dict)
@@ -39,7 +39,14 @@ class TestLogAnalyzerStructure:
 
     def test_categories_has_all_6_keys(self, empty_log_file):
         result = analyze_logs(empty_log_file)
-        expected = {"Database", "Network", "API/Gateway", "Security/Firewall", "ActiveDirectory", "Application"}
+        expected = {
+            "Database",
+            "Network",
+            "API/Gateway",
+            "Security/Firewall",
+            "ActiveDirectory",
+            "Application",
+        }
         assert set(result["categories"].keys()) == expected
 
     def test_critical_issues_is_list(self, empty_log_file):
@@ -53,8 +60,8 @@ class TestLogAnalyzerStructure:
 
 # ── Empty / clean files ───────────────────────────────────────────────────────
 
-class TestLogAnalyzerEmptyFiles:
 
+class TestLogAnalyzerEmptyFiles:
     def test_empty_file_total_errors_is_zero(self, empty_log_file):
         result = analyze_logs(empty_log_file)
         assert result["total_errors"] == 0
@@ -80,8 +87,8 @@ class TestLogAnalyzerEmptyFiles:
 
 # ── Missing file ──────────────────────────────────────────────────────────────
 
-class TestLogAnalyzerMissingFile:
 
+class TestLogAnalyzerMissingFile:
     def test_missing_file_does_not_crash(self, nonexistent_log_file):
         """Should return safe defaults, not raise FileNotFoundError."""
         try:
@@ -102,8 +109,8 @@ class TestLogAnalyzerMissingFile:
 
 # ── Category detection ────────────────────────────────────────────────────────
 
-class TestLogAnalyzerCategories:
 
+class TestLogAnalyzerCategories:
     def test_database_tag_detected(self, tmp_path):
         f = tmp_path / "test.log"
         f.write_text("2026-03-05 10:00:00 ERROR [Database] Connection lost\n")
@@ -170,20 +177,17 @@ class TestLogAnalyzerCategories:
     def test_multiple_categories_in_one_file(self, log_file_with_errors):
         result = analyze_logs(log_file_with_errors)
         # From conftest: Database=2, Network=1, API=1, Security=1, AD=1, Application=1
-        assert result["categories"]["Database"]          >= 1
-        assert result["categories"]["Network"]           >= 1
-        assert result["categories"]["API/Gateway"]       >= 1
+        assert result["categories"]["Database"] >= 1
+        assert result["categories"]["Network"] >= 1
+        assert result["categories"]["API/Gateway"] >= 1
         assert result["categories"]["Security/Firewall"] >= 1
-        assert result["categories"]["ActiveDirectory"]   >= 1
-        assert result["categories"]["Application"]       >= 1
+        assert result["categories"]["ActiveDirectory"] >= 1
+        assert result["categories"]["Application"] >= 1
 
     def test_warn_lines_not_counted_as_errors(self, tmp_path):
         """WARN lines should NOT be counted in total_errors or any category."""
         f = tmp_path / "test.log"
-        f.write_text(
-            "2026-03-05 10:00:00 WARN  High memory usage\n"
-            "2026-03-05 10:00:01 WARN  Slow query detected\n"
-        )
+        f.write_text("2026-03-05 10:00:00 WARN  High memory usage\n2026-03-05 10:00:01 WARN  Slow query detected\n")
         result = analyze_logs(str(f))
         assert result["total_errors"] == 0
 
@@ -197,26 +201,18 @@ class TestLogAnalyzerCategories:
 
 # ── Total errors count ────────────────────────────────────────────────────────
 
-class TestLogAnalyzerTotalErrors:
 
+class TestLogAnalyzerTotalErrors:
     def test_total_errors_matches_error_lines(self, tmp_path):
         f = tmp_path / "test.log"
-        f.write_text(
-            "2026-03-05 ERROR line one\n"
-            "2026-03-05 ERROR line two\n"
-            "2026-03-05 ERROR line three\n"
-            "2026-03-05 INFO  not an error\n"
-        )
+        f.write_text("2026-03-05 ERROR line one\n2026-03-05 ERROR line two\n2026-03-05 ERROR line three\n2026-03-05 INFO  not an error\n")
         result = analyze_logs(str(f))
         assert result["total_errors"] == 3
 
     def test_total_errors_includes_critical(self, tmp_path):
         """CRITICAL lines should count toward total_errors."""
         f = tmp_path / "test.log"
-        f.write_text(
-            "2026-03-05 ERROR  something failed\n"
-            "2026-03-05 CRITICAL complete outage\n"
-        )
+        f.write_text("2026-03-05 ERROR  something failed\n2026-03-05 CRITICAL complete outage\n")
         result = analyze_logs(str(f))
         assert result["total_errors"] == 2
 
@@ -229,11 +225,11 @@ class TestLogAnalyzerTotalErrors:
 
 # ── Critical issues tracking ──────────────────────────────────────────────────
 
-class TestLogAnalyzerCritical:
 
+class TestLogAnalyzerCritical:
     def test_critical_lines_captured(self, log_file_with_critical):
         result = analyze_logs(log_file_with_critical)
-        assert len(result["critical_issues"]) == 2   # 2 CRITICAL lines in fixture
+        assert len(result["critical_issues"]) == 2  # 2 CRITICAL lines in fixture
 
     def test_critical_issue_content(self, log_file_with_critical):
         result = analyze_logs(log_file_with_critical)

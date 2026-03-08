@@ -9,9 +9,10 @@ Install: pip install groq python-dotenv
 Get key: console.groq.com → API Keys → Create API Key
 """
 
-import os
 import json
 import logging
+import os
+
 from dotenv import load_dotenv
 
 load_dotenv(".env")
@@ -25,18 +26,16 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 def _call_groq(prompt: str) -> str:
     """Call Groq API — fast, free, no region restrictions."""
     if not GROQ_API_KEY:
-        raise ValueError(
-            "GROQ_API_KEY not found in .env file. "
-            "Get a free key at console.groq.com"
-        )
+        raise ValueError("GROQ_API_KEY not found in .env file. Get a free key at console.groq.com")
     try:
         from groq import Groq
-        client   = Groq(api_key=GROQ_API_KEY)
+
+        client = Groq(api_key=GROQ_API_KEY)
         response = client.chat.completions.create(
-            model    = "llama-3.3-70b-versatile",   # best free model on Groq
-            messages = [{"role": "user", "content": prompt}],
-            temperature = 0.3,   # lower = more consistent, factual responses
-            max_tokens  = 1024,
+            model="llama-3.3-70b-versatile",  # best free model on Groq
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.3,  # lower = more consistent, factual responses
+            max_tokens=1024,
         )
         return response.choices[0].message.content.strip()
     except ImportError:
@@ -51,9 +50,9 @@ def explain_incident(classification, exceptions, api_result, db_result):
     """
     try:
         error_sample = "\n".join(exceptions[-10:]) if exceptions else "No exceptions found."
-        api_status   = api_result.get("status_code") or api_result.get("error", "Unknown")
-        api_latency  = api_result.get("response_time", "N/A")
-        null_emails  = db_result.get("null_email_count", 0)
+        api_status = api_result.get("status_code") or api_result.get("error", "Unknown")
+        api_latency = api_result.get("response_time", "N/A")
+        null_emails = db_result.get("null_email_count", 0)
 
         prompt = f"""You are a senior Site Reliability Engineer analyzing a system incident.
 
@@ -86,8 +85,8 @@ def suggest_fixes(classification, exceptions, api_result, db_result):
     """
     try:
         error_sample = "\n".join(exceptions[-15:]) if exceptions else "No exceptions found."
-        api_status   = api_result.get("status_code") or api_result.get("error", "Unknown")
-        null_emails  = db_result.get("null_email_count", 0)
+        api_status = api_result.get("status_code") or api_result.get("error", "Unknown")
+        null_emails = db_result.get("null_email_count", 0)
 
         prompt = f"""You are a senior Site Reliability Engineer.
 
@@ -108,12 +107,12 @@ Respond ONLY as a valid JSON array. No markdown. No code fences. No explanation 
   {{"step": "Clear action description", "command": "actual shell command or null"}}
 ]"""
 
-        raw   = _call_groq(prompt)
+        raw = _call_groq(prompt)
         # Strip any accidental markdown fences
-        raw   = raw.replace("```json", "").replace("```", "").strip()
+        raw = raw.replace("```json", "").replace("```", "").strip()
         # Extract just the JSON array if there's extra text
         start = raw.find("[")
-        end   = raw.rfind("]") + 1
+        end = raw.rfind("]") + 1
         if start != -1 and end > start:
             raw = raw[start:end]
         steps = json.loads(raw)
@@ -133,14 +132,14 @@ def generate_ticket_summary(classification, exceptions, api_result, db_result):
     """
     try:
         from datetime import datetime
-        error_sample = "\n".join(exceptions[-8:]) if exceptions else "No exceptions found."
-        api_status   = api_result.get("status_code") or api_result.get("error", "Unknown")
-        api_latency  = api_result.get("response_time", "N/A")
-        null_emails  = db_result.get("null_email_count", 0)
-        timestamp    = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        sev_emoji = "🔴" if classification == "Infrastructure Issue" else \
-                    "🟡" if classification != "System Healthy" else "✅"
+        error_sample = "\n".join(exceptions[-8:]) if exceptions else "No exceptions found."
+        api_status = api_result.get("status_code") or api_result.get("error", "Unknown")
+        api_latency = api_result.get("response_time", "N/A")
+        null_emails = db_result.get("null_email_count", 0)
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        sev_emoji = "🔴" if classification == "Infrastructure Issue" else "🟡" if classification != "System Healthy" else "✅"
 
         prompt = f"""You are a senior Site Reliability Engineer writing an incident report.
 
@@ -173,7 +172,7 @@ Generate TWO summaries in this EXACT format with no extra text before or after:
 - [step 2]
 - [step 3]
 
-**Labels:** `incident`, `{classification.lower().replace(" ", "-")}`, `priority-{'p1' if classification == 'Infrastructure Issue' else 'p2'}`
+**Labels:** `incident`, `{classification.lower().replace(" ", "-")}`, `priority-{"p1" if classification == "Infrastructure Issue" else "p2"}`
 ===SLACK===
 {sev_emoji} *Incident: {classification}* — {timestamp}
 API: {api_status} | Errors detected | DB anomalies: {null_emails}
@@ -184,13 +183,13 @@ cc: @on-call-engineer"""
         raw = _call_groq(prompt)
 
         if "===GITHUB===" in raw and "===SLACK===" in raw:
-            parts       = raw.split("===SLACK===")
+            parts = raw.split("===SLACK===")
             github_text = parts[0].replace("===GITHUB===", "").strip()
-            slack_text  = parts[1].strip()
+            slack_text = parts[1].strip()
         else:
             # Fallback if model doesn't follow format perfectly
             github_text = raw
-            slack_text  = (
+            slack_text = (
                 f"{sev_emoji} *Incident: {classification}* — {timestamp}\n"
                 f"API: {api_status} | DB anomalies: {null_emails}\n"
                 f"Please investigate immediately. cc: @on-call-engineer"

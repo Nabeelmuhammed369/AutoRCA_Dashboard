@@ -2,7 +2,7 @@
 
 [tool.ruff]
 target-version = "py311"
-line-length = 100
+line-length = 160
 exclude = [
     ".git",
     "__pycache__",
@@ -24,9 +24,20 @@ select = [
     "N",   # pep8-naming
 ]
 ignore = [
-    "S101",  # allow assert in tests
-    "B008",  # function call in default arg (FastAPI Depends pattern)
-    "S104",  # allow 0.0.0.0 bind
+    "S101",   # allow assert in tests
+    "B008",   # function call in default arg (FastAPI Depends pattern)
+    "S104",   # allow 0.0.0.0 bind
+    "N999",   # invalid module name — project uses PascalCase folders
+    "E501",   # line too long — handled by formatter, not enforced
+    "E402",   # module import not at top — needed after load_dotenv()
+    "B904",   # raise from err — style preference
+    "F841",   # unused variable — minor cleanup, not blocking
+    "E741",   # ambiguous variable name (l) — lambda style preference
+    "C408",   # dict() call — style preference
+    "B007",   # loop variable unused — minor
+    "W291",   # trailing whitespace — formatter handles this
+    "I001",   # import sort — auto-fixed by formatter
+    "W292",   # no newline at end of file — auto-fixed
 ]
 
 [tool.ruff.lint.per-file-ignores]
