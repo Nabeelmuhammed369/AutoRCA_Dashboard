@@ -2,12 +2,18 @@
 tests/conftest.py — Shared fixtures for AutoRCA test suite
 """
 
+import os
+import sys
+import pytest
 import sqlite3
 
-import pytest
+# ── Fix: add project root to sys.path so 'Core', 'Monitors' are importable ───
+# This is required for CI (GitHub Actions) where the runner's working directory
+# may not automatically include the repo root in Python's module search path.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 # ── Log file fixtures ─────────────────────────────────────────────────────────
-
 
 @pytest.fixture
 def empty_log_file(tmp_path):
@@ -50,7 +56,9 @@ def log_file_with_critical(tmp_path):
 def log_file_no_errors(tmp_path):
     f = tmp_path / "clean.log"
     f.write_text(
-        "2026-03-05 10:00:01 INFO  Application started\n2026-03-05 10:01:00 INFO  Health check passed\n2026-03-05 10:02:00 WARN  Memory usage at 75%\n"
+        "2026-03-05 10:00:01 INFO  Application started\n"
+        "2026-03-05 10:01:00 INFO  Health check passed\n"
+        "2026-03-05 10:02:00 WARN  Memory usage at 75%\n"
     )
     return str(f)
 
@@ -62,11 +70,10 @@ def nonexistent_log_file(tmp_path):
 
 # ── Database fixtures — use context managers to prevent ResourceWarning ───────
 
-
 def _make_db(tmp_path, filename, setup_sql):
     """Helper: create a SQLite DB, run setup SQL, ensure connection is closed."""
     db_path = str(tmp_path / filename)
-    with sqlite3.connect(db_path) as conn:  # 'with' ensures conn.close() is called
+    with sqlite3.connect(db_path) as conn:   # 'with' ensures conn.close() is called
         for statement in setup_sql:
             conn.execute(statement)
         conn.commit()
@@ -76,43 +83,31 @@ def _make_db(tmp_path, filename, setup_sql):
 @pytest.fixture
 def clean_db(tmp_path):
     """SQLite DB with a users table — all emails present."""
-    return _make_db(
-        tmp_path,
-        "clean.db",
-        [
-            "CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT NOT NULL)",
-            "INSERT INTO users VALUES (1, 'alice@example.com')",
-            "INSERT INTO users VALUES (2, 'bob@example.com')",
-            "INSERT INTO users VALUES (3, 'carol@example.com')",
-        ],
-    )
+    return _make_db(tmp_path, "clean.db", [
+        "CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT NOT NULL)",
+        "INSERT INTO users VALUES (1, 'alice@example.com')",
+        "INSERT INTO users VALUES (2, 'bob@example.com')",
+        "INSERT INTO users VALUES (3, 'carol@example.com')",
+    ])
 
 
 @pytest.fixture
 def db_with_null_emails(tmp_path):
     """SQLite DB where 2 users have NULL emails."""
-    return _make_db(
-        tmp_path,
-        "nulls.db",
-        [
-            "CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT)",
-            "INSERT INTO users VALUES (1, 'alice@example.com')",
-            "INSERT INTO users VALUES (2, NULL)",
-            "INSERT INTO users VALUES (3, NULL)",
-        ],
-    )
+    return _make_db(tmp_path, "nulls.db", [
+        "CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT)",
+        "INSERT INTO users VALUES (1, 'alice@example.com')",
+        "INSERT INTO users VALUES (2, NULL)",
+        "INSERT INTO users VALUES (3, NULL)",
+    ])
 
 
 @pytest.fixture
 def db_no_users_table(tmp_path):
     """SQLite DB that exists but has no users table."""
-    return _make_db(
-        tmp_path,
-        "notable.db",
-        [
-            "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT)",
-        ],
-    )
+    return _make_db(tmp_path, "notable.db", [
+        "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT)",
+    ])
 
 
 @pytest.fixture
