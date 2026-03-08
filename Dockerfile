@@ -35,7 +35,9 @@ RUN groupadd -r autorca && useradd -r -g autorca autorca
 COPY --from=builder /root/.local /home/autorca/.local
 
 # Copy application code
-COPY api_server.py ai_analyzer.py ./
+COPY api_server.py ./
+COPY Core/ ./Core/
+COPY Monitors/ ./Monitors/
 COPY --chown=autorca:autorca . .
 
 # Ensure scripts in .local are available

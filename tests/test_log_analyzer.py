@@ -10,7 +10,6 @@ Fixtures build DataFrames directly (matching what log_source_manager produces)
 instead of passing raw file paths, which the function no longer accepts.
 """
 
-import pytest
 import pandas as pd
 from Monitors.log_analyzer import analyze_logs
 
