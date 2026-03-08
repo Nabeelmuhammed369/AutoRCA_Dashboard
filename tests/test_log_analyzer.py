@@ -85,7 +85,6 @@ def _info_row(message="Server started"):
 
 
 class TestLogAnalyzerStructure:
-
     def test_returns_dict(self):
         result = analyze_logs(None)
         assert isinstance(result, dict)
@@ -131,7 +130,6 @@ class TestLogAnalyzerStructure:
 
 
 class TestLogAnalyzerEmptyInputs:
-
     def test_none_returns_zero_errors(self):
         assert analyze_logs(None)["total_errors"] == 0
 
@@ -145,13 +143,11 @@ class TestLogAnalyzerEmptyInputs:
         assert analyze_logs(None)["has_stacktrace"] is False
 
     def test_empty_df_returns_zero_errors(self):
-        df = pd.DataFrame(columns=["level", "message", "source",
-                                   "format", "is_error", "is_warning"])
+        df = pd.DataFrame(columns=["level", "message", "source", "format", "is_error", "is_warning"])
         assert analyze_logs(df)["total_errors"] == 0
 
     def test_empty_df_returns_zero_warnings(self):
-        df = pd.DataFrame(columns=["level", "message", "source",
-                                   "format", "is_error", "is_warning"])
+        df = pd.DataFrame(columns=["level", "message", "source", "format", "is_error", "is_warning"])
         assert analyze_logs(df)["total_warnings"] == 0
 
     def test_info_only_df_zero_errors(self):
@@ -167,7 +163,6 @@ class TestLogAnalyzerEmptyInputs:
 
 
 class TestLogAnalyzerErrorCounting:
-
     def test_single_error_counted(self):
         df = _make_df([_error_row()])
         assert analyze_logs(df)["total_errors"] == 1
@@ -197,7 +192,6 @@ class TestLogAnalyzerErrorCounting:
 
 
 class TestLogAnalyzerWarningCounting:
-
     def test_single_warning_counted(self):
         df = _make_df([_warn_row()])
         assert analyze_logs(df)["total_warnings"] == 1
@@ -215,7 +209,6 @@ class TestLogAnalyzerWarningCounting:
 
 
 class TestLogAnalyzerExceptions:
-
     def test_error_message_in_exceptions(self):
         df = _make_df([_error_row("NullPointerException in Service.java")])
         result = analyze_logs(df)
@@ -242,7 +235,6 @@ class TestLogAnalyzerExceptions:
 
 
 class TestLogAnalyzerFormats:
-
     def test_format_detected(self):
         df = _make_df([{**_error_row(), "format": "json"}])
         result = analyze_logs(df)
@@ -263,7 +255,6 @@ class TestLogAnalyzerFormats:
 
 
 class TestLogAnalyzerTopSources:
-
     def test_source_appears_in_top_sources(self):
         df = _make_df([_error_row(source="api-gateway")])
         result = analyze_logs(df)
@@ -280,7 +271,6 @@ class TestLogAnalyzerTopSources:
 
 
 class TestLogAnalyzerStacktrace:
-
     def test_no_stacktrace_by_default(self):
         df = _make_df([_error_row()])
         assert analyze_logs(df)["has_stacktrace"] is False
