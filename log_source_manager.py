@@ -23,9 +23,12 @@ Log source schema stored in session_state:
 """
 
 from __future__ import annotations
-import streamlit as st
+
+from datetime import UTC, datetime
+
 import pandas as pd
-from datetime import datetime, timezone
+import streamlit as st
+
 from log_parser import parse_log_content, summarise
 
 
@@ -44,12 +47,12 @@ def init_log_source():
 
 def _empty_source() -> dict:
     return {
-        "type":      None,
-        "label":     "No source connected",
+        "type": None,
+        "label": "No source connected",
         "connected": False,
-        "df":        None,
-        "raw":       None,
-        "meta":      {},
+        "df": None,
+        "raw": None,
+        "meta": {},
     }
 
 
@@ -60,15 +63,15 @@ def set_log_source_from_upload(filename: str, raw_content: str):
     """Called when user uploads a file through the UI."""
     df = parse_log_content(raw_content)
     st.session_state["log_source"] = {
-        "type":      "upload",
-        "label":     f"📁 {filename}",
+        "type": "upload",
+        "label": f"📁 {filename}",
         "connected": True,
-        "df":        df,
-        "raw":       raw_content,
+        "df": df,
+        "raw": raw_content,
         "meta": {
-            "filename":      filename,
-            "lines":         len(raw_content.splitlines()),
-            "ingested_at":   _now(),
+            "filename": filename,
+            "lines": len(raw_content.splitlines()),
+            "ingested_at": _now(),
             "source_detail": f"Uploaded file: {filename}",
         },
     }
@@ -80,15 +83,15 @@ def set_log_source_from_api_push(raw_content: str, source_label: str = "API Push
     """Called by api_server.py /api/ingest endpoint via session bridge."""
     df = parse_log_content(raw_content)
     st.session_state["log_source"] = {
-        "type":      "api_push",
-        "label":     f"📡 {source_label}",
+        "type": "api_push",
+        "label": f"📡 {source_label}",
         "connected": True,
-        "df":        df,
-        "raw":       raw_content,
+        "df": df,
+        "raw": raw_content,
         "meta": {
-            "filename":      "api_push",
-            "lines":         len(raw_content.splitlines()),
-            "ingested_at":   _now(),
+            "filename": "api_push",
+            "lines": len(raw_content.splitlines()),
+            "ingested_at": _now(),
             "source_detail": source_label,
         },
     }
@@ -104,15 +107,15 @@ def set_log_source_from_integration(
     """Called by Loki / Elasticsearch / S3 connectors."""
     df = parse_log_content(raw_content)
     st.session_state["log_source"] = {
-        "type":      integration_type,
-        "label":     label,
+        "type": integration_type,
+        "label": label,
         "connected": True,
-        "df":        df,
-        "raw":       raw_content,
+        "df": df,
+        "raw": raw_content,
         "meta": {
-            "filename":      integration_type,
-            "lines":         len(raw_content.splitlines()),
-            "ingested_at":   _now(),
+            "filename": integration_type,
+            "lines": len(raw_content.splitlines()),
+            "ingested_at": _now(),
             "source_detail": source_detail,
         },
     }
@@ -171,4 +174,4 @@ def get_log_stats() -> dict:
 # PRIVATE
 # ─────────────────────────────────────────────
 def _now() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    return datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")

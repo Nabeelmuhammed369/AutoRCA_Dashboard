@@ -15,11 +15,10 @@ Usage in dashboard / rca_engine:
     result = analyze_logs(df)
 """
 
-import re
-import os
 import logging
+import os
+
 import pandas as pd
-from typing import Optional
 
 logger = logging.getLogger("LOG_ANALYZER")
 
@@ -27,7 +26,7 @@ logger = logging.getLogger("LOG_ANALYZER")
 # ─────────────────────────────────────────────
 # PRIMARY FUNCTION (session state driven)
 # ─────────────────────────────────────────────
-def analyze_logs(df: Optional[pd.DataFrame]) -> dict:
+def analyze_logs(df: pd.DataFrame | None) -> dict:
     """
     Analyse a normalised log DataFrame (from log_source_manager.get_log_df()).
 
@@ -36,15 +35,15 @@ def analyze_logs(df: Optional[pd.DataFrame]) -> dict:
     if df is None or df.empty:
         logger.warning("analyze_logs called with empty or None DataFrame.")
         return {
-            "total_errors":   0,
+            "total_errors": 0,
             "total_warnings": 0,
-            "exceptions":     [],
-            "formats":        [],
-            "top_sources":    {},
+            "exceptions": [],
+            "formats": [],
+            "top_sources": {},
             "has_stacktrace": False,
         }
 
-    errors   = df[df["is_error"]]   if "is_error"   in df.columns else pd.DataFrame()
+    errors = df[df["is_error"]] if "is_error" in df.columns else pd.DataFrame()
     warnings = df[df["is_warning"]] if "is_warning" in df.columns else pd.DataFrame()
 
     # Exceptions: all error messages, prioritise CRITICAL/FATAL first
@@ -56,9 +55,7 @@ def analyze_logs(df: Optional[pd.DataFrame]) -> dict:
 
     has_stacktrace = False
     if "extra" in df.columns:
-        has_stacktrace = df["extra"].apply(
-            lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)
-        ).any()
+        has_stacktrace = df["extra"].apply(lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)).any()
 
     top_sources = {}
     if "source" in df.columns:
@@ -67,18 +64,15 @@ def analyze_logs(df: Optional[pd.DataFrame]) -> dict:
     formats = df["format"].unique().tolist() if "format" in df.columns else []
 
     result = {
-        "total_errors":   int(errors.shape[0]),
+        "total_errors": int(errors.shape[0]),
         "total_warnings": int(warnings.shape[0]),
-        "exceptions":     exceptions,
-        "formats":        formats,
-        "top_sources":    top_sources,
+        "exceptions": exceptions,
+        "formats": formats,
+        "top_sources": top_sources,
         "has_stacktrace": bool(has_stacktrace),
     }
 
-    logger.info(
-        f"Log analysis complete: {result['total_errors']} errors, "
-        f"{result['total_warnings']} warnings, {len(formats)} formats"
-    )
+    logger.info(f"Log analysis complete: {result['total_errors']} errors, {result['total_warnings']} warnings, {len(formats)} formats")
     return result
 
 
@@ -91,6 +85,7 @@ def analyze_logs_from_text(raw_content: str) -> dict:
     Used by api_server.py /api/run after /api/ingest.
     """
     from log_parser import parse_log_content
+
     df = parse_log_content(raw_content)
     return analyze_logs(df)
 
@@ -107,13 +102,16 @@ def analyze_logs_from_file(log_file_path: str) -> dict:
     if not log_file_path or not os.path.exists(log_file_path):
         logger.error(f"Log file not found: {log_file_path}")
         return {
-            "total_errors": 0, "total_warnings": 0,
-            "exceptions": [], "formats": [], "top_sources": {},
+            "total_errors": 0,
+            "total_warnings": 0,
+            "exceptions": [],
+            "formats": [],
+            "top_sources": {},
             "has_stacktrace": False,
             "error": f"File not found: {log_file_path}",
         }
     try:
-        with open(log_file_path, "r", encoding="utf-8", errors="replace") as f:
+        with open(log_file_path, encoding="utf-8", errors="replace") as f:
             content = f.read()
         return analyze_logs_from_text(content)
     except Exception as e:

@@ -11,16 +11,17 @@ Tests cover:
   ✅ DB connection is properly closed after use
 """
 
-import pytest
 import sqlite3
 from unittest.mock import patch
-from Monitors.db_validator import validate_data
 
+import pytest
+
+from Monitors.db_validator import validate_data
 
 # ── Return structure ──────────────────────────────────────────────────────────
 
-class TestDBValidatorStructure:
 
+class TestDBValidatorStructure:
     def test_returns_dict(self, clean_db):
         result = validate_data(clean_db)
         assert isinstance(result, dict)
@@ -36,8 +37,8 @@ class TestDBValidatorStructure:
 
 # ── Clean database ────────────────────────────────────────────────────────────
 
-class TestDBValidatorCleanDB:
 
+class TestDBValidatorCleanDB:
     def test_clean_db_zero_nulls(self, clean_db):
         """A healthy database with all emails present returns 0."""
         result = validate_data(clean_db)
@@ -51,8 +52,8 @@ class TestDBValidatorCleanDB:
 
 # ── Database with NULL emails ─────────────────────────────────────────────────
 
-class TestDBValidatorNullEmails:
 
+class TestDBValidatorNullEmails:
     def test_two_null_emails_detected(self, db_with_null_emails):
         """DB fixture has 2 NULL email rows — should return 2."""
         result = validate_data(db_with_null_emails)
@@ -88,12 +89,12 @@ class TestDBValidatorNullEmails:
         db_path = str(tmp_path / "empty_str.db")
         conn = sqlite3.connect(db_path)
         conn.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT)")
-        conn.execute("INSERT INTO users VALUES (1, '')")       # empty string ≠ NULL
-        conn.execute("INSERT INTO users VALUES (2, NULL)")     # this IS NULL
+        conn.execute("INSERT INTO users VALUES (1, '')")  # empty string ≠ NULL
+        conn.execute("INSERT INTO users VALUES (2, NULL)")  # this IS NULL
         conn.commit()
         conn.close()
         result = validate_data(db_path)
-        assert result["null_email_count"] == 1   # only the actual NULL
+        assert result["null_email_count"] == 1  # only the actual NULL
 
     def test_large_table_count(self, tmp_path):
         """Verify counting works correctly on a larger dataset."""
@@ -113,8 +114,8 @@ class TestDBValidatorNullEmails:
 
 # ── Error / edge cases ────────────────────────────────────────────────────────
 
-class TestDBValidatorErrors:
 
+class TestDBValidatorErrors:
     def test_missing_db_does_not_crash(self, nonexistent_db):
         """Missing DB file should return safe defaults, not crash."""
         try:

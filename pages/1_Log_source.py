@@ -9,14 +9,20 @@ After connecting, all other pages (RCA Dashboard, Log Explorer) read
 from st.session_state["log_source"] via log_source_manager.
 """
 
-import streamlit as st
-import requests
-import json
 import gzip
+import json
+
+import requests
+import streamlit as st
+
 from log_source_manager import (
-    init_log_source, set_log_source_from_upload,
-    set_log_source_from_integration, clear_log_source,
-    is_connected, get_source_label, get_source_meta,
+    clear_log_source,
+    get_source_label,
+    get_source_meta,
+    init_log_source,
+    is_connected,
+    set_log_source_from_integration,
+    set_log_source_from_upload,
 )
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -24,7 +30,8 @@ st.set_page_config(page_title="Log Source · AutoRCA", page_icon="📡", layout=
 init_log_source()
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
-st.markdown("""
+st.markdown(
+    """
 <style>
 [data-testid="stSidebar"] { background: #0f172a; }
 .tab-card {
@@ -41,13 +48,16 @@ st.markdown("""
     transition: border-color 0.2s;
 }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 
 # ─────────────────────────────────────────────
 # HELPERS
 # ─────────────────────────────────────────────
 ACCEPTED_TYPES = ["log", "txt", "json", "csv", "tsv", "out", "gz"]
+
 
 def _decode_file(uploaded_file) -> str:
     raw = uploaded_file.read()
@@ -68,14 +78,21 @@ def _decode_file(uploaded_file) -> str:
 def _fetch_loki_logs(loki_url: str, query: str, hours: int, limit: int) -> str:
     """Query Grafana Loki HTTP API and return raw NDJSON lines."""
     import time
-    end_ns   = int(time.time() * 1e9)
+
+    end_ns = int(time.time() * 1e9)
     start_ns = end_ns - (hours * 3600 * int(1e9))
     endpoint = loki_url.rstrip("/") + "/loki/api/v1/query_range"
     try:
-        resp = requests.get(endpoint, params={
-            "query": query, "start": start_ns,
-            "end":   end_ns, "limit": limit,
-        }, timeout=15)
+        resp = requests.get(
+            endpoint,
+            params={
+                "query": query,
+                "start": start_ns,
+                "end": end_ns,
+                "limit": limit,
+            },
+            timeout=15,
+        )
         resp.raise_for_status()
         data = resp.json()
         lines = []
@@ -97,8 +114,7 @@ def _fetch_elasticsearch_logs(es_url: str, index: str, query: str, size: int) ->
         "query": {"query_string": {"query": query}} if query else {"match_all": {}},
     }
     try:
-        resp = requests.post(endpoint, json=body, timeout=15,
-                             headers={"Content-Type": "application/json"})
+        resp = requests.post(endpoint, json=body, timeout=15, headers={"Content-Type": "application/json"})
         resp.raise_for_status()
         hits = resp.json().get("hits", {}).get("hits", [])
         lines = [json.dumps(h.get("_source", {})) for h in hits]
@@ -112,6 +128,7 @@ def _fetch_s3_logs(bucket: str, prefix: str, aws_key: str, aws_secret: str, regi
     """Download and concatenate log files from S3 prefix."""
     try:
         import boto3
+
         s3 = boto3.client(
             "s3",
             aws_access_key_id=aws_key,
@@ -161,15 +178,18 @@ def _fetch_http_logs(url: str, headers_raw: str, method: str) -> str:
 # ─────────────────────────────────────────────
 def _render_connected_banner():
     meta = get_source_meta()
-    st.markdown(f"""
+    st.markdown(
+        f"""
     <div class="connected-banner">
         <strong style="color:#4ade80;">● Currently Connected:</strong>
         <span style="color:#e2e8f0; margin-left:8px;">{get_source_label()}</span>
         <span style="color:#64748b; font-size:12px; margin-left:16px;">
-            {meta.get('lines', 0):,} lines · ingested {meta.get('ingested_at', '')}
+            {meta.get("lines", 0):,} lines · ingested {meta.get("ingested_at", "")}
         </span>
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
     if st.button("🔌 Disconnect & Clear", type="secondary"):
         clear_log_source()
         st.rerun()
@@ -181,10 +201,8 @@ def _render_connected_banner():
 def _render_upload_tab():
     st.markdown("### 📂 Upload Log File")
     st.markdown(
-        "Upload a copy of your log file. Supports **9 formats** — "
-        "the parser auto-detects and normalises everything.",
-        help="Plain text, JSON/NDJSON, Log4j, Syslog, Apache/Nginx, "
-             "Kubernetes, Python logging, Windows Event Log, CSV/TSV"
+        "Upload a copy of your log file. Supports **9 formats** — the parser auto-detects and normalises everything.",
+        help="Plain text, JSON/NDJSON, Log4j, Syslog, Apache/Nginx, Kubernetes, Python logging, Windows Event Log, CSV/TSV",
     )
 
     uploaded = st.file_uploader(
@@ -221,10 +239,7 @@ def _render_upload_tab():
 # ─────────────────────────────────────────────
 def _render_integrations_tab():
     st.markdown("### 🔗 Connect Your Log Warehouse")
-    st.markdown(
-        "Connect AutoRCA directly to your centralized logging system. "
-        "Logs are fetched live — no manual file export needed."
-    )
+    st.markdown("Connect AutoRCA directly to your centralized logging system. Logs are fetched live — no manual file export needed.")
 
     integration = st.selectbox(
         "Select your logging platform",
@@ -235,7 +250,7 @@ def _render_integrations_tab():
             "Amazon S3",
             "Custom HTTP Endpoint",
         ],
-        key="integration_type"
+        key="integration_type",
     )
 
     st.divider()
@@ -256,31 +271,49 @@ def _render_integrations_tab():
         # Show integration overview cards
         cols = st.columns(2)
         integrations = [
-            ("🟠", "Grafana Loki",           "Pull logs from Loki using LogQL queries. Works with Grafana Cloud and self-hosted."),
-            ("🟡", "Elasticsearch",           "Query any Elasticsearch or OpenSearch index. Supports KQL / Lucene query syntax."),
-            ("🔵", "Amazon S3",               "Pull log files from any S3 bucket or compatible storage (MinIO, R2, GCS)."),
-            ("⚪", "Custom HTTP Endpoint",     "Fetch logs from any REST API — Splunk, Datadog, custom log server, or HTTP export."),
+            (
+                "🟠",
+                "Grafana Loki",
+                "Pull logs from Loki using LogQL queries. Works with Grafana Cloud and self-hosted.",
+            ),
+            (
+                "🟡",
+                "Elasticsearch",
+                "Query any Elasticsearch or OpenSearch index. Supports KQL / Lucene query syntax.",
+            ),
+            (
+                "🔵",
+                "Amazon S3",
+                "Pull log files from any S3 bucket or compatible storage (MinIO, R2, GCS).",
+            ),
+            (
+                "⚪",
+                "Custom HTTP Endpoint",
+                "Fetch logs from any REST API — Splunk, Datadog, custom log server, or HTTP export.",
+            ),
         ]
         for i, (icon, name, desc) in enumerate(integrations):
             with cols[i % 2]:
-                st.markdown(f"""
+                st.markdown(
+                    f"""
                 <div class="integration-card">
                     <div style="font-size:24px; margin-bottom:8px;">{icon}</div>
                     <strong style="color:#e2e8f0;">{name}</strong>
                     <p style="color:#64748b; font-size:13px; margin:6px 0 0;">{desc}</p>
                 </div>
-                """, unsafe_allow_html=True)
+                """,
+                    unsafe_allow_html=True,
+                )
 
 
 def _render_loki_form():
     st.markdown("#### 🟠 Grafana Loki")
     with st.form("loki_form"):
         loki_url = st.text_input("Loki URL", placeholder="http://localhost:3100")
-        query    = st.text_input("LogQL Query", placeholder='{app="myapp"} |= "error"',
-                                 value='{job="varlogs"}')
-        c1, c2   = st.columns(2)
-        hours    = c1.number_input("Fetch last N hours", min_value=1, max_value=168, value=1)
-        limit    = c2.number_input("Max log lines", min_value=100, max_value=10000, value=1000)
+        query = st.text_input("LogQL Query", placeholder='{app="myapp"} |= "error"', value='{job="varlogs"}')
+        c1, c2 = st.columns(2)
+        hours = c1.number_input("Fetch last N hours", min_value=1, max_value=168, value=1)
+        limit = c2.number_input("Max log lines", min_value=100, max_value=10000, value=1000)
         submitted = st.form_submit_button("🔌 Connect to Loki", type="primary")
 
     if submitted:
@@ -290,10 +323,7 @@ def _render_loki_form():
         with st.spinner("Fetching logs from Loki…"):
             content = _fetch_loki_logs(loki_url, query, int(hours), int(limit))
         if content:
-            set_log_source_from_integration(
-                "loki", f"🟠 Loki · {loki_url}", content,
-                source_detail=f"Query: {query}"
-            )
+            set_log_source_from_integration("loki", f"🟠 Loki · {loki_url}", content, source_detail=f"Query: {query}")
             st.success("✅ Loki connected!")
             st.rerun()
         else:
@@ -304,9 +334,9 @@ def _render_elasticsearch_form():
     st.markdown("#### 🟡 Elasticsearch / OpenSearch")
     with st.form("es_form"):
         es_url = st.text_input("Elasticsearch URL", placeholder="http://localhost:9200")
-        index  = st.text_input("Index / Index Pattern", placeholder="logs-*", value="logs-*")
-        query  = st.text_input("Query (Lucene)", placeholder='level:ERROR', value="*")
-        size   = st.number_input("Max documents", min_value=100, max_value=10000, value=1000)
+        index = st.text_input("Index / Index Pattern", placeholder="logs-*", value="logs-*")
+        query = st.text_input("Query (Lucene)", placeholder="level:ERROR", value="*")
+        size = st.number_input("Max documents", min_value=100, max_value=10000, value=1000)
         submitted = st.form_submit_button("🔌 Connect to Elasticsearch", type="primary")
 
     if submitted:
@@ -317,8 +347,10 @@ def _render_elasticsearch_form():
             content = _fetch_elasticsearch_logs(es_url, index, query, int(size))
         if content:
             set_log_source_from_integration(
-                "elasticsearch", f"🟡 ES · {index}", content,
-                source_detail=f"Index: {index}, Query: {query}"
+                "elasticsearch",
+                f"🟡 ES · {index}",
+                content,
+                source_detail=f"Index: {index}, Query: {query}",
             )
             st.success("✅ Elasticsearch connected!")
             st.rerun()
@@ -328,12 +360,12 @@ def _render_s3_form():
     st.markdown("#### 🔵 Amazon S3")
     st.info("💡 For production, use IAM roles instead of access keys. Keys entered here are not stored.")
     with st.form("s3_form"):
-        bucket     = st.text_input("S3 Bucket Name", placeholder="my-log-bucket")
-        prefix     = st.text_input("Key Prefix (folder path)", placeholder="logs/2026/03/")
-        region     = st.text_input("AWS Region", value="us-east-1")
-        aws_key    = st.text_input("AWS Access Key ID", type="password")
+        bucket = st.text_input("S3 Bucket Name", placeholder="my-log-bucket")
+        prefix = st.text_input("Key Prefix (folder path)", placeholder="logs/2026/03/")
+        region = st.text_input("AWS Region", value="us-east-1")
+        aws_key = st.text_input("AWS Access Key ID", type="password")
         aws_secret = st.text_input("AWS Secret Access Key", type="password")
-        submitted  = st.form_submit_button("🔌 Connect to S3", type="primary")
+        submitted = st.form_submit_button("🔌 Connect to S3", type="primary")
 
     if submitted:
         if not bucket:
@@ -342,29 +374,23 @@ def _render_s3_form():
         with st.spinner("Fetching log files from S3…"):
             content = _fetch_s3_logs(bucket, prefix, aws_key, aws_secret, region)
         if content:
-            set_log_source_from_integration(
-                "s3", f"🔵 S3 · {bucket}/{prefix}", content,
-                source_detail=f"s3://{bucket}/{prefix}"
-            )
+            set_log_source_from_integration("s3", f"🔵 S3 · {bucket}/{prefix}", content, source_detail=f"s3://{bucket}/{prefix}")
             st.success("✅ S3 connected!")
             st.rerun()
 
 
 def _render_http_form():
     st.markdown("#### ⚪ Custom HTTP Endpoint")
-    st.markdown(
-        "Use this to connect Splunk, Datadog, or any custom REST API "
-        "that returns raw log text or JSON."
-    )
+    st.markdown("Use this to connect Splunk, Datadog, or any custom REST API that returns raw log text or JSON.")
     with st.form("http_form"):
-        url          = st.text_input("Endpoint URL", placeholder="https://logs.example.com/api/export")
-        method       = st.selectbox("Method", ["GET", "POST"])
-        headers_raw  = st.text_area(
+        url = st.text_input("Endpoint URL", placeholder="https://logs.example.com/api/export")
+        method = st.selectbox("Method", ["GET", "POST"])
+        headers_raw = st.text_area(
             "Headers (one per line, Key: Value)",
             placeholder="Authorization: Bearer YOUR_TOKEN\nX-API-Key: abc123",
             height=100,
         )
-        submitted    = st.form_submit_button("🔌 Fetch Logs", type="primary")
+        submitted = st.form_submit_button("🔌 Fetch Logs", type="primary")
 
     if submitted:
         if not url:
@@ -373,10 +399,7 @@ def _render_http_form():
         with st.spinner("Fetching logs…"):
             content = _fetch_http_logs(url, headers_raw, method)
         if content:
-            set_log_source_from_integration(
-                "http", f"⚪ HTTP · {url[:40]}", content,
-                source_detail=f"URL: {url}"
-            )
+            set_log_source_from_integration("http", f"⚪ HTTP · {url[:40]}", content, source_detail=f"URL: {url}")
             st.success("✅ Logs fetched!")
             st.rerun()
 
@@ -400,42 +423,54 @@ def _render_api_push_tab():
         st.code("POST http://your-autorca-server:8000/api/ingest", language="bash")
 
         st.markdown("#### Required Headers")
-        st.code("""X-API-Key: your_autorca_api_key
-Content-Type: text/plain""", language="http")
+        st.code(
+            """X-API-Key: your_autorca_api_key
+Content-Type: text/plain""",
+            language="http",
+        )
 
         st.markdown("#### Request Body")
         st.markdown("Send raw log text as the request body — any supported format.")
-        st.code("""curl -X POST http://localhost:8000/api/ingest \\
+        st.code(
+            """curl -X POST http://localhost:8000/api/ingest \\
   -H "X-API-Key: YOUR_KEY" \\
   -H "Content-Type: text/plain" \\
-  --data-binary @/var/log/app.log""", language="bash")
+  --data-binary @/var/log/app.log""",
+            language="bash",
+        )
 
         st.markdown("#### Fluentd Config Example")
-        st.code("""<match app.**>
+        st.code(
+            """<match app.**>
   @type http
   endpoint http://your-autorca-server:8000/api/ingest
   headers {"X-API-Key": "YOUR_KEY"}
   content_type text/plain
-</match>""", language="xml")
+</match>""",
+            language="xml",
+        )
 
     with col2:
         st.markdown("#### Compatible Agents")
         agents = [
             ("📦", "Fluentd / Fluent Bit", "Use http output plugin"),
-            ("📦", "Logstash",              "Use http output plugin"),
-            ("📦", "Vector",                "Use http sink"),
-            ("📦", "Filebeat",              "Use logstash output → AutoRCA"),
-            ("📦", "Promtail",              "Use client → push_url"),
-            ("📦", "Custom Script",         "Any language with HTTP POST"),
+            ("📦", "Logstash", "Use http output plugin"),
+            ("📦", "Vector", "Use http sink"),
+            ("📦", "Filebeat", "Use logstash output → AutoRCA"),
+            ("📦", "Promtail", "Use client → push_url"),
+            ("📦", "Custom Script", "Any language with HTTP POST"),
         ]
         for icon, name, note in agents:
-            st.markdown(f"""
+            st.markdown(
+                f"""
             <div style="background:#1e293b; border-radius:8px; padding:10px 14px;
                         margin-bottom:8px; border:1px solid #334155;">
                 <strong style="color:#e2e8f0;">{icon} {name}</strong>
                 <div style="color:#64748b; font-size:12px;">{note}</div>
             </div>
-            """, unsafe_allow_html=True)
+            """,
+                unsafe_allow_html=True,
+            )
 
         st.markdown("#### Security")
         st.markdown("""
@@ -456,11 +491,13 @@ if is_connected():
 
 st.divider()
 
-tab_upload, tab_integrate, tab_api = st.tabs([
-    "📂 Upload File",
-    "🔗 Connect Integration",
-    "📡 API Push (for agents)",
-])
+tab_upload, tab_integrate, tab_api = st.tabs(
+    [
+        "📂 Upload File",
+        "🔗 Connect Integration",
+        "📡 API Push (for agents)",
+    ]
+)
 
 with tab_upload:
     _render_upload_tab()

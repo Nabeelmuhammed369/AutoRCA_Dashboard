@@ -1,7 +1,8 @@
-import sqlite3
 import logging
+import sqlite3
 
 logger = logging.getLogger("DB_VALIDATOR")
+
 
 def validate_data(db_path):
     try:

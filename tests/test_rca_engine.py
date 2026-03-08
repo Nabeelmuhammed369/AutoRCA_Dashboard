@@ -12,29 +12,34 @@ Tests cover all 5 classification paths in order of priority:
   ✅ Boundary values (exactly 500, exactly 5 db_errors, etc.)
 """
 
-import pytest
 from Core.rca_engine import classify_issue
 
-
 # ── Shared test data builders ─────────────────────────────────────────────────
+
 
 def api_ok(status_code=200, response_time=0.142):
     return {"status_code": status_code, "response_time": response_time}
 
+
 def api_error(message="Connection Error"):
     return {"error": message}
+
 
 def logs_clean():
     return {"total_errors": 0, "db_errors": 0, "categories": {}, "critical_issues": []}
 
+
 def logs_with_db_errors(count):
     return {"total_errors": count, "db_errors": count, "categories": {}, "critical_issues": []}
+
 
 def logs_with_errors(count):
     return {"total_errors": count, "db_errors": 0, "categories": {}, "critical_issues": []}
 
+
 def db_clean():
     return {"null_email_count": 0}
+
 
 def db_with_nulls(count=1):
     return {"null_email_count": count}
@@ -42,8 +47,8 @@ def db_with_nulls(count=1):
 
 # ── Return type ───────────────────────────────────────────────────────────────
 
-class TestRCAEngineReturnType:
 
+class TestRCAEngineReturnType:
     def test_always_returns_string(self):
         result = classify_issue(api_ok(), logs_clean(), db_clean())
         assert isinstance(result, str)
@@ -55,8 +60,8 @@ class TestRCAEngineReturnType:
 
 # ── Path 1: Infrastructure Issue ─────────────────────────────────────────────
 
-class TestInfrastructureIssue:
 
+class TestInfrastructureIssue:
     def test_api_error_returns_infrastructure_issue(self):
         result = classify_issue(api_error(), logs_clean(), db_clean())
         assert result == "Infrastructure Issue"
@@ -87,8 +92,8 @@ class TestInfrastructureIssue:
 
 # ── Path 2: Code Issue ────────────────────────────────────────────────────────
 
-class TestCodeIssue:
 
+class TestCodeIssue:
     def test_status_500_returns_code_issue(self):
         result = classify_issue(api_ok(500), logs_clean(), db_clean())
         assert result == "Code Issue"
@@ -128,8 +133,8 @@ class TestCodeIssue:
 
 # ── Path 3: Data Integrity Issue ─────────────────────────────────────────────
 
-class TestDataIntegrityIssue:
 
+class TestDataIntegrityIssue:
     def test_one_null_email_returns_data_integrity(self):
         result = classify_issue(api_ok(), logs_clean(), db_with_nulls(1))
         assert result == "Data Integrity Issue"
@@ -155,8 +160,8 @@ class TestDataIntegrityIssue:
 
 # ── Path 4: Database Connectivity Issue ──────────────────────────────────────
 
-class TestDatabaseConnectivityIssue:
 
+class TestDatabaseConnectivityIssue:
     def test_six_db_errors_returns_db_connectivity(self):
         """db_errors > 5 means exactly 6 should trigger."""
         result = classify_issue(api_ok(), logs_with_db_errors(6), db_clean())
@@ -182,8 +187,8 @@ class TestDatabaseConnectivityIssue:
 
 # ── Path 5: System Healthy ────────────────────────────────────────────────────
 
-class TestSystemHealthy:
 
+class TestSystemHealthy:
     def test_all_nominal_returns_healthy(self):
         result = classify_issue(api_ok(), logs_clean(), db_clean())
         assert result == "System Healthy"
@@ -192,7 +197,7 @@ class TestSystemHealthy:
         result = classify_issue(
             api_ok(200, 0.099),
             {"total_errors": 0, "db_errors": 0, "categories": {}, "critical_issues": []},
-            {"null_email_count": 0}
+            {"null_email_count": 0},
         )
         assert result == "System Healthy"
 
@@ -209,52 +214,36 @@ class TestSystemHealthy:
 
 # ── Priority order enforcement ────────────────────────────────────────────────
 
-class TestClassificationPriority:
 
+class TestClassificationPriority:
     def test_priority_order_infra_first(self):
         """When ALL conditions are bad, Infrastructure Issue must win."""
-        result = classify_issue(
-            api_error("Timeout"),
-            logs_with_db_errors(10),
-            db_with_nulls(5)
-        )
+        result = classify_issue(api_error("Timeout"), logs_with_db_errors(10), db_with_nulls(5))
         assert result == "Infrastructure Issue"
 
     def test_priority_order_code_second(self):
         """No infra error, but 500 status + data problems → Code Issue."""
-        result = classify_issue(
-            api_ok(500),
-            logs_with_db_errors(10),
-            db_with_nulls(5)
-        )
+        result = classify_issue(api_ok(500), logs_with_db_errors(10), db_with_nulls(5))
         assert result == "Code Issue"
 
     def test_priority_order_data_integrity_third(self):
         """API ok + null emails + high db_errors → Data Integrity Issue."""
-        result = classify_issue(
-            api_ok(200),
-            logs_with_db_errors(10),
-            db_with_nulls(1)
-        )
+        result = classify_issue(api_ok(200), logs_with_db_errors(10), db_with_nulls(1))
         assert result == "Data Integrity Issue"
 
     def test_priority_order_db_connectivity_fourth(self):
         """API ok + no nulls + high db_errors → DB Connectivity Issue."""
-        result = classify_issue(
-            api_ok(200),
-            logs_with_db_errors(6),
-            db_clean()
-        )
+        result = classify_issue(api_ok(200), logs_with_db_errors(6), db_clean())
         assert result == "Database Connectivity Issue"
 
     def test_complete_priority_chain(self):
         """Verify all 5 outcomes are reachable in order."""
         scenarios = [
-            (api_error(),       logs_with_db_errors(10), db_with_nulls(5), "Infrastructure Issue"),
-            (api_ok(500),       logs_with_db_errors(10), db_with_nulls(5), "Code Issue"),
-            (api_ok(200),       logs_with_db_errors(10), db_with_nulls(1), "Data Integrity Issue"),
-            (api_ok(200),       logs_with_db_errors(6),  db_clean(),       "Database Connectivity Issue"),
-            (api_ok(200),       logs_clean(),            db_clean(),       "System Healthy"),
+            (api_error(), logs_with_db_errors(10), db_with_nulls(5), "Infrastructure Issue"),
+            (api_ok(500), logs_with_db_errors(10), db_with_nulls(5), "Code Issue"),
+            (api_ok(200), logs_with_db_errors(10), db_with_nulls(1), "Data Integrity Issue"),
+            (api_ok(200), logs_with_db_errors(6), db_clean(), "Database Connectivity Issue"),
+            (api_ok(200), logs_clean(), db_clean(), "System Healthy"),
         ]
         for api, logs, db, expected in scenarios:
             result = classify_issue(api, logs, db)

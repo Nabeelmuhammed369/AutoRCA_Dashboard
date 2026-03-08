@@ -11,10 +11,12 @@ What changed vs old version:
   ✅ Sidebar shows live connection status badge
 """
 
-import streamlit as st
 import logging
+
+import streamlit as st
+
 from Core.logger import setup_logger
-from log_source_manager import init_log_source, is_connected, get_source_label, get_source_meta
+from log_source_manager import get_source_label, get_source_meta, init_log_source, is_connected
 
 # ── App Config ────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -29,10 +31,11 @@ setup_logger()
 logger = logging.getLogger("MAIN")
 
 # ── Session State Init ────────────────────────────────────────────────────────
-init_log_source()   # Safe to call multiple times — only sets defaults if missing
+init_log_source()  # Safe to call multiple times — only sets defaults if missing
 
 # ── Global CSS ────────────────────────────────────────────────────────────────
-st.markdown("""
+st.markdown(
+    """
 <style>
 /* Dark sidebar */
 [data-testid="stSidebar"] { background: #0f172a; }
@@ -53,7 +56,9 @@ h1 { font-size: 28px !important; }
 .metric-card { background: #1e293b; border-radius: 10px;
                padding: 16px 20px; border: 1px solid #334155; }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -64,20 +69,14 @@ with st.sidebar:
     # Live connection status
     if is_connected():
         label = get_source_label()
-        meta  = get_source_meta()
+        meta = get_source_meta()
         ingested = meta.get("ingested_at", "")
-        st.markdown(
-            f'<div class="status-badge-ok">● Connected</div>',
-            unsafe_allow_html=True
-        )
+        st.markdown('<div class="status-badge-ok">● Connected</div>', unsafe_allow_html=True)
         st.caption(f"**Source:** {label}")
         if ingested:
             st.caption(f"**Ingested:** {ingested}")
     else:
-        st.markdown(
-            '<div class="status-badge-none">○ No Log Source</div>',
-            unsafe_allow_html=True
-        )
+        st.markdown('<div class="status-badge-none">○ No Log Source</div>', unsafe_allow_html=True)
         st.caption("Connect a log source to begin analysis.")
 
     st.divider()
@@ -90,7 +89,8 @@ st.divider()
 
 if not is_connected():
     # ── Empty State ───────────────────────────────────────────────────────────
-    st.markdown("""
+    st.markdown(
+        """
     <div style="text-align:center; padding: 60px 0;">
         <div style="font-size: 64px;">📡</div>
         <h2 style="color:#94a3b8; margin: 16px 0 8px;">No Log Source Connected</h2>
@@ -98,11 +98,14 @@ if not is_connected():
             Connect your centralized logging system or upload a log file to begin analysis.
         </p>
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.markdown("""
+        st.markdown(
+            """
         <div style="background:#1e293b; border-radius:10px; padding:20px;
                     border:1px solid #334155; text-align:center;">
             <div style="font-size:32px;">📂</div>
@@ -112,10 +115,13 @@ if not is_connected():
                 Supports 9 log formats auto-detected.
             </p>
         </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with c2:
-        st.markdown("""
+        st.markdown(
+            """
         <div style="background:#1e293b; border-radius:10px; padding:20px;
                     border:1px solid #334155; text-align:center;">
             <div style="font-size:32px;">🔗</div>
@@ -125,10 +131,13 @@ if not is_connected():
                 directly from the UI.
             </p>
         </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with c3:
-        st.markdown("""
+        st.markdown(
+            """
         <div style="background:#1e293b; border-radius:10px; padding:20px;
                     border:1px solid #334155; text-align:center;">
             <div style="font-size:32px;">📡</div>
@@ -138,23 +147,26 @@ if not is_connected():
                 to the AutoRCA API endpoint.
             </p>
         </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown("")
     st.info("👈 Use **Log Source** in the left sidebar to get started.")
 
 else:
     # ── Connected: show quick summary ─────────────────────────────────────────
-    from log_source_manager import get_log_stats, get_log_df
+    from log_source_manager import get_log_stats
+
     stats = get_log_stats()
-    meta  = get_source_meta()
+    meta = get_source_meta()
 
     st.success(f"✅ Log source connected: **{get_source_label()}**")
 
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Total Entries",  f"{stats.get('total', 0):,}")
-    m2.metric("Errors",         f"{stats.get('errors', 0):,}")
-    m3.metric("Warnings",       f"{stats.get('warnings', 0):,}")
+    m1.metric("Total Entries", f"{stats.get('total', 0):,}")
+    m2.metric("Errors", f"{stats.get('errors', 0):,}")
+    m3.metric("Warnings", f"{stats.get('warnings', 0):,}")
     m4.metric("Lines Ingested", f"{meta.get('lines', 0):,}")
 
     st.divider()

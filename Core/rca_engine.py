@@ -2,6 +2,7 @@ import logging
 
 logger = logging.getLogger("RCA_ENGINE")
 
+
 def classify_issue(api_result, log_result, db_result):
 
     logger.info("Classifying root cause...")
