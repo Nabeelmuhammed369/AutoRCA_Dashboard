@@ -91,6 +91,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     if: ${{ !inputs.skip_tests }}
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
 
     strategy:
       fail-fast: false
