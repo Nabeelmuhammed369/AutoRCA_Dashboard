@@ -1,23 +1,18 @@
-# config.yaml — AutoRCA Configuration
-# ──────────────────────────────────────────────────────────────────────────────
-# IMPORTANT: Log file path has been REMOVED from this config.
-# Logs are now ingested via:
-#   [1] Streamlit UI  →  pages/1_Log_Source.py  (upload or integration)
-#   [2] API push      →  POST /api/ingest        (log agents / pipelines)
-#
-# This file only configures optional supporting services (API health, DB check).
-# ──────────────────────────────────────────────────────────────────────────────
+# AutoRCA config.yaml
+# Place this file in the same directory as api_server.py
 
-# Optional: external API to health-check during RCA diagnostics
-# Leave url blank ("") to skip API health check
 api:
-  url: "https://jsonplaceholder.typicode.com/posts/1"
-  timeout: 3
+  url: "http://localhost:8000/api/health"
+  timeout: 5
 
-# Optional: SQLite database path for data integrity checks
-# Leave path blank ("") to skip DB validation
+# NOTE: Both "log" and "logs" are now supported by the fixed api_server.py
+log:
+  file: "app.log"          # Path to your log file (create a sample one if needed)
+
 database:
-  path: "app.db"
+  path: "autorca.db"       # Path to your SQLite DB (create empty file if needed)
 
-# Log source is now managed at runtime via the UI or /api/ingest.
-# No hardcoded path here.
+# Optional: thresholds for anomaly detection
+thresholds:
+  error_rate: 10           # % error rate before flagging as degraded
+  max_errors: 100          # max errors before critical alert

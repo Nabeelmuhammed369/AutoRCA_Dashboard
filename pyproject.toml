@@ -41,7 +41,9 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S", "N"]  # relax security + naming in tests
+"tests/**"                  = ["S", "N"]     # relax security + naming in tests
+"push_to_grafana_cloud.py"  = ["S105", "S310"]  # S105: placeholder token string (not a real secret)
+                                                  # S310: urllib URL comes from env var, not user input
 
 [tool.ruff.format]
 quote-style = "double"
