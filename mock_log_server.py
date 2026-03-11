@@ -30,94 +30,80 @@ PLAIN_LOGS = """\
 2026-03-08 10:00:11 ERROR [Network] DNS resolution failed for db.internal
 """
 
-JSON_LOGS = json.dumps({
-    "data": {
-        "result": [
-            {
-                "stream": {"app": "autorca", "level": "error"},
-                "values": [
-                    [str(int(time.time() * 1e9)),
-                     "ERROR [Database] DB_CONN_FAIL: Connection refused"],
-                    [str(int(time.time() * 1e9) + 1),
-                     "CRITICAL [Database] Complete outage detected"],
-                    [str(int(time.time() * 1e9) + 2),
-                     "ERROR [Network] Connection timed out after 30s"],
-                    [str(int(time.time() * 1e9) + 3),
-                     "ERROR [API] Gateway returned 502 Bad Gateway"],
-                    [str(int(time.time() * 1e9) + 4),
-                     "ERROR NullPointerException in UserService.java:88"],
-                ]
-            }
-        ]
-    },
-    "status": "success"
-})
-
-ELASTICSEARCH_RESPONSE = json.dumps({
-    "hits": {
-        "total": {"value": 6},
-        "hits": [
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:00Z",
-                "level": "ERROR",
-                "message": "DB_CONN_FAIL: Connection refused at localhost:5432",
-                "service": "database"
-            }},
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:01Z",
-                "level": "CRITICAL",
-                "message": "Complete database outage",
-                "service": "database"
-            }},
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:02Z",
-                "level": "ERROR",
-                "message": "Connection timed out after 30s",
-                "service": "network"
-            }},
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:03Z",
-                "level": "ERROR",
-                "message": "Gateway returned 502 Bad Gateway",
-                "service": "api"
-            }},
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:04Z",
-                "level": "ERROR",
-                "message": "NullPointerException in UserService.java:88",
-                "service": "app"
-            }},
-            {"_source": {
-                "@timestamp": "2026-03-08T10:00:05Z",
-                "level": "ERROR",
-                "message": "LDAP bind failed for user admin",
-                "service": "active-directory"
-            }},
-        ]
+JSON_LOGS = json.dumps(
+    {
+        "data": {
+            "result": [
+                {
+                    "stream": {"app": "autorca", "level": "error"},
+                    "values": [
+                        [str(int(time.time() * 1e9)), "ERROR [Database] DB_CONN_FAIL: Connection refused"],
+                        [str(int(time.time() * 1e9) + 1), "CRITICAL [Database] Complete outage detected"],
+                        [str(int(time.time() * 1e9) + 2), "ERROR [Network] Connection timed out after 30s"],
+                        [str(int(time.time() * 1e9) + 3), "ERROR [API] Gateway returned 502 Bad Gateway"],
+                        [str(int(time.time() * 1e9) + 4), "ERROR NullPointerException in UserService.java:88"],
+                    ],
+                }
+            ]
+        },
+        "status": "success",
     }
-})
+)
+
+ELASTICSEARCH_RESPONSE = json.dumps(
+    {
+        "hits": {
+            "total": {"value": 6},
+            "hits": [
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:00Z",
+                        "level": "ERROR",
+                        "message": "DB_CONN_FAIL: Connection refused at localhost:5432",
+                        "service": "database",
+                    }
+                },
+                {"_source": {"@timestamp": "2026-03-08T10:00:01Z", "level": "CRITICAL", "message": "Complete database outage", "service": "database"}},
+                {"_source": {"@timestamp": "2026-03-08T10:00:02Z", "level": "ERROR", "message": "Connection timed out after 30s", "service": "network"}},
+                {"_source": {"@timestamp": "2026-03-08T10:00:03Z", "level": "ERROR", "message": "Gateway returned 502 Bad Gateway", "service": "api"}},
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:04Z",
+                        "level": "ERROR",
+                        "message": "NullPointerException in UserService.java:88",
+                        "service": "app",
+                    }
+                },
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:05Z",
+                        "level": "ERROR",
+                        "message": "LDAP bind failed for user admin",
+                        "service": "active-directory",
+                    }
+                },
+            ],
+        }
+    }
+)
 
 S3_LOG_CONTENT = PLAIN_LOGS  # S3 returns raw file content
 
 # ── Request handler ───────────────────────────────────────────────────────────
 
-class MockLogHandler(BaseHTTPRequestHandler):
 
+class MockLogHandler(BaseHTTPRequestHandler):
     ROUTES = {
         # Custom HTTP endpoint — plain text logs
-        "/logs":                   ("text/plain",       PLAIN_LOGS),
-
+        "/logs": ("text/plain", PLAIN_LOGS),
         # Loki-style query range endpoint
         "/loki/api/v1/query_range": ("application/json", JSON_LOGS),
-
         # Elasticsearch search endpoint
-        "/app-logs/_search":        ("application/json", ELASTICSEARCH_RESPONSE),
-
+        "/app-logs/_search": ("application/json", ELASTICSEARCH_RESPONSE),
         # S3-style object GET
-        "/autorca-logs/app.log":    ("text/plain",       S3_LOG_CONTENT),
-
+        "/autorca-logs/app.log": ("text/plain", S3_LOG_CONTENT),
         # Health check
-        "/health":                  ("application/json", '{"status": "ok"}'),
+        "/health": ("application/json", '{"status": "ok"}'),
     }
 
     def do_GET(self):
@@ -126,8 +112,7 @@ class MockLogHandler(BaseHTTPRequestHandler):
             content_type, body = self.ROUTES[path]
             self._respond(200, content_type, body)
         else:
-            self._respond(404, "text/plain", f"Unknown endpoint: {path}\n"
-                          f"Available: {list(self.ROUTES.keys())}")
+            self._respond(404, "text/plain", f"Unknown endpoint: {path}\nAvailable: {list(self.ROUTES.keys())}")
 
     def do_OPTIONS(self):
         """Handle CORS preflight requests from the browser."""
@@ -188,7 +173,7 @@ if __name__ == "__main__":
     print()
     print("  ┌─ Grafana Loki ─────────────────────────────────────────┐")
     print(f"  │  URL:    http://localhost:{PORT}                          │")
-    print("  │  Query:  {app=\"autorca\"}                               │")
+    print('  │  Query:  {app="autorca"}                               │')
     print("  └────────────────────────────────────────────────────────┘")
     print()
     print("  ┌─ Elasticsearch ────────────────────────────────────────┐")

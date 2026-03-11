@@ -3,7 +3,9 @@
 autorca_setup.py — Quick setup helper for AutoRCA
 Run this once before starting api_server.py to ensure all required files exist.
 """
-import os, sqlite3
+
+import os
+import sqlite3
 
 # Create empty log file if missing
 if not os.path.exists("app.log"):
