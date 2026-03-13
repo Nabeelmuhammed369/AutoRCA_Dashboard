@@ -9,8 +9,6 @@ Run with:
     pytest tests/test_rca_logic.py -v
 """
 
-import pytest
-
 
 # ---------------------------------------------------------------------------
 # Helpers — pure Python reimplementations of the JS logic
