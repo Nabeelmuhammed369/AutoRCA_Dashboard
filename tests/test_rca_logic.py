@@ -10,7 +10,8 @@ Run with:
     pytest tests/test_rca_logic.py -v
 """
 
-import pytest  # noqa: F401
+import pytest
+
 
 # ─────────────────────────────────────────────────────────────
 # Helpers — pure Python reimplementations of the JS logic
