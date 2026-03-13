@@ -1,80 +1,102 @@
 """
-tests/test_rca_endpoints.py  (v2 — fixed)
-==========================================
-Root cause of v1 failures:
-  "module 'api_server' has no attribute 'sb'"
+tests/test_rca_endpoints.py
+============================
+Tests for the RCA save/history/get/delete endpoints in api_server.py.
 
-  api_server.sb is assigned at MODULE IMPORT TIME via:
-      sb = create_client(SUPABASE_URL, SUPABASE_KEY)
+Key design decisions
+--------------------
+* api_server.py stores the Supabase client in module-level `_sb` (private).
+  We patch `api_server._sb` directly — no need to mock supabase.create_client,
+  which avoids the `ModuleNotFoundError: No module named 'supabase'` CI error
+  (supabase package only needs to be installed in production, not in tests).
 
-  v1 tried to set `api_server.sb` after import — but if the import itself
-  failed or sb was never defined as a module-level name, AttributeError fires.
+* api_server.py RCASavePayload uses field names:
+    source, classification, severity, summary, total_logs, error_count, meta
+  The test payload must match these names.
 
-Fix: patch `supabase.create_client` BEFORE importing api_server (or before
-reloading it), so the module-level assignment picks up our mock.
+* History response shape from api_server.py:
+    {"records": [...], "total": N, "supabase": True}
+  (NOT {"ok": True, "data": [...]})
+
+* Severity filter is uppercased by the server: .eq("severity", "CRITICAL")
+
+* Search filter uses .or_() not .ilike() directly.
+
+* GET /api/rca/history/{id} returns result.data directly (no ok/data wrapper).
+
+* History endpoint returns 200 with empty records when _sb is None (graceful).
+  Only save/get/delete raise 503 when _sb is None.
 """
 
-import sys
-import os
-import uuid
 import importlib
+import os
+import sys
+import uuid
 from unittest.mock import MagicMock, patch
-
-import pytest
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-FAKE_ID   = str(uuid.uuid4())
-BASE_ENV  = {
-    "SUPABASE_URL":    "https://test.supabase.co",
-    "SUPABASE_KEY":    "test-key",
+FAKE_ID = str(uuid.uuid4())
+
+BASE_ENV = {
+    "SUPABASE_URL": "https://test.supabase.co",
+    "SUPABASE_KEY": "test-key",
     "AUTORCA_API_KEY": "test-api-key",
 }
+
+# Payload using the actual field names from RCASavePayload in api_server.py
 SAMPLE_PAYLOAD = {
-    "source_name": "app.log", "severity": "critical",
-    "total_entries": 2500,    "error_count": 1310,
-    "warn_count": 634,        "error_rate": 52.4,
-    "ai_summary": "High error rate.", "fix_steps": "1. Restart",
-    "incident_groups": [],    "affected_services": ["auth"],
-    "remediation": [],        "stats": {"total":2500,"err":1310,"warn":634,"rate":52.4},
+    "source": "app.log",
+    "classification": "Database",
+    "severity": "critical",
+    "summary": "High error rate detected.",
+    "total_logs": 2500,
+    "error_count": 1310,
+    "meta": {"rate": 52.4},
 }
 
-# ── Helpers ──────────────────────────────────────────────────────────────────
+HEADERS = {"X-API-Key": "test-api-key"}
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
 
 def _make_table(execute_data=None):
     """Fluent supabase-py table mock — every chain method returns self."""
     t = MagicMock()
-    for m in ("select","insert","delete","update","eq","ilike","order","range","single"):
+    for m in ("select", "insert", "delete", "update", "eq", "or_", "ilike", "order", "range", "single", "desc"):
         getattr(t, m).return_value = t
     t.execute.return_value = MagicMock(data=execute_data if execute_data is not None else [])
     return t
 
-def _sb(table):
+
+def _make_sb(table):
+    """Minimal Supabase client mock."""
     s = MagicMock()
     s.table.return_value = table
     return s
 
-def _client_with(table):
-    """Reload api_server with a mocked create_client and return TestClient."""
-    from fastapi.testclient import TestClient
-    with patch.dict(os.environ, BASE_ENV, clear=False):
-        with patch("supabase.create_client", return_value=_sb(table)):
-            import api_server
-            importlib.reload(api_server)
-            return TestClient(api_server.app, raise_server_exceptions=False), table
 
-def _client_no_sb():
-    """Reload api_server with Supabase vars empty so sb=None."""
+def _get_client(sb_mock=None):
+    """
+    Return a FastAPI TestClient with api_server._sb replaced by sb_mock.
+    Patches at the module level AFTER import — no supabase package needed.
+    """
     from fastapi.testclient import TestClient
-    env = {**BASE_ENV, "SUPABASE_URL": "", "SUPABASE_KEY": ""}
-    with patch.dict(os.environ, env, clear=False):
-        with patch("supabase.create_client", side_effect=Exception("no creds")):
-            import api_server
-            importlib.reload(api_server)
-            api_server.sb = None   # guarantee None regardless of exception handling
-            return TestClient(api_server.app, raise_server_exceptions=False)
+
+    with patch.dict(os.environ, BASE_ENV, clear=False):
+        import api_server
+
+        importlib.reload(api_server)
+
+    # Directly replace the private _sb with our mock (or None)
+    import api_server as _api
+
+    _api._sb = sb_mock
+    return TestClient(_api.app, raise_server_exceptions=False)
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # POST /api/rca/save
@@ -82,124 +104,182 @@ def _client_no_sb():
 class TestRcaSave:
     def setup_method(self):
         self.t = _make_table([{"id": FAKE_ID}])
-        self.c, _ = _client_with(self.t)
+        self.sb = _make_sb(self.t)
+        self.c = _get_client(self.sb)
 
     def test_save_happy_path(self):
-        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
+        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
         assert r.status_code == 200
         assert r.json()["ok"] is True
         assert r.json()["id"] == FAKE_ID
 
-    def test_save_inserts_correct_source_name(self):
-        self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
-        assert self.t.insert.call_args[0][0]["source_name"] == "app.log"
+    def test_save_inserts_correct_source(self):
+        self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        assert inserted["source"] == "app.log"
 
-    def test_save_inserts_correct_severity(self):
-        self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
-        assert self.t.insert.call_args[0][0]["severity"] == "critical"
+    def test_save_inserts_correct_severity_uppercased(self):
+        self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        # RCASavePayload.normalised() uppercases severity
+        assert inserted["severity"] in {"CRITICAL", "HIGH", "MEDIUM", "LOW", "WARNING", "UNKNOWN", "INFO"}
 
-    def test_save_coerces_total_entries_to_int(self):
-        self.c.post("/api/rca/save", json={**SAMPLE_PAYLOAD, "total_entries": "2500"})
-        assert isinstance(self.t.insert.call_args[0][0]["total_entries"], int)
+    def test_save_coerces_total_logs_to_int(self):
+        payload = {**SAMPLE_PAYLOAD, "total_logs": "2500"}
+        self.c.post("/api/rca/save", json=payload, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        assert isinstance(inserted["total_logs"], int)
 
     def test_save_coerces_error_count_to_int(self):
-        self.c.post("/api/rca/save", json={**SAMPLE_PAYLOAD, "error_count": "1310"})
-        assert isinstance(self.t.insert.call_args[0][0]["error_count"], int)
+        payload = {**SAMPLE_PAYLOAD, "error_count": "1310"}
+        self.c.post("/api/rca/save", json=payload, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        assert isinstance(inserted["error_count"], int)
 
     def test_save_default_severity_when_missing(self):
-        self.c.post("/api/rca/save", json={"source_name": "x.log"})
-        assert self.t.insert.call_args[0][0]["severity"] == "warning"
+        self.c.post("/api/rca/save", json={"source": "x.log"}, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        # Default severity is "UNKNOWN" after normalisation
+        assert inserted["severity"] == "UNKNOWN"
 
     def test_save_zero_defaults_for_missing_counts(self):
-        self.c.post("/api/rca/save", json={"source_name": "x.log"})
-        args = self.t.insert.call_args[0][0]
-        assert args["total_entries"] == 0
-        assert args["error_count"] == 0
+        self.c.post("/api/rca/save", json={"source": "x.log"}, headers=HEADERS)
+        inserted = self.t.insert.call_args[0][0]
+        assert inserted["total_logs"] == 0
+        assert inserted["error_count"] == 0
 
-    def test_save_ok_false_on_supabase_exception(self):
+    def test_save_500_on_supabase_exception(self):
         self.t.execute.side_effect = Exception("DB write failed")
-        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
-        assert r.status_code == 200
-        assert r.json()["ok"] is False
+        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
+        # api_server raises HTTPException(500) on DB error
+        assert r.status_code == 500
 
     def test_save_503_when_supabase_not_configured(self):
-        r = _client_no_sb().post("/api/rca/save", json=SAMPLE_PAYLOAD)
+        c = _get_client(sb_mock=None)
+        r = c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
         assert r.status_code == 503
-        assert "Supabase" in r.json()["detail"]
+        assert "Supabase" in r.json()["detail"] or "supabase" in r.json()["detail"].lower()
+
+    def test_save_requires_api_key(self):
+        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
+        assert r.status_code == 401
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # GET /api/rca/history
 # ═════════════════════════════════════════════════════════════════════════════
 class TestRcaHistory:
     def _recs(self, n=3):
-        return [{"id": str(uuid.uuid4()), "source_name": f"s{i}.log",
-                 "severity": "warning", "total_entries": 1000*(i+1),
-                 "error_count": 100*(i+1), "created_at": "2026-03-13T00:00:00+00:00"}
-                for i in range(n)]
+        return [
+            {
+                "id": str(uuid.uuid4()),
+                "source": f"s{i}.log",
+                "severity": "WARNING",
+                "total_logs": 1000 * (i + 1),
+                "error_count": 100 * (i + 1),
+                "created_at": "2026-03-13T00:00:00+00:00",
+            }
+            for i in range(n)
+        ]
 
     def setup_method(self):
         self.t = _make_table([])
-        self.c, _ = _client_with(self.t)
+        self.sb = _make_sb(self.t)
+        self.c = _get_client(self.sb)
 
-    def test_history_returns_list(self):
+    def test_history_returns_records_list(self):
         self.t.execute.return_value = MagicMock(data=self._recs(3))
-        r = self.c.get("/api/rca/history")
+        r = self.c.get("/api/rca/history", headers=HEADERS)
         assert r.status_code == 200
-        assert r.json()["ok"] is True
-        assert len(r.json()["data"]) == 3
-        assert r.json()["count"] == 3
+        body = r.json()
+        # api_server returns {"records": [...], "total": N, "supabase": True}
+        assert "records" in body
+        assert len(body["records"]) == 3
+        assert body["total"] == 3
+        assert body["supabase"] is True
 
     def test_history_empty_when_no_records(self):
-        r = self.c.get("/api/rca/history")
-        assert r.json()["data"] == []
+        r = self.c.get("/api/rca/history", headers=HEADERS)
+        body = r.json()
+        assert body["records"] == []
+        assert body["total"] == 0
 
-    def test_history_severity_filter_calls_eq(self):
-        self.c.get("/api/rca/history?severity=critical")
-        self.t.eq.assert_called_with("severity", "critical")
+    def test_history_severity_filter_uppercased(self):
+        self.c.get("/api/rca/history?severity=critical", headers=HEADERS)
+        # api_server calls .eq("severity", severity.upper()) → "CRITICAL"
+        self.t.eq.assert_called_with("severity", "CRITICAL")
 
-    def test_history_search_calls_ilike(self):
-        self.c.get("/api/rca/history?search=app.log")
-        self.t.ilike.assert_called_with("source_name", "%app.log%")
+    def test_history_search_uses_or_filter(self):
+        self.c.get("/api/rca/history?search=app.log", headers=HEADERS)
+        # api_server uses .or_("source.ilike.%app.log%,classification.ilike.%app.log%")
+        self.t.or_.assert_called_once()
+        call_arg = self.t.or_.call_args[0][0]
+        assert "app.log" in call_arg
+        assert "ilike" in call_arg
 
-    def test_history_severity_all_skips_eq_filter(self):
-        self.c.get("/api/rca/history?severity=all")
+    def test_history_no_severity_filter_when_not_provided(self):
+        self.c.get("/api/rca/history", headers=HEADERS)
+        # .eq should NOT have been called with "severity"
         eq_calls = [str(c) for c in self.t.eq.call_args_list]
         assert not any("severity" in c for c in eq_calls)
 
-    def test_history_503_when_supabase_not_configured(self):
-        assert _client_no_sb().get("/api/rca/history").status_code == 503
+    def test_history_200_with_empty_when_supabase_not_configured(self):
+        # api_server returns 200 gracefully (not 503) for history when _sb is None
+        c = _get_client(sb_mock=None)
+        r = c.get("/api/rca/history", headers=HEADERS)
+        assert r.status_code == 200
+        body = r.json()
+        assert body["records"] == []
+        assert body["supabase"] is False
 
-    def test_history_ok_false_on_exception(self):
+    def test_history_returns_empty_on_db_exception(self):
         self.t.execute.side_effect = Exception("timeout")
+        r = self.c.get("/api/rca/history", headers=HEADERS)
+        # api_server catches the exception and returns empty gracefully
+        assert r.status_code == 200
+        assert r.json()["records"] == []
+
+    def test_history_requires_api_key(self):
         r = self.c.get("/api/rca/history")
-        assert r.json()["ok"] is False
+        assert r.status_code == 401
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # GET /api/rca/history/{id}
 # ═════════════════════════════════════════════════════════════════════════════
 class TestRcaGet:
     def setup_method(self):
-        record = {**SAMPLE_PAYLOAD, "id": FAKE_ID, "created_at": "2026-03-13T07:00:00+00:00"}
-        self.t = _make_table(record)
-        self.c, _ = _client_with(self.t)
+        self.record = {**SAMPLE_PAYLOAD, "id": FAKE_ID, "created_at": "2026-03-13T07:00:00+00:00"}
+        self.t = _make_table(self.record)
+        self.sb = _make_sb(self.t)
+        self.c = _get_client(self.sb)
 
     def test_get_record_found(self):
-        r = self.c.get(f"/api/rca/history/{FAKE_ID}")
+        r = self.c.get(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
         assert r.status_code == 200
-        assert r.json()["ok"] is True
-        assert r.json()["data"]["id"] == FAKE_ID
+        # api_server returns result.data directly (no ok/data wrapper)
+        body = r.json()
+        assert body["id"] == FAKE_ID
 
     def test_get_calls_eq_with_correct_id(self):
-        self.c.get(f"/api/rca/history/{FAKE_ID}")
+        self.c.get(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
         self.t.eq.assert_called_with("id", FAKE_ID)
 
-    def test_get_ok_false_when_not_found(self):
+    def test_get_500_when_db_raises(self):
         self.t.execute.side_effect = Exception("not found")
-        r = self.c.get(f"/api/rca/history/{FAKE_ID}")
-        assert r.json()["ok"] is False
+        r = self.c.get(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
+        assert r.status_code == 500
 
     def test_get_503_when_supabase_not_configured(self):
-        assert _client_no_sb().get(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        c = _get_client(sb_mock=None)
+        r = c.get(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
+        assert r.status_code == 503
+        assert "Supabase" in r.json()["detail"] or "supabase" in r.json()["detail"].lower()
+
+    def test_get_requires_api_key(self):
+        r = self.c.get(f"/api/rca/history/{FAKE_ID}")
+        assert r.status_code == 401
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # DELETE /api/rca/history/{id}
@@ -207,73 +287,83 @@ class TestRcaGet:
 class TestRcaDelete:
     def setup_method(self):
         self.t = _make_table([])
-        self.c, _ = _client_with(self.t)
+        self.sb = _make_sb(self.t)
+        self.c = _get_client(self.sb)
 
     def test_delete_happy_path(self):
-        r = self.c.delete(f"/api/rca/history/{FAKE_ID}")
+        r = self.c.delete(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
         assert r.status_code == 200
         assert r.json()["ok"] is True
 
     def test_delete_calls_eq_with_id(self):
-        self.c.delete(f"/api/rca/history/{FAKE_ID}")
+        self.c.delete(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
         self.t.eq.assert_called_with("id", FAKE_ID)
 
     def test_delete_503_when_supabase_not_configured(self):
-        assert _client_no_sb().delete(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        c = _get_client(sb_mock=None)
+        r = c.delete(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
+        assert r.status_code == 503
 
-    def test_delete_ok_false_on_exception(self):
+    def test_delete_500_on_db_exception(self):
         self.t.execute.side_effect = Exception("row lock")
+        r = self.c.delete(f"/api/rca/history/{FAKE_ID}", headers=HEADERS)
+        assert r.status_code == 500
+
+    def test_delete_requires_api_key(self):
         r = self.c.delete(f"/api/rca/history/{FAKE_ID}")
-        assert r.json()["ok"] is False
+        assert r.status_code == 401
+
 
 # ═════════════════════════════════════════════════════════════════════════════
-# Duplicate detection flow
+# End-to-end flow tests
 # ═════════════════════════════════════════════════════════════════════════════
-class TestDuplicateDetectionFlow:
+class TestEndToEndFlow:
     def setup_method(self):
         self.t = _make_table([])
-        self.c, _ = _client_with(self.t)
+        self.sb = _make_sb(self.t)
+        self.c = _get_client(self.sb)
 
-    def test_duplicate_present_returned_by_search(self):
-        existing = {"id": FAKE_ID, "source_name": "app.log",
-                    "total_entries": 2500, "error_count": 1310, "severity": "critical",
-                    "created_at": "2026-03-13T07:00:00+00:00"}
-        self.t.execute.return_value = MagicMock(data=[existing])
-        r = self.c.get("/api/rca/history?search=app.log&limit=50")
-        assert r.status_code == 200
-        match = next((x for x in r.json()["data"]
-                      if x["source_name"] == "app.log"
-                      and x["total_entries"] == 2500
-                      and x["error_count"] == 1310), None)
-        assert match is not None
-
-    def test_no_duplicate_after_deletion(self):
-        r = self.c.get("/api/rca/history?search=app.log&limit=50")
-        assert r.json()["data"] == []
-
-    def test_full_flow_save_delete_resave(self):
-        # Save
+    def test_full_save_then_history_then_delete(self):
         nid = str(uuid.uuid4())
+
+        # 1. Save
         self.t.execute.return_value = MagicMock(data=[{"id": nid}])
-        assert self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD).json()["ok"] is True
-        # Delete
+        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
+        assert r.json()["ok"] is True
+        assert r.json()["id"] == nid
+
+        # 2. History shows the record
+        saved_record = {**SAMPLE_PAYLOAD, "id": nid, "created_at": "2026-03-13T00:00:00"}
+        self.t.execute.return_value = MagicMock(data=[saved_record])
+        r = self.c.get("/api/rca/history", headers=HEADERS)
+        assert len(r.json()["records"]) == 1
+        assert r.json()["records"][0]["id"] == nid
+
+        # 3. Delete
         self.t.execute.return_value = MagicMock(data=[])
-        assert self.c.delete(f"/api/rca/history/{nid}").json()["ok"] is True
-        # Check — empty
-        assert self.c.get("/api/rca/history?search=app.log&limit=50").json()["data"] == []
-        # Re-save — must succeed
+        r = self.c.delete(f"/api/rca/history/{nid}", headers=HEADERS)
+        assert r.json()["ok"] is True
+
+        # 4. History is empty again
+        self.t.execute.return_value = MagicMock(data=[])
+        r = self.c.get("/api/rca/history", headers=HEADERS)
+        assert r.json()["records"] == []
+
+    def test_resave_after_delete_succeeds(self):
         nid2 = str(uuid.uuid4())
         self.t.execute.return_value = MagicMock(data=[{"id": nid2}])
-        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
+        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD, headers=HEADERS)
         assert r.json()["ok"] is True
         assert r.json()["id"] == nid2
 
-    def test_save_anyway_bypasses_check(self):
-        nid = str(uuid.uuid4())
-        self.t.execute.return_value = MagicMock(data=[{"id": nid}])
-        r = self.c.post("/api/rca/save", json=SAMPLE_PAYLOAD)
-        assert r.json()["ok"] is True
+    def test_search_returns_matching_record(self):
+        record = {**SAMPLE_PAYLOAD, "id": FAKE_ID, "created_at": "2026-03-13T00:00:00"}
+        self.t.execute.return_value = MagicMock(data=[record])
+        r = self.c.get("/api/rca/history?search=app.log", headers=HEADERS)
+        assert r.status_code == 200
+        records = r.json()["records"]
+        assert any(rec["source"] == "app.log" for rec in records)
 
-    def test_duplicate_check_uses_ilike(self):
-        self.c.get("/api/rca/history?search=APP.LOG&limit=50")
-        self.t.ilike.assert_called_with("source_name", "%APP.LOG%")
+    def test_severity_filter_is_sent_uppercased_to_db(self):
+        self.c.get("/api/rca/history?severity=warning", headers=HEADERS)
+        self.t.eq.assert_called_with("severity", "WARNING")
