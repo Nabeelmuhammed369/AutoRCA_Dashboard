@@ -222,7 +222,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 #screen-upload.active,#screen-dashboard.active,#screen-ai.active,#screen-explorer.active,
 #screen-compare.active,#screen-error-drill.active,#screen-comp-api.active,
 #screen-comp-log.active,#screen-comp-db.active,#screen-comp-rca.active,
-#screen-rca-report.active{display:block !important;overflow-y:auto;}
+#screen-rca-report.active,#screen-rca-history.active{display:block !important;overflow-y:auto;}
 
 /* ═══ UPLOAD SCREEN ══════════════════════════════════════════ */
 #screen-upload{padding:24px 28px;}
@@ -394,6 +394,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .ai-gen-btn{padding:6px 14px;border-radius:8px;border:none;background:var(--accentg);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity .15s;}
 .ai-gen-btn:hover{opacity:.85;}
 .ai-gen-btn:disabled{opacity:.5;cursor:default;}
+.tl-baseline-toggle{padding:6px 14px;border-radius:8px;border:none;background:var(--accentg);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity .15s;}
 .ai-output{min-height:120px;font-size:13px;color:var(--text);line-height:1.7;}
 .ai-output.empty{color:var(--text3);font-style:italic;}
 /* Typing cursor */
@@ -656,6 +657,23 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .tl-swimlane-pip.warn{background:var(--amber);}
 .tl-swimlane-count{width:50px;flex-shrink:0;font-size:10px;font-family:'Fira Code',monospace;color:var(--text3);text-align:right;padding-right:12px;}
 
+/* Incident list */
+.tl-list-zone{flex:1;overflow-y:auto;padding:0;min-height:0;}
+.tl-list-header{display:grid;grid-template-columns:28px 90px 110px 1fr 90px 80px 80px 36px;gap:0;padding:7px 20px;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:0;z-index:5;flex-shrink:0;}
+.tl-list-hdr-cell{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;gap:3px;user-select:none;}
+.tl-list-hdr-cell:hover{color:var(--text2);}
+.tl-group-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
+.tl-group-row:hover{background:var(--bg3);}
+.tl-group-row.tl-sidebar-active{background:var(--accent)08;box-shadow:inset 3px 0 0 var(--accent);}
+.tl-group-cells{display:grid;grid-template-columns:28px 90px 110px 1fr 90px 80px 80px 36px;gap:0;padding:9px 20px;align-items:center;}
+.tl-group-expand{color:var(--text3);transition:color .15s;font-size:12px;display:flex;align-items:center;}
+.tl-group-row:hover .tl-group-expand{color:var(--accent2);}
+.tl-group-row.tl-sidebar-active .tl-group-expand{color:var(--accent2);}
+.tl-gcell{font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tl-gcell.name{font-weight:700;color:var(--heading);}
+.tl-gcell.ts{font-family:'Fira Code',monospace;font-size:10px;color:var(--text3);}
+.tl-gcell.msg{color:var(--text2);}
+
 /* Severity badges in list */
 .tl-sev{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800;white-space:nowrap;}
 .tl-sev.critical{background:var(--red)18;color:var(--red);border:1px solid var(--red)30;}
@@ -887,6 +905,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .rcr-ev-ts{font-size:10px;font-family:'Fira Code',monospace;color:var(--text3);}
 .rcr-ev-msg{font-size:11px;color:var(--text2);line-height:1.5;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
 .rcr-ev-highlight{background:var(--accent)25;border-radius:3px;padding:0 2px;color:var(--accent2);font-weight:700;}
+.rcr-view-all{display:block;width:100%;padding:10px;border:none;background:none;color:var(--accent2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;border-top:1px solid var(--border);transition:background .15s;}
+.rcr-view-all:hover{background:var(--bg3);}
 .rcr-right{display:flex;flex-direction:column;gap:16px;position:sticky;top:80px;}
 .rcr-rem-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
 .rcr-rem-hdr{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
@@ -1154,6 +1174,178 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 .comp-pager-btn{padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:11px;font-family:inherit;}
 .comp-pager-btn:disabled{opacity:.4;cursor:default;}
 .comp-empty{padding:40px;text-align:center;color:var(--text3);font-size:13px;}
+
+/* ═══ RCA HISTORY SCREEN ════════════════════════════════════ */
+#screen-rca-history{padding:0;overflow-y:auto;display:flex;flex-direction:column;}
+.rh-page-inner{padding:20px 24px;flex:1;}
+.comp-action-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.comp-action-btn:hover{border-color:var(--accent)50;color:var(--accent2);}
+.comp-card-hdr{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);}
+.comp-card-title{font-size:11px;font-weight:700;color:var(--heading);text-transform:uppercase;letter-spacing:.6px;}
+.rh-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.rh-title-block{}
+.rh-title{font-size:20px;font-weight:700;color:var(--heading);margin-bottom:2px;}
+.rh-sub{font-size:12px;color:var(--text3);}
+.rh-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.rh-search-wrap{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text3);}
+.rh-search-wrap i{flex-shrink:0;}
+.rh-search{background:none;border:none;outline:none;color:var(--text);font-size:12px;font-family:inherit;width:200px;}
+.rh-search::placeholder{color:var(--text3);}
+.rh-filter-group{display:flex;gap:4px;}
+.rh-filter-btn{padding:6px 12px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.rh-filter-btn:hover{background:var(--bg3);color:var(--text2);}
+.rh-filter-btn.active{background:var(--accent)15;border-color:var(--accent)50;color:var(--accent2);}
+.rh-filter-btn.f-critical.active{background:var(--red)12;border-color:var(--red)40;color:var(--red);}
+.rh-filter-btn.f-warning.active{background:var(--amber)12;border-color:var(--amber)40;color:var(--amber);}
+.rh-filter-btn.f-healthy.active{background:var(--green)12;border-color:var(--green)40;color:var(--green);}
+.rh-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.rh-btn:hover{border-color:var(--accent)50;color:var(--accent2);}
+.rh-btn.danger{border-color:var(--red)30;color:var(--red);}
+.rh-btn.danger:hover{background:var(--red)10;}
+/* Table */
+.rh-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.rh-table-toolbar{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);gap:12px;}
+.rh-table-label{font-size:11px;font-weight:700;color:var(--heading);text-transform:uppercase;letter-spacing:.6px;}
+.rh-sel-info{font-size:11px;color:var(--text3);}
+.rh-sel-info span{color:var(--accent2);font-weight:700;}
+table.rh-table{width:100%;border-collapse:collapse;}
+table.rh-table th{padding:9px 14px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);text-align:left;background:var(--bg2);white-space:nowrap;}
+table.rh-table td{padding:11px 14px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);vertical-align:middle;}
+table.rh-table tr:last-child td{border-bottom:none;}
+table.rh-table tr:hover td{background:var(--bg2);}
+table.rh-table tr.rh-row-selected td{background:var(--accent)08;border-left:2px solid var(--accent);}
+.rh-cb{width:14px;height:14px;accent-color:var(--accent);cursor:pointer;}
+.rh-sev-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;}
+.rh-sev-badge.critical{background:var(--red)15;color:var(--red);}
+.rh-sev-badge.warning{background:var(--amber)15;color:var(--amber);}
+.rh-sev-badge.healthy{background:var(--green)15;color:var(--green);}
+.rh-sev-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.rh-source-name{font-weight:600;color:var(--heading);font-size:12px;}
+.rh-date{font-family:'Fira Code',monospace;font-size:11px;color:var(--text3);}
+.rh-rate{font-family:'Fira Code',monospace;font-weight:700;}
+.rh-rate.high{color:var(--red);}
+.rh-rate.med{color:var(--amber);}
+.rh-rate.low{color:var(--green);}
+.rh-summary-preview{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--text3);}
+.rh-row-actions{display:flex;gap:6px;align-items:center;}
+.rh-icon-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 7px;cursor:pointer;color:var(--text3);font-size:10px;display:flex;align-items:center;gap:4px;font-family:inherit;transition:all .15s;}
+.rh-icon-btn:hover{background:var(--bg3);color:var(--text2);}
+.rh-icon-btn.del:hover{border-color:var(--red)40;color:var(--red);}
+/* Expand row */
+.rh-expand-row td{padding:0!important;}
+.rh-expand-body{padding:16px 20px;background:var(--bg2);border-top:1px solid var(--border);}
+.rh-expand-summary{font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px;padding:12px;background:var(--card);border-radius:8px;border:1px solid var(--border);}
+.rh-expand-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.rh-expand-kpi{text-align:center;}
+.rh-expand-kpi-val{font-size:16px;font-weight:800;color:var(--heading);font-family:'Fira Code',monospace;}
+.rh-expand-kpi-lbl{font-size:10px;color:var(--text3);margin-top:1px;}
+/* Diff panel */
+.rh-diff-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.rh-diff-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);}
+.rh-diff-title{font-size:11px;font-weight:800;color:var(--heading);text-transform:uppercase;letter-spacing:.7px;flex:1;}
+.rh-diff-body{padding:20px;}
+.rh-diff-cols{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:start;}
+.rh-diff-col{padding:16px;background:var(--bg2);border-radius:10px;border:1px solid var(--border);}
+.rh-diff-col.a{border-color:var(--accent)30;}
+.rh-diff-col.b{border-color:var(--purple)30;}
+.rh-diff-arrow{display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:18px;}
+.rh-diff-col-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.rh-diff-col.a .rh-diff-col-hdr{color:var(--accent2);}
+.rh-diff-col.b .rh-diff-col-hdr{color:var(--purple);}
+.rh-diff-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.rh-diff-row:last-child{border-bottom:none;}
+.rh-diff-lbl{color:var(--text3);font-size:11px;}
+.rh-diff-val{font-weight:700;color:var(--heading);font-family:'Fira Code',monospace;}
+.rh-diff-changes{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);}
+.rh-diff-change-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:7px;margin-bottom:5px;font-size:12px;}
+.rh-diff-change-row.improved{background:var(--green)10;color:var(--green);}
+.rh-diff-change-row.worsened{background:var(--red)10;color:var(--red);}
+.rh-diff-change-row.neutral{background:var(--bg3);color:var(--text2);}
+/* Pager */
+.rh-pager{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-top:1px solid var(--border);}
+.rh-pager-btn{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.rh-pager-btn:hover:not(:disabled){background:var(--bg3);}
+.rh-pager-btn:disabled{opacity:.4;cursor:default;}
+.rh-pager-info{font-size:11px;color:var(--text3);}
+
+/* Save button in RCA report */
+.rcr-save-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.rcr-save-btn:hover{border-color:var(--accent)50;color:var(--accent2);}
+.rcr-save-btn.saved{border-color:var(--green)40;color:var(--green);background:var(--green)08;}
+
+/* ── RCA History card grid ────────────────────────────── */
+.rh-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;padding:16px;}
+/* Card styled like dashboard KPI cards */
+.rh-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:box-shadow .2s,transform .15s,border-color .2s;position:relative;display:flex;flex-direction:column;}
+.rh-card:hover{box-shadow:0 6px 24px #00000015;transform:translateY(-2px);}
+.rh-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)25;}
+/* Colored top accent bar (like dashboard cards) */
+.rh-card-accent{height:4px;width:100%;flex-shrink:0;}
+.rh-card-accent.critical{background:linear-gradient(90deg,var(--red),var(--red)80);}
+.rh-card-accent.warning{background:linear-gradient(90deg,var(--amber),var(--amber)80);}
+.rh-card-accent.healthy{background:linear-gradient(90deg,var(--green),var(--green)80);}
+.rh-card-top{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 16px 8px;}
+.rh-card-source{font-size:15px;font-weight:800;color:var(--heading);letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+.rh-card-source-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rh-card-actions{display:flex;gap:5px;flex-shrink:0;margin-left:8px;}
+.rh-card-meta{padding:0 16px 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.rh-card-date{font-size:10px;color:var(--text3);font-family:'Fira Code',monospace;}
+/* KPI row — 4 metrics styled like dashboard stat cards */
+.rh-card-kpis{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--bg2);}
+.rh-card-kpi{padding:10px 8px;text-align:center;border-right:1px solid var(--border);}
+.rh-card-kpi:last-child{border-right:none;}
+.rh-card-kpi-val{font-size:17px;font-weight:900;font-family:'Fira Code',monospace;color:var(--heading);line-height:1.1;}
+.rh-card-kpi-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-top:2px;}
+/* Summary strip */
+.rh-card-summary{padding:10px 16px;font-size:11px;color:var(--text2);line-height:1.65;border-top:1px solid var(--border);flex:1;}
+.rh-card-summary-text{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+/* Footer */
+.rh-card-footer{padding:9px 16px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--bg2);}
+.rh-card-footer-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;transition:all .15s;}
+.rh-card-footer-btn:hover{background:var(--card);color:var(--text2);border-color:var(--accent)40;}
+.rh-card-cb{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
+
+/* ── Delete confirm modal ─────────────────────────────── */
+#rh-del-modal{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:#00000060;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .2s;}
+#rh-del-modal.open{opacity:1;pointer-events:all;}
+.rh-del-modal-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px 28px 22px;width:360px;max-width:92vw;box-shadow:0 20px 60px #00000040;transform:scale(.95);transition:transform .2s;}
+#rh-del-modal.open .rh-del-modal-box{transform:scale(1);}
+.rh-del-modal-icon{width:48px;height:48px;border-radius:14px;background:var(--red)15;border:1px solid var(--red)30;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.rh-del-modal-title{font-size:17px;font-weight:800;color:var(--heading);margin-bottom:6px;}
+.rh-del-modal-sub{font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:22px;}
+.rh-del-modal-btns{display:flex;gap:8px;justify-content:flex-end;}
+.rh-del-modal-cancel{padding:9px 18px;border-radius:9px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.rh-del-modal-cancel:hover{background:var(--bg2);}
+.rh-del-modal-confirm{padding:9px 18px;border-radius:9px;border:1px solid var(--red)50;background:var(--red);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.rh-del-modal-confirm:hover{opacity:.9;}
+
+/* ── System Status Modal ──────────────────────────────── */
+#sys-status-modal{position:fixed;bottom:60px;left:210px;z-index:3000;width:260px;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 32px #00000030;padding:0;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s;}
+#sys-status-modal.open{opacity:1;pointer-events:all;transform:translateY(0);}
+.ssm-header{padding:12px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.ssm-title{font-size:11px;font-weight:800;color:var(--heading);text-transform:uppercase;letter-spacing:.6px;}
+.ssm-close{background:none;border:none;cursor:pointer;color:var(--text3);padding:2px;display:flex;align-items:center;border-radius:4px;}
+.ssm-close:hover{color:var(--text2);background:var(--bg3);}
+.ssm-section{padding:10px 16px;}
+.ssm-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px;}
+.ssm-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);}
+.ssm-row:last-child{border-bottom:none;padding-bottom:0;}
+.ssm-name{font-size:12px;color:var(--text2);}
+.ssm-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.ssm-dot.on{background:var(--green);box-shadow:0 0 6px var(--green)66;animation:pulse-dot 2s infinite;}
+.ssm-dot.off{background:var(--red);}
+.ssm-dot.warn{background:var(--amber);box-shadow:0 0 6px var(--amber)66;animation:pulse-dot 2s infinite;}
+.ssm-source-section{padding:10px 16px 14px;border-top:1px solid var(--border);background:var(--bg2);}
+.ssm-source-name{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:2px;}
+.ssm-source-meta{font-size:11px;color:var(--text3);}
+.ssm-live-row{display:flex;align-items:center;gap:5px;margin-top:6px;}
+.ssm-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)66;animation:pulse-dot 1.5s infinite;}
+/* Status trigger button in sidebar */
+.sb-status-trigger{display:flex;align-items:center;gap:8px;margin:0 8px 8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;width:calc(100% - 16px);}
+.sb-status-trigger:hover{border-color:var(--accent)40;background:var(--bg3);}
+.sb-status-trigger-dots{display:flex;gap:4px;align-items:center;}
+.sb-status-trigger-label{font-size:11px;font-weight:600;color:var(--text2);flex:1;}
+.sb-status-trigger-caret{color:var(--text3);margin-left:auto;}
 </style>
 </head>
 <body>
@@ -1205,6 +1397,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
     <button class="sb-nav-item" id="sb-comp-rca" onclick="goScreen('comp-rca',this)">
       <span class="sb-icon"><i data-lucide="brain" class="icon-md"></i></span><span class="sb-label">RCA Engine</span>
     </button>
+
+    <div class="sb-section-title">History</div>
+    <button class="sb-nav-item" id="sb-rca-history" onclick="goScreen('rca-history',this)">
+      <span class="sb-icon"><i data-lucide="clock" class="icon-md"></i></span><span class="sb-label">RCA History</span>
+    </button>
+
   </div>
 
   <!-- API Server Health (Feature 13) -->
@@ -1213,29 +1411,20 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
     <span id="sb-health-txt">API: not checked</span>
   </div>
 
-  <!-- Component status in sidebar -->
-  <div class="sb-status-block">
-    <div class="sb-status-title">Component Status</div>
-    <div class="sb-status-row">
-      <span class="sb-status-name">API Health Monitor</span>
-      <span class="sb-status-dot on" id="s-api"></span>
+  <!-- Compact status trigger — opens modal -->
+  <button class="sb-status-trigger" onclick="toggleStatusModal()" id="sb-status-trigger">
+    <div class="sb-status-trigger-dots">
+      <span class="sb-status-dot on" id="s-api" title="API Health"></span>
+      <span class="sb-status-dot off" id="s-log" title="Log Analyzer"></span>
+      <span class="sb-status-dot off" id="s-db" title="DB Validator"></span>
+      <span class="sb-status-dot on" id="s-rca" title="RCA Engine"></span>
     </div>
-    <div class="sb-status-row">
-      <span class="sb-status-name">Log Analyzer</span>
-      <span class="sb-status-dot off" id="s-log"></span>
-    </div>
-    <div class="sb-status-row">
-      <span class="sb-status-name">DB Validator</span>
-      <span class="sb-status-dot off" id="s-db"></span>
-    </div>
-    <div class="sb-status-row">
-      <span class="sb-status-name">RCA Engine</span>
-      <span class="sb-status-dot on" id="s-rca"></span>
-    </div>
-  </div>
+    <span class="sb-status-trigger-label">Component Status</span>
+    <i data-lucide="chevron-up" style="width:12px;height:12px;color:var(--text3);" id="sb-status-caret"></i>
+  </button>
 
-  <!-- Active source badge -->
-  <div class="sb-source-badge" id="sb-source-badge">
+  <!-- Active source badge (keep for reference, hidden via CSS when modal used) -->
+  <div class="sb-source-badge" id="sb-source-badge" style="display:none;">
     <div class="sb-source-label">Active Source</div>
     <div class="sb-source-name" id="sb-source-name">—</div>
     <div class="sb-source-time" id="sb-source-time"></div>
@@ -1346,14 +1535,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
 
       <!-- Integrations -->
       <div class="tab-pane" id="tab-int">
-        <div style="padding:10px 14px;margin-bottom:10px;background:var(--accent)10;border:1px solid var(--accent)30;border-radius:10px;font-size:11px;color:var(--text2);line-height:1.8;">
-          <strong style="color:var(--accent2);">🧪 Testing locally?</strong> Run <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 6px;border-radius:4px;">python mock_log_server.py</code> then use these URLs:
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px 16px;margin-top:6px;">
-            <div><span style="color:var(--text3);font-weight:700;">Grafana Loki:</span> <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent2);">http://localhost:8888</code> <span style="color:var(--text3);">(base URL only — no /logs)</span></div>
-            <div><span style="color:var(--text3);font-weight:700;">Custom HTTP:</span> <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent2);">http://localhost:8888/logs</code></div>
-            <div><span style="color:var(--text3);font-weight:700;">Elasticsearch:</span> <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent2);">http://localhost:8888</code></div>
-            <div><span style="color:var(--text3);font-weight:700;">S3 Endpoint:</span> <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent2);">http://localhost:8888</code> · Bucket: <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 4px;border-radius:4px;">autorca-logs</code> · Key: <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 4px;border-radius:4px;">app.log</code></div>
-          </div>
+        <div style="padding:8px 12px;margin-bottom:10px;background:var(--accent)10;border:1px solid var(--accent)30;border-radius:8px;font-size:11px;color:var(--text2);line-height:1.6;">
+          <strong style="color:var(--accent2);">🧪 Testing locally?</strong> Run <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">python mock_log_server.py</code> then use <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">http://localhost:8888</code> as the URL for any integration below.
         </div>
         <div class="int-grid">
           <div class="int-card" data-int="loki" onclick="showIntForm('loki',this)">
@@ -1379,22 +1562,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
         </div>
         <div class="int-form" id="f-loki">
           <div class="form-row-2">
-            <div class="form-row">
-              <label class="form-label">Loki Base URL
-                <span style="font-weight:400;color:var(--text3);font-size:9px;margin-left:6px;">Enter the server root only — the /loki/api/v1/query_range path is added automatically</span>
-              </label>
-              <input id="int-loki-url" class="form-input" placeholder="http://localhost:8888" oninput="updateLokiPreview(this.value)">
-              <div id="loki-url-preview" style="margin-top:4px;font-size:10px;color:var(--text3);font-family:'Fira Code',monospace;">Will call: <span id="loki-url-preview-val" style="color:var(--accent2);">http://localhost:8888/loki/api/v1/query_range</span></div>
-            </div>
+            <div class="form-row"><label class="form-label">Loki URL</label><input id="int-loki-url" class="form-input" placeholder="http://localhost:8888"></div>
             <div class="form-row"><label class="form-label">LogQL Query</label><input id="int-loki-query" class="form-input" placeholder='{app="autorca"}'></div>
           </div>
           <div class="form-row-2">
             <div class="form-row"><label class="form-label">Time Range (hours)</label><input id="int-loki-hours" class="form-input" type="number" value="1"></div>
             <div class="form-row"><label class="form-label">Result Limit</label><input id="int-loki-limit" class="form-input" type="number" value="5000"></div>
-          </div>
-          <div style="margin-top:6px;">
-            <button onclick="testLokiConnection()" style="padding:6px 14px;border-radius:7px;border:1px solid var(--accent)40;background:var(--accent)10;color:var(--accent2);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;" id="loki-test-btn">⚡ Test Connection</button>
-            <span id="loki-test-result" style="margin-left:10px;font-size:11px;"></span>
           </div>
         </div>
         <div class="int-form" id="f-es">
@@ -1855,9 +2028,18 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
             <option value="count">By Event Count</option>
           </select>
           <span class="tl-results-count" id="tl-results-count"></span>
+          <button class="tl-baseline-toggle" id="tl-baseline-btn" onclick="tlToggleBaseline(this)" title="Highlight anomalous spikes vs baseline">
             <i data-lucide="bar-chart-horizontal" style="width:11px;height:11px;"></i> Baseline
           </button>
         </div>
+      </div>
+
+      <!-- Anomaly bar (Feature 5) -->
+      <div class="tl-anomaly-bar" id="tl-anomaly-bar">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--amber)15;border:1px solid var(--amber)30;flex-shrink:0;">
+          <i data-lucide="alert-triangle" style="width:13px;height:13px;color:var(--amber);"></i>
+        </span>
+        <span class="tl-anomaly-text" id="tl-anomaly-text">Anomaly detected</span>
       </div>
       <!-- Active filter tags -->
       <div id="tl-active-filters" style="display:none;" class="tl-active-filters">
@@ -1978,6 +2160,23 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
           <div id="tl-swimlanes"></div>
         </div>
 
+        <!-- ── INCIDENT LIST ── -->
+        <div class="tl-list-zone" id="tl-list-zone">
+          <div class="tl-list-header">
+            <div class="tl-list-hdr-cell"></div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('severity')">Severity <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('time')">Time <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell">Group / Message</div>
+            <div class="tl-list-hdr-cell">Category</div>
+            <div class="tl-list-hdr-cell" onclick="tlSortBy('count')">Events <i data-lucide="chevrons-up-down" style="width:10px;height:10px;"></i></div>
+            <div class="tl-list-hdr-cell">Service</div>
+            <div class="tl-list-hdr-cell"></div>
+          </div>
+          <div id="tl-list-inner"></div>
+        </div>
+
+      </div><!-- /tl-content -->
+    </div>
 
     <!-- ══ COMPARE SOURCES ══ -->
     <div id="screen-compare" class="screen">
@@ -2277,6 +2476,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
     <div class="rcr-topbar-title" id="rcr-title">RCA Investigation Report</div>
     <span class="rcr-sev-pill" id="rcr-sev-pill">—</span>
     <button class="rcr-action-btn" onclick="copyRCASummary()"><i data-lucide="copy" style="width:13px;height:13px;"></i> Copy Summary</button>
+    <button class="rcr-save-btn" id="rcr-save-btn" onclick="saveRCAToHistory()"><i data-lucide="database" style="width:13px;height:13px;"></i> Save</button>
+    <button class="rcr-action-btn" id="rcr-history-btn" onclick="goScreen('rca-history',document.getElementById('sb-rca-history'))" style="display:flex;align-items:center;gap:5px;"><i data-lucide="clock" style="width:13px;height:13px;"></i> History</button>
     <button class="rcr-action-btn" onclick="genRCASummary(true);openRCAReport()" style="background:var(--accent);border-color:var(--accent);color:#fff;"><i data-lucide="refresh-cw" style="width:13px;height:13px;"></i> Regenerate</button>
   </div>
 
@@ -2330,7 +2531,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
         </div>
         <div id="rcr-evidence-list"></div>
         <div style="display:flex;border-top:1px solid var(--border);">
-  
+          <button class="rcr-view-all" style="flex:1;" onclick="goScreen('explorer',document.getElementById('sb-explorer'))">
+            <i data-lucide="external-link" style="width:12px;height:12px;"></i> Open Log Explorer
           </button>
         </div>
       </div>
@@ -2364,33 +2566,106 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);font
   </div>
 </div>
 
-  </div><!-- /page -->
+<!-- ══ RCA HISTORY SCREEN ══════════════════════════════════════ -->
+<div id="screen-rca-history" class="screen">
+<div class="rh-page-inner">
+
+  <!-- Page Header — identical pattern to comp board screens -->
+  <div class="comp-board-header">
+    <div class="comp-board-title-block">
+      <div class="comp-board-icon" style="background:var(--accent)20;color:var(--accent2);">
+        <i data-lucide="clock" style="width:24px;height:24px;"></i>
+      </div>
+      <div>
+        <div class="comp-board-name">RCA History</div>
+        <div class="comp-board-desc" id="rh-sub">Past incident investigations stored in Supabase</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      <div class="rh-search-wrap">
+        <i data-lucide="search" style="width:13px;height:13px;"></i>
+        <input class="rh-search" id="rh-search" placeholder="Search by source name…" oninput="rhSearch(this.value)">
+      </div>
+      <div class="rh-filter-group">
+        <button class="rh-filter-btn active" data-sev="all" onclick="rhSetSeverity('all',this)">All</button>
+        <button class="rh-filter-btn f-critical" data-sev="critical" onclick="rhSetSeverity('critical',this)">Critical</button>
+        <button class="rh-filter-btn f-warning" data-sev="warning" onclick="rhSetSeverity('warning',this)">Warning</button>
+        <button class="rh-filter-btn f-healthy" data-sev="healthy" onclick="rhSetSeverity('healthy',this)">Healthy</button>
+      </div>
+      <button class="comp-action-btn" onclick="rhLoad()">
+        <i data-lucide="refresh-cw" style="width:12px;height:12px;"></i> Refresh
+      </button>
+      <button class="comp-action-btn" id="rh-delete-sel-btn" style="display:none;border-color:var(--red)30;color:var(--red);" onclick="rhDeleteSelected()">
+        <i data-lucide="trash-2" style="width:12px;height:12px;"></i> Delete Selected
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Row — uses comp-kpi pattern -->
+  <div class="comp-kpi-row">
+    <div class="comp-kpi">
+      <div class="comp-kpi-label">Total Investigations</div>
+      <div class="comp-kpi-val" id="rh-stat-total">—</div>
+    </div>
+    <div class="comp-kpi" style="border-color:var(--red)30;background:var(--red)05;">
+      <div class="comp-kpi-label">Critical Incidents</div>
+      <div class="comp-kpi-val" id="rh-stat-critical" style="color:var(--red);">—</div>
+    </div>
+    <div class="comp-kpi" style="border-color:var(--amber)30;background:var(--amber)05;">
+      <div class="comp-kpi-label">Warnings</div>
+      <div class="comp-kpi-val" id="rh-stat-warning" style="color:var(--amber);">—</div>
+    </div>
+    <div class="comp-kpi" style="border-color:var(--green)30;background:var(--green)05;">
+      <div class="comp-kpi-label">Avg Error Rate</div>
+      <div class="comp-kpi-val" id="rh-stat-avg-rate" style="color:var(--green);">—</div>
+    </div>
+  </div>
+
+  <!-- Investigations Table — uses comp-table-wrap pattern -->
+  <div class="comp-table-wrap" id="rh-table-wrap" style="margin-bottom:16px;">
+    <div class="comp-card-hdr">
+      <span class="comp-card-title"><i data-lucide="list" style="width:13px;height:13px;margin-right:4px;vertical-align:middle;"></i>Investigations</span>
+      <span class="rh-sel-info" id="rh-sel-info" style="display:none;font-size:11px;color:var(--text3);margin-left:10px;">
+        <span id="rh-sel-count" style="color:var(--accent2);font-weight:700;">0</span> selected —
+        <a href="#" style="color:var(--accent2);font-weight:600;" onclick="rhCompareDiff(event)">Compare Diff →</a>
+      </span>
+      <span style="margin-left:auto;font-size:11px;color:var(--text3);" id="rh-pager-info"></span>
+    </div>
+    <div id="rh-table-inner">
+      <div class="comp-empty">
+        <div style="font-size:28px;margin-bottom:8px;">⏳</div>
+        <div style="font-weight:700;color:var(--heading);margin-bottom:4px;">Loading history…</div>
+        <div>Fetching from Supabase</div>
+      </div>
+    </div>
+    <div class="rh-pager" id="rh-pager" style="display:none;">
+      <button class="rh-pager-btn" id="rh-prev-btn" onclick="rhPage(-1)" disabled>← Prev</button>
+      <span class="rh-pager-info" id="rh-page-label">Page 1</span>
+      <button class="rh-pager-btn" id="rh-next-btn" onclick="rhPage(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Diff Comparison Panel -->
+  <div class="comp-table-wrap" id="rh-diff-panel" style="display:none;margin-bottom:16px;">
+    <div class="comp-card-hdr">
+      <div style="width:26px;height:26px;border-radius:7px;background:var(--purple)15;color:var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <i data-lucide="layers" style="width:14px;height:14px;"></i>
+      </div>
+      <span class="comp-card-title" style="margin-left:8px;">Incident Diff Comparison</span>
+      <button class="comp-action-btn" style="margin-left:auto;" onclick="document.getElementById('rh-diff-panel').style.display='none'">
+        <i data-lucide="x" style="width:11px;height:11px;"></i> Close
+      </button>
+    </div>
+    <div id="rh-diff-body" style="padding:20px;"></div>
+  </div>
+
+</div><!-- /rh-page-inner -->
+</div><!-- /screen-rca-history -->
 </div><!-- /main -->
 
-</div><!-- /app -->
+<!-- ══ FEATURE 1: EVIDENCE DRAWER ══════════════════════════════ -->
 <!-- ══ FEATURE 2: TIMELINE DETAIL SIDEBAR ═══════════════════════ -->
-<div id="tl-sidebar-backdrop" onclick="closeTlSidebar()" style="display:none;position:fixed;top:0;bottom:0;left:220px;right:0;z-index:3499;"></div>
-<div id="tl-detail-sidebar" style="display:none;">
-  <div class="tlds-header">
-    <div class="tlds-title-block">
-      <div class="tlds-group-name" id="tlds-group-name">Incident Group</div>
-      <div class="tlds-meta" id="tlds-meta"></div>
-    </div>
-    <button class="tlds-close" onclick="closeTlSidebar()"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  </div>
-  <div class="tlds-tabs">
-    <button class="tlds-tab active" onclick="tldsTab('overview',this)">Overview</button>
-    <button class="tlds-tab" onclick="tldsTab('logs',this)">Logs</button>
-    <button class="tlds-tab" onclick="tldsTab('remediation',this)">Fix</button>
-  </div>
-  <div class="tlds-tab-body" id="tlds-body"></div>
-  <div class="tlds-action-row">
-    <button class="tlds-action-btn" onclick="closeTlSidebar();openRCAReport&&S._rcaSummary?openRCAReport():toast('Generate RCA Summary first','info')"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="10" y1="17" x2="14" y2="17"/><line x1="10" y1="13" x2="17" y2="13"/><circle cx="10" cy="17" r="1"/></svg> RCA Report</button>
-    <button class="tlds-action-btn" id="tlds-ai-btn" onclick="tldsRunAI()"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg> Explain Group</button>
-    <button class="tlds-action-btn" onclick="if(window._tldsEntry)openRowPreview(window._tldsEntry)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> Preview</button>
-  </div>
-</div>
-
+</div><!-- /app -->
 
 <!-- Row Preview Modal -->
 <div id="row-preview-modal" style="display:none;position:fixed;inset:0;background:#00000099;z-index:3000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeRowPreview()">
@@ -2573,6 +2848,47 @@ setInterval(tick,1000);tick();
 
 /* ═══ SIDEBAR ════════════════════════════════════════════════ */
 let _sbCollapsed=false;
+// ── System Status Modal ──────────────────────────────────────
+let _statusModalOpen=false;
+function toggleStatusModal(){
+  _statusModalOpen=!_statusModalOpen;
+  const modal=document.getElementById('sys-status-modal');
+  const caret=document.getElementById('sb-status-caret');
+  if(_statusModalOpen){
+    modal.classList.add('open');
+    if(caret)caret.style.transform='rotate(180deg)';
+    // sync dots from sidebar to modal
+    ['api','log','db','rca'].forEach(k=>{
+      const src=document.getElementById('s-'+k);
+      const dst=document.getElementById('sm-s-'+k);
+      if(src&&dst)dst.className=src.className;
+    });
+    // sync source info
+    const srcName=document.getElementById('sb-source-name')?.textContent||'—';
+    const srcTime=document.getElementById('sb-source-time')?.textContent||'';
+    const n=document.getElementById('ssm-source-name');
+    const m=document.getElementById('ssm-source-meta');
+    if(n)n.textContent=srcName;
+    if(m)m.textContent=srcTime;
+    if(typeof lucide!=='undefined')lucide.createIcons();
+  } else {
+    modal.classList.remove('open');
+    if(caret)caret.style.transform='';
+  }
+}
+// Close modal when clicking outside
+document.addEventListener('click',function(e){
+  if(!_statusModalOpen)return;
+  const modal=document.getElementById('sys-status-modal');
+  const trigger=document.getElementById('sb-status-trigger');
+  if(modal&&!modal.contains(e.target)&&trigger&&!trigger.contains(e.target)){
+    modal.classList.remove('open');
+    _statusModalOpen=false;
+    const caret=document.getElementById('sb-status-caret');
+    if(caret)caret.style.transform='';
+  }
+},{passive:true});
+
 function toggleSidebar(){
   _sbCollapsed=!_sbCollapsed;
   document.getElementById('sidebar').classList.toggle('collapsed',_sbCollapsed);
@@ -2625,7 +2941,7 @@ function goScreen(name,btn){
   if(btn)btn.classList.add('active');
   const titles={upload:'Log Source',dashboard:'Dashboard',ai:'AI Analyzer',explorer:'Log Explorer',
     timeline:'Incident Timeline',compare:'Compare Sources','error-drill':'Error Drill-Down',
-    'comp-api':'API Health Monitor','comp-log':'Log Analyzer','comp-db':'DB Validator','comp-rca':'RCA Engine','rca-report':'RCA Investigation Report'};
+    'comp-api':'API Health Monitor','comp-log':'Log Analyzer','comp-db':'DB Validator','comp-rca':'RCA Engine','rca-report':'RCA Investigation Report','rca-history':'RCA History'};
   document.getElementById('topbar-title').textContent=titles[name]||name;
   if(name==='dashboard'){
     if(!S.connected){document.getElementById('dash-empty').style.display='';document.getElementById('dash-content').classList.remove('visible');}
@@ -2642,6 +2958,7 @@ function goScreen(name,btn){
   if(name==='comp-log'){_logPage=0;renderLogBoard();}
   if(name==='comp-db'){_dbPage=0;renderDbBoard();}
   if(name==='comp-rca'){_rcaPage=0;renderRcaBoard();}
+  if(name==='rca-history'){rhLoad();}
   setTimeout(()=>{if(typeof lucide!=='undefined')lucide.createIcons();},50);
 }
 
@@ -2782,53 +3099,96 @@ async function runIntegration(){
       body={endpoint:(document.getElementById('int-s3-endpoint')?.value||'').trim(),bucket:(document.getElementById('int-s3-bucket')?.value||'autorca-logs').trim(),key:(document.getElementById('int-s3-key')?.value||'app.log').trim(),access_key:'',secret_key:''};
       if(!body.endpoint){toast('Enter S3 endpoint URL','err');return;}
     }else{
-      endpoint='/api/integration/http';
+      // Custom HTTP — direct browser fetch (no proxy needed)
       let hdrs={};try{hdrs=JSON.parse(document.getElementById('int-http-headers')?.value||'{}')}catch{hdrs={};}
       body={url:(document.getElementById('int-http-url')?.value||'').trim(),method:(document.getElementById('int-http-method')?.value||'GET'),headers:hdrs};
       if(!body.url){toast('Enter endpoint URL','err');return;}
     }
+
     setP('Fetching logs from source…',35);
-    const res=await fetch(base+endpoint,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':key},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
-    if(!res.ok){
-      let detail='';try{const j=await res.json();detail=j.detail||j.message||JSON.stringify(j);}catch{try{detail=await res.text();}catch{}}
-      if(res.status===401)throw new Error('401 Unauthorized — check your API key in Settings ⚙');
-      if(res.status===502)throw new Error('502 Bad Gateway — '+detail);
-      if(res.status===404)throw new Error('No logs returned — '+detail);
-      throw new Error('HTTP '+res.status+': '+detail);
+
+    // ── Custom HTTP: fetch directly from the browser (no api_server.py proxy) ──
+    // Falls back to proxy only if direct fetch fails (e.g. CORS blocked same-origin scenarios).
+    if(intType==='http'){
+      let logs=[], linesCount=0, label='', usedProxy=false;
+      let directOk=false;
+      // 1. Try direct browser fetch first
+      try{
+        const directHdrs={...body.headers};
+        const directMethod=body.method||'GET';
+        const fetchOpts={method:directMethod,headers:directHdrs,signal:AbortSignal.timeout(20000)};
+        if(directMethod==='POST')fetchOpts.body='{}';
+        const directRes=await fetch(body.url,fetchOpts);
+        if(!directRes.ok) throw new Error('HTTP '+directRes.status+' from '+body.url);
+        setP('Parsing response…',65);
+        const ct=directRes.headers.get('content-type')||'';
+        let rawLines=[];
+        if(ct.includes('json')){
+          const json=await directRes.json();
+          const arr=Array.isArray(json)?json:(json.logs||json.lines||json.data||json.entries||json.raw_sample||json.results||[json]);
+          rawLines=arr.map(item=>typeof item==='string'?item:JSON.stringify(item));
+        }else{
+          const txt=await directRes.text();
+          rawLines=txt.split('\n').filter(l=>l.trim());
+        }
+        logs=parseAll(rawLines.join('\n'));
+        linesCount=rawLines.length;
+        label='HTTP Integration ('+linesCount+' lines)';
+        directOk=true;
+      }catch(directErr){
+        // 2. Direct fetch failed (CORS or network) — try via api_server.py proxy
+        console.warn('Direct fetch failed ('+directErr.message+') — trying api_server.py proxy');
+        toast('Direct fetch blocked — trying proxy…','log','Integration');
+        setP('Trying via proxy…',45);
+        const proxyRes=await fetch(base+'/api/integration/http',{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':key},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
+        if(!proxyRes.ok){
+          let detail='';try{const j=await proxyRes.json();detail=j.detail||j.message||JSON.stringify(j);}catch{try{detail=await proxyRes.text();}catch{}}
+          if(proxyRes.status===401) throw new Error('401 Unauthorized — check your API key in Settings ⚙');
+          throw new Error('Proxy error '+proxyRes.status+(detail?' — '+detail:'')+('. Make sure api_server.py is running: python api_server.py'));
+        }
+        setP('Parsing response…',65);
+        const proxyData=await proxyRes.json();
+        const rawLines=proxyData.raw_sample||[];
+        logs=parseAll(rawLines.join('\n'));
+        linesCount=proxyData.lines_fetched||rawLines.length;
+        label='HTTP Integration ('+linesCount+' lines via proxy)';
+        usedProxy=true;
+      }
+      const stats=calcStats(logs);
+      S.connected=true;S.label=label;S.logs=logs;S.stats=stats;S.ingestedAt=new Date().toLocaleString();
+      setP('Running analysis…',88);setP('Done!',100);hideP();onConnected();
+      toast('✓ '+linesCount+' log lines fetched'+(usedProxy?' via proxy':''),'log','Integration Connected');
+
+    }else{
+      // Loki / ES / S3 — always route through api_server.py proxy
+      const res=await fetch(base+endpoint,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':key},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
+      if(!res.ok){
+        let detail='';try{const j=await res.json();detail=j.detail||j.message||JSON.stringify(j);}catch{try{detail=await res.text();}catch{}}
+        if(res.status===401)throw new Error('401 Unauthorized — check your API key in Settings ⚙');
+        if(res.status===502)throw new Error('502 Bad Gateway — '+detail);
+        if(res.status===404)throw new Error('No logs returned — '+detail);
+        throw new Error('HTTP '+res.status+': '+detail);
+      }
+      setP('Parsing response…',65);
+      const data=await res.json();
+      const rawLines=data.raw_sample||[];
+      setP('Running analysis…',85);
+      const logs=parseAll(rawLines.join('\n'));
+      const stats=calcStats(logs);
+      if(data.logs&&data.logs.total>stats.total)stats.total=data.logs.total;
+      const label=intType.toUpperCase()+' Integration ('+(data.lines_fetched||rawLines.length)+' lines)';
+      S.connected=true;S.label=label;S.logs=logs;S.stats=stats;S.ingestedAt=new Date().toLocaleString();
+      setP('Done!',100);hideP();onConnected();
+      toast('✓ '+(data.lines_fetched||rawLines.length)+' log lines fetched via '+intType.toUpperCase(),'log','Integration Connected');
     }
-    setP('Parsing response…',65);
-    const data=await res.json();
-    const rawLines=data.raw_sample||[];
-    setP('Running analysis…',85);
-    const logs=parseAll(rawLines.join('\n'));
-    const stats=calcStats(logs);
-    if(data.logs&&data.logs.total>stats.total)stats.total=data.logs.total;
-    const label=intType.toUpperCase()+' Integration ('+( data.lines_fetched||rawLines.length)+' lines)';
-    S.connected=true;S.label=label;S.logs=logs;S.stats=stats;S.ingestedAt=new Date().toLocaleString();
-    setP('Done!',100);hideP();onConnected();
-    toast('✓ '+(data.lines_fetched||rawLines.length)+' log lines fetched via '+intType.toUpperCase(),'log','Integration Connected');
   }catch(e){
     hideP();
     let msg=e.message||'Unknown error';
-    const intLabel=intType?intType.toUpperCase():'';
-    if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('ERR_CONNECTION_REFUSED')||msg.includes('ERR_EMPTY_RESPONSE')){
-      // Genuine network failure — api_server.py not reachable OR CORS blocked
-      msg='Cannot reach api_server.py at '+base+' — is it running? (python api_server.py)'
-         +'If it IS running: open '+base+'/api/health in your browser to test. '
-         +'If you see a response, this is a CORS issue — restart api_server.py.';
-    }else if(msg.includes('502')){
-      // Server reached but upstream (Loki/ES/S3) failed
-      msg=msg.replace('502 Bad Gateway — ','');
-      msg='Could not reach '+intLabel+' source: '+msg;
-      if(intType==='loki')
-        msg+=' — Is mock_log_server.py running? Run: python mock_log_server.py';
-    }else if(msg.includes('404')){
-      msg=msg.replace('No logs returned — ','')+'  (No log entries found)';
-    }else if(msg.includes('500')||msg.includes('Internal error')){
-      msg='api_server.py internal error: '+msg+'. Check the api_server.py terminal.';
-    }else if(msg.includes('AbortError')||msg.includes('aborted')){
-      msg='Request timed out after 30s. Check '+intLabel+' source is reachable and responding.';
-    }
+    // Only show "cannot connect" for genuine network failures, not server-side errors
+    if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('ERR_CONNECTION_REFUSED')||msg.includes('ERR_EMPTY_RESPONSE'))
+      msg='Cannot reach api_server.py at '+base+' — is it running? (python api_server.py)';
+    else if(msg.includes('500')||msg.includes('Internal error'))
+      msg='Server error: '+msg+'. Check api_server.py terminal for details.';
     toast(msg,'err','Integration Error');
   }finally{
     btn.disabled=false;btn.innerHTML='<i data-lucide="play" class="icon-md"></i>&ensp;Start Analysis';
@@ -3404,66 +3764,6 @@ function _playToastSound(type){
     }
   }catch(e){}
 }
-function updateLokiPreview(val){
-  // Strip any path — keep only scheme + host + port
-  // e.g. http://localhost:8888/logs  →  http://localhost:8888
-  // e.g. http://localhost:8888/loki/api/v1/query_range  →  http://localhost:8888
-  let base=(val||'').trim().replace(/\/+$/,'');
-  try{
-    const u=new URL(base.includes('://')?base:'http://'+base);
-    base=u.protocol+'//'+u.host;  // scheme + host:port only
-  }catch(e){}
-  const preview=document.getElementById('loki-url-preview-val');
-  const pathEl=document.getElementById('loki-url-preview');
-  if(!preview)return;
-  const resolved=(base||'http://localhost:8888')+'/loki/api/v1/query_range';
-  preview.textContent=resolved;
-  // Warn if user typed a path suffix
-  const hasPath=val&&val.trim().replace(/\/+$/,'').replace(/^https?:\/\/[^/]+/,'').length>0;
-  if(pathEl){
-    pathEl.style.color=hasPath?'var(--amber)':'';
-    const warn=pathEl.querySelector('.loki-path-warn');
-    if(hasPath&&!warn){
-      const w=document.createElement('span');
-      w.className='loki-path-warn';
-      w.style.cssText='color:var(--amber);margin-left:8px;font-family:inherit;font-size:10px;';
-      w.textContent='⚠ Path stripped — enter base URL only (e.g. http://localhost:8888)';
-      pathEl.appendChild(w);
-    }else if(!hasPath&&warn){warn.remove();}
-  }
-}
-async function testLokiConnection(){
-  const rawUrl=(document.getElementById('int-loki-url')?.value||'').trim();
-  if(!rawUrl){toast('Enter a Loki URL first','warn');return;}
-  // Resolve the base URL the same way the backend does
-  let base=rawUrl.replace(/\/+$/,'');
-  try{const u=new URL(base);base=u.protocol+'//'+u.host;}catch(e){}
-  const testUrl=base+'/loki/api/v1/query_range';
-  const btn=document.getElementById('loki-test-btn');
-  const result=document.getElementById('loki-test-result');
-  btn.disabled=true;btn.textContent='Testing…';
-  result.style.color='var(--text3)';result.textContent='Connecting…';
-  try{
-    const res=await fetch(testUrl+'?query=%7Bapp%3D%22autorca%22%7D&start=0&end=1&limit=1',{method:'GET',signal:AbortSignal.timeout(5000)});
-    if(res.ok||res.status===400||res.status===422){
-      // 400/422 means Loki answered (bad params but server is UP)
-      result.style.color='var(--green)';
-      result.textContent='✓ Loki is reachable at '+base;
-    }else{
-      result.style.color='var(--amber)';
-      result.textContent='⚠ Server responded with '+res.status+' — may still work';
-    }
-  }catch(err){
-    result.style.color='var(--red)';
-    if(err.name==='TimeoutError'||err.message?.includes('abort'))
-      result.textContent='✗ Timed out — is mock_log_server.py running? (python mock_log_server.py)';
-    else
-      result.textContent='✗ Cannot reach '+base+' — start mock_log_server.py first';
-  }finally{
-    btn.disabled=false;btn.textContent='⚡ Test Connection';
-  }
-}
-
 function toast(msg,type='ok',title=''){
   const container=document.getElementById('toast-container');
   const dur=_toastDurations[type]||3500;
@@ -4266,17 +4566,11 @@ function _tlRenderList(){
 }
 
 function tlToggleGroup(id){
-  const g=(window._tlGroupsRef||[]).find(x=>x.id===id);
-  if(g)openTlSidebar(g);
+  // cluster detail panel removed
 }
 function _tlOpenGroup(idx){
-  const g=(window._tlGroupsRef||[])[idx];
-  if(!g)return;
-  // Highlight active row
+  // cluster detail panel removed
   document.querySelectorAll('.tl-group-row').forEach(r=>r.classList.remove('tl-sidebar-active'));
-  const row=document.getElementById('tlg-'+g.id);
-  if(row)row.classList.add('tl-sidebar-active');
-  openTlSidebar(g);
 }
 
 function _tlGetEntry(groupId,entryIdx){
@@ -4439,6 +4733,10 @@ function exportDashboardPDF(){
   @media print{body{background:#fff;color:#222;}  .kpi{background:#f5f4fe;border-color:#d0ceee;} .ai-block{background:#f0effa;border-color:#d0ceee;color:#282644;} .header,.section-title{border-color:#d0ceee;}}
 
 /* ╔══════════════════════════════════════════════════════════════╗
+   ║  FEATURE 1 — BREADCRUMB EVIDENCE DRAWER                     ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ╔══════════════════════════════════════════════════════════════╗
    ║  FEATURE 3 — INLINE AI EXPLAIN BUTTON                       ║
    ╚══════════════════════════════════════════════════════════════╝ */
 .ai-explain-chip{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:5px;border:1px solid var(--accent)30;background:var(--accent)08;color:var(--accent2);font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;vertical-align:middle;margin-left:6px;}
@@ -4471,16 +4769,16 @@ function exportDashboardPDF(){
 /* ╔══════════════════════════════════════════════════════════════╗
    ║  FEATURE 5 — BASELINE ANOMALY COMPARISON                    ║
    ╚══════════════════════════════════════════════════════════════╝ */
-.tl-anomaly-bar{flex-shrink:0;background:var(--amber)08;border-bottom:2px solid var(--amber)30;padding:7px 20px;display:none;align-items:center;gap:10px;font-size:11px;}
+.tl-anomaly-bar{flex-shrink:0;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:8px;margin:6px 16px 0;padding:9px 14px;display:none;align-items:center;gap:10px;font-size:12px;}
 .tl-anomaly-bar.visible{display:flex;}
 .tl-anomaly-icon{color:var(--amber);flex-shrink:0;}
-.tl-anomaly-text{flex:1;color:var(--text2);}
+.tl-anomaly-text{flex:1;color:var(--text2);line-height:1.5;}
 .tl-anomaly-spike{font-weight:800;color:var(--amber);}
-.tl-anomaly-dismiss{background:none;border:none;color:var(--text3);cursor:pointer;padding:3px 7px;border-radius:5px;font-size:10px;font-weight:600;font-family:inherit;transition:all .15s;}
-.tl-anomaly-dismiss:hover{background:var(--amber)15;color:var(--amber);}
-.tl-baseline-toggle{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;border:1px solid var(--border);background:none;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
-.tl-baseline-toggle:hover{background:var(--bg3);color:var(--text2);}
-.tl-baseline-toggle.active{border-color:var(--amber)50;background:var(--amber)10;color:var(--amber);}
+.tl-anomaly-dismiss{background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.tl-anomaly-dismiss:hover{background:var(--amber)15;border-color:var(--amber)40;color:var(--amber);}
+.tl-baseline-toggle{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.tl-baseline-toggle:hover{background:var(--border);color:var(--heading);}
+.tl-baseline-toggle.active{border-color:var(--amber)50;background:var(--amber)15;color:var(--amber);}
 .tl-anomaly-annotation{position:absolute;top:0;width:2px;background:var(--amber);opacity:.7;border-radius:1px;pointer-events:none;}
 .tl-anomaly-flag{position:absolute;top:-16px;transform:translateX(-50%);font-size:9px;color:var(--amber);font-weight:700;white-space:nowrap;pointer-events:none;}
 </style></head><body><div class="page">
@@ -4501,7 +4799,25 @@ function exportDashboardPDF(){
   <div class="section"><div class="section-title">🔧 Fix Steps</div><div class="ai-block">${esc(fixText)}</div></div>
   <div class="section"><div class="section-title">🎫 Ticket / Report</div><div class="ai-block">${esc(ticketText)}</div></div>
   <div class="footer"><span>AutoRCA v2.0 — Powered by Claude AI</span><span>Report ID: ${Date.now()}</span></div>
-</div></body></html>`;
+</div>
+<!-- ══ RCA Delete Confirm Modal ══════════════════════════════ -->
+<div id="rh-del-modal" onclick="if(event.target===this)rhDelModalClose()">
+  <div class="rh-del-modal-box">
+    <div class="rh-del-modal-icon" id="rh-del-modal-icon-bg">
+      <i data-lucide="trash-2" style="width:22px;height:22px;color:var(--red);" id="rh-del-modal-icon-inner"></i>
+    </div>
+    <div class="rh-del-modal-title" id="rh-del-modal-title">Delete Investigation?</div>
+    <div class="rh-del-modal-sub" id="rh-del-modal-sub">This action cannot be undone. The investigation record will be permanently removed from Supabase.</div>
+    <div class="rh-del-modal-btns">
+      <button class="rh-del-modal-cancel" onclick="rhDelModalClose()">Cancel</button>
+      <button class="rh-del-modal-confirm" id="rh-del-modal-confirm" onclick="rhDelModalExecute()">
+        <i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+</body></html>`;
 
   const w=window.open('','_blank');
   w.document.write(html);
@@ -5145,10 +5461,6 @@ function rpCopyId(){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     closeRowPreview();
-    const evD=document.getElementById('ev-drawer');
-    if(evD&&evD.classList.contains('open'))closeEvDrawer();
-    const tlS=document.getElementById('tl-detail-sidebar');
-    if(tlS&&tlS.classList.contains('open'))closeTlSidebar();
   }
 });
 
@@ -5174,10 +5486,8 @@ function triggerRCASummary(){
 
 function resetRCASummary(){
   S._rcaSummary=null;S._rcaSummaryMeta=null;
+  const el=document.getElementById('rca-sum-text');if(el)el.dataset.shownText='';
   const rf=document.getElementById('rca-sum-footer');if(rf)rf.style.display='none';
-  // Clear animation cache so next generation plays typewriter fresh
-  const el=document.getElementById('rca-sum-text');
-  if(el){el.textContent='';el.dataset.shownText='';}
   // Reset button
   const btn=document.getElementById('rca-cta-btn');
   if(btn){
@@ -5308,10 +5618,11 @@ function _showRCASummary(text,meta){
   // Show open report footer
   const sumFooter=document.getElementById('rca-sum-footer');
   if(sumFooter)sumFooter.style.display='';
-  // Only animate typewriter when text is newly generated, not when restoring on navigation
+  // Typewrite the text — only animate once; on revisit just show text instantly
   const el=document.getElementById('rca-sum-text');
-  const alreadyShown = el.dataset.shownText === text;
-  if(!alreadyShown){
+  if(el.dataset.shownText===text){
+    // Already displayed this exact summary — skip re-animation
+  } else {
     el.textContent='';
     el.dataset.shownText=text;
     let i=0;
@@ -5839,6 +6150,44 @@ function _fmtTs(ts){
 // This is a safety fallback in case the CDN was already loaded.
 if(typeof lucide !== 'undefined') lucide.createIcons();
 
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FEATURE 1 — EVIDENCE DRAWER                                ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FEATURE 2 — TIMELINE DETAIL SIDEBAR                        ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FEATURE 4 — LOG CASCADE WATERFALL                          ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+function rcrToggleView(view,btn){
+  ['rcr-view-timeline','rcr-view-waterfall'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.classList.remove('active');
+  });
+  btn.classList.add('active');
+  const tlEl=document.getElementById('rcr-timeline');
+  const wfEl=document.getElementById('rcr-waterfall-view');
+  if(view==='timeline'){
+    if(tlEl)tlEl.style.display='';
+    if(wfEl)wfEl.style.display='none';
+  } else {
+    if(tlEl)tlEl.style.display='none';
+    if(wfEl){wfEl.style.display='block';_buildWaterfall();}
+  }
+}
+
+function _buildWaterfall(){
+  const wfEl=document.getElementById('rcr-waterfall-view');
+  if(!wfEl)return;
+  const errLogs=S.logs.filter(e=>['ERROR','CRITICAL','FATAL','WARNING','WARN','INFO'].includes(e.level));
+  const timed=errLogs.filter(e=>e.timestamp).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+
+  if(!timed.length&&!errLogs.length){
+    wfEl.innerHTML='<div style="padding:16px;color:var(--text3);font-size:12px;">No entries to display in waterfall.</div>';
+    return;
+  }
+
   // If no timestamps, use index as proxy time
   const pool=timed.length>=2?timed:errLogs.slice(0,40);
   const hasTime=timed.length>=2;
@@ -5897,7 +6246,7 @@ if(typeof lucide !== 'undefined') lucide.createIcons();
       <div class="rcr-wf-leg"><div class="rcr-wf-leg-dot" style="background:linear-gradient(90deg,#34d399,#6ee7b7);"></div>Info</div>
       <span style="margin-left:auto;font-size:10px;color:var(--text3);">${display.length} events shown · click any bar to inspect</span>
     </div>`;
-
+}
 
 /* ╔══════════════════════════════════════════════════════════════╗
    ║  FEATURE 5 — BASELINE ANOMALY DETECTION                     ║
@@ -5927,11 +6276,17 @@ function _tlRunBaselineAnalysis(){
     const errCount=logs.filter(e=>['ERROR','CRITICAL','FATAL'].includes(e.level)).length;
     const rate=logs.length?+(errCount/logs.length*100).toFixed(1):0;
     const status=rate>50?'critical':rate>20?'elevated':rate>5?'moderate':'normal';
-    const msgs={critical:`🔴 Critical: ${rate}% error rate — far above healthy baseline (<5%). Immediate attention needed.`,
-      elevated:`🟠 Elevated: ${rate}% error rate — above healthy baseline. Investigate recent changes.`,
-      moderate:`🟡 Moderate: ${rate}% error rate — slightly above healthy baseline (<5%).`,
-      normal:`✅ Error rate is ${rate}% — within normal baseline range.`};
-    anomalyText.innerHTML=msgs[status];
+    const sevCol={critical:'var(--red)',elevated:'var(--amber)',moderate:'var(--amber)',normal:'var(--green)'};
+    const sevBg={critical:'var(--red)15',elevated:'var(--amber)15',moderate:'var(--amber)10',normal:'var(--green)12'};
+    const sevBorder={critical:'var(--red)30',elevated:'var(--amber)30',moderate:'var(--amber)20',normal:'var(--green)25'};
+    const sevLabel={critical:'CRITICAL',elevated:'ELEVATED',moderate:'MODERATE',normal:'HEALTHY'};
+    const msgs={
+      critical:`${rate}% error rate — far above healthy baseline (&lt;5%). Immediate investigation required.`,
+      elevated:`${rate}% error rate — above healthy baseline. Investigate recent changes.`,
+      moderate:`${rate}% error rate — slightly above healthy baseline (&lt;5%). Monitor closely.`,
+      normal:`Error rate ${rate}% — within normal baseline range. No anomalies detected.`
+    };
+    anomalyText.innerHTML=`<span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.4px;background:${sevBg[status]};border:1px solid ${sevBorder[status]};color:${sevCol[status]};margin-right:8px;white-space:nowrap;">${sevLabel[status]}</span>${msgs[status]}`;
     anomalyBar.classList.add('visible');
     return;
   }
@@ -5946,9 +6301,9 @@ function _tlRunBaselineAnalysis(){
   const peakMin=labels[rates.indexOf(Math.max(...rates))];
 
   if(_tlAnomalyMinutes.length===0){
-    anomalyText.innerHTML=`✅ No anomalies detected. Error rate is consistent (mean: ${mean.toFixed(1)}%, σ: ${stdev.toFixed(1)}%)`;
+    anomalyText.innerHTML=`<span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.4px;background:var(--green)12;border:1px solid var(--green)25;color:var(--green);margin-right:8px;white-space:nowrap;">HEALTHY</span>No anomalies detected — error rate is consistent (mean: ${mean.toFixed(1)}%, σ: ${stdev.toFixed(1)}%)`;
   } else {
-    anomalyText.innerHTML=`<span class="tl-anomaly-spike">⚠ ${_tlAnomalyMinutes.length} anomalous spike${_tlAnomalyMinutes.length>1?'s':''} detected</span> — Peak at <strong>${peakMin}</strong> with ${peakRate}% error rate (baseline mean: ${mean.toFixed(1)}%, threshold: ${threshold.toFixed(1)}%). <a href="#" style="color:var(--accent2);font-weight:700;" onclick="tlFilterToAnomaly(event)">Filter to spikes →</a>`;
+    anomalyText.innerHTML=`<span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:.4px;background:var(--amber)15;border:1px solid var(--amber)30;color:var(--amber);margin-right:8px;white-space:nowrap;">${_tlAnomalyMinutes.length} SPIKE${_tlAnomalyMinutes.length>1?'S':''}</span>Peak at <strong>${peakMin}</strong> with ${peakRate}% error rate (baseline mean: ${mean.toFixed(1)}%, threshold: ${threshold.toFixed(1)}%). <a href="#" style="color:var(--accent2);font-weight:700;text-decoration:none;" onclick="tlFilterToAnomaly(event)">Filter to spikes →</a>`;
   }
   anomalyBar.classList.add('visible');
   // Re-render volume chart with anomaly annotations
@@ -5981,41 +6336,605 @@ function _tlRenderVolumeChartWithAnomalies(logs,anomalyMins,threshold){
   chart.update('none');
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   RCA HISTORY — Supabase-backed persistent investigations
+   ════════════════════════════════════════════════════════════ */
 
+let _rhData=[], _rhFiltered=[], _rhPage=0, _rhPageSize=15, _rhShowLoadToast=false;
+let _rhSeverity='all', _rhSearch='', _rhSelected=new Set();
+let _rhExpandedId=null;
+
+// ── Save current RCA to Supabase ─────────────────────────────
+// ── Save RCA to History ──────────────────────────────────────
+// Tracks saved source+session via sessionStorage to prevent re-saves
+// within the same browser session without a fresh RCA run.
+
+async function saveRCAToHistory(){
+  const btn=document.getElementById('rcr-save-btn');
+  if(!S.connected||!S.stats){toast('No RCA data to save — run an analysis first.','err','Save Failed');return;}
+
+  // Build a fingerprint for this RCA run: source + total_entries + error_rate
+  const s=S.stats||{};
+  const fingerprint=`${S.label||''}|${s.total||0}|${s.err||0}|${parseFloat(s.rate||0).toFixed(2)}`;
+
+  // Check against both sessionStorage AND the live loaded history data
+  const savedKey='rca_saved_'+fingerprint;
+  const sourceName=S.label||'Unknown Source';
+  const alreadyInSession=sessionStorage.getItem(savedKey);
+  // Also check if a matching record already exists in the currently loaded history
+  const alreadyInDB=_rhData.some(r=>
+    r.source_name===sourceName &&
+    (r.total_entries||0)===(s.total||0) &&
+    (r.error_count||0)===(s.err||0)
+  );
+
+  if(alreadyInSession || alreadyInDB){
+    const reason=alreadyInDB
+      ? `A record for <strong>${_esc(sourceName)}</strong> with identical stats already exists in the database.`
+      : `<strong>${_esc(sourceName)}</strong> was already saved in this session.`;
+    document.getElementById('rh-del-modal-icon-inner').style.color='var(--amber)';
+    document.getElementById('rh-del-modal-icon-bg').style.background='var(--amber)15';
+    document.getElementById('rh-del-modal-icon-bg').style.borderColor='var(--amber)30';
+    document.getElementById('rh-del-modal-title').textContent='Already Saved';
+    document.getElementById('rh-del-modal-sub').innerHTML=
+      reason+'<br><br>Do you want to save it again as a duplicate record?';
+    document.getElementById('rh-del-modal-confirm').style.background='var(--amber)';
+    document.getElementById('rh-del-modal-confirm').style.borderColor='var(--amber)';
+    document.getElementById('rh-del-modal-confirm').innerHTML=
+      '<i data-lucide="copy" style="width:13px;height:13px;"></i> Save Anyway';
+    _rhDelPending={type:'save-duplicate', fingerprint, savedKey};
+    rhDelModalOpen();
+    return;
+  }
+
+  await _doSaveRCA(btn, fingerprint, savedKey);
+}
+
+async function _doSaveRCA(btn, fingerprint, savedKey){
+  if(!btn)btn=document.getElementById('rcr-save-btn');
+  btn.innerHTML='<i data-lucide="loader" style="width:13px;height:13px;"></i> Saving…';
+  btn.disabled=true;
+  if(typeof lucide!=='undefined')lucide.createIcons();
+
+  const s=S.stats||{};
+  const sev=S._rcaClass||'warning';
+  const sevNorm=sev==='error'?'critical':sev==='healthy'?'healthy':'warning';
+  const aiText=document.getElementById('rcr-ai-text')?.textContent||S._rcaSummary||'';
+  const fixText=document.getElementById('ai-fix')?.innerText||'';
+  const remSteps=[];
+  document.querySelectorAll('.rcr-rem-step-txt').forEach(el=>remSteps.push(el.textContent));
+  const affSvc=[];
+  document.querySelectorAll('.rcr-svc-name').forEach(el=>affSvc.push(el.textContent));
+
+  const payload={
+    source_name:       S.label||'Unknown Source',
+    severity:          sevNorm,
+    total_entries:     s.total||0,
+    error_count:       s.err||0,
+    warn_count:        s.warn||0,
+    error_rate:        parseFloat(s.rate||0),
+    ai_summary:        aiText,
+    fix_steps:         fixText,
+    incident_groups:   (S._incidentGroups||[]).slice(0,20).map(g=>({name:g.name,count:g.entries?.length||0,category:g.category,timeRange:g.timeRange})),
+    affected_services: affSvc,
+    remediation:       remSteps,
+    stats:             {total:s.total,err:s.err,warn:s.warn,crit:s.crit,rate:s.rate,dbErr:s.dbErr,netErr:s.netErr,appErr:s.appErr}
+  };
+
+  try{
+    const base=getApiBase();
+    const key=localStorage.getItem('autorca_api_key')||'';
+    const res=await fetch(`${base}/api/rca/save`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-API-Key':key},
+      body:JSON.stringify(payload)
+    });
+    const data=await res.json();
+    // Handle both {ok:true} and {id:'...', supabase:true} shapes
+    const saved = data.ok || data.id || data.supabase || (res.ok && !data.error);
+    if(saved){
+      // Mark as saved in this session
+      sessionStorage.setItem(savedKey,'1');
+
+      // Show "✓ Saved" state — View History is now a separate button
+      btn.className='rcr-save-btn saved';
+      btn.innerHTML='<i data-lucide="check" style="width:13px;height:13px;"></i> Saved';
+      btn.disabled=true;
+      // Pulse the History button to draw attention
+      const hBtn=document.getElementById('rcr-history-btn');
+      if(hBtn){
+        hBtn.style.borderColor='var(--green)50';
+        hBtn.style.color='var(--green)';
+        hBtn.style.background='var(--green)10';
+      }
+      if(typeof lucide!=='undefined')lucide.createIcons();
+      toast('Saved! Click History to view →','ok','RCA Saved');
+    } else {
+      throw new Error(data.error||'Unknown error');
+    }
+  }catch(e){
+    btn.className='rcr-save-btn';
+    btn.innerHTML='<i data-lucide="database" style="width:13px;height:13px;"></i> Save';
+    btn.disabled=false;
+    if(typeof lucide!=='undefined')lucide.createIcons();
+    toast('Save failed: '+e.message,'err','Save Error');
+  }
+}
+
+// ── Load history from Supabase via backend ───────────────────
+async function rhLoad(){
+  document.getElementById('rh-table-inner').innerHTML=`
+    <div class="rh-empty">
+      <div class="rh-empty-icon">⏳</div>
+      <div class="rh-empty-title">Loading…</div>
+      <div class="rh-empty-sub">Fetching from Supabase</div>
+    </div>`;
+  document.getElementById('rh-pager').style.display='none';
+  _rhSelected.clear();
+  _rhUpdateSelUI();
+
+  try{
+    const base=getApiBase();
+    const key=localStorage.getItem('autorca_api_key')||'';
+    const params=new URLSearchParams({limit:200});
+    const res=await fetch(`${base}/api/rca/history?${params}`,{
+      headers:{'X-API-Key':key}
+    });
+    if(!res.ok){
+      let errDetail='';
+      try{const j=await res.json();errDetail=j.error||j.detail||JSON.stringify(j);}catch{try{errDetail=await res.text();}catch{}}
+      throw new Error(`HTTP ${res.status}${errDetail?' — '+errDetail:''}`);
+    }
+    const data=await res.json();
+    // Handle both response shapes:
+    //   {ok:true, data:[...]}            (legacy api_server.py format)
+    //   {records:[...], total:N, supabase:true}  (Supabase direct / newer backend)
+    if(data.ok===false) throw new Error(data.error||'Failed to fetch');
+    _rhData = data.data || data.records || [];
+    _rhPage=0;
+    _rhApplyFilters();
+    _rhUpdateStats();
+    if(_rhShowLoadToast){
+      toast(`Loaded ${_rhData.length} investigation${_rhData.length!==1?'s':''}`, 'ok', 'RCA History');
+    }
+    _rhShowLoadToast=false; // reset — only show on explicit Refresh button click
+  }catch(e){
+    document.getElementById('rh-table-inner').innerHTML=`
+      <div class="rh-empty">
+        <div class="rh-empty-icon">⚠️</div>
+        <div class="rh-empty-title">Could not load history</div>
+        <div class="rh-empty-sub">${e.message}<br><br>Make sure your API server is running and Supabase is configured.</div>
+        <button class="rh-btn" onclick="rhLoad()" style="margin:0 auto;">Retry</button>
+      </div>`;
+  }
+}
+
+// ── Filter + search ──────────────────────────────────────────
+function rhSearch(val){_rhSearch=val.toLowerCase();_rhPage=0;_rhApplyFilters();}
+
+function rhSetSeverity(sev,btn){
+  _rhSeverity=sev;_rhPage=0;
+  document.querySelectorAll('.rh-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _rhApplyFilters();
+}
+
+function _rhApplyFilters(){
+  _rhFiltered=_rhData.filter(r=>{
+    if(_rhSeverity!=='all'&&r.severity!==_rhSeverity)return false;
+    if(_rhSearch&&!r.source_name.toLowerCase().includes(_rhSearch))return false;
+    return true;
+  });
+  _rhRender();
+}
+
+// ── Update top stats ─────────────────────────────────────────
+function _rhUpdateStats(){
+  const total=_rhData.length;
+  const crit=_rhData.filter(r=>r.severity==='critical').length;
+  const warn=_rhData.filter(r=>r.severity==='warning').length;
+  const avgRate=total?(_rhData.reduce((s,r)=>s+(r.error_rate||0),0)/total).toFixed(1)+'%':'—';
+  document.getElementById('rh-stat-total').textContent=total||'0';
+  document.getElementById('rh-stat-critical').textContent=crit||'0';
+  document.getElementById('rh-stat-warning').textContent=warn||'0';
+  document.getElementById('rh-stat-avg-rate').textContent=avgRate;
+  document.getElementById('rh-sub').textContent=`${total} investigation${total!==1?'s':''} stored in Supabase`;
+}
+
+// ── Render card grid ─────────────────────────────────────────
+function _rhRender(){
+  const total=_rhFiltered.length;
+  const pages=Math.ceil(total/_rhPageSize)||1;
+  if(_rhPage>=pages)_rhPage=pages-1;
+  const slice=_rhFiltered.slice(_rhPage*_rhPageSize,(_rhPage+1)*_rhPageSize);
+
+  document.getElementById('rh-pager-info').textContent=`${total} result${total!==1?'s':''}`;
+  const pager=document.getElementById('rh-pager');
+  document.getElementById('rh-page-label').textContent=`Page ${_rhPage+1} of ${pages}`;
+  document.getElementById('rh-prev-btn').disabled=_rhPage===0;
+  document.getElementById('rh-next-btn').disabled=_rhPage>=pages-1;
+  pager.style.display=pages>1?'flex':'none';
+
+  if(!slice.length){
+    document.getElementById('rh-table-inner').innerHTML=`
+      <div class="comp-empty" style="padding:60px 20px;">
+        <div style="font-size:36px;margin-bottom:10px;">📭</div>
+        <div style="font-weight:700;color:var(--heading);font-size:14px;margin-bottom:4px;">No investigations found</div>
+        <div style="font-size:12px;">Try adjusting your filters, or save an RCA report to get started.</div>
+      </div>`;
+    return;
+  }
+
+  let html=`<div class="rh-card-grid">`;
+
+  slice.forEach(r=>{
+    const isSelected=_rhSelected.has(r.id);
+    const isExpanded=_rhExpandedId===r.id;
+    const rate=parseFloat(r.error_rate||0);
+    const rateCol=rate>20?'var(--red)':rate>5?'var(--amber)':'var(--green)';
+    const dateStr=r.created_at?new Date(r.created_at).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+    const preview=r.ai_summary?(r.ai_summary.length>160?r.ai_summary.slice(0,160)+'…':r.ai_summary):'No AI summary available.';
+    const sevIcon={'critical':'alert-octagon','warning':'alert-triangle','healthy':'check-circle'}[r.severity]||'circle';
+    const sevCol={'critical':'var(--red)','warning':'var(--amber)','healthy':'var(--green)'}[r.severity]||'var(--text3)';
+
+    html+=`
+    <div class="rh-card${isSelected?' selected':''}" id="rh-card-${r.id}">
+      <div class="rh-card-accent ${r.severity}"></div>
+      <div class="rh-card-top">
+        <div class="rh-card-source">
+          <input type="checkbox" class="rh-card-cb" ${isSelected?'checked':''} onclick="event.stopPropagation();rhToggleRow('${r.id}',this)" title="Select for comparison">
+          <span class="rh-card-source-name">${_esc(r.source_name)}</span>
+        </div>
+        <div class="rh-card-actions">
+          <span class="rh-sev-badge ${r.severity}">
+            <i data-lucide="${sevIcon}" style="width:10px;height:10px;"></i>
+            ${r.severity}
+          </span>
+          <button class="rh-icon-btn del" title="Delete" onclick="event.stopPropagation();rhDeleteOne('${r.id}')">
+            <i data-lucide="trash-2" style="width:11px;height:11px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="rh-card-meta">
+        <i data-lucide="calendar" style="width:10px;height:10px;color:var(--text3);"></i>
+        <span class="rh-card-date">${dateStr}</span>
+        ${r.affected_services?.length?`<span style="margin-left:4px;display:flex;align-items:center;gap:3px;font-size:10px;color:var(--text3);"><i data-lucide="server" style="width:10px;height:10px;"></i>${r.affected_services.length} svc</span>`:''}
+      </div>
+
+      <div class="rh-card-kpis">
+        <div class="rh-card-kpi">
+          <div class="rh-card-kpi-val">${(r.total_entries||0).toLocaleString()}</div>
+          <div class="rh-card-kpi-lbl">Total Logs</div>
+        </div>
+        <div class="rh-card-kpi">
+          <div class="rh-card-kpi-val" style="color:var(--red);">${(r.error_count||0).toLocaleString()}</div>
+          <div class="rh-card-kpi-lbl">Errors</div>
+        </div>
+        <div class="rh-card-kpi">
+          <div class="rh-card-kpi-val" style="color:var(--amber);">${(r.warn_count||0).toLocaleString()}</div>
+          <div class="rh-card-kpi-lbl">Warnings</div>
+        </div>
+        <div class="rh-card-kpi">
+          <div class="rh-card-kpi-val" style="color:${rateCol};">${rate.toFixed(1)}%</div>
+          <div class="rh-card-kpi-lbl">Error Rate</div>
+        </div>
+      </div>
+
+      <div class="rh-card-summary">
+        <div class="rh-card-summary-text">${_esc(preview)}</div>
+      </div>
+
+      <div class="rh-card-footer">
+        <span style="font-size:10px;color:var(--text3);font-family:'Fira Code',monospace;">#${r.id.slice(-6)}</span>
+        <button class="rh-card-footer-btn" onclick="event.stopPropagation();rhToggleExpand('${r.id}')">
+          <i data-lucide="${isExpanded?'chevron-up':'chevron-down'}" style="width:11px;height:11px;"></i>
+          ${isExpanded?'Collapse':'View Details'}
+        </button>
+      </div>
+
+      ${isExpanded?`
+      <div style="border-top:1px solid var(--border);padding:14px 16px;background:var(--bg2);">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px;"><i data-lucide="brain" style="width:11px;height:11px;"></i> AI Root Cause Analysis</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;padding:10px;background:var(--card);border-radius:8px;border:1px solid var(--border);margin-bottom:10px;">${_esc(r.ai_summary||'No summary available')}</div>
+        ${r.fix_steps?`<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:6px;display:flex;align-items:center;gap:6px;"><i data-lucide="wrench" style="width:11px;height:11px;"></i> Fix Steps</div>
+        <div style="font-size:11px;color:var(--text2);font-family:'Fira Code',monospace;white-space:pre-wrap;padding:10px;background:var(--card);border-radius:8px;border:1px solid var(--border);">${_esc(r.fix_steps.slice(0,500))}${r.fix_steps.length>500?'…':''}</div>`:''}
+      </div>`:''}
+    </div>`;
+  });
+
+  html+=`</div>`;
+  document.getElementById('rh-table-inner').innerHTML=html;
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+
+function _esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── Expand row ───────────────────────────────────────────────
+function rhToggleExpand(id){
+  _rhExpandedId=_rhExpandedId===id?null:id;
+  _rhRender();
+}
+
+// ── Checkbox selection ───────────────────────────────────────
+function rhToggleRow(id,cb){
+  if(cb.checked)_rhSelected.add(id); else _rhSelected.delete(id);
+  const card=document.getElementById('rh-card-'+id);
+  if(card){
+    if(cb.checked)card.classList.add('selected'); else card.classList.remove('selected');
+  }
+  _rhUpdateSelUI();
+}
+
+function rhToggleAll(cb){
+  const slice=_rhFiltered.slice(_rhPage*_rhPageSize,(_rhPage+1)*_rhPageSize);
+  slice.forEach(r=>{
+    if(cb.checked)_rhSelected.add(r.id); else _rhSelected.delete(r.id);
+    // update card selection style
+    const card=document.getElementById('rh-card-'+r.id);
+    if(card){
+      if(cb.checked)card.classList.add('selected'); else card.classList.remove('selected');
+    }
+    // update card checkbox
+    const cardCb=card?.querySelector('.rh-card-cb');
+    if(cardCb)cardCb.checked=cb.checked;
+  });
+  _rhUpdateSelUI();
+}
+
+function _rhUpdateSelUI(){
+  const count=_rhSelected.size;
+  const selInfo=document.getElementById('rh-sel-info');
+  const delBtn=document.getElementById('rh-delete-sel-btn');
+  if(count>0){
+    selInfo.style.display='';
+    document.getElementById('rh-sel-count').textContent=count;
+    delBtn.style.display='';
+  } else {
+    selInfo.style.display='none';
+    delBtn.style.display='none';
+  }
+}
+
+// ── Pagination ───────────────────────────────────────────────
+function rhPage(dir){
+  const pages=Math.ceil(_rhFiltered.length/_rhPageSize)||1;
+  _rhPage=Math.max(0,Math.min(pages-1,_rhPage+dir));
+  _rhRender();
+}
+
+// ── Delete modal ─────────────────────────────────────────────
+let _rhDelPending=null; // {type:'one'|'many', id?, ids?}
+
+function rhDeleteOne(id){
+  _rhDelPending={type:'one',id};
+  const name=_rhData.find(r=>r.id===id)?.source_name||'this investigation';
+  document.getElementById('rh-del-modal-title').textContent='Delete Investigation?';
+  document.getElementById('rh-del-modal-sub').innerHTML=`Permanently delete <strong>${_esc(name)}</strong>?<br>This cannot be undone.`;
+  rhDelModalOpen();
+}
+
+function rhDeleteSelected(){
+  const ids=[..._rhSelected];
+  if(!ids.length)return;
+  _rhDelPending={type:'many',ids};
+  document.getElementById('rh-del-modal-title').textContent=`Delete ${ids.length} Investigation${ids.length>1?'s':''}?`;
+  document.getElementById('rh-del-modal-sub').textContent=`All ${ids.length} selected record${ids.length>1?'s':''} will be permanently removed from Supabase. This cannot be undone.`;
+  rhDelModalOpen();
+}
+
+function rhDelModalOpen(){
+  const m=document.getElementById('rh-del-modal');
+  m.classList.add('open');
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
+function rhDelModalClose(){
+  document.getElementById('rh-del-modal').classList.remove('open');
+  _rhDelPending=null;
+}
+function _rhResetDelModal(){
+  // Reset modal colours back to red (delete style) after amber duplicate-warning use
+  const icon=document.getElementById('rh-del-modal-icon-inner');
+  const bg=document.getElementById('rh-del-modal-icon-bg');
+  const confirmBtn=document.getElementById('rh-del-modal-confirm');
+  if(icon)icon.style.color='var(--red)';
+  if(bg){bg.style.background='var(--red)15';bg.style.borderColor='var(--red)30';}
+  if(confirmBtn){
+    confirmBtn.style.background='var(--red)';
+    confirmBtn.style.borderColor='var(--red)50';
+    confirmBtn.innerHTML='<i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete';
+  }
+}
+
+async function rhDelModalExecute(){
+  if(!_rhDelPending)return;
+  const btn=document.getElementById('rh-del-modal-confirm');
+
+  // Snapshot pending BEFORE any close (rhDelModalClose nulls _rhDelPending)
+  const pending={..._rhDelPending};
+
+  // Handle duplicate-save confirmation
+  if(pending.type==='save-duplicate'){
+    rhDelModalClose();
+    _rhResetDelModal();
+    await _doSaveRCA(null, pending.fingerprint, pending.savedKey);
+    return;
+  }
+
+  btn.disabled=true;btn.textContent='Deleting…';
+  const base=getApiBase();
+  const key=localStorage.getItem('autorca_api_key')||'';
+
+  if(pending.type==='one'){
+    const id=pending.id;
+    try{
+      const res=await fetch(`${base}/api/rca/history/${id}`,{method:'DELETE',headers:{'X-API-Key':key}});
+      const data=await res.json();
+      if(!data.ok)throw new Error(data.error);
+      _rhData=_rhData.filter(r=>r.id!==id);
+      _rhSelected.delete(id);
+      // Clear any saved fingerprint for this record so it can be re-saved after deletion
+      _rhClearFingerprintsForId(id);
+      _rhApplyFilters();_rhUpdateStats();
+      toast('Investigation deleted','ok','Deleted');
+    }catch(e){toast('Delete failed: '+e.message,'err','Error');}
+  } else {
+    const ids=pending.ids;
+    let deleted=0;
+    for(const id of ids){
+      try{
+        const res=await fetch(`${base}/api/rca/history/${id}`,{method:'DELETE',headers:{'X-API-Key':key}});
+        const d=await res.json();
+        if(d.ok){
+          _rhData=_rhData.filter(r=>r.id!==id);
+          _rhClearFingerprintsForId(id);
+          deleted++;
+        }
+      }catch(e){}
+    }
+    _rhSelected.clear();
+    _rhApplyFilters();_rhUpdateStats();
+    toast(`Deleted ${deleted} investigation${deleted!==1?'s':''}`, 'ok', 'Deleted');
+  }
+
+  btn.disabled=false;
+  btn.innerHTML='<i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete';
+  if(typeof lucide!=='undefined')lucide.createIcons();
+  rhDelModalClose();
+}
+
+// Clear all rca_saved_* sessionStorage keys that match a deleted record's source
+function _rhClearFingerprintsForId(id){
+  // Find the record's source in our data cache to build its fingerprint
+  // Since it's already removed from _rhData by this point, scan sessionStorage directly
+  const prefix='rca_saved_';
+  Object.keys(sessionStorage).filter(k=>k.startsWith(prefix)).forEach(k=>sessionStorage.removeItem(k));
+}
+
+// ── Diff comparison ──────────────────────────────────────────
+async function rhCompareDiff(evt){
+  if(evt)evt.preventDefault();
+  const ids=[..._rhSelected];
+  if(ids.length!==2){toast('Select exactly 2 investigations to compare','warn','Diff');return;}
+
+  const base=getApiBase();
+  const key=localStorage.getItem('autorca_api_key')||'';
+  try{
+    const [r1,r2]=await Promise.all(ids.map(async id=>{
+      const res=await fetch(`${base}/api/rca/history/${id}`,{headers:{'X-API-Key':key}});
+      const d=await res.json();
+      if(!d.ok)throw new Error(d.error);
+      return d.data;
+    }));
+    // Sort so A is older, B is newer
+    const [older,newer]=[r1,r2].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+    _rhRenderDiff(older,newer);
+  }catch(e){toast('Could not load diff: '+e.message,'err','Diff Error');}
+}
+
+function _rhRenderDiff(a,b){
+  const panel=document.getElementById('rh-diff-panel');
+  const body=document.getElementById('rh-diff-body');
+  const rateA=parseFloat(a.error_rate||0), rateB=parseFloat(b.error_rate||0);
+  const rateDelta=rateB-rateA;
+  const errDelta=(b.error_count||0)-(a.error_count||0);
+  const totalDelta=(b.total_entries||0)-(a.total_entries||0);
+  const fmt=(v,prefix='')=>v>0?`${prefix}+${v}`:v<0?`${prefix}${v}`:`${prefix}0`;
+  const fmtPct=(v)=>v>0?`+${v.toFixed(1)}%`:v<0?`${v.toFixed(1)}%`:'0%';
+  const dateA=new Date(a.created_at).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  const dateB=new Date(b.created_at).toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+
+  // Determine changes
+  const changes=[];
+  if(rateDelta<-2)changes.push({type:'improved',text:`Error rate improved by ${Math.abs(rateDelta).toFixed(1)}% (${rateA.toFixed(1)}% → ${rateB.toFixed(1)}%)`});
+  else if(rateDelta>2)changes.push({type:'worsened',text:`Error rate worsened by ${rateDelta.toFixed(1)}% (${rateA.toFixed(1)}% → ${rateB.toFixed(1)}%)`});
+  else changes.push({type:'neutral',text:`Error rate stable (${rateA.toFixed(1)}% → ${rateB.toFixed(1)}%)`});
+  if(a.severity!==b.severity)changes.push({type:b.severity==='critical'?'worsened':b.severity==='healthy'?'improved':'neutral',text:`Severity changed: ${a.severity} → ${b.severity}`});
+  if(errDelta<0)changes.push({type:'improved',text:`${Math.abs(errDelta)} fewer errors in newer investigation`});
+  else if(errDelta>0)changes.push({type:'worsened',text:`${errDelta} more errors in newer investigation`});
+
+  const changeHtml=changes.map(c=>`<div class="rh-diff-change-row ${c.type}">
+    <i data-lucide="${c.type==='improved'?'trending-down':c.type==='worsened'?'trending-up':'minus'}" style="width:13px;height:13px;flex-shrink:0;"></i>
+    ${_esc(c.text)}</div>`).join('');
+
+  body.innerHTML=`
+    <div class="rh-diff-cols">
+      <div class="rh-diff-col a">
+        <div class="rh-diff-col-hdr">A — Older · ${_esc(dateA)}</div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Source</span><span class="rh-diff-val">${_esc(a.source_name)}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Severity</span><span class="rh-sev-badge ${a.severity}" style="padding:2px 7px;font-size:10px;">${a.severity}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Total Entries</span><span class="rh-diff-val">${(a.total_entries||0).toLocaleString()}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Errors</span><span class="rh-diff-val" style="color:var(--red);">${(a.error_count||0).toLocaleString()}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Error Rate</span><span class="rh-diff-val">${rateA.toFixed(1)}%</span></div>
+      </div>
+      <div class="rh-diff-arrow">→</div>
+      <div class="rh-diff-col b">
+        <div class="rh-diff-col-hdr">B — Newer · ${_esc(dateB)}</div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Source</span><span class="rh-diff-val">${_esc(b.source_name)}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Severity</span><span class="rh-sev-badge ${b.severity}" style="padding:2px 7px;font-size:10px;">${b.severity}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Total Entries</span><span class="rh-diff-val">${fmt(totalDelta)} → ${(b.total_entries||0).toLocaleString()}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Errors</span><span class="rh-diff-val" style="color:var(--red);">${fmt(errDelta)} → ${(b.error_count||0).toLocaleString()}</span></div>
+        <div class="rh-diff-row"><span class="rh-diff-lbl">Error Rate</span><span class="rh-diff-val ${rateDelta>0?'rh-rate high':rateDelta<0?'rh-rate low':''}">${fmtPct(rateDelta)} → ${rateB.toFixed(1)}%</span></div>
+      </div>
+    </div>
+    <div class="rh-diff-changes">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:10px;">What Changed</div>
+      ${changeHtml}
+    </div>
+    ${a.ai_summary&&b.ai_summary?`
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2);margin-bottom:6px;">A — AI Summary</div>
+        <div class="rh-expand-summary" style="font-size:11px;">${_esc(a.ai_summary.slice(0,300))}${a.ai_summary.length>300?'…':''}</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--purple);margin-bottom:6px;">B — AI Summary</div>
+        <div class="rh-expand-summary" style="font-size:11px;">${_esc(b.ai_summary.slice(0,300))}${b.ai_summary.length>300?'…':''}</div>
+      </div>
+    </div>`:''}
+  `;
+  panel.style.display='';
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(typeof lucide!=='undefined')lucide.createIcons();
+}
 </script>
-</body>
-</html
-<!-- ══ FEATURE 1: EVIDENCE DRAWER ══════════════════════════════ -->
-<div id="ev-drawer-overlay" onclick="closeEvDrawer()"></div>
-<div id="ev-drawer" style="display:none;">
-  <div class="evd-header">
-    <div>
-      <div class="evd-title">Key Evidence Logs</div>
-      <div class="evd-count" id="evd-count-label">—</div>
+
+<!-- ══ RCA Delete Confirm Modal ══════════════════════════════ -->
+<div id="rh-del-modal" onclick="if(event.target===this)rhDelModalClose()">
+  <div class="rh-del-modal-box">
+    <div class="rh-del-modal-icon" id="rh-del-modal-icon-bg">
+      <i data-lucide="trash-2" style="width:22px;height:22px;color:var(--red);" id="rh-del-modal-icon-inner"></i>
     </div>
-    <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
-      <span style="font-size:10px;color:var(--text3);" id="evd-filtered-label"></span>
-      <button class="evd-close" onclick="closeEvDrawer()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="rh-del-modal-title" id="rh-del-modal-title">Delete Investigation?</div>
+    <div class="rh-del-modal-sub" id="rh-del-modal-sub">This action cannot be undone. The investigation record will be permanently removed from Supabase.</div>
+    <div class="rh-del-modal-btns">
+      <button class="rh-del-modal-cancel" onclick="rhDelModalClose()">Cancel</button>
+      <button class="rh-del-modal-confirm" id="rh-del-modal-confirm" onclick="rhDelModalExecute()">
+        <i data-lucide="trash-2" style="width:13px;height:13px;"></i> Delete
+      </button>
     </div>
-  </div>
-  <div class="evd-toolbar">
-    <div class="evd-search-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="evd-search" class="evd-search" placeholder="Search logs…" oninput="evdFilter()">
-    </div>
-    <select class="evd-filter-sel" id="evd-lvl" onchange="evdFilter()">
-      <option value="">All Levels</option>
-      <option value="CRITICAL">Critical</option>
-      <option value="ERROR">Error</option>
-      <option value="WARNING">Warning</option>
-      <option value="INFO">Info</option>
-    </select>
-    <button class="evd-sort-btn" id="evd-sort-time" onclick="evdSort('time',this)">Time ↓</button>
-    <button class="evd-sort-btn" id="evd-sort-sev" onclick="evdSort('sev',this)">Severity</button>
-  </div>
-  <div class="evd-list" id="evd-list"></div>
-  <div class="evd-footer">
-    <span id="evd-footer-count"></span>
-    <button style="background:none;border:none;color:var(--accent2);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;" onclick="goScreen('explorer',document.getElementById('sb-explorer'));closeEvDrawer();">Open in Log Explorer →</button>
   </div>
 </div>
+<!-- ══ System Status Modal ════════════════════════════════════ -->
+<div id="sys-status-modal">
+  <div class="ssm-header">
+    <span class="ssm-title">System Status</span>
+    <button class="ssm-close" onclick="toggleStatusModal()"><i data-lucide="x" style="width:13px;height:13px;"></i></button>
+  </div>
+  <div class="ssm-section">
+    <div class="ssm-section-title">Components</div>
+    <div class="ssm-row"><span class="ssm-name">API Health Monitor</span><span class="ssm-dot on" id="sm-s-api"></span></div>
+    <div class="ssm-row"><span class="ssm-name">Log Analyzer</span><span class="ssm-dot off" id="sm-s-log"></span></div>
+    <div class="ssm-row"><span class="ssm-name">DB Validator</span><span class="ssm-dot off" id="sm-s-db"></span></div>
+    <div class="ssm-row"><span class="ssm-name">RCA Engine</span><span class="ssm-dot on" id="sm-s-rca"></span></div>
+  </div>
+  <div class="ssm-source-section" id="ssm-source-section">
+    <div class="ssm-section-title">Active Source</div>
+    <div class="ssm-source-name" id="ssm-source-name">—</div>
+    <div class="ssm-source-meta" id="ssm-source-meta"></div>
+    <div class="ssm-live-row"><div class="ssm-live-dot"></div><span style="font-size:11px;color:var(--green);font-weight:600;">Live</span></div>
+  </div>
+</div>
+
+</body>
+</html>

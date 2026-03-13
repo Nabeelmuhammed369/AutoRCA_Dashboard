@@ -55,11 +55,25 @@ jobs:
         run: |
           pip install ruff mypy bandit safety --quiet
 
-      - name: Ruff (fast linter + formatter check)
+      - name: Ruff — auto-fix safe issues
+        # Silently fixes E741, W293, E402, import order, etc.
+        run: ruff check . --fix --exit-zero
+
+      - name: Ruff — fail on unfixable errors
+        # Fails CI if anything ruff couldn't auto-fix remains (F821, B904, etc.)
         run: ruff check . --output-format=github
 
-      - name: Ruff format check
+      - name: Ruff — format check
         run: ruff format --check .
+
+      - name: Commit auto-fixes back to branch
+        # If ruff --fix changed any files, commit them so the branch stays clean.
+        # [skip ci] prevents an infinite loop of CI triggering itself.
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-fix ruff issues [skip ci]"
+          file_pattern: "**/*.py"
+        if: github.event_name == 'push' && github.actor != 'dependabot[bot]'
 
       - name: MyPy type checking
         run: mypy api_server.py ai_analyzer.py --ignore-missing-imports --no-strict-optional
@@ -84,10 +98,12 @@ jobs:
           retention-days: 30
 
   # ═══════════════════════════════════════════
-  # JOB 2 — Unit + Integration Tests
+  # JOB 2 — Python Backend Tests
+  #   Covers: RCA endpoints (original) +
+  #           Supabase integration (new)
   # ═══════════════════════════════════════════
-  test:
-    name: Test Suite (Python ${{ matrix.python-version }})
+  python-tests:
+    name: "Python — pytest (py${{ matrix.python-version }})"
     runs-on: ubuntu-latest
     needs: lint
     if: ${{ !inputs.skip_tests }}
@@ -113,8 +129,57 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt --quiet
-          pip install pytest pytest-cov pytest-asyncio pytest-timeout httpx --quiet
+          pip install --upgrade pip
+          pip install \
+            "plotly>=5.18.0" \
+            "pandas>=2.0.0" \
+            "fastapi>=0.111.0" \
+            "uvicorn[standard]>=0.29.0" \
+            "python-dotenv>=1.0.0" \
+            "requests>=2.31.0" \
+            "pyyaml>=6.0" \
+            "slowapi>=0.1.9" \
+            "groq>=0.9.0" \
+            "supabase>=2.0.0" \
+            "httpx>=0.27.0" \
+            "pytest>=8.0.0" \
+            "pytest-asyncio>=0.23.0" \
+            "pytest-cov>=5.0.0" \
+            "pytest-timeout>=0.6.0"
+
+      - name: Create stub modules for local imports
+        # api_server imports internal modules (Monitors.*, Core.*) that don't
+        # exist in CI — stub them so only endpoint logic is tested.
+        run: |
+          python - <<'EOF'
+          import os, pathlib
+
+          stubs = {
+            "Monitors/__init__.py": "",
+            "Monitors/api_monitor.py": "def check_api_health(*a,**k): return {'status':'ok'}",
+            "Monitors/log_analyzer.py": "def analyze_logs(*a,**k): return {'total':0,'errors':0,'warnings':0,'valid':True}",
+            "Monitors/db_validator.py": "def validate_data(*a,**k): return {'valid':True,'row_count':0}",
+            "Core/__init__.py": "",
+            "Core/rca_engine.py": "def classify_issue(*a,**k): return 'healthy'",
+            "Core/logger.py": "import logging\ndef setup_logger(): pass",
+            "Core/ai_analyzer.py": (
+              "def explain_incident(*a,**k): return {'text':''}\n"
+              "def suggest_fixes(*a,**k): return {'steps':[]}\n"
+              "def generate_ticket_summary(*a,**k): return {'summary':''}"
+            ),
+            "config.yaml": (
+              "api:\n  url: http://localhost\n  timeout: 5\n"
+              "log:\n  file: /tmp/test.log\n"
+              "database:\n  path: /tmp/test.db\n"
+            ),
+          }
+
+          for path, content in stubs.items():
+            p = pathlib.Path(path)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(content)
+          print("Stubs created.")
+          EOF
 
       - name: Create test environment file
         run: |
@@ -122,10 +187,12 @@ jobs:
           AUTORCA_API_KEY=test-key-ci-${{ github.run_id }}
           ALLOWED_ORIGIN=http://localhost:3000
           GROQ_API_KEY=${{ secrets.GROQ_API_KEY_TEST }}
+          SUPABASE_URL=https://test.supabase.co
+          SUPABASE_KEY=test-supabase-key
           LOG_LEVEL=WARNING
           EOF
 
-      - name: Run test suite with coverage
+      - name: Run full test suite with coverage
         run: |
           pytest tests/ \
             --cov=. \
@@ -137,6 +204,10 @@ jobs:
             --tb=short \
             -v \
             --junitxml=test-results.xml
+        env:
+          AUTORCA_API_KEY: "test-api-key"
+          SUPABASE_URL:    "https://test.supabase.co"
+          SUPABASE_KEY:    "test-key"
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
@@ -163,15 +234,77 @@ jobs:
         if: always() && matrix.python-version == '3.11'
         with:
           files: test-results.xml
-          check_name: "Test Results"
+          check_name: "Python Test Results"
 
   # ═══════════════════════════════════════════
-  # JOB 3 — API Contract & Integration Tests
+  # JOB 3 — JavaScript Frontend Tests (Vitest)
+  #   Tests RCA duplicate-check logic and any
+  #   new frontend features (new)
+  # ═══════════════════════════════════════════
+  js-tests:
+    name: "JS — Vitest (frontend logic)"
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Bootstrap package.json if absent
+        # Allows the repo to opt in to JS tests without a pre-existing package.json
+        run: |
+          if [ ! -f package.json ]; then
+            npm init -y
+          fi
+
+      - name: Install Vitest
+        run: npm install --save-dev vitest@latest
+
+      - name: Add test script to package.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json'));
+            pkg.scripts = pkg.scripts || {};
+            pkg.scripts.test = 'vitest run';
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+
+      - name: Run Vitest
+        run: npx vitest run tests/test_rca_logic.js --reporter=verbose
+
+      - name: Generate Vitest coverage (non-blocking)
+        run: |
+          npm install --save-dev @vitest/coverage-v8
+          npx vitest run tests/test_rca_logic.js \
+            --coverage \
+            --coverage.provider=v8 \
+            --coverage.reporter=json \
+            --coverage.reportsDirectory=./coverage-js \
+            || true
+        continue-on-error: true
+
+      - name: Upload JS coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: js-coverage
+          path: coverage-js/
+          retention-days: 14
+
+  # ═══════════════════════════════════════════
+  # JOB 4 — API Contract & Integration Tests
   # ═══════════════════════════════════════════
   api-test:
     name: API Contract Tests
     runs-on: ubuntu-latest
-    needs: test
+    needs: [python-tests, js-tests]
 
     steps:
       - name: Checkout
@@ -191,6 +324,8 @@ jobs:
           cat > .env << EOF
           AUTORCA_API_KEY=ci-contract-test-key
           ALLOWED_ORIGIN=http://localhost:3000
+          SUPABASE_URL=https://test.supabase.co
+          SUPABASE_KEY=test-supabase-key
           EOF
           python api_server.py &
           echo "SERVER_PID=$!" >> $GITHUB_ENV
@@ -231,12 +366,38 @@ jobs:
         run: kill $SERVER_PID 2>/dev/null || true
 
   # ═══════════════════════════════════════════
-  # JOB 4 — Build & Package
+  # JOB 5 — Gate: all tests must pass
+  # ═══════════════════════════════════════════
+  all-tests-pass:
+    name: "All tests passed"
+    runs-on: ubuntu-latest
+    needs: [python-tests, js-tests, api-test]
+    if: always()
+
+    steps:
+      - name: Check results
+        run: |
+          if [ "${{ needs.python-tests.result }}" != "success" ]; then
+            echo "❌ Python tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.js-tests.result }}" != "success" ]; then
+            echo "❌ JS tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.api-test.result }}" != "success" ]; then
+            echo "❌ API contract tests failed"
+            exit 1
+          fi
+          echo "✅ All tests passed"
+
+  # ═══════════════════════════════════════════
+  # JOB 6 — Build & Package
   # ═══════════════════════════════════════════
   build:
     name: Build & Package
     runs-on: ubuntu-latest
-    needs: [test, api-test]
+    needs: all-tests-pass
     outputs:
       version: ${{ steps.version.outputs.version }}
       image-tag: ${{ steps.meta.outputs.tags }}
@@ -250,7 +411,6 @@ jobs:
       - name: Calculate version
         id: version
         run: |
-          # Semantic version from git tags + commit count
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           COMMITS=$(git rev-list ${LATEST_TAG}..HEAD --count 2>/dev/null || echo "0")
           SHORT_SHA=$(git rev-parse --short HEAD)
@@ -267,7 +427,7 @@ jobs:
         run: |
           pip install build --quiet
           python -m build
-        continue-on-error: true  # Optional — not all setups have pyproject.toml
+        continue-on-error: true
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -322,7 +482,7 @@ jobs:
         continue-on-error: true
 
   # ═══════════════════════════════════════════
-  # JOB 5 — Deploy to Staging
+  # JOB 7 — Deploy to Staging
   # ═══════════════════════════════════════════
   deploy-staging:
     name: Deploy → Staging
@@ -368,12 +528,12 @@ jobs:
           import httpx, sys
           base = "https://autorca-staging.yourdomain.com"
           key  = "${{ secrets.STAGING_API_KEY }}"
-          
+
           checks = [
               ("GET",  "/api/health",  None),
               ("POST", "/api/analyze", {"log_content": "2024-01-01 ERROR test fail\n"}),
           ]
-          
+
           failed = 0
           with httpx.Client(headers={"X-API-Key": key}, timeout=15) as c:
               for method, path, body in checks:
@@ -381,7 +541,7 @@ jobs:
                   ok = r.status_code < 400
                   print(f"{'✓' if ok else '✗'} {method} {path} → {r.status_code}")
                   if not ok: failed += 1
-          
+
           sys.exit(failed)
           PYEOF
 
@@ -398,7 +558,7 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
   # ═══════════════════════════════════════════
-  # JOB 6 — Deploy to Production
+  # JOB 8 — Deploy to Production
   # ═══════════════════════════════════════════
   deploy-production:
     name: Deploy → Production

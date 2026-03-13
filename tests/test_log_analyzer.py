@@ -11,8 +11,8 @@ instead of passing raw file paths, which the function no longer accepts.
 """
 
 import pandas as pd
-from Monitors.log_analyzer import analyze_logs
 
+from Monitors.log_analyzer import analyze_logs
 
 # ── DataFrame builder helpers ─────────────────────────────────────────────────
 

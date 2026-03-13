@@ -1,0 +1,32 @@
+# .pre-commit-config.yaml
+# Install once: pip install pre-commit && pre-commit install
+# After that, ruff runs automatically on every git commit.
+
+repos:
+  # ── Ruff: lint + format ──────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]          # auto-fix what it can (E741, W293, etc.)
+      - id: ruff-format        # enforce formatting (replaces Black)
+
+  # ── Basic file hygiene ───────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace   # kills W293 at source
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer     # ensures files end with newline
+      - id: check-merge-conflict  # blocks accidental merge markers
+      - id: check-yaml            # validates YAML files (CI, ruff.toml)
+      - id: debug-statements      # catches stray print()/breakpoint()
+
+  # ── Python-specific ──────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        args: [--ignore-missing-imports, --no-strict-optional]
+        files: ^(api_server|ai_analyzer|Main)\.py$
+        additional_dependencies: [types-requests]

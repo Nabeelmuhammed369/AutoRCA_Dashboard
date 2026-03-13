@@ -38,8 +38,8 @@ def _call_groq(prompt: str) -> str:
             max_tokens=1024,
         )
         return response.choices[0].message.content.strip()
-    except ImportError:
-        raise ImportError("groq not installed. Run: pip install groq")
+    except ImportError as err:
+        raise ImportError("groq not installed. Run: pip install groq") from err
 
 
 # ── Feature 1: Incident Explanation ──────────────────────────────────────────
@@ -139,7 +139,9 @@ def generate_ticket_summary(classification, exceptions, api_result, db_result):
         null_emails = db_result.get("null_email_count", 0)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        sev_emoji = "🔴" if classification == "Infrastructure Issue" else "🟡" if classification != "System Healthy" else "✅"
+        sev_emoji = (
+            "🔴" if classification == "Infrastructure Issue" else "🟡" if classification != "System Healthy" else "✅"
+        )
 
         prompt = f"""You are a senior Site Reliability Engineer writing an incident report.
 
