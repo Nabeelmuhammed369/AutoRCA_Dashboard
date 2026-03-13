@@ -3,8 +3,7 @@ test_rca_logic.py
 =================
 Python equivalent of the former test_rca_logic.js (Vitest).
 Covers RCA duplicate-check logic, severity classification,
-log parsing heuristics, and history deduplication — all the
-logic that was previously tested in the JS frontend layer.
+log parsing heuristics, and history deduplication.
 
 Run with:
     pytest tests/test_rca_logic.py -v
@@ -13,11 +12,10 @@ Run with:
 import pytest
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # Helpers — pure Python reimplementations of the JS logic
-# These mirror the functions in autorca_dashboard.html so that
-# CI can validate the core business rules without a browser.
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 def classify_severity(error_rate: float, crit_count: int) -> str:
     """Mirror of the JS classify() / _rcaClass logic."""
@@ -47,7 +45,7 @@ def is_duplicate(fingerprint: str, existing_records: list[dict]) -> bool:
     source = parts[0]
     try:
         total = int(parts[1])
-        err   = int(parts[2])
+        err = int(parts[2])
     except ValueError:
         return False
 
@@ -84,12 +82,12 @@ def normalize_severity(raw: str) -> str:
     return mapping.get(raw, "warning")
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # SUITE 1 — Severity Classification
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 class TestSeverityClassification:
-
     def test_critical_when_crit_count_above_zero(self):
         assert classify_severity(0.0, crit_count=1) == "critical"
 
@@ -106,7 +104,6 @@ class TestSeverityClassification:
         assert classify_severity(0.0, crit_count=0) == "healthy"
 
     def test_critical_takes_priority_over_rate(self):
-        # Even with a low error rate, a single CRITICAL log → critical
         assert classify_severity(2.0, crit_count=5) == "critical"
 
     def test_boundary_exactly_50_percent(self):
@@ -118,12 +115,12 @@ class TestSeverityClassification:
         assert classify_severity(10.0, crit_count=0) == "warning"
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # SUITE 2 — Fingerprint & Duplicate Detection
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 class TestFingerprintAndDuplication:
-
     def test_fingerprint_format(self):
         fp = build_fingerprint("app.log", 2500, 1310, 52.4)
         assert fp == "app.log|2500|1310|52.40"
@@ -159,8 +156,8 @@ class TestFingerprintAndDuplication:
     def test_duplicate_found_in_multiple_records(self):
         fp = build_fingerprint("prod.log", 100, 10, 10.0)
         existing = [
-            {"source_name": "app.log",  "total_entries": 2500, "error_count": 1310},
-            {"source_name": "prod.log", "total_entries": 100,  "error_count": 10},
+            {"source_name": "app.log", "total_entries": 2500, "error_count": 1310},
+            {"source_name": "prod.log", "total_entries": 100, "error_count": 10},
         ]
         assert is_duplicate(fp, existing) is True
 
@@ -169,12 +166,12 @@ class TestFingerprintAndDuplication:
         assert is_duplicate("only-one-part", []) is False
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # SUITE 3 — Log Level Parsing
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 class TestLogLevelParsing:
-
     def test_detects_error(self):
         assert parse_log_level("2024-01-01 12:00:00 ERROR something failed") == "ERROR"
 
@@ -197,7 +194,6 @@ class TestLogLevelParsing:
         assert parse_log_level("some random text with no level") == "UNKNOWN"
 
     def test_critical_takes_priority_in_line(self):
-        # Line contains both ERROR and CRITICAL — CRITICAL comes first in scan order
         assert parse_log_level("CRITICAL ERROR in database layer") == "CRITICAL"
 
     def test_case_insensitive(self):
@@ -208,12 +204,12 @@ class TestLogLevelParsing:
         assert parse_log_level("FATAL out of memory") == "FATAL"
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # SUITE 4 — Error Rate Calculation
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 class TestErrorRateCalculation:
-
     def test_basic_rate(self):
         assert calc_error_rate(2500, 1310) == 52.4
 
@@ -227,19 +223,19 @@ class TestErrorRateCalculation:
         assert calc_error_rate(100, 100) == 100.0
 
     def test_rounding_to_one_decimal(self):
-        # 1/3 = 33.333… → rounds to 33.3
+        # 1/3 = 33.333... rounds to 33.3
         assert calc_error_rate(3, 1) == 33.3
 
     def test_small_rate(self):
         assert calc_error_rate(10000, 5) == 0.1
 
 
-# ─────────────────────────────────────────────────────────────
-# SUITE 5 — Severity Normalisation (save payload)
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+# SUITE 5 — Severity Normalisation
+# ---------------------------------------------------------------------------
+
 
 class TestSeverityNormalisation:
-
     def test_error_normalises_to_critical(self):
         assert normalize_severity("error") == "critical"
 
@@ -254,37 +250,32 @@ class TestSeverityNormalisation:
         assert normalize_severity("") == "warning"
 
 
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 # SUITE 6 — Edge Cases & Boundary Conditions
-# ─────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+
 
 class TestEdgeCases:
-
     def test_empty_source_fingerprint(self):
         fp = build_fingerprint("", 0, 0, 0.0)
         assert fp == "|0|0|0.00"
 
     def test_source_with_pipe_character(self):
-        # Pipe in source name would break split — verify it doesn't crash
         fp = build_fingerprint("app|prod.log", 100, 5, 5.0)
-        # is_duplicate should not throw
-        result = is_duplicate(fp, [])
-        assert result is False
+        assert is_duplicate(fp, []) is False
 
     def test_large_log_volume(self):
         rate = calc_error_rate(10_000_000, 500_000)
         assert rate == 5.0
 
     def test_classify_exactly_at_critical_boundary(self):
-        # 50.1% → critical
         assert classify_severity(50.1, 0) == "critical"
 
     def test_all_suites_independent(self):
-        # Sanity: running helpers in combination produces consistent results
         total, errors = 2500, 1310
         rate = calc_error_rate(total, errors)
-        sev  = classify_severity(rate, crit_count=0)
+        sev = classify_severity(rate, crit_count=0)
         norm = normalize_severity(sev)
         assert rate == 52.4
-        assert sev  == "critical"
+        assert sev == "critical"
         assert norm == "critical"
