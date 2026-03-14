@@ -98,9 +98,7 @@ class TestExplainIncident:
         mock_groq_class.return_value = make_mock_groq(MOCK_EXPLANATION)
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert isinstance(result, dict)
 
     @patch("groq.Groq")
@@ -109,9 +107,7 @@ class TestExplainIncident:
         mock_groq_class.return_value = make_mock_groq(MOCK_EXPLANATION)
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is True
 
     @patch("groq.Groq")
@@ -120,9 +116,7 @@ class TestExplainIncident:
         mock_groq_class.return_value = make_mock_groq(MOCK_EXPLANATION)
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert isinstance(result["explanation"], str)
         assert len(result["explanation"]) > 0
 
@@ -132,9 +126,7 @@ class TestExplainIncident:
         mock_groq_class.return_value = make_mock_groq(MOCK_EXPLANATION)
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["error"] is None
 
     @patch("groq.Groq")
@@ -152,9 +144,7 @@ class TestExplainIncident:
         """No GROQ_API_KEY should return error dict, not raise."""
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is False
         assert result["error"] is not None
 
@@ -162,14 +152,10 @@ class TestExplainIncident:
     @patch("Core.ai_analyzer.GROQ_API_KEY", "fake-test-key")
     def test_groq_exception_returns_error(self, mock_groq_class):
         """If Groq raises an exception, return error dict — don't crash."""
-        mock_groq_class.return_value.chat.completions.create.side_effect = Exception(
-            "Rate limit exceeded"
-        )
+        mock_groq_class.return_value.chat.completions.create.side_effect = Exception("Rate limit exceeded")
         from Core.ai_analyzer import explain_incident
 
-        result = explain_incident(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = explain_incident(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is False
         assert "Rate limit" in result["error"]
 
@@ -184,9 +170,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(MOCK_STEPS_JSON)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert isinstance(result, dict)
 
     @patch("groq.Groq")
@@ -195,9 +179,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(MOCK_STEPS_JSON)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is True
 
     @patch("groq.Groq")
@@ -206,9 +188,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(MOCK_STEPS_JSON)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert isinstance(result["steps"], list)
 
     @patch("groq.Groq")
@@ -217,9 +197,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(MOCK_STEPS_JSON)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         for step in result["steps"]:
             assert "step" in step
             assert "command" in step
@@ -230,9 +208,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(MOCK_STEPS_JSON)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert len(result["steps"]) == 4
 
     @patch("groq.Groq")
@@ -243,9 +219,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq(fenced)
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is True
         assert isinstance(result["steps"], list)
 
@@ -256,9 +230,7 @@ class TestSuggestFixes:
         mock_groq_class.return_value = make_mock_groq("This is not JSON at all")
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is False
         assert result["steps"] == []
 
@@ -266,9 +238,7 @@ class TestSuggestFixes:
     def test_missing_api_key_returns_error(self):
         from Core.ai_analyzer import suggest_fixes
 
-        result = suggest_fixes(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = suggest_fixes(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is False
 
 
@@ -282,9 +252,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq(MOCK_TICKET)
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert isinstance(result, dict)
 
     @patch("groq.Groq")
@@ -293,9 +261,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq(MOCK_TICKET)
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is True
 
     @patch("groq.Groq")
@@ -304,9 +270,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq(MOCK_TICKET)
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert "github" in result
         assert isinstance(result["github"], str)
         assert len(result["github"]) > 0
@@ -317,9 +281,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq(MOCK_TICKET)
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert "slack" in result
         assert isinstance(result["slack"], str)
         assert len(result["slack"]) > 0
@@ -330,9 +292,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq(MOCK_TICKET)
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert "## Summary" in result["github"]
 
     @patch("groq.Groq")
@@ -342,9 +302,7 @@ class TestGenerateTicketSummary:
         mock_groq_class.return_value = make_mock_groq("Some unformatted response text")
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is True
         assert len(result["github"]) > 0
         assert len(result["slack"]) > 0
@@ -353,9 +311,7 @@ class TestGenerateTicketSummary:
     def test_missing_api_key_returns_error(self):
         from Core.ai_analyzer import generate_ticket_summary
 
-        result = generate_ticket_summary(
-            SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT
-        )
+        result = generate_ticket_summary(SAMPLE_CLASSIFICATION, SAMPLE_EXCEPTIONS, SAMPLE_API_RESULT, SAMPLE_DB_RESULT)
         assert result["success"] is False
         assert result["github"] == ""
         assert result["slack"] == ""
