@@ -25,12 +25,15 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 def _call_groq(prompt: str) -> str:
     """Call Groq API — fast, free, no region restrictions."""
-    if not GROQ_API_KEY:
+    import Core.ai_analyzer as _self
+
+    api_key = _self.GROQ_API_KEY
+    if not api_key:
         raise ValueError("GROQ_API_KEY not found in .env file. Get a free key at console.groq.com")
     try:
         from groq import Groq
 
-        client = Groq(api_key=GROQ_API_KEY)
+        client = Groq(api_key=api_key)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",  # best free model on Groq
             messages=[{"role": "user", "content": prompt}],
