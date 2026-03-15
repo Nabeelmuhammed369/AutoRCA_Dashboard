@@ -505,10 +505,10 @@ async def rca_history(
 ):
     if not _sb:
         # Supabase not configured — return empty gracefully
-        return JSONResponse(content={"records": [], "total": 0, "supabase": False})
+        return JSONResponse(content={"ok": True, "data": [], "count": 0, "supabase": False})
     try:
         q = _sb.table("rca_history").select("*").order("created_at", desc=True)
-        if severity:
+        if severity and severity.lower() != "all":
             q = q.eq("severity", severity.upper())
         if search:
             q = q.or_(f"source.ilike.%{search}%,classification.ilike.%{search}%")
@@ -517,15 +517,16 @@ async def rca_history(
         records = result.data if result.data else []
         return JSONResponse(
             content={
-                "records": records,
-                "total": len(records),
+                "ok": True,
+                "data": records,
+                "count": len(records),
                 "supabase": True,
             }
         )
     except Exception as e:
         logger.warning(f"RCA history fetch failed: {e}")
         # Return empty rather than 500 — table may not exist yet
-        return JSONResponse(content={"records": [], "total": 0, "supabase": True, "error": str(e)})
+        return JSONResponse(content={"ok": False, "data": [], "count": 0, "supabase": True, "error": str(e)})
 
 
 # ── Fetch single run by ID ─────────────────────────────────────────────────────
@@ -537,7 +538,7 @@ async def rca_get(rca_id: str, request: Request):
         result = _sb.table("rca_history").select("*").eq("id", rca_id).single().execute()
         if not result.data:
             raise HTTPException(status_code=404, detail=f"RCA run {rca_id} not found.")
-        return JSONResponse(content=result.data)
+        return JSONResponse(content={"ok": True, "data": result.data})
     except HTTPException:
         raise
     except Exception as e:
