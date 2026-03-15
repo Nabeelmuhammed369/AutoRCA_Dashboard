@@ -1,18 +1,19 @@
 """
-tests/test_rca_endpoints.py  (v3 — ruff-formatted, no bare supabase import)
-=============================================================================
-Two key changes from v2:
+tests/test_rca_endpoints.py  (v4 — sys.modules mock, ruff-formatted)
+======================================================================
+Root cause of previous failures
+--------------------------------
+v2 patched "supabase.create_client" → required supabase installed.
+v3 patched "api_server.create_client" → api_server must already be
+   imported for the attribute to exist; in Quick Test (no supabase),
+   the import itself fails so the attribute never appears.
 
-1. RUFF FORMAT COMPLIANCE
-   All lines ≤ 88 chars, consistent spacing, trailing commas.
-
-2. PATCH TARGET FIXED — "api_server.create_client" not "supabase.create_client"
-   When patch() is called with "supabase.create_client", Python must import the
-   `supabase` package to resolve the dotted path — causing ModuleNotFoundError
-   in CI environments that don't have supabase installed (e.g. quick-test jobs).
-   Patching "api_server.create_client" works because api_server already imported
-   it via `from supabase import create_client`, so the name exists in that module
-   namespace without requiring supabase to be importable at test time.
+Fix
+---
+Mock ``supabase`` at the sys.modules level BEFORE importing api_server.
+This makes api_server importable regardless of whether the supabase
+package is installed, and gives us full control of the client returned
+by create_client — all in one patch.
 """
 
 import importlib
@@ -47,7 +48,9 @@ SAMPLE_PAYLOAD = {
 }
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 
 def _make_table(execute_data=None):
@@ -65,9 +68,7 @@ def _make_table(execute_data=None):
         "single",
     ):
         getattr(t, m).return_value = t
-    t.execute.return_value = MagicMock(
-        data=execute_data if execute_data is not None else []
-    )
+    t.execute.return_value = MagicMock(data=execute_data if execute_data is not None else [])
     return t
 
 
@@ -77,18 +78,31 @@ def _sb(table):
     return s
 
 
+def _supabase_module_mock(table, *, fail=False):
+    """
+    Return a fake ``supabase`` module whose create_client either returns
+    a working client mock or raises (for the 'no credentials' scenario).
+    Patched into sys.modules so api_server's top-level import succeeds
+    even when the real supabase package is not installed.
+    """
+    mod = MagicMock()
+    if fail:
+        mod.create_client = MagicMock(side_effect=Exception("no creds"))
+    else:
+        mod.create_client = MagicMock(return_value=_sb(table))
+    return mod
+
+
 def _client_with(table):
     """
-    Reload api_server with a mocked create_client and return (TestClient, table).
-
-    We patch "api_server.create_client" (the name already imported into the
-    api_server module namespace) rather than "supabase.create_client" so the
-    supabase package does NOT need to be installed in the test environment.
+    Reload api_server with supabase mocked in sys.modules.
+    Returns (TestClient, table).
     """
     from fastapi.testclient import TestClient
 
+    supabase_mod = _supabase_module_mock(table)
     with patch.dict(os.environ, BASE_ENV, clear=False):
-        with patch("api_server.create_client", return_value=_sb(table)):
+        with patch.dict("sys.modules", {"supabase": supabase_mod}, clear=False):
             import api_server
 
             importlib.reload(api_server)
@@ -96,22 +110,23 @@ def _client_with(table):
 
 
 def _client_no_sb():
-    """Reload api_server with Supabase vars empty so sb=None."""
+    """Reload api_server with Supabase env vars empty → sb = None."""
     from fastapi.testclient import TestClient
 
     env = {**BASE_ENV, "SUPABASE_URL": "", "SUPABASE_KEY": ""}
+    supabase_mod = _supabase_module_mock(None, fail=True)
     with patch.dict(os.environ, env, clear=False):
-        with patch("api_server.create_client", side_effect=Exception("no creds")):
+        with patch.dict("sys.modules", {"supabase": supabase_mod}, clear=False):
             import api_server
 
             importlib.reload(api_server)
-            api_server.sb = None  # guarantee None regardless of exception handling
+            api_server.sb = None  # guarantee None regardless of exception path
             return TestClient(api_server.app, raise_server_exceptions=False)
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # POST /api/rca/save
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 
 class TestRcaSave:
@@ -163,9 +178,9 @@ class TestRcaSave:
         assert "Supabase" in r.json()["detail"]
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # GET /api/rca/history
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 
 class TestRcaHistory:
@@ -220,9 +235,9 @@ class TestRcaHistory:
         assert r.json()["ok"] is False
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # GET /api/rca/history/{id}
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 
 class TestRcaGet:
@@ -251,14 +266,12 @@ class TestRcaGet:
         assert r.json()["ok"] is False
 
     def test_get_503_when_supabase_not_configured(self):
-        assert (
-            _client_no_sb().get(f"/api/rca/history/{FAKE_ID}").status_code == 503
-        )
+        assert _client_no_sb().get(f"/api/rca/history/{FAKE_ID}").status_code == 503
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # DELETE /api/rca/history/{id}
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 
 class TestRcaDelete:
@@ -276,9 +289,7 @@ class TestRcaDelete:
         self.t.eq.assert_called_with("id", FAKE_ID)
 
     def test_delete_503_when_supabase_not_configured(self):
-        assert (
-            _client_no_sb().delete(f"/api/rca/history/{FAKE_ID}").status_code == 503
-        )
+        assert _client_no_sb().delete(f"/api/rca/history/{FAKE_ID}").status_code == 503
 
     def test_delete_ok_false_on_exception(self):
         self.t.execute.side_effect = Exception("row lock")
@@ -286,9 +297,9 @@ class TestRcaDelete:
         assert r.json()["ok"] is False
 
 
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 # Duplicate detection flow
-# ═════════════════════════════════════════════════════════════════════════════
+# =============================================================================
 
 
 class TestDuplicateDetectionFlow:
@@ -312,9 +323,7 @@ class TestDuplicateDetectionFlow:
             (
                 x
                 for x in r.json()["data"]
-                if x["source_name"] == "app.log"
-                and x["total_entries"] == 2500
-                and x["error_count"] == 1310
+                if x["source_name"] == "app.log" and x["total_entries"] == 2500 and x["error_count"] == 1310
             ),
             None,
         )
@@ -333,9 +342,7 @@ class TestDuplicateDetectionFlow:
         self.t.execute.return_value = MagicMock(data=[])
         assert self.c.delete(f"/api/rca/history/{nid}").json()["ok"] is True
         # Check — empty
-        assert (
-            self.c.get("/api/rca/history?search=app.log&limit=50").json()["data"] == []
-        )
+        assert self.c.get("/api/rca/history?search=app.log&limit=50").json()["data"] == []
         # Re-save — must succeed
         nid2 = str(uuid.uuid4())
         self.t.execute.return_value = MagicMock(data=[{"id": nid2}])
