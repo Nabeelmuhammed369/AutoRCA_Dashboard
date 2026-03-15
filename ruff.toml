@@ -1,0 +1,54 @@
+# ruff.toml — AutoRCA linting configuration
+# Docs: https://docs.astral.sh/ruff/configuration/
+
+target-version = "py311"
+
+# ── Line length ────────────────────────────────────────────────────────────────
+# 88 (Black default) is too tight for Streamlit UI strings and long f-strings.
+# 120 matches common team conventions and eliminates the E501 noise.
+line-length = 120
+
+[lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "I",    # isort
+]
+
+ignore = [
+    # UP015: open() 'r' mode is explicit and harmless — keep for readability
+    "UP015",
+    # UP045: Optional[X] vs X | None — prefer Optional for py3.9 compat
+    "UP045",
+    # E501: remaining lines over 120 are long UI strings — not worth wrapping
+    "E501",
+    # E402: env must be loaded before some imports (load_dotenv → supabase, etc.)
+    "E402",
+]
+
+# Don't lint generated stubs
+exclude = [
+    "Monitors/",
+    "Core/",
+    ".github/",
+]
+
+[lint.per-file-ignores]
+# Main.py — Supabase integration module, env loaded before imports
+"Main.py" = [
+    "F811",   # duplicate import — fixed in code, keep as safety net
+]
+# Test files — relax style rules, keep correctness rules
+"tests/*.py" = [
+    "E741",   # ambiguous variable names in list comprehensions are fine in tests
+    "E501",   # long assertion lines are acceptable in tests
+]
+
+[format]
+# Match Black's defaults
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

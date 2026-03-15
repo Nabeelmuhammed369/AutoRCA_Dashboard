@@ -72,7 +72,9 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
         "has_stacktrace": bool(has_stacktrace),
     }
 
-    logger.info(f"Log analysis complete: {result['total_errors']} errors, {result['total_warnings']} warnings, {len(formats)} formats")
+    logger.info(
+        f"Log analysis complete: {result['total_errors']} errors, {result['total_warnings']} warnings, {len(formats)} formats"
+    )
     return result
 
 

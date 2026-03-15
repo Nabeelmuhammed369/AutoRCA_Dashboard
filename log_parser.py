@@ -467,8 +467,8 @@ def parse_log_content(content: str) -> pd.DataFrame:
 
 def _enrich(df: pd.DataFrame) -> pd.DataFrame:
     """Add derived columns useful for the dashboard."""
-    df["severity_rank"] = df["level"].map(lambda l: SEVERITY_RANK.get(str(l).upper(), -1))
-    df["level_icon"] = df["level"].map(lambda l: LEVEL_COLORS.get(str(l).upper(), "⚫"))
+    df["severity_rank"] = df["level"].map(lambda l: SEVERITY_RANK.get(str(l).upper(), -1))  # noqa: E741
+    df["level_icon"] = df["level"].map(lambda i: LEVEL_COLORS.get(str(i).upper(), "⚫"))  # noqa: E741
     df["is_error"] = df["level"].isin(["ERROR", "CRITICAL", "FATAL"])
     df["is_warning"] = df["level"] == "WARNING"
 

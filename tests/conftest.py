@@ -3,9 +3,10 @@ tests/conftest.py — Shared fixtures for AutoRCA test suite
 """
 
 import os
-import sys
-import pytest
 import sqlite3
+import sys
+
+import pytest
 
 # ── Fix: add project root to sys.path so 'Core', 'Monitors' are importable ───
 # This is required for CI (GitHub Actions) where the runner's working directory
