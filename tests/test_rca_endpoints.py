@@ -97,6 +97,7 @@ def _client_with(table):
     """
     Reload api_server with supabase mocked in sys.modules.
     Returns (TestClient, table).
+    The client sends X-API-Key on every request via headers=.
     """
     from fastapi.testclient import TestClient
 
@@ -106,11 +107,18 @@ def _client_with(table):
             import api_server
 
             importlib.reload(api_server)
-            return TestClient(api_server.app, raise_server_exceptions=False), table
+            client = TestClient(
+                api_server.app,
+                raise_server_exceptions=False,
+                headers={"X-API-Key": BASE_ENV["AUTORCA_API_KEY"]},
+            )
+            return client, table
 
 
 def _client_no_sb():
-    """Reload api_server with Supabase env vars empty → sb = None."""
+    """Reload api_server with Supabase env vars empty → sb = None.
+    Still sends the API key so auth passes and we reach the 503 Supabase check.
+    """
     from fastapi.testclient import TestClient
 
     env = {**BASE_ENV, "SUPABASE_URL": "", "SUPABASE_KEY": ""}
@@ -121,7 +129,11 @@ def _client_no_sb():
 
             importlib.reload(api_server)
             api_server.sb = None  # guarantee None regardless of exception path
-            return TestClient(api_server.app, raise_server_exceptions=False)
+            return TestClient(
+                api_server.app,
+                raise_server_exceptions=False,
+                headers={"X-API-Key": BASE_ENV["AUTORCA_API_KEY"]},
+            )
 
 
 # =============================================================================
