@@ -65,7 +65,9 @@ def _make_table(execute_data=None):
         "single",
     ):
         getattr(t, m).return_value = t
-    t.execute.return_value = MagicMock(data=execute_data if execute_data is not None else [])
+    t.execute.return_value = MagicMock(
+        data=execute_data if execute_data is not None else []
+    )
     return t
 
 
@@ -249,7 +251,9 @@ class TestRcaGet:
         assert r.json()["ok"] is False
 
     def test_get_503_when_supabase_not_configured(self):
-        assert _client_no_sb().get(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        assert (
+            _client_no_sb().get(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        )
 
 
 # ═════════════════════════════════════════════════════════════════════════════
@@ -272,7 +276,9 @@ class TestRcaDelete:
         self.t.eq.assert_called_with("id", FAKE_ID)
 
     def test_delete_503_when_supabase_not_configured(self):
-        assert _client_no_sb().delete(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        assert (
+            _client_no_sb().delete(f"/api/rca/history/{FAKE_ID}").status_code == 503
+        )
 
     def test_delete_ok_false_on_exception(self):
         self.t.execute.side_effect = Exception("row lock")
@@ -306,7 +312,9 @@ class TestDuplicateDetectionFlow:
             (
                 x
                 for x in r.json()["data"]
-                if x["source_name"] == "app.log" and x["total_entries"] == 2500 and x["error_count"] == 1310
+                if x["source_name"] == "app.log"
+                and x["total_entries"] == 2500
+                and x["error_count"] == 1310
             ),
             None,
         )
@@ -325,7 +333,9 @@ class TestDuplicateDetectionFlow:
         self.t.execute.return_value = MagicMock(data=[])
         assert self.c.delete(f"/api/rca/history/{nid}").json()["ok"] is True
         # Check — empty
-        assert self.c.get("/api/rca/history?search=app.log&limit=50").json()["data"] == []
+        assert (
+            self.c.get("/api/rca/history?search=app.log&limit=50").json()["data"] == []
+        )
         # Re-save — must succeed
         nid2 = str(uuid.uuid4())
         self.t.execute.return_value = MagicMock(data=[{"id": nid2}])
