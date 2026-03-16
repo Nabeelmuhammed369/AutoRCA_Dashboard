@@ -186,7 +186,7 @@ def _render_charts(df: pd.DataFrame):
     with c_left:
         level_counts = df["level"].value_counts().reset_index()
         level_counts.columns = ["level", "count"]
-        level_counts["color"] = level_counts["level"].map(lambda l: colors.get(l, "#6b7280"))
+        level_counts["color"] = level_counts["level"].map(lambda i: colors.get(i, "#6b7280"))  # noqa: E741
         fig_donut = go.Figure(
             go.Pie(
                 labels=level_counts["level"],
@@ -261,7 +261,9 @@ def _render_log_table(df: pd.DataFrame):
     # ── Apply filters ─────────────────────────
     mask = df["level"].isin(sel_levels) & df["format"].isin(sel_formats)
     if search_term:
-        mask &= df["message"].str.contains(search_term, case=False, na=False) | df["source"].str.contains(search_term, case=False, na=False)
+        mask &= df["message"].str.contains(search_term, case=False, na=False) | df["source"].str.contains(
+            search_term, case=False, na=False
+        )
 
     filtered = df[mask].copy()
     st.caption(f"Showing **{len(filtered):,}** of **{len(df):,}** entries")

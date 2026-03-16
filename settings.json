@@ -1,0 +1,25 @@
+{
+  // ── Ruff as the only linter + formatter ──────────────────────
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+
+  // ── Disable conflicting linters ──────────────────────────────
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": false,
+  "python.linting.enabled": false,
+
+  // ── Ruff settings ────────────────────────────────────────────
+  "ruff.enable": true,
+  "ruff.fixAll": true,
+  "ruff.organizeImports": true,
+
+  // ── Show errors inline immediately ───────────────────────────
+  "editor.rulers": [120],
+  "python.analysis.typeCheckingMode": "basic"
+}

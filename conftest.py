@@ -2,11 +2,11 @@
 tests/conftest.py — Shared fixtures for AutoRCA test suite
 """
 
+import os
 import sqlite3
+import sys
 
 import pytest
-import sys
-import os
 
 # Insert project root at the front of sys.path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))

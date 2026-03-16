@@ -25,12 +25,15 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 def _call_groq(prompt: str) -> str:
     """Call Groq API — fast, free, no region restrictions."""
-    if not GROQ_API_KEY:
+    import Core.ai_analyzer as _self
+
+    api_key = _self.GROQ_API_KEY
+    if not api_key:
         raise ValueError("GROQ_API_KEY not found in .env file. Get a free key at console.groq.com")
     try:
         from groq import Groq
 
-        client = Groq(api_key=GROQ_API_KEY)
+        client = Groq(api_key=api_key)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",  # best free model on Groq
             messages=[{"role": "user", "content": prompt}],
@@ -38,8 +41,8 @@ def _call_groq(prompt: str) -> str:
             max_tokens=1024,
         )
         return response.choices[0].message.content.strip()
-    except ImportError:
-        raise ImportError("groq not installed. Run: pip install groq")
+    except ImportError as err:
+        raise ImportError("groq not installed. Run: pip install groq") from err
 
 
 # ── Feature 1: Incident Explanation ──────────────────────────────────────────
@@ -139,7 +142,9 @@ def generate_ticket_summary(classification, exceptions, api_result, db_result):
         null_emails = db_result.get("null_email_count", 0)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        sev_emoji = "🔴" if classification == "Infrastructure Issue" else "🟡" if classification != "System Healthy" else "✅"
+        sev_emoji = (
+            "🔴" if classification == "Infrastructure Issue" else "🟡" if classification != "System Healthy" else "✅"
+        )
 
         prompt = f"""You are a senior Site Reliability Engineer writing an incident report.
 

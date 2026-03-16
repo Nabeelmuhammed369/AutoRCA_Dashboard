@@ -43,7 +43,9 @@ if not is_connected():
     st.stop()
 
 meta = get_source_meta()
-st.caption(f"Source: **{get_source_label()}** · {meta.get('lines', 0):,} lines · Ingested: {meta.get('ingested_at', '')}")
+st.caption(
+    f"Source: **{get_source_label()}** · {meta.get('lines', 0):,} lines · Ingested: {meta.get('ingested_at', '')}"
+)
 st.divider()
 
 df = get_log_df()
@@ -74,7 +76,9 @@ mask = df["level"].isin(sel_levels) & df["format"].isin(sel_formats)
 if sel_sources:
     mask &= df["source"].isin(sel_sources)
 if search:
-    mask &= df["message"].str.contains(search, case=False, na=False) | df["source"].str.contains(search, case=False, na=False)
+    mask &= df["message"].str.contains(search, case=False, na=False) | df["source"].str.contains(
+        search, case=False, na=False
+    )
 
 filtered = df[mask].copy()
 

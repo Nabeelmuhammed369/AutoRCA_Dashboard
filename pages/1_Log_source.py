@@ -97,7 +97,7 @@ def _fetch_loki_logs(loki_url: str, query: str, hours: int, limit: int) -> str:
         data = resp.json()
         lines = []
         for stream in data.get("data", {}).get("result", []):
-            for ts, msg in stream.get("values", []):
+            for _ts, msg in stream.get("values", []):
                 lines.append(msg)
         return "\n".join(lines)
     except requests.RequestException as e:
@@ -239,7 +239,9 @@ def _render_upload_tab():
 # ─────────────────────────────────────────────
 def _render_integrations_tab():
     st.markdown("### 🔗 Connect Your Log Warehouse")
-    st.markdown("Connect AutoRCA directly to your centralized logging system. Logs are fetched live — no manual file export needed.")
+    st.markdown(
+        "Connect AutoRCA directly to your centralized logging system. Logs are fetched live — no manual file export needed."
+    )
 
     integration = st.selectbox(
         "Select your logging platform",
@@ -374,7 +376,9 @@ def _render_s3_form():
         with st.spinner("Fetching log files from S3…"):
             content = _fetch_s3_logs(bucket, prefix, aws_key, aws_secret, region)
         if content:
-            set_log_source_from_integration("s3", f"🔵 S3 · {bucket}/{prefix}", content, source_detail=f"s3://{bucket}/{prefix}")
+            set_log_source_from_integration(
+                "s3", f"🔵 S3 · {bucket}/{prefix}", content, source_detail=f"s3://{bucket}/{prefix}"
+            )
             st.success("✅ S3 connected!")
             st.rerun()
 

@@ -95,7 +95,9 @@ if not is_connected():
 # ─────────────────────────────────────────────
 st.title("📊 RCA Dashboard")
 meta = get_source_meta()
-st.caption(f"Analysing: **{get_source_label()}** · {meta.get('lines', 0):,} lines · Ingested: {meta.get('ingested_at', 'unknown')}")
+st.caption(
+    f"Analysing: **{get_source_label()}** · {meta.get('lines', 0):,} lines · Ingested: {meta.get('ingested_at', 'unknown')}"
+)
 st.divider()
 
 
@@ -283,7 +285,7 @@ with col_chart1:
                 labels=level_counts["level"],
                 values=level_counts["count"],
                 hole=0.55,
-                marker_colors=[LEVEL_COLORS.get(l, "#6b7280") for l in level_counts["level"]],
+                marker_colors=[LEVEL_COLORS.get(i, "#6b7280") for i in level_counts["level"]],  # noqa: E741
                 textinfo="label+percent",
             )
         )

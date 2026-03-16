@@ -16,12 +16,12 @@ Usage — set env vars then run:
   python push_to_grafana_cloud.py
 """
 
+import base64
 import json
 import os
 import time
-import base64
-import urllib.request
 import urllib.error
+import urllib.request
 
 # ── Credentials — read from environment variables ─────────────────────────────
 # Set these in your shell before running. Never hardcode real tokens here.

@@ -63,9 +63,30 @@ ELASTICSEARCH_RESPONSE = json.dumps(
                         "service": "database",
                     }
                 },
-                {"_source": {"@timestamp": "2026-03-08T10:00:01Z", "level": "CRITICAL", "message": "Complete database outage", "service": "database"}},
-                {"_source": {"@timestamp": "2026-03-08T10:00:02Z", "level": "ERROR", "message": "Connection timed out after 30s", "service": "network"}},
-                {"_source": {"@timestamp": "2026-03-08T10:00:03Z", "level": "ERROR", "message": "Gateway returned 502 Bad Gateway", "service": "api"}},
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:01Z",
+                        "level": "CRITICAL",
+                        "message": "Complete database outage",
+                        "service": "database",
+                    }
+                },
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:02Z",
+                        "level": "ERROR",
+                        "message": "Connection timed out after 30s",
+                        "service": "network",
+                    }
+                },
+                {
+                    "_source": {
+                        "@timestamp": "2026-03-08T10:00:03Z",
+                        "level": "ERROR",
+                        "message": "Gateway returned 502 Bad Gateway",
+                        "service": "api",
+                    }
+                },
                 {
                     "_source": {
                         "@timestamp": "2026-03-08T10:00:04Z",
