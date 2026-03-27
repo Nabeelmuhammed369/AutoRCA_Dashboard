@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AutoRCA · Live Stream Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Fira+Code:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 
+          400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+        },
+        surface: {
+          light: '#ffffff',
+          dark: '#0d0f0e',
+          dim: '#1a1d1c'
+        }
+      },
+      fontFamily: {
+        sans: ['Outfit', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
+      }
+    }
+  }
+}
+</script>
+<style>
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-blur: 12px;
+  --panel-bg: #f8faf9;
+}
+
+[data-theme="dark"] {
+  --glass-bg: rgba(13, 15, 14, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --panel-bg: #131615;
+}
+
+[data-theme="dim"] {
+  --glass-bg: rgba(26, 29, 28, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --panel-bg: #212524;
+}
+
+body {
+  background-color: var(--panel-bg);
+  transition: background-color 0.3s ease;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.log-grid {
+  display: grid;
+  grid-template-columns: 140px 80px 120px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.log-grid.cols-3 { grid-template-columns: 140px 80px 1fr; }
+.log-grid.cols-2 { grid-template-columns: 80px 1fr; }
+
+.log-row {
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.1s ease;
+}
+
+.log-row:hover {
+  background: rgba(34, 197, 94, 0.04);
+}
+
+.custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.2); border-radius: 10px; }
+.custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(128, 128, 128, 0.4); }
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+.live-dot { animation: pulse-dot 2s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+
+@keyframes row-in { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
+.row-new { animation: row-in 0.2s ease-out; }
+
+mark { background: rgba(245, 158, 11, 0.3); color: inherit; padding: 0 1px; border-radius: 2px; }
+
+/* Theme handling helper */
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dim"] { color-scheme: dark; }
+</style>
+</head>
+<body class="h-screen overflow-hidden flex font-sans text-slate-700 dark:text-slate-300">
+<!-- Sidebar -->
+<aside class="w-72 flex-shrink-0 border-r border-slate-200/50 dark:border-white/5 flex flex-col glass z-20" id="sidebar">
+<div class="p-6 border-b border-slate-200/50 dark:border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 bg-brand-500 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/20">
+<span class="material-symbols-outlined text-white text-xl">sensors</span>
+</div>
+<div>
+<h1 class="text-base font-bold text-slate-900 dark:text-white leading-tight">Live Stream</h1>
+<p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest">Aura Terminal v2.1</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-6">
+<!-- KPIs -->
+<section class="space-y-3">
+<h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">Health Metrics</h3>
+<div class="bg-slate-50 dark:bg-white/5 rounded-xl p-3 border border-slate-200/50 dark:border-white/5">
+<div class="flex justify-between items-end">
+<span class="text-xs text-slate-500">Critical Events</span>
+<span class="text-xl font-mono font-bold text-rose-500" id="sb-crit">0</span>
+</div>
+<div class="text-[10px] text-slate-400 mt-1" id="sb-crit-rate">0% of total feed</div>
+</div>
+<div class="bg-slate-50 dark:bg-white/5 rounded-xl p-3 border border-slate-200/50 dark:border-white/5">
+<div class="flex justify-between items-end">
+<span class="text-xs text-slate-500">Ingest Rate</span>
+<span class="text-xl font-mono font-bold text-brand-500" id="sb-lps">0.0</span>
+</div>
+<div class="text-[10px] text-slate-400 mt-1" id="sb-uptime">Uptime: —</div>
+</div>
+</section>
+<!-- Filters -->
+<section class="space-y-3">
+<h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">Severity Filter</h3>
+<div class="flex flex-wrap gap-1.5 px-1">
+<button class="filter-chip active text-[11px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-brand-500/50 transition-colors [&amp;.active]:bg-brand-500 [&amp;.active]:text-white [&amp;.active]:border-brand-500" onclick="setFilter('ALL',this)">All</button>
+<button class="filter-chip text-[11px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-rose-500 transition-colors [&amp;.active]:bg-rose-500 [&amp;.active]:text-white [&amp;.active]:border-rose-500" onclick="setFilter('CRITICAL',this)">Crit</button>
+<button class="filter-chip text-[11px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-rose-400 transition-colors [&amp;.active]:bg-rose-400 [&amp;.active]:text-white [&amp;.active]:border-rose-400" onclick="setFilter('ERROR',this)">Err</button>
+<button class="filter-chip text-[11px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-amber-500 transition-colors [&amp;.active]:bg-amber-500 [&amp;.active]:text-white [&amp;.active]:border-amber-500" onclick="setFilter('WARNING',this)">Warn</button>
+<button class="filter-chip text-[11px] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:border-brand-400 transition-colors [&amp;.active]:bg-brand-400 [&amp;.active]:text-white [&amp;.active]:border-brand-400" onclick="setFilter('INFO',this)">Info</button>
+</div>
+<div class="relative px-1 pt-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full pl-8 pr-3 py-2 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-mono focus:ring-1 focus:ring-brand-500 focus:border-brand-500 outline-none" id="search-input" oninput="onSearch(this.value)" placeholder="Search feed..." type="text"/>
+</div>
+</section>
+<!-- Visualization -->
+<section class="space-y-3">
+<h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">Pressure (30s)</h3>
+<div class="h-16 flex items-end gap-[2px] px-1 overflow-hidden" id="rate-chart">
+<!-- Sparkline Bars -->
+</div>
+</section>
+<!-- Sources -->
+<section class="space-y-3 pb-6">
+<h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-2">Traffic Sources</h3>
+<div class="space-y-2 px-1" id="sources-list">
+<div class="text-[11px] text-slate-400 italic px-1">Waiting for data...</div>
+</div>
+</section>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col relative">
+<!-- Topbar -->
+<header class="h-14 flex items-center justify-between px-6 border-b border-slate-200/50 dark:border-white/5 glass z-10">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-brand-500 transition-colors" onclick="window.close()">
+<span class="material-symbols-outlined text-base">arrow_back</span>
+          Dashboard
+        </button>
+<div class="h-4 w-px bg-slate-200 dark:bg-white/10"></div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400" id="status-pill">
+<span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+<span id="status-txt">Idle</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-4 px-4 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+<div class="flex flex-col">
+<span class="text-[8px] uppercase font-bold text-slate-400 leading-none mb-0.5">Total</span>
+<span class="font-mono text-xs font-bold leading-none" id="stat-total">0</span>
+</div>
+<div class="flex flex-col border-l border-slate-200 dark:border-white/10 pl-4">
+<span class="text-[8px] uppercase font-bold text-rose-400 leading-none mb-0.5">Errors</span>
+<span class="font-mono text-xs font-bold leading-none text-rose-500" id="stat-errors">0</span>
+</div>
+<div class="flex flex-col border-l border-slate-200 dark:border-white/10 pl-4">
+<span class="text-[8px] uppercase font-bold text-slate-400 leading-none mb-0.5" id="stat-rate-label">Rate</span>
+<span class="font-mono text-xs font-bold leading-none" id="stat-rate">0.0%</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" disabled="" id="btn-seek" onclick="wsSeek(100)" title="Replay Last 100">
+<span class="material-symbols-outlined text-lg">history</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/10 text-slate-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors" disabled="" id="btn-pause" onclick="togglePause()" title="Pause Stream">
+<span class="material-symbols-outlined text-lg">pause_circle</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 disabled:opacity-30 transition-colors" disabled="" id="btn-clear" onclick="clearFeed()" title="Clear Feed">
+<span class="material-symbols-outlined text-lg">delete_sweep</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-500 text-white text-xs font-bold shadow-lg shadow-brand-500/20 hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:scale-100 transition-all" disabled="" id="btn-save" onclick="saveSession()">
+<span class="material-symbols-outlined text-base">cloud_upload</span>
+            Save RCA
+          </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold hover:scale-[1.02] active:scale-95 transition-all" id="btn-connect" onclick="showConnect()">
+<span class="material-symbols-outlined text-base">bolt</span>
+            Connect
+          </button>
+<button class="hidden items-center gap-2 px-4 py-2 rounded-xl bg-rose-500 text-white text-xs font-bold hover:scale-[1.02] transition-all" disabled="" id="btn-disconnect" onclick="wsDisconnect()">
+             Disconnect
+          </button>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 flex flex-col min-h-0 relative">
+<!-- Connect Overlay Panel -->
+<div class="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm" id="connect-panel">
+<div class="w-full max-w-md glass p-8 rounded-3xl shadow-2xl space-y-6">
+<div class="text-center space-y-2">
+<div class="w-16 h-16 bg-brand-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-3xl text-brand-500">terminal</span>
+</div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Stream Configuration</h2>
+<p class="text-xs text-slate-500">Configure connection to the AutoRCA Live Engine</p>
+</div>
+<div class="space-y-4">
+<div class="grid grid-cols-3 gap-4">
+<div class="col-span-2 space-y-1.5">
+<label class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Host URL</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-xs font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none" id="cfg-url" placeholder="http://localhost:8000" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Lookback</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-xs font-mono outline-none" id="cfg-seek" type="number" value="50"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] uppercase font-bold text-slate-400 tracking-wider flex justify-between">
+                API Auth Key
+                <span class="font-normal lowercase italic opacity-60">optional for local dev</span>
+</label>
+<input class="w-full px-4 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-xs font-mono outline-none" id="cfg-key" placeholder="••••••••••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full py-3.5 bg-brand-500 hover:bg-brand-600 text-white rounded-2xl font-bold shadow-xl shadow-brand-500/30 transition-all transform active:scale-95" onclick="doConnect()">
+            Initialize Live Session
+          </button>
+</div>
+</div>
+<!-- Live Feed View -->
+<div class="flex-1 flex flex-col hidden overflow-hidden" id="feed-wrap">
+<!-- Feed Controls -->
+<div class="px-6 py-2 border-b border-slate-200/50 dark:border-white/5 flex items-center justify-between glass">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Feed Stream</span>
+<span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-brand-500/10 text-brand-500" id="feed-count">0 rows</span>
+</div>
+<div class="flex items-center gap-1 p-1 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/5">
+<button class="col-btn active text-[9px] font-bold px-2 py-1 rounded transition-colors [&amp;.active]:bg-white dark:[&amp;.active]:bg-white/10 [&amp;.active]:shadow-sm" id="col-4" onclick="setCols(4)">FULL</button>
+<button class="col-btn text-[9px] font-bold px-2 py-1 rounded transition-colors [&amp;.active]:bg-white dark:[&amp;.active]:bg-white/10" id="col-3" onclick="setCols(3)">COMPACT</button>
+<button class="col-btn text-[9px] font-bold px-2 py-1 rounded transition-colors [&amp;.active]:bg-white dark:[&amp;.active]:bg-white/10" id="col-2" onclick="setCols(2)">MINIMAL</button>
+</div>
+</div>
+<!-- Feed Headers -->
+<div class="log-grid px-6 py-2 bg-slate-50/50 dark:bg-white/[0.02] border-b border-slate-200/50 dark:border-white/5 text-[10px] font-bold text-slate-400 uppercase tracking-wider" id="col-header">
+<div>Timestamp</div>
+<div>Level</div>
+<div>Source</div>
+<div>Message</div>
+</div>
+<!-- Feed Container -->
+<div class="flex-1 overflow-y-auto custom-scroll relative" id="feed-container">
+<div class="flex flex-col" id="feed">
+<!-- Rows injected here -->
+</div>
+<!-- Jump to bottom floating btn -->
+<button class="hidden absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-slate-900/90 dark:bg-brand-500/90 backdrop-blur-md text-white text-[11px] font-bold shadow-2xl items-center gap-2 hover:scale-105 active:scale-95 transition-all" id="autoscroll-btn" onclick="scrollToBottom()">
+<span class="material-symbols-outlined text-base">expand_more</span>
+            Jump to Latest
+          </button>
+</div>
+</div>
+</div>
+<!-- Mode Toggle (Bottom Left Corner) -->
+<div class="absolute bottom-6 right-6 z-30 flex items-center gap-1 p-1 rounded-2xl glass shadow-xl">
+<button class="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors" onclick="setGlobalTheme('light')" title="Light Mode">
+<span class="material-symbols-outlined text-lg">light_mode</span>
+</button>
+<button class="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors" onclick="setGlobalTheme('dim')" title="Dim Mode">
+<span class="material-symbols-outlined text-lg">contrast</span>
+</button>
+<button class="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/10 transition-colors" onclick="setGlobalTheme('dark')" title="Dark Mode">
+<span class="material-symbols-outlined text-lg">dark_mode</span>
+</button>
+</div>
+</main>
+<script>
+'use strict';
+
+/* ── State ── */
+let _ws=null, _wsState='idle', _paused=false;
+let _total=0, _errors=0, _warn=0, _crit=0;
+let _startTime=null, _reconnectTimer=null, _reconnectDelay=2000;
+let _rows=[], _filter='ALL', _search='', _cols=4, _autoScroll=true;
+let _sources={}, _errThisTick=0, _rateHistory=new Array(30).fill(0), _rateInterval=null;
+const MAX_ROWS=20000, DOM_MAX=500;
+
+/* ── DOM Elements ── */
+const feed = document.getElementById('feed');
+const feedWrap = document.getElementById('feed-wrap');
+const connectPanel = document.getElementById('connect-panel');
+const feedContainer = document.getElementById('feed-container');
+const autoscrollBtn = document.getElementById('autoscroll-btn');
+
+/* ── Theme Management ── */
+function setGlobalTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.remove('light', 'dark');
+  if (theme === 'dark' || theme === 'dim') document.documentElement.classList.add('dark');
+  localStorage.setItem('autorca_theme', theme);
+}
+
+// Initial theme load
+(function(){
+  const t = localStorage.getItem('autorca_theme') || 'dark';
+  setGlobalTheme(t);
+})();
+
+/* ── Scroll Logic ── */
+feedContainer.addEventListener('scroll', () => {
+  const atBottom = feedContainer.scrollHeight - feedContainer.scrollTop - feedContainer.clientHeight < 60;
+  _autoScroll = atBottom;
+  autoscrollBtn.style.display = atBottom ? 'none' : 'flex';
+});
+
+function scrollToBottom() {
+  feedContainer.scrollTo({ top: feedContainer.scrollHeight, behavior: 'smooth' });
+  _autoScroll = true;
+  autoscrollBtn.style.display = 'none';
+}
+
+/* ── Navigation ── */
+function showConnect() {
+  document.getElementById('cfg-url').value = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
+  connectPanel.classList.remove('hidden');
+  feedWrap.classList.add('hidden');
+}
+
+function doConnect() {
+  const base = (document.getElementById('cfg-url').value || '').trim() || 'http://localhost:8000';
+  const key = (document.getElementById('cfg-key').value || '').trim();
+  const seek = parseInt(document.getElementById('cfg-seek').value) || 0;
+  localStorage.setItem('autorca_api_base', base);
+  if (key) localStorage.setItem('autorca_api_key', key);
+  wsConnect(base, key, seek);
+}
+
+/* ── WebSocket Controller ── */
+function wsConnect(base, key, seek) {
+  if (_ws && _ws.readyState <= 1) { showToast('Already connected', 'warn'); return; }
+  
+  base = base || localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  key = key !== undefined ? key : (localStorage.getItem('autorca_api_key') || '');
+  seek = seek !== undefined ? seek : 0;
+  
+  const url = base.replace(/^http/, 'ws') + `/ws/logs?key=${encodeURIComponent(key)}&seek=${seek}`;
+  setState('connecting');
+  
+  try {
+    _ws = new WebSocket(url);
+  } catch(e) {
+    setState('error');
+    showToast('Invalid URL: ' + e.message, 'err');
+    return;
+  }
+
+  _ws.onopen = () => {
+    _reconnectDelay = 2000;
+    clearTimeout(_reconnectTimer);
+  };
+
+  _ws.onmessage = evt => {
+    try {
+      handleFrame(JSON.parse(evt.data));
+    } catch(e) {}
+  };
+
+  _ws.onclose = evt => {
+    const ok = evt.code === 1000 || evt.code === 4401 || evt.code === 4404;
+    setState('idle');
+    stopRateInterval();
+    if (!ok && _wsState !== 'idle') {
+      const d = _reconnectDelay;
+      _reconnectDelay = Math.min(_reconnectDelay * 2, 30000);
+      showToast(`Reconnecting in ${Math.round(d/1000)}s…`, 'warn');
+      _reconnectTimer = setTimeout(() => wsConnect(), d);
+    } else if (evt.code === 4401) {
+      showToast('Auth failed — check API key', 'err');
+    }
+  };
+
+  _ws.onerror = () => {
+    setState('error');
+    showToast('WebSocket error — engine not reachable', 'err');
+  };
+}
+
+function wsDisconnect() {
+  clearTimeout(_reconnectTimer);
+  _reconnectDelay = 2000;
+  if (_ws) { _ws.close(1000, 'User disconnected'); _ws = null; }
+  setState('idle');
+  stopRateInterval();
+  showToast('Disconnected');
+}
+
+function wsSeek(n) {
+  if (!_ws || _ws.readyState !== 1) return;
+  _ws.send(JSON.stringify({ type: 'seek', lines: n }));
+  showToast(`Replaying last ${n} lines...`);
+}
+
+function togglePause() {
+  if (!_ws || _ws.readyState !== 1) return;
+  _paused = !_paused;
+  _ws.send(JSON.stringify({ type: _paused ? 'pause' : 'resume' }));
+  setState(_paused ? 'paused' : 'live');
+  const btn = document.getElementById('btn-pause');
+  btn.querySelector('span').textContent = _paused ? 'play_circle' : 'pause_circle';
+  btn.title = _paused ? 'Resume Stream' : 'Pause Stream';
+}
+
+/* ── Feed Handlers ── */
+function handleFrame(frame) {
+  if (frame.type === 'connected') {
+    setState('live');
+    _startTime = Date.now();
+    _total = _errors = _warn = _crit = 0;
+    _rows = [];
+    _sources = {};
+    feed.innerHTML = '';
+    connectPanel.classList.add('hidden');
+    feedWrap.classList.remove('hidden');
+    startRateInterval();
+    updateStats();
+    showToast(`Session established: ${frame.file || 'live'}`);
+  } else if (frame.type === 'line') {
+    const e = frame.parsed || {};
+    if (!e.message) return;
+    ingestEntry(e);
+  } else if (frame.type === 'stats') {
+    const d = frame.data || {};
+    if ((d.total || 0) > _total) {
+      _total = d.total || _total;
+      _errors = d.err || _errors;
+      _warn = d.warn || _warn;
+      _crit = d.crit || _crit;
+      updateStats();
+    }
+  } else if (frame.type === 'error') {
+    showToast(frame.msg, 'err');
+  } else if (frame.type === 'ping') {
+    if (_ws && _ws.readyState === 1) _ws.send(JSON.stringify({ type: 'pong' }));
+  }
+}
+
+function ingestEntry(entry) {
+  _total++;
+  const lvl = (entry.level || 'INFO').toUpperCase();
+  if (lvl === 'ERROR' || lvl === 'CRITICAL') { _errors++; _errThisTick++; }
+  if (lvl === 'WARNING') _warn++;
+  if (lvl === 'CRITICAL') _crit++;
+  
+  const src = entry.source || 'unknown';
+  if (!_sources[src]) _sources[src] = { total: 0, err: 0 };
+  _sources[src].total++;
+  if (lvl === 'ERROR' || lvl === 'CRITICAL') _sources[src].err++;
+  
+  _rows.push(entry);
+  if (_rows.length > MAX_ROWS) _rows.shift();
+  
+  if (passesFilter(entry)) {
+    appendRow(entry, true);
+    if (_autoScroll) {
+      requestAnimationFrame(() => { feedContainer.scrollTop = feedContainer.scrollHeight; });
+    }
+  }
+  
+  if (_total % 5 === 0) updateStats();
+}
+
+function passesFilter(entry) {
+  const lvl = (entry.level || '').toUpperCase();
+  if (_filter !== 'ALL' && lvl !== _filter) return false;
+  if (_search) {
+    const h = `${entry.message || ''} ${entry.source || ''} ${entry.timestamp || ''}`.toLowerCase();
+    if (!h.includes(_search.toLowerCase())) return false;
+  }
+  return true;
+}
+
+function setFilter(level, btn) {
+  _filter = level;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  rebuildFeed();
+}
+
+function onSearch(q) {
+  _search = q.trim();
+  rebuildFeed();
+}
+
+function rebuildFeed() {
+  feed.innerHTML = '';
+  const visible = _rows.filter(passesFilter);
+  const frag = document.createDocumentFragment();
+  visible.slice(-DOM_MAX).forEach(e => frag.appendChild(makeRow(e, false)));
+  feed.appendChild(frag);
+  updateFeedCount(visible.length);
+  if (_autoScroll) feedContainer.scrollTop = feedContainer.scrollHeight;
+}
+
+/* ── UI Rendering ── */
+function makeRow(entry, isNew) {
+  const row = document.createElement('div');
+  const lvl = (entry.level || 'INFO').toUpperCase();
+  row.className = `log-row log-grid cols-${_cols} px-6 py-2.5 text-[11px] font-mono leading-relaxed ${isNew ? 'row-new' : ''}`;
+  
+  let lvlColor = 'text-slate-400';
+  let bgColor = '';
+  if (lvl === 'CRITICAL') { lvlColor = 'text-rose-600 font-bold'; bgColor = 'bg-rose-500/5'; }
+  else if (lvl === 'ERROR') { lvlColor = 'text-rose-500 font-bold'; bgColor = 'bg-rose-400/5'; }
+  else if (lvl === 'WARNING') { lvlColor = 'text-amber-500'; bgColor = 'bg-amber-400/5'; }
+  else if (lvl === 'INFO') { lvlColor = 'text-brand-500'; }
+  
+  if (bgColor) row.className += ' ' + bgColor;
+
+  const msgHtml = _search ? escHtml(entry.message || '').replace(new RegExp(escRe(_search), 'gi'), m => `<mark>${m}</mark>`) : escHtml(entry.message || '');
+  
+  const ts = `<div class="text-slate-400 opacity-60">${fmtTs(entry.timestamp)}</div>`;
+  const badge = `<div><span class="${lvlColor} px-1.5 py-0.5 rounded border border-current/20 text-[9px]">${lvl}</span></div>`;
+  const source = `<div class="text-brand-500 truncate font-semibold" title="${escHtml(entry.source)}">${escHtml(entry.source || '—')}</div>`;
+  const msg = `<div class="text-slate-700 dark:text-slate-300 break-all whitespace-pre-wrap">${msgHtml}</div>`;
+
+  if (_cols === 4) row.innerHTML = ts + badge + source + msg;
+  else if (_cols === 3) row.innerHTML = ts + badge + msg;
+  else row.innerHTML = badge + msg;
+  
+  return row;
+}
+
+function appendRow(entry, isNew) {
+  if (feed.children.length >= DOM_MAX) feed.removeChild(feed.firstChild);
+  feed.appendChild(makeRow(entry, isNew));
+  updateFeedCount();
+}
+
+function setCols(n) {
+  _cols = n;
+  document.querySelectorAll('.col-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`col-${n}`).classList.add('active');
+  
+  const hdr = document.getElementById('col-header');
+  hdr.className = `log-grid cols-${n} px-6 py-2 bg-slate-50/50 dark:bg-white/[0.02] border-b border-slate-200/50 dark:border-white/5 text-[10px] font-bold text-slate-400 uppercase tracking-wider`;
+  
+  const hts = '<div>Timestamp</div>';
+  const hlv = '<div>Level</div>';
+  const hsrc = '<div>Source</div>';
+  const hmsg = '<div>Message</div>';
+  
+  if (n === 4) hdr.innerHTML = hts + hlv + hsrc + hmsg;
+  else if (n === 3) hdr.innerHTML = hts + hlv + hmsg;
+  else hdr.innerHTML = hlv + hmsg;
+  
+  rebuildFeed();
+}
+
+function clearFeed() {
+  _rows = []; _total = _errors = _warn = _crit = 0; _sources = {};
+  feed.innerHTML = '';
+  updateStats();
+  updateSources();
+}
+
+/* ── Stats & Viz ── */
+function updateStats() {
+  const rate = _total > 0 ? (_errors / _total * 100).toFixed(1) : '0.0';
+  const rn = parseFloat(rate);
+  
+  document.getElementById('stat-total').textContent = _total.toLocaleString();
+  document.getElementById('stat-errors').textContent = _errors.toLocaleString();
+  document.getElementById('stat-rate').textContent = rate + '%';
+  document.getElementById('sb-crit').textContent = _crit.toLocaleString();
+  
+  const cr = document.getElementById('sb-crit-rate');
+  if (cr) cr.textContent = `${_total > 0 ? (_crit / _total * 100).toFixed(1) : 0}% of total feed`;
+  
+  const rEl = document.getElementById('stat-rate');
+  if (rEl) rEl.style.color = rn > 20 ? '#f43f5e' : rn > 5 ? '#f59e0b' : 'inherit';
+  
+  if (_startTime) {
+    const sec = (Date.now() - _startTime) / 1000;
+    document.getElementById('sb-lps').textContent = sec > 0 ? (_total / sec).toFixed(1) : '0.0';
+    document.getElementById('sb-uptime').textContent = 'Uptime: ' + fmtDuration(sec);
+  }
+  
+  updateSources();
+  updateFeedCount();
+  document.getElementById('btn-save').disabled = _rows.length === 0;
+}
+
+function updateFeedCount(count) {
+  const n = count !== undefined ? count : feed.children.length;
+  document.getElementById('feed-count').textContent = n.toLocaleString() + ' rows';
+}
+
+function updateSources() {
+  const list = document.getElementById('sources-list');
+  const entries = Object.entries(_sources).sort((a, b) => b[1].total - a[1].total).slice(0, 5);
+  
+  if (!entries.length) {
+    list.innerHTML = '<div class="text-[11px] text-slate-400 italic px-1">Waiting for data...</div>';
+    return;
+  }
+  
+  const maxT = entries[0][1].total;
+  list.innerHTML = entries.map(([src, d]) => `
+    <div class="space-y-1">
+      <div class="flex justify-between text-[11px] px-1">
+        <span class="truncate font-mono font-medium max-w-[140px]">${escHtml(src)}</span>
+        <span class="text-slate-400 font-mono">${d.total}</span>
+      </div>
+      <div class="h-1 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
+        <div class="h-full bg-brand-500/50 rounded-full" style="width: ${Math.round(d.total/maxT*100)}%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function startRateInterval() {
+  stopRateInterval();
+  _rateHistory = new Array(40).fill(0);
+  _rateInterval = setInterval(() => {
+    _rateHistory.push(_errThisTick);
+    if (_rateHistory.length > 40) _rateHistory.shift();
+    _errThisTick = 0;
+    renderSparkline();
+  }, 1000);
+}
+
+function stopRateInterval() {
+  if (_rateInterval) { clearInterval(_rateInterval); _rateInterval = null; }
+}
+
+function renderSparkline() {
+  const chart = document.getElementById('rate-chart');
+  const max = Math.max(1, ..._rateHistory);
+  chart.innerHTML = _rateHistory.map((v, i) => {
+    const h = Math.max(2, Math.round(v / max * 64));
+    const op = (0.3 + 0.7 * (i / 39)).toFixed(2);
+    const col = v > 0 ? `rgba(244, 63, 94, ${op})` : `rgba(34, 197, 94, ${(parseFloat(op)*0.1).toFixed(2)})`;
+    return `<div class="flex-1 rounded-t-sm" style="height:${h}px; background:${col};"></div>`;
+  }).join('');
+}
+
+/* ── UI States ── */
+function setState(s) {
+  _wsState = s;
+  const pill = document.getElementById('status-pill');
+  const txt = document.getElementById('status-txt');
+  
+  const config = {
+    live: { text: 'Live', color: 'text-brand-500 bg-brand-500/10 border-brand-500/20' },
+    connecting: { text: 'Connecting', color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
+    paused: { text: 'Paused', color: 'text-slate-400 bg-slate-400/10 border-slate-400/20' },
+    error: { text: 'Error', color: 'text-rose-500 bg-rose-500/10 border-rose-500/20' },
+    idle: { text: 'Idle', color: 'text-slate-400 bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10' }
+  };
+  
+  const c = config[s] || config.idle;
+  pill.className = `flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold ${c.color}`;
+  pill.querySelector('span').classList.toggle('live-dot', s === 'live');
+  txt.textContent = c.text;
+
+  const connected = (s === 'live' || s === 'paused');
+  const dis = (id, v) => { const el = document.getElementById(id); if(el) el.disabled = v; };
+  
+  dis('btn-seek', !connected);
+  dis('btn-pause', !connected);
+  dis('btn-clear', !connected);
+  
+  const connBtn = document.getElementById('btn-connect');
+  const discBtn = document.getElementById('btn-disconnect');
+  
+  if (connected || s === 'connecting') {
+    connBtn.style.display = 'none';
+    discBtn.style.display = 'flex';
+    discBtn.disabled = false;
+  } else {
+    connBtn.style.display = 'flex';
+    discBtn.style.display = 'none';
+  }
+}
+
+/* ── Persistence ── */
+async function saveSession() {
+  if (_rows.length === 0) return;
+  const base = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  const key = localStorage.getItem('autorca_api_key') || '';
+  const rate = _total > 0 ? parseFloat((_errors / _total * 100).toFixed(2)) : 0;
+  
+  const btn = document.getElementById('btn-save');
+  const origHtml = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="material-symbols-outlined text-base animate-spin">sync</span> Saving...`;
+
+  const payload = {
+    source_name: `Live Capture · ${new Date().toLocaleTimeString()}`,
+    severity: _crit > 0 ? 'critical' : rate > 10 ? 'warning' : 'healthy',
+    total_entries: _total, error_count: _errors, warn_count: _warn,
+    ai_summary: `Captured ${_total} events. Observed ${_errors} errors across ${Object.keys(_sources).length} sources.`,
+    stats: { total: _total, err: _errors, error_rate: rate },
+    exceptions: _rows.filter(r => ['ERROR','CRITICAL'].includes((r.level||'').toUpperCase())).slice(-15).map(r => r.message || '')
+  };
+
+  try {
+    const res = await fetch(`${base}/api/rca/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': key },
+      body: JSON.stringify(payload)
+    });
+    const d = await res.json();
+    if (d.ok) {
+      showToast('Session saved to Supabase');
+      btn.innerHTML = `<span class="material-symbols-outlined text-base">check_circle</span> Saved`;
+      setTimeout(() => { btn.innerHTML = origHtml; btn.disabled = false; }, 3000);
+    } else {
+      throw new Error(d.detail || 'Save failed');
+    }
+  } catch(e) {
+    showToast(e.message, 'err');
+    btn.innerHTML = origHtml;
+    btn.disabled = false;
+  }
+}
+
+/* ── Helpers ── */
+function fmtTs(ts) {
+  if (!ts) return '--:--:--';
+  const d = new Date(ts);
+  if (isNaN(d)) return (ts || '').slice(11, 19);
+  return d.toLocaleTimeString('en-GB', { hour12: false }) + '.' + String(d.getMilliseconds()).padStart(3, '0');
+}
+
+function fmtDuration(s) {
+  if (s < 60) return `${Math.round(s)}s`;
+  if (s < 3600) return `${Math.floor(s/60)}m ${Math.round(s%60)}s`;
+  return `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function showToast(msg, type) {
+  const t = document.createElement('div');
+  const themeClasses = type === 'err' ? 'bg-rose-500 text-white' : type === 'warn' ? 'bg-amber-500 text-white' : 'bg-slate-900 dark:bg-white dark:text-slate-900 text-white';
+  t.className = `fixed bottom-24 right-6 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl z-[100] transition-all transform translate-y-2 opacity-0 ${themeClasses}`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => { t.classList.remove('translate-y-2', 'opacity-0'); });
+  setTimeout(() => {
+    t.classList.add('translate-y-2', 'opacity-0');
+    setTimeout(() => t.remove(), 300);
+  }, 3000);
+}
+
+/* ── Initializer ── */
+document.addEventListener('DOMContentLoaded', () => {
+  setState('idle');
+  renderSparkline();
+  const base = localStorage.getItem('autorca_api_base');
+  if (base) {
+    document.getElementById('cfg-url').value = base;
+    document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
+  }
+});
+
+window.addEventListener('beforeunload', () => { if(_ws) _ws.close(1000); });
+</script>
+</body></html>

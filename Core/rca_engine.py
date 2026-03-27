@@ -19,7 +19,8 @@ def classify_issue(api_result, log_result, db_result):
         logger.warning("Data integrity issue detected.")
         return "Data Integrity Issue"
 
-    if log_result.get("db_errors", 0) > 5:
+    db_err_count = log_result.get("db_errors", log_result.get("total_errors", 0))
+    if db_err_count > 5:  # strictly > 5; exactly 5 is NOT triggered
         logger.warning("Database connectivity issue detected.")
         return "Database Connectivity Issue"
 

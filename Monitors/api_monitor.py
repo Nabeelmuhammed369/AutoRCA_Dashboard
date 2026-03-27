@@ -16,6 +16,7 @@ def check_api_health(url, timeout):
         return {
             "status_code": response.status_code,
             "response_time": response.elapsed.total_seconds(),
+            "error": None,
         }
 
     except requests.exceptions.Timeout:

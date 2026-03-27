@@ -1,19 +1,19 @@
 """
-Monitors/log_analyzer.py — Refactored Log Analyzer
-────────────────────────────────────────────────────
-What changed:
-  ✅ analyze_logs() no longer takes a file path
-  ✅ analyze_logs() accepts a pandas DataFrame from session state
-  ✅ analyze_logs_from_text() accepts raw string content
-  ✅ Old file-based function kept as analyze_logs_from_file() for CLI use only
+# Monitors/log_analyzer.py — Refactored Log Analyzer
+# ────────────────────────────────────────────────────
+# What changed:
+#   ✅ analyze_logs() no longer takes a file path
+#   ✅ analyze_logs() accepts a pandas DataFrame from session state
+#   ✅ analyze_logs_from_text() accepts raw string content
+#   ✅ Old file-based function kept as analyze_logs_from_file() for CLI use only
 
-Usage in dashboard / rca_engine:
-    from log_source_manager import get_log_df
-    from Monitors.log_analyzer import analyze_logs
+# Usage in dashboard / rca_engine:
+#     from log_source_manager import get_log_df
+#     from Monitors.log_analyzer import analyze_logs
 
-    df = get_log_df()
-    result = analyze_logs(df)
-"""
+#     df = get_log_df()
+#     result = analyze_logs(df)
+#"""
 
 import logging
 import os
@@ -49,19 +49,39 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
     # Exceptions: all error messages, prioritise CRITICAL/FATAL first
     exceptions = []
     for level in ("FATAL", "CRITICAL", "ERROR"):
-        subset = df[df["level"] == level]["message"].dropna().tolist()
+        subset = df[df["level"] == level]["message"].dropna().tolist() if "level" in df.columns else []
         exceptions.extend(subset)
     exceptions = exceptions[:100]  # cap for performance
 
+    # ── Stacktrace detection ─────────────────────────────────────────────────
+    # Check "extra" column first (structured), then fall back to message text
     has_stacktrace = False
     if "extra" in df.columns:
         has_stacktrace = df["extra"].apply(lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)).any()
+    if not has_stacktrace and "message" in df.columns:
+        has_stacktrace = bool(
+            df["message"].astype(str).str.contains(r"Traceback|^\s+at\s|^\s+File\s\"", regex=True, na=False).any()
+        )
 
     top_sources = {}
     if "source" in df.columns:
         top_sources = df["source"].value_counts().head(5).to_dict()
 
-    formats = df["format"].unique().tolist() if "format" in df.columns else []
+    # ── Format detection ─────────────────────────────────────────────────────
+    # Use "format" column if it has meaningful values; otherwise infer from content
+    raw_formats = df["format"].unique().tolist() if "format" in df.columns else []
+    # Strip sentinel/error values that are not real format names
+    meaningful = [f for f in raw_formats if f and str(f).upper() not in ("ERROR", "UNKNOWN", "NONE", "")]
+    formats = list(meaningful)
+
+    # Infer JSON format from message content when not already present
+    if "json" not in formats and "message" in df.columns:
+        if df["message"].astype(str).str.strip().str.startswith("{").any():
+            formats.append("json")
+
+    # Fall back to "plain" so the list is never empty for non-empty DataFrames
+    if not formats:
+        formats = ["plain"]
 
     result = {
         "total_errors": int(errors.shape[0]),
@@ -73,7 +93,8 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
     }
 
     logger.info(
-        f"Log analysis complete: {result['total_errors']} errors, {result['total_warnings']} warnings, {len(formats)} formats"
+        f"Log analysis complete: {result['total_errors']} errors, "
+        f"{result['total_warnings']} warnings, {len(formats)} formats"
     )
     return result
 

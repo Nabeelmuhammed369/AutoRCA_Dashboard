@@ -1600,6 +1600,9 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
     <button class="sb-nav-item" id="sb-rca-history" onclick="goScreen('rca-history',this)">
       <span class="sb-icon"><i data-lucide="clock" class="icon-md"></i></span><span class="sb-label">RCA History</span>
     </button>
+    <button class="sb-nav-item" id="sb-live-stream" onclick="openLiveStream()" title="Open Live Stream">
+      <span class="sb-icon"><i data-lucide="radio" class="icon-md"></i></span><span class="sb-label">Live Stream</span>
+    </button>
 
   </div>
 
@@ -1666,7 +1669,7 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
           <i data-lucide="bell-ring" class="icon-sm"></i>
           <span id="alert-rules-badge"></span>
         </button>
-        <button class="tb-icon-btn" onclick="wsConnect(50)" id="ws-connect-btn" title="Connect live stream (last 50 lines)"><i data-lucide="radio" class="icon-sm"></i></button>
+        <button class="tb-icon-btn" onclick="openLiveStream()" id="ws-connect-btn" title="Open Live Stream"><i data-lucide="radio" class="icon-sm"></i></button>
       <span id="clock"></span>
     </div>
   </div>
@@ -3249,6 +3252,12 @@ function cycleLayout(){
 }
 
 /* ═══ NAVIGATION ═════════════════════════════════════════════ */
+function openLiveStream(){
+  /* Pass current theme and API settings to the livestream page via localStorage */
+  /* (already stored there by setTheme and settings panel — nothing extra needed) */
+  window.open('autorca_livestream.html','autorca_livestream','noopener');
+}
+
 function goScreen(name,btn){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById('screen-'+name);
