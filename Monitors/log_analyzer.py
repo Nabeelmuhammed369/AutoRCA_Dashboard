@@ -1,26 +1,35 @@
-"""
-# Monitors/log_analyzer.py — Refactored Log Analyzer
-# ────────────────────────────────────────────────────
-# What changed:
-#   ✅ analyze_logs() no longer takes a file path
-#   ✅ analyze_logs() accepts a pandas DataFrame from session state
-#   ✅ analyze_logs_from_text() accepts raw string content
-#   ✅ Old file-based function kept as analyze_logs_from_file() for CLI use only
-
-# Usage in dashboard / rca_engine:
-#     from log_source_manager import get_log_df
-#     from Monitors.log_analyzer import analyze_logs
-
-#     df = get_log_df()
-#     result = analyze_logs(df)
-#"""
-
+import json
 import logging
 import os
 
 import pandas as pd
 
 logger = logging.getLogger("LOG_ANALYZER")
+
+
+def detect_format(line):
+    try:
+        json.loads(line)
+        return "json"
+    except (ValueError, TypeError):
+        return "plaintext"
+
+
+# Log levels that must never be treated as format identifiers
+_NOT_FORMAT = {
+    "ERROR",
+    "CRITICAL",
+    "WARNING",
+    "WARN",
+    "INFO",
+    "DEBUG",
+    "NOTICE",
+    "FATAL",
+    "SEVERE",
+    "UNKNOWN",
+    "NONE",
+    "",
+}
 
 
 # ─────────────────────────────────────────────
@@ -57,12 +66,30 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
     # Check "extra" column first (structured), then fall back to message text
     has_stacktrace = False
     if "extra" in df.columns:
-        has_stacktrace = df["extra"].apply(lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)).any()
+        # FIX: also handle string "True"/"true" values in extra, not just dict
+        def _check_extra(x):
+            if isinstance(x, dict):
+                return bool(x.get("has_stacktrace", False))
+            if isinstance(x, str):
+                try:
+                    parsed = json.loads(x)
+                    if isinstance(parsed, dict):
+                        return bool(parsed.get("has_stacktrace", False))
+                except (ValueError, TypeError):
+                    pass
+            return False
+
+        has_stacktrace = df["extra"].apply(_check_extra).any()
+
     if not has_stacktrace and "message" in df.columns:
         has_stacktrace = bool(
             df["message"]
             .astype(str)
-            .str.contains(r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread", regex=True, na=False)
+            .str.contains(
+                r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread",
+                regex=True,
+                na=False,
+            )
             .any()
         )
 
@@ -71,23 +98,14 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
         top_sources = df["source"].value_counts().head(5).to_dict()
 
     # ── Format detection ─────────────────────────────────────────────────────
-    # Use "format" column if it has meaningful values; otherwise infer from content
-    _NOT_FORMAT = {
-        "ERROR",
-        "CRITICAL",
-        "WARNING",
-        "WARN",
-        "INFO",
-        "DEBUG",
-        "NOTICE",
-        "FATAL",
-        "SEVERE",
-        "UNKNOWN",
-        "NONE",
-        "",
-    }
-    raw_formats = df["format"].unique().tolist() if "format" in df.columns else []
-    meaningful = [f for f in raw_formats if f and str(f).upper() not in _NOT_FORMAT]
+    # FIX: strip log-level names that bleed into the "format" column
+    if "format" in df.columns:
+        raw_formats = df["format"].dropna().unique().tolist()
+        # Filter out anything that is actually a log level, not a real format
+        meaningful = [f for f in raw_formats if str(f).strip() and str(f).upper() not in _NOT_FORMAT]
+    else:
+        meaningful = []
+
     formats = list(meaningful)
 
     # Infer JSON format from message content when not already present
@@ -121,7 +139,6 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
 def analyze_logs_from_text(raw_content: str) -> dict:
     """
     Parse raw log text and analyse it.
-    Used by api_server.py /api/run after /api/ingest.
     """
     from log_parser import parse_log_content
 

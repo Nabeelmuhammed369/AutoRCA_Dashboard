@@ -20,7 +20,7 @@ def classify_issue(api_result, log_result, db_result):
         return "Data Integrity Issue"
 
     db_err_count = log_result.get("db_errors", 0)
-    if db_err_count > 5:  # strictly > 5; exactly 5 is NOT triggered
+    if db_err_count > 5:  # FIX: strictly > 5 — exactly 5 must NOT trigger this
         logger.warning("Database connectivity issue detected.")
         return "Database Connectivity Issue"
 
