@@ -16,8 +16,8 @@ def check_api_health(url, timeout):
         elapsed = response.elapsed.total_seconds()
         return {
             "status_code": response.status_code,
-            "response_time": elapsed,   # primary key (tests expect this)
-            "latency_ms": elapsed,      # alias kept for backward compat
+            "response_time": elapsed,  # primary key (tests expect this)
+            "latency_ms": elapsed,  # alias kept for backward compat
             "error": None,
         }
 
