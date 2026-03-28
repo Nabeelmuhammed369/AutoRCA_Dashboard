@@ -61,10 +61,10 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
         has_stacktrace = df["extra"].apply(lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)).any()
     if not has_stacktrace and "message" in df.columns:
         has_stacktrace = bool(
-            df["message"]
-            .astype(str)
-            .str.contains(r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread", regex=True, na=False)
-            .any()
+            df["message"].astype(str).str.contains(
+                r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread",
+                regex=True, na=False
+            ).any()
         )
 
     top_sources = {}
@@ -77,18 +77,8 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
     # not format names and appear when the parser falls back to writing the level
     # into the format column.
     _NOT_FORMAT = {
-        "ERROR",
-        "CRITICAL",
-        "WARNING",
-        "WARN",
-        "INFO",
-        "DEBUG",
-        "NOTICE",
-        "FATAL",
-        "SEVERE",
-        "UNKNOWN",
-        "NONE",
-        "",
+        "ERROR", "CRITICAL", "WARNING", "WARN", "INFO", "DEBUG",
+        "NOTICE", "FATAL", "SEVERE", "UNKNOWN", "NONE", "",
     }
     raw_formats = df["format"].unique().tolist() if "format" in df.columns else []
     meaningful = [f for f in raw_formats if f and str(f).upper() not in _NOT_FORMAT]
