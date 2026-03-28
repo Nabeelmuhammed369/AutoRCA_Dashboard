@@ -55,16 +55,15 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
 
     # ── Stacktrace detection ─────────────────────────────────────────────────
     # Check "extra" column first (structured), then fall back to message text
-    _STACKTRACE_LEVELS = {"FATAL", "CRITICAL", "ERROR", "WARNING", "WARN", "INFO", "DEBUG", "NOTICE", "SEVERE"}
     has_stacktrace = False
     if "extra" in df.columns:
         has_stacktrace = df["extra"].apply(lambda x: isinstance(x, dict) and x.get("has_stacktrace", False)).any()
     if not has_stacktrace and "message" in df.columns:
         has_stacktrace = bool(
-            df["message"]
-            .astype(str)
-            .str.contains(r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread", regex=True, na=False)
-            .any()
+            df["message"].astype(str).str.contains(
+                r"Traceback|\bat\s+\w|\bFile\s+\"|\bException in thread",
+                regex=True, na=False
+            ).any()
         )
 
     top_sources = {}
@@ -72,23 +71,10 @@ def analyze_logs(df: pd.DataFrame | None) -> dict:
         top_sources = df["source"].value_counts().head(5).to_dict()
 
     # ── Format detection ─────────────────────────────────────────────────────
-    # Use "format" column if it has meaningful values; otherwise infer from content.
-    # Strip any value that is a log-level word or a generic sentinel — these are
-    # not format names and appear when the parser falls back to writing the level
-    # into the format column.
+    # Use "format" column if it has meaningful values; otherwise infer from content
     _NOT_FORMAT = {
-        "ERROR",
-        "CRITICAL",
-        "WARNING",
-        "WARN",
-        "INFO",
-        "DEBUG",
-        "NOTICE",
-        "FATAL",
-        "SEVERE",
-        "UNKNOWN",
-        "NONE",
-        "",
+        "ERROR", "CRITICAL", "WARNING", "WARN", "INFO", "DEBUG",
+        "NOTICE", "FATAL", "SEVERE", "UNKNOWN", "NONE", "",
     }
     raw_formats = df["format"].unique().tolist() if "format" in df.columns else []
     meaningful = [f for f in raw_formats if f and str(f).upper() not in _NOT_FORMAT]

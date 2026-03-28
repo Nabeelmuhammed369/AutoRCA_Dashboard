@@ -642,7 +642,7 @@ async def rca_history(
 ):
     if not _sb:
         return JSONResponse(
-            status_code=503,
+            status_code=200,
             content={"ok": True, "data": [], "count": 0, "supabase": False},
         )
     try:
