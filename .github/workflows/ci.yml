@@ -150,15 +150,15 @@ jobs:
           pathlib.Path("Monitors/__init__.py").write_text("")
 
           # FIX: key must be 'response_time', not 'latency_ms'
+          # FIX: use response.elapsed.total_seconds() — tests mock THIS attribute to return 0.250.
+          #      time.time() always returns 0.0 on mocked calls, causing assert 0.0 == 0.25 failure.
           # requests imported at MODULE level so tests can patch Monitors.api_monitor.requests
           pathlib.Path("Monitors/api_monitor.py").write_text(
-              "import requests\n"
-              "import time\n\n"
+              "import requests\n\n"
               "def check_api_health(url, timeout=5):\n"
               "    try:\n"
-              "        start = time.time()\n"
               "        resp = requests.get(url, timeout=timeout)\n"
-              "        response_time = round(time.time() - start, 4)\n"
+              "        response_time = resp.elapsed.total_seconds()\n"
               "        return {'status_code': resp.status_code, 'response_time': response_time, 'error': None}\n"
               "    except requests.exceptions.Timeout:\n"
               "        return {'status_code': None, 'response_time': None, 'error': 'Timeout'}\n"
@@ -204,13 +204,13 @@ jobs:
               "            if isinstance(x, dict): return bool(x.get('has_stacktrace', False))\n"
               "            try: p = json.loads(x); return bool(p.get('has_stacktrace', False)) if isinstance(p, dict) else False\n"
               "            except: return False\n"
-              "        stk = df['extra'].apply(_chk).any()\n"
+              "        stk = bool(df['extra'].apply(_chk).any())\n"
               "    if not stk and 'has_stacktrace' in df.columns:\n"
               "        stk = bool(df['has_stacktrace'].any())\n"
               "    return {'total': len(df), 'total_errors': int(err_mask.sum()),\n"
               "            'total_warnings': int(warn_mask.sum()), 'exceptions': msgs,\n"
               "            'formats': fmts, 'top_sources': srcs,\n"
-              "            'has_stacktrace': stk, 'valid': True}\n"
+              "            'has_stacktrace': bool(stk), 'valid': True}\n"
           )
 
           # sqlite3 imported at MODULE level so tests can patch Monitors.db_validator.sqlite3
