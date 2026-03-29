@@ -19,7 +19,7 @@ import os
 import re
 import time
 from contextlib import asynccontextmanager
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 import requests as _requests
@@ -754,7 +754,7 @@ def _make_live_line(i: int) -> dict:
     lvl = random.choice(_WS_LEVELS)
     src = random.choice(_WS_SOURCES)
     msg = random.choice(_WS_MSGS).format(ms=random.randint(45, 4500), uid=f"{i:04d}", pct=random.randint(40, 98))
-    ts = datetime.now(UTC).isoformat()
+    ts = datetime.now(timezone.utc).isoformat()
     return {
         "timestamp": ts,
         "level": lvl,
