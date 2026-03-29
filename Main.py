@@ -16,9 +16,7 @@ import os
 
 import streamlit as st
 from dotenv import load_dotenv
-from supabase import create_client
 
-from api_server import app
 from Core.logger import setup_logger
 from log_source_manager import (
     get_source_label,
@@ -43,87 +41,9 @@ def load_env(path=None):
 
 
 load_env()  # Call BEFORE reading any env vars
-
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-
-if not SUPABASE_URL or not SUPABASE_KEY:
-    print("⚠️  SUPABASE_URL or SUPABASE_KEY not set — RCA history endpoints will fail.")
-    supabase = None
-else:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-    print(f"✅ Supabase connected: {SUPABASE_URL}")
-
 load_dotenv()
-
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://ngxvonscsxsqkeyzwuzt.supabase.co")
-SUPABASE_KEY = os.getenv(
-    "SUPABASE_KEY",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5neHZvbnNjc3hzcWtleXp3dXp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzU0MTIsImV4cCI6MjA4ODkxMTQxMn0.qYBMnNOuz3vbWjQ_IU3HE__KSHXfFlylLUr1rSunq_0",
-)
-
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-
-# ── Save an RCA run ────────────────────────────────────────────
-@app.post("/api/rca/save")
-async def rca_save(payload: dict):
-    try:
-        data = {
-            "source_name": payload.get("source_name", "Unknown"),
-            "severity": payload.get("severity", "warning"),
-            "total_entries": payload.get("total_entries", 0),
-            "error_count": payload.get("error_count", 0),
-            "warn_count": payload.get("warn_count", 0),
-            "error_rate": payload.get("error_rate", 0),
-            "ai_summary": payload.get("ai_summary", ""),
-            "fix_steps": payload.get("fix_steps", ""),
-            "incident_groups": payload.get("incident_groups", []),
-            "affected_services": payload.get("affected_services", []),
-            "remediation": payload.get("remediation", []),
-            "stats": payload.get("stats", {}),
-            "tags": payload.get("tags", []),
-            "notes": payload.get("notes", ""),
-        }
-        result = supabase.table("rca_history").insert(data).execute()
-        return {"ok": True, "id": result.data[0]["id"]}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
-
-
-# ── Fetch history (with filters) ──────────────────────────────
-@app.get("/api/rca/history")
-async def rca_history(severity: str = None, search: str = None, limit: int = 50, offset: int = 0):
-    try:
-        q = supabase.table("rca_history").select("*").order("created_at", desc=True).range(offset, offset + limit - 1)
-        if severity and severity != "all":
-            q = q.eq("severity", severity)
-        if search:
-            q = q.ilike("source_name", f"%{search}%")
-        result = q.execute()
-        return {"ok": True, "data": result.data, "count": len(result.data)}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
-
-
-# ── Fetch single run for diff comparison ─────────────────────
-@app.get("/api/rca/history/{rca_id}")
-async def rca_get(rca_id: str):
-    try:
-        result = supabase.table("rca_history").select("*").eq("id", rca_id).single().execute()
-        return {"ok": True, "data": result.data}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
-
-
-# ── Delete a run ──────────────────────────────────────────────
-@app.delete("/api/rca/history/{rca_id}")
-async def rca_delete(rca_id: str):
-    try:
-        supabase.table("rca_history").delete().eq("id", rca_id).execute()
-        return {"ok": True}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
+# NOTE: Supabase is initialised in api_server.py — do NOT create a second
+# client here. All DB operations go through the FastAPI backend.
 
 
 # ── App Config ────────────────────────────────────────────────────────────────

@@ -18,7 +18,8 @@ import logging
 import os
 import re
 import time
-from datetime import datetime, timezone
+from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 from typing import Optional
 
 import requests as _requests
@@ -143,8 +144,24 @@ _EXPLICIT_ORIGINS = [
 if ALLOWED_ORIGIN:
     _EXPLICIT_ORIGINS.append(ALLOWED_ORIGIN)
 
+
+# ── App lifespan (replaces deprecated @app.on_event("startup")) ───────────────
+@asynccontextmanager
+async def _lifespan(app):
+    logger.info("=" * 58)
+    logger.info("  AutoRCA API v3.3  →  http://0.0.0.0:8000")
+    logger.info("=" * 58)
+    logger.info(f"  Local modules : {'✓ loaded' if _local_ok else '✗ cloud-mode'}")
+    logger.info(f"  Supabase      : {'✓ connected' if _sb else '✗ not configured'}")
+    logger.info(f"  Auth          : {'✓ key set' if AUTORCA_API_KEY else '⚠ DEV MODE (no key required)'}")
+    logger.info("  CORS          : ✓ localhost regex + explicit origins (no wildcard conflict)")
+    logger.info("  WebSocket     : ✓ /ws/logs  (key via ?key= query param)")
+    logger.info("=" * 58)
+    yield
+
+
 # ── App ────────────────────────────────────────────────────────────────────────
-app = FastAPI(title="AutoRCA API", version="3.3.0", docs_url=None, redoc_url=None)
+app = FastAPI(title="AutoRCA API", version="3.3.0", docs_url=None, redoc_url=None, lifespan=_lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
@@ -737,7 +754,7 @@ def _make_live_line(i: int) -> dict:
     lvl = random.choice(_WS_LEVELS)
     src = random.choice(_WS_SOURCES)
     msg = random.choice(_WS_MSGS).format(ms=random.randint(45, 4500), uid=f"{i:04d}", pct=random.randint(40, 98))
-    ts = datetime.now(timezone.utc).isoformat()
+    ts = datetime.now(UTC).isoformat()
     return {
         "timestamp": ts,
         "level": lvl,
@@ -852,22 +869,6 @@ async def ws_logs(
             pass
     finally:
         _ACTIVE_WS.pop(ws_id, None)
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# STARTUP BANNER
-# ══════════════════════════════════════════════════════════════════════════════
-@app.on_event("startup")
-async def _startup():
-    logger.info("=" * 58)
-    logger.info("  AutoRCA API v3.3  →  http://0.0.0.0:8000")
-    logger.info("=" * 58)
-    logger.info(f"  Local modules : {'✓ loaded' if _local_ok else '✗ cloud-mode'}")
-    logger.info(f"  Supabase      : {'✓ connected' if _sb else '✗ not configured'}")
-    logger.info(f"  Auth          : {'✓ key set' if AUTORCA_API_KEY else '⚠ DEV MODE (no key required)'}")
-    logger.info("  CORS          : ✓ localhost regex + explicit origins (no wildcard conflict)")
-    logger.info("  WebSocket     : ✓ /ws/logs  (key via ?key= query param)")
-    logger.info("=" * 58)
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────

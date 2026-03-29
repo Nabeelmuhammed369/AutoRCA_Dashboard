@@ -45,8 +45,17 @@ class TestAPIMonitorSuccess:
     @patch("Monitors.api_monitor.requests.get")
     def test_healthy_200_returns_response_time(self, mock_get):
         """Response time should be captured from elapsed.total_seconds()."""
-        mock_get.return_value = make_mock_response(200, 0.250)
+        # Build the mock directly here — no helper needed
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.elapsed.total_seconds.return_value = 0.250
+        mock_get.return_value = mock_response
         result = check_api_health("http://example.com", timeout=5)
+        # This will fail if patch did not apply — proves mock is working
+        mock_get.assert_called_once_with("http://example.com", timeout=5)
+        assert result["status_code"] == 200
+        assert result["error"] is None
+        assert "response_time" in result
         assert result["response_time"] == pytest.approx(0.250)
 
     @patch("Monitors.api_monitor.requests.get")

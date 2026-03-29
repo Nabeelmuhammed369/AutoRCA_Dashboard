@@ -178,13 +178,16 @@ class MockLogHandler(BaseHTTPRequestHandler):
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    PORT = 8888
-    server = HTTPServer(("localhost", PORT), MockLogHandler)
+    import os
+
+    PORT = int(os.getenv("PORT", "8888"))
+    server = HTTPServer(("0.0.0.0", PORT), MockLogHandler)
 
     print("\n" + "=" * 60)
     print("  AutoRCA Mock Log Server")
     print("=" * 60)
-    print(f"\n  Server running at: http://localhost:{PORT}")
+    print(f"\n  Server running at: http://0.0.0.0:{PORT}")
+    print("\n  On Render, use your assigned public URL instead of localhost.")
     print("\n  Configure AutoRCA integrations using these URLs:")
     print()
     print("  ┌─ Custom HTTP Endpoint ─────────────────────────────────┐")

@@ -1,5 +1,4 @@
 import logging
-import time
 
 import requests
 
@@ -10,15 +9,14 @@ def check_api_health(url, timeout):
     try:
         logger.info(f"Checking API health: {url}")
 
-        start = time.time()
         response = requests.get(url, timeout=timeout)
-        elapsed = time.time() - start  # use time.time() — response.elapsed breaks with mocks
 
         logger.info(f"API responded with status {response.status_code}")
 
+        elapsed = response.elapsed.total_seconds()
         return {
             "status_code": response.status_code,
-            "response_time": elapsed,  # consistent key for ALL status codes (200, 500, etc.)
+            "response_time": elapsed,
             "error": None,
         }
 
