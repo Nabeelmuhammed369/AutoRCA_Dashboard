@@ -1767,7 +1767,7 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
       <!-- Integrations -->
       <div class="tab-pane" id="tab-int">
         <div style="padding:8px 12px;margin-bottom:10px;background:var(--accent)10;border:1px solid var(--accent)30;border-radius:8px;font-size:11px;color:var(--text2);line-height:1.6;">
-          <strong style="color:var(--accent2);">🧪 Testing locally?</strong> Run <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">python mock_log_server.py</code> then use <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">http://localhost:8888</code> as the URL for any integration below.
+          <strong style="color:var(--accent2);">🌐 Using the mock log server?</strong> Use <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">https://autorca-mock-logs.onrender.com</code> as the URL for any integration below. For local testing run <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">python mock_log_server.py</code> and use <code style="font-family:'Fira Code',monospace;background:var(--bg3);padding:1px 5px;border-radius:4px;">http://localhost:8888</code>.
         </div>
         <div class="int-grid">
           <div class="int-card" data-int="loki" onclick="showIntForm('loki',this)">
@@ -1793,7 +1793,7 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
         </div>
         <div class="int-form" id="f-loki">
           <div class="form-row-2">
-            <div class="form-row"><label class="form-label">Loki URL</label><input id="int-loki-url" class="form-input" placeholder="http://localhost:8888"></div>
+            <div class="form-row"><label class="form-label">Loki URL</label><input id="int-loki-url" class="form-input" placeholder="https://autorca-mock-logs.onrender.com"></div>
             <div class="form-row"><label class="form-label">LogQL Query</label><input id="int-loki-query" class="form-input" placeholder='{app="autorca"}'></div>
           </div>
           <div class="form-row-2">
@@ -1803,14 +1803,14 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
         </div>
         <div class="int-form" id="f-es">
           <div class="form-row-2">
-            <div class="form-row"><label class="form-label">Elasticsearch URL</label><input id="int-es-url" class="form-input" placeholder="http://localhost:8888"></div>
+            <div class="form-row"><label class="form-label">Elasticsearch URL</label><input id="int-es-url" class="form-input" placeholder="https://autorca-mock-logs.onrender.com"></div>
             <div class="form-row"><label class="form-label">Index Pattern</label><input id="int-es-index" class="form-input" placeholder="app-logs" value="app-logs"></div>
           </div>
           <div class="form-row"><label class="form-label">Lucene Query</label><input id="int-es-query" class="form-input" placeholder="level:ERROR OR level:CRITICAL" value="level:ERROR OR level:CRITICAL"></div>
         </div>
         <div class="int-form" id="f-s3">
           <div class="form-row-2">
-            <div class="form-row"><label class="form-label">S3 Endpoint URL</label><input id="int-s3-endpoint" class="form-input" placeholder="http://localhost:8888"></div>
+            <div class="form-row"><label class="form-label">S3 Endpoint URL</label><input id="int-s3-endpoint" class="form-input" placeholder="https://autorca-mock-logs.onrender.com"></div>
             <div class="form-row"><label class="form-label">Bucket Name</label><input id="int-s3-bucket" class="form-input" placeholder="autorca-logs" value="autorca-logs"></div>
           </div>
           <div class="form-row-2">
@@ -1820,7 +1820,7 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
         </div>
         <div class="int-form" id="f-http">
           <div class="form-row-2">
-            <div class="form-row"><label class="form-label">Endpoint URL</label><input id="int-http-url" class="form-input" placeholder="http://localhost:8888/logs"></div>
+            <div class="form-row"><label class="form-label">Endpoint URL</label><input id="int-http-url" class="form-input" placeholder="https://autorca-mock-logs.onrender.com/logs"></div>
             <div class="form-row"><label class="form-label">Method</label>
               <select id="int-http-method" class="form-input"><option>GET</option><option>POST</option></select>
             </div>
@@ -1833,14 +1833,14 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
       <div class="tab-pane" id="tab-api">
         <div class="api-doc">
           <div class="api-doc-title">Push logs via HTTP — for Fluentd, Logstash, Vector, Filebeat</div>
-          <div class="api-code">curl -X POST http://localhost:8000/api/ingest \
+          <div class="api-code">curl -X POST https://autorca-api.onrender.com/api/ingest \
   -H "X-API-Key: YOUR_KEY" \
   -H "Content-Type: text/plain" \
   --data-binary @/var/log/app.log</div>
           <div class="api-doc-title" style="margin-top:14px">Fluentd config snippet</div>
           <div class="api-code">&lt;match app.**&gt;
   @type http
-  endpoint http://autorca:8000/api/ingest
+  endpoint https://autorca-api.onrender.com/api/ingest
   headers {"X-API-Key": "YOUR_KEY"}
   content_type text/plain
 &lt;/match&gt;</div>
@@ -3045,9 +3045,9 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
     <div style="font-size:15px;font-weight:700;color:var(--heading);margin-bottom:4px;display:flex;align-items:center;gap:8px;"><i data-lucide="settings" class="icon-md" style="color:var(--accent2);"></i> API Settings</div>
     <div style="font-size:12px;color:var(--text2);margin-bottom:18px;">Configure connection to your local api_server.py</div>
     <label style="font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px;">API Base URL</label>
-    <input id="cfg-base" style="width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:inherit;outline:none;margin-bottom:4px;" placeholder="http://localhost:8000">
+    <input id="cfg-base" style="width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:inherit;outline:none;margin-bottom:4px;" placeholder="https://autorca-api.onrender.com">
     <div id="cfg-base-warn" style="display:none;font-size:10px;color:var(--amber);margin-bottom:6px;padding:4px 8px;background:var(--amber)10;border-radius:5px;border:1px solid var(--amber)30;"></div>
-    <div style="margin-bottom:8px;font-size:10px;color:var(--text3);">api_server.py → <code style="font-family:'Fira Code',monospace;">:8000</code> &nbsp;·&nbsp; mock_log_server.py → <code style="font-family:'Fira Code',monospace;">:8888</code></div>
+    <div style="margin-bottom:8px;font-size:10px;color:var(--text3);">Production API → <code style="font-family:'Fira Code',monospace;">autorca-api.onrender.com</code> &nbsp;·&nbsp; Mock logs → <code style="font-family:'Fira Code',monospace;">autorca-mock-logs.onrender.com</code></div>
     <label style="font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px;">AUTORCA_API_KEY <span style="color:var(--text3);font-weight:400;">(from your .env file)</span></label>
     <input id="cfg-key" type="password" style="width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:'Fira Code',monospace;outline:none;margin-bottom:6px;" placeholder="Paste full key here">
     <div id="cfg-status" style="font-size:11px;color:var(--text3);margin-bottom:12px;"></div>
@@ -3064,7 +3064,7 @@ kbd{display:inline-block;padding:2px 7px;border-radius:5px;border:1px solid var(
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <button onclick="testConnection()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:12px;font-family:inherit;"><i data-lucide="wifi" class="icon-sm" style="vertical-align:middle;margin-right:4px;"></i> Test Connection</button>
-      <button onclick="resetApiBase()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">↺ Reset to :8000</button>
+      <button onclick="resetApiBase()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;">↺ Reset to default</button>
       <button onclick="saveSettings()" style="padding:7px 16px;border-radius:8px;border:none;background:var(--accentg);color:#fff;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;display:flex;align-items:center;gap:5px;"><i data-lucide="save" class="icon-sm"></i> Save</button>
       <button onclick="closeSettings()" style="padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text2);cursor:pointer;font-size:12px;font-family:inherit;">Cancel</button>
     </div>
@@ -3400,7 +3400,7 @@ function readFile(f){
   r.readAsText(f);
 }
 async function runIntegration(){
-  const base=localStorage.getItem('autorca_api_base')||'http://localhost:8000';
+  const base=localStorage.getItem('autorca_api_base')||'https://autorca-api.onrender.com';
   const key=localStorage.getItem('autorca_api_key')||''
   const btn=document.getElementById('abtn');
   btn.disabled=true;btn.innerHTML='<div class="spinner"></div>&ensp;Connecting…';
@@ -3583,7 +3583,7 @@ function setCatFilter(cat,btn){_catFilter=cat;document.querySelectorAll('.cat-pi
 
 /* ═══ AI ANALYZER ════════════════════════════════════════════ */
 /* ── Config: points to your local api_server.py ── */
-const API_BASE   = 'http://localhost:8000';
+const API_BASE   = 'https://autorca-api.onrender.com';
 let API_KEY = localStorage.getItem('autorca_api_key') || '';
 let _aiInFlight = false; /* Bug Fix 5: in-flight lock prevents concurrent AI calls */
 
@@ -4057,9 +4057,9 @@ function toast(msg,type='ok',title=''){
 }
 
 /* ═══ SETTINGS ══════════════════════════════════════════════ */
-let API_BASE_MUTABLE = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+let API_BASE_MUTABLE = localStorage.getItem('autorca_api_base') || 'https://autorca-api.onrender.com';
 // Patch API_BASE to use mutable version
-function getApiBase(){return localStorage.getItem('autorca_api_base')||'http://localhost:8000';}
+function getApiBase(){return localStorage.getItem('autorca_api_base')||'https://autorca-api.onrender.com';}
 
 /* Fix 4: show persistent topbar indicator of settings status */
 function updateSettingsBadge(){
@@ -4081,10 +4081,10 @@ function openSettings(){
 }
 function closeSettings(){document.getElementById('settings-modal').style.display='none';}
 function resetApiBase(){
-  localStorage.setItem('autorca_api_base','http://localhost:8000');
-  document.getElementById('cfg-base').value='http://localhost:8000';
+  localStorage.setItem('autorca_api_base','https://autorca-api.onrender.com');
+  document.getElementById('cfg-base').value='https://autorca-api.onrender.com';
   const w=document.getElementById('cfg-base-warn');if(w)w.style.display='none';
-  toast('API base reset to http://localhost:8000','ok','Reset');
+  toast('API base reset to https://autorca-api.onrender.com','ok','Reset');
   checkApiHealth();
 }
 function saveSettings(){
@@ -5108,7 +5108,7 @@ async function checkApiHealth(){
   const dot=document.getElementById('sb-health-dot');
   const txt=document.getElementById('sb-health-txt');
   if(!dot||!txt)return;
-  const base=localStorage.getItem('autorca_api_base')||'http://localhost:8000';
+  const base=localStorage.getItem('autorca_api_base')||'https://autorca-api.onrender.com';
   const key=localStorage.getItem('autorca_api_key')||'';
   dot.className='sb-health-dot checking';
   txt.textContent='API: checking…';
@@ -5137,7 +5137,7 @@ function startHealthChecks(){
 
 /* ═══ BETTER ERROR MESSAGES (Feature 14) ════════════════════ */
 async function aiPostEnhanced(endpoint){
-  const base=localStorage.getItem('autorca_api_base')||'http://localhost:8000';
+  const base=localStorage.getItem('autorca_api_base')||'https://autorca-api.onrender.com';
   const key=localStorage.getItem('autorca_api_key')||API_KEY;
   let res;
   try{

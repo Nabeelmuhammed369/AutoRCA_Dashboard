@@ -437,7 +437,7 @@ footer a:hover{color:var(--accent);}
     </div>
     <div class="field">
       <label class="flbl">API SERVER URL</label>
-      <input class="finp" id="au" type="text" value="http://localhost:8000">
+      <input class="finp" id="au" type="text" value="https://autorca-api.onrender.com">
       <div class="fhint">URL of your running <code>api_server.py</code></div>
     </div>
 
@@ -521,7 +521,7 @@ lucide.createIcons();
 function openCard(){ document.getElementById('ak').focus(); window.scrollTo({top:0,behavior:'smooth'}); }
 function doLogin(){
   var k=document.getElementById('ak').value.trim();
-  var u=document.getElementById('au').value.trim()||'http://localhost:8000';
+  var u=document.getElementById('au').value.trim()||'https://autorca-api.onrender.com';
   var btn=document.getElementById('mbtn');
   var err=document.getElementById('merr');
   err.classList.remove('show');
@@ -536,7 +536,7 @@ function doLogin(){
   .catch(function(){storeGo(k,u);})
   .finally(function(){btn.textContent='Open Dashboard';btn.style.opacity='1';});
 }
-function enterDemo(){storeGo('','http://localhost:8000');}
+function enterDemo(){storeGo('','https://autorca-api.onrender.com');}
 function storeGo(k,u){
   if(k)localStorage.setItem('autorca_api_key',k);
   if(u)localStorage.setItem('autorca_api_base',u);
