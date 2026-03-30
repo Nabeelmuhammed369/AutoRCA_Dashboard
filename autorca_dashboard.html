@@ -3255,7 +3255,7 @@ function cycleLayout(){
 function openLiveStream(){
   /* Pass current theme and API settings to the livestream page via localStorage */
   /* (already stored there by setTheme and settings panel — nothing extra needed) */
-  window.open("/autorca_livestream.html", "_blank");
+  window.location.href = 'autorca_livestream.html';
 }
 
 function goScreen(name,btn){
