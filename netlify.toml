@@ -1,0 +1,26 @@
+# netlify.toml — place in repo root
+
+[build]
+  publish = "."        # serve files from root directory
+  command = ""         # no build command needed for plain HTML
+
+# Route all requests — serve files as-is
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false        # false = only fallback if file not found
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache HTML files — always fresh
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
