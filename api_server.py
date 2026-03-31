@@ -18,12 +18,12 @@ import logging
 import os
 import re
 import time
-from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Optional
 
 import requests as _requests
 from dotenv import load_dotenv
+from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -120,30 +120,10 @@ def ok_key(k: str) -> bool:
 limiter = Limiter(key_func=get_remote_address)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CORS  — v3.3 fix: never mix allow_origins=["*"] with allow_origin_regex.
-#   Strategy: always use allow_origin_regex for localhost/127.0.0.1 patterns,
-#   plus an explicit list of known file:// / null origins and any env override.
-#   When running on Render (IS_RENDER=true) also add the production domain.
+# CORS — allow all origins. Security is handled by AUTORCA_API_KEY auth.
+# Using ["*"] with allow_origin_regex together causes Starlette to silently
+# drop the Access-Control-Allow-Origin header — so we use ["*"] only.
 # ══════════════════════════════════════════════════════════════════════════════
-ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "")  # e.g. https://autorca.example.com
-
-# Explicit origins that cannot be captured by the regex (file:// opens as "null")
-_EXPLICIT_ORIGINS = [
-    "null",  # file:// pages send Origin: null
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",  # VS Code Live Server
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",  # Vite
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",  # CRA
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",  # Angular
-]
-if ALLOWED_ORIGIN:
-    _EXPLICIT_ORIGINS.append(ALLOWED_ORIGIN)
-
 
 # ── App lifespan (replaces deprecated @app.on_event("startup")) ───────────────
 @asynccontextmanager
@@ -154,7 +134,7 @@ async def _lifespan(app):
     logger.info(f"  Local modules : {'✓ loaded' if _local_ok else '✗ cloud-mode'}")
     logger.info(f"  Supabase      : {'✓ connected' if _sb else '✗ not configured'}")
     logger.info(f"  Auth          : {'✓ key set' if AUTORCA_API_KEY else '⚠ DEV MODE (no key required)'}")
-    logger.info("  CORS          : ✓ localhost regex + explicit origins (no wildcard conflict)")
+    logger.info("  CORS          : ✓ allow all origins (auth via API key)")
     logger.info("  WebSocket     : ✓ /ws/logs  (key via ?key= query param)")
     logger.info("=" * 58)
     yield
@@ -166,10 +146,7 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
     CORSMiddleware,
-    # DO NOT use ["*"] here — it conflicts with allow_origin_regex in Starlette.
-    # Use the explicit list + regex together instead.
-    allow_origins=_EXPLICIT_ORIGINS,
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
@@ -754,7 +731,7 @@ def _make_live_line(i: int) -> dict:
     lvl = random.choice(_WS_LEVELS)
     src = random.choice(_WS_SOURCES)
     msg = random.choice(_WS_MSGS).format(ms=random.randint(45, 4500), uid=f"{i:04d}", pct=random.randint(40, 98))
-    ts = datetime.now(timezone.utc).isoformat()
+    ts = datetime.now(UTC).isoformat()
     return {
         "timestamp": ts,
         "level": lvl,
@@ -869,6 +846,9 @@ async def ws_logs(
             pass
     finally:
         _ACTIVE_WS.pop(ws_id, None)
+
+
+
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────
