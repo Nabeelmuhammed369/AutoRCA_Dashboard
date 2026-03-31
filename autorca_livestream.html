@@ -170,7 +170,7 @@ html[data-theme="dim"] { color-scheme: dark; }
 <!-- Topbar -->
 <header class="h-14 flex items-center justify-between px-6 border-b border-slate-200/50 dark:border-white/5 glass z-10">
 <div class="flex items-center gap-6">
-<button class="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-brand-500 transition-colors" onclick="window.close()">
+<button class="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-brand-500 transition-colors" onclick="goBackToDashboard()">
 <span class="material-symbols-outlined text-base">arrow_back</span>
           Dashboard
         </button>
@@ -224,6 +224,26 @@ html[data-theme="dim"] { color-scheme: dark; }
 <!-- Connect Overlay Panel -->
 <div class="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm" id="connect-panel">
 <div class="w-full max-w-md glass p-8 rounded-3xl shadow-2xl space-y-6">
+<!-- Session active banner (shown when dashboard has a log source loaded) -->
+<div id="session-banner" style="display:none;" class="flex items-start gap-3 p-4 bg-brand-500/10 border border-brand-500/30 rounded-2xl">
+  <span class="material-symbols-outlined text-brand-500 text-xl flex-shrink-0">check_circle</span>
+  <div>
+    <div class="text-xs font-bold text-brand-500 mb-0.5">Dashboard session active</div>
+    <div class="text-xs font-semibold text-slate-700 dark:text-slate-300" id="sess-label"></div>
+    <div class="text-[11px] text-slate-500 mt-0.5" id="sess-stats"></div>
+    <div class="text-[11px] text-slate-400 mt-1">Connect below to start live streaming alongside your loaded source.</div>
+  </div>
+</div>
+
+<!-- No source banner (shown when livestream opened without a dashboard session) -->
+<div id="no-source-banner" style="display:none;" class="flex items-start gap-3 p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
+  <span class="material-symbols-outlined text-amber-500 text-xl flex-shrink-0">info</span>
+  <div>
+    <div class="text-xs font-bold text-amber-500 mb-0.5">No log source connected</div>
+    <div class="text-[11px] text-slate-500 leading-relaxed">Go to the <a href="autorca_dashboard.html" class="text-brand-500 font-semibold hover:underline">Dashboard</a> and connect a log source first, then click <strong>Live Stream</strong> to open this page with full session context. Or connect directly below to stream independently.</div>
+  </div>
+</div>
+
 <div class="text-center space-y-2">
 <div class="w-16 h-16 bg-brand-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
 <span class="material-symbols-outlined text-3xl text-brand-500">terminal</span>
@@ -349,14 +369,14 @@ function scrollToBottom() {
 
 /* ── Navigation ── */
 function showConnect() {
-  document.getElementById('cfg-url').value = localStorage.getItem('autorca_api_base') || 'https://autorca-api.onrender.com';
+  document.getElementById('cfg-url').value = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
   document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
   connectPanel.classList.remove('hidden');
   feedWrap.classList.add('hidden');
 }
 
 function doConnect() {
-  const base = (document.getElementById('cfg-url').value || '').trim() || 'https://autorca-api.onrender.com';
+  const base = (document.getElementById('cfg-url').value || '').trim() || 'http://localhost:8000';
   const key = (document.getElementById('cfg-key').value || '').trim();
   const seek = parseInt(document.getElementById('cfg-seek').value) || 0;
   localStorage.setItem('autorca_api_base', base);
@@ -368,7 +388,7 @@ function doConnect() {
 function wsConnect(base, key, seek) {
   if (_ws && _ws.readyState <= 1) { showToast('Already connected', 'warn'); return; }
   
-  base = base || localStorage.getItem('autorca_api_base') || 'https://autorca-api.onrender.com';
+  base = base || localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
   key = key !== undefined ? key : (localStorage.getItem('autorca_api_key') || '');
   seek = seek !== undefined ? seek : 0;
   
@@ -715,7 +735,7 @@ function setState(s) {
 /* ── Persistence ── */
 async function saveSession() {
   if (_rows.length === 0) return;
-  const base = localStorage.getItem('autorca_api_base') || 'https://autorca-api.onrender.com';
+  const base = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
   const key = localStorage.getItem('autorca_api_key') || '';
   const rate = _total > 0 ? parseFloat((_errors / _total * 100).toFixed(2)) : 0;
   
@@ -788,14 +808,57 @@ function showToast(msg, type) {
 document.addEventListener('DOMContentLoaded', () => {
   setState('idle');
   renderSparkline();
-  const base = localStorage.getItem('autorca_api_base');
-  if (base) {
-    document.getElementById('cfg-url').value = base;
-    document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
-  }
+
+  // Pre-fill connection settings from saved values
+  const base = localStorage.getItem('autorca_api_base') || 'https://autorca-api.onrender.com';
+  document.getElementById('cfg-url').value = base;
+  document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
+
+  // ── Session awareness ────────────────────────────────────────────────────
+  // Check if dashboard sent a session (log source already loaded).
+  // If yes: show a "session active" banner on the connect panel.
+  // If no:  show "connect log source first" guidance.
+  try {
+    const raw = localStorage.getItem('autorca_session');
+    const sess = raw ? JSON.parse(raw) : null;
+
+    const hasSession = sess && sess.connected && sess.label;
+    const noSourceBanner = document.getElementById('no-source-banner');
+    const sessionBanner  = document.getElementById('session-banner');
+    const sessLabel      = document.getElementById('sess-label');
+    const sessStats      = document.getElementById('sess-stats');
+
+    if (hasSession) {
+      // Dashboard sent a valid session — show it
+      if (noSourceBanner) noSourceBanner.style.display = 'none';
+      if (sessionBanner)  sessionBanner.style.display  = '';
+      if (sessLabel)      sessLabel.textContent = sess.label;
+      if (sessStats) {
+        const s = sess.stats || {};
+        sessStats.textContent =
+          (s.total || 0).toLocaleString() + ' entries · ' +
+          (s.err   || 0) + ' errors · ' +
+          (s.rate  || 0) + '% error rate';
+      }
+    } else {
+      // No session from dashboard
+      if (noSourceBanner) noSourceBanner.style.display = '';
+      if (sessionBanner)  sessionBanner.style.display  = 'none';
+    }
+  } catch(e) {}
 });
 
 window.addEventListener('beforeunload', () => { if(_ws) _ws.close(1000); });
-window.location.href = "/autorca_dashboard.html";
+
+/* ── Navigation ── */
+function goBackToDashboard(){
+  // If opened as a tab by dashboard, go back to it
+  if(window.opener && !window.opener.closed){
+    window.opener.focus();
+    window.close();
+  } else {
+    window.location.href = 'autorca_dashboard.html';
+  }
+}
 </script>
 </body></html>

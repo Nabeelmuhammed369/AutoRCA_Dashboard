@@ -18,12 +18,12 @@ import logging
 import os
 import re
 import time
+from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from typing import Optional
 
 import requests as _requests
 from dotenv import load_dotenv
-from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -124,6 +124,7 @@ limiter = Limiter(key_func=get_remote_address)
 # Using ["*"] with allow_origin_regex together causes Starlette to silently
 # drop the Access-Control-Allow-Origin header — so we use ["*"] only.
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 # ── App lifespan (replaces deprecated @app.on_event("startup")) ───────────────
 @asynccontextmanager
@@ -846,9 +847,6 @@ async def ws_logs(
             pass
     finally:
         _ACTIVE_WS.pop(ws_id, None)
-
-
-
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────

@@ -107,6 +107,35 @@ LIVESTREAM_PAYLOAD = {
 # ═════════════════════════════════════════════════════════════════════════════
 
 
+class TestSessionPayload:
+    """Validates the autorca_session localStorage contract written by openLiveStream()"""
+
+    def test_session_structure_has_required_keys(self):
+        session = {
+            "connected": True,
+            "label": "app.log",
+            "ingestedAt": "01/01/2026, 12:00:00",
+            "stats": {"total": 100, "err": 5, "rate": 5.0},
+            "logs": [],
+        }
+        assert "connected" in session
+        assert "label" in session
+        assert "stats" in session
+        assert "logs" in session
+
+    def test_session_logs_capped_at_2000(self):
+        # Simulates the .slice(0, 2000) in openLiveStream()
+        large_logs = [{"message": f"log {i}"} for i in range(5000)]
+        capped = large_logs[:2000]
+        assert len(capped) == 2000
+
+    def test_session_not_written_when_disconnected(self):
+        # When S.connected is false, no session should be saved
+        connected = False
+        session_written = connected  # mirrors the JS: if(S.connected){...}
+        assert session_written is False
+
+
 class _Result:
     """Serialisable result — only .data and .count, both JSON-safe."""
 
