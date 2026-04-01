@@ -201,8 +201,10 @@ if run_diagnostic:
             "formats": df["format"].unique().tolist() if df is not None else [],
         }
 
-        # Optional: API health check
-        api_url = config.get("api", {}).get("url", "")
+        # Optional: API health check — env var overrides config.yaml
+        import os as _os
+
+        api_url = _os.getenv("API_URL", "") or config.get("api", {}).get("url", "")
         if api_url:
             api_result = check_api_health(api_url, config["api"].get("timeout", 3))
         else:

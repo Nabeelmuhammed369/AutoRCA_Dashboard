@@ -5,8 +5,10 @@ tests/conftest.py — Shared fixtures for AutoRCA test suite
 import os
 import sqlite3
 import sys
+from unittest.mock import MagicMock, patch
 
 import pytest
+import pytest_asyncio
 
 # ── Fix: add project root to sys.path so 'Core', 'Monitors' are importable ───
 # This is required for CI (GitHub Actions) where the runner's working directory
@@ -14,7 +16,85 @@ import pytest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-# ── Log file fixtures ─────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# AUTH FIXTURES — shared by test_auth.py
+# ══════════════════════════════════════════════════════════════════════════════
+
+
+def _make_sb_mock():
+    """
+    Build a fully chainable Supabase mock.
+
+    The SELECT chain (select → eq → single → order → range → ilike → execute)
+    all share the same `chain` object so callers can stub
+    `chain.execute.return_value` for query results.
+
+    INSERT / UPDATE / DELETE are intentionally NOT chained back to `chain`
+    so that per-test stubs on, e.g., `sb.table().insert().execute()` do not
+    accidentally overwrite the SELECT execute return value.
+    """
+    sb = MagicMock()
+    chain = MagicMock()
+    chain.execute.return_value = MagicMock(data=[])
+    sb.table.return_value = chain
+    chain.select.return_value = chain
+    chain.eq.return_value = chain
+    chain.single.return_value = chain
+    chain.order.return_value = chain
+    chain.range.return_value = chain
+    chain.ilike.return_value = chain
+    # insert / update / delete get independent auto-mock chains
+    return sb
+
+
+@pytest.fixture()
+def sb():
+    """Fresh chainable Supabase mock for each test."""
+    return _make_sb_mock()
+
+
+@pytest_asyncio.fixture()
+async def client(sb):
+    """
+    AsyncClient wired to the FastAPI app with Supabase patched out.
+    AUTORCA_API_KEY is patched to "" so all requests are in dev mode.
+    Yields (ac, sb) — the same sb instance used by the fixture.
+    """
+    import api_server
+    import auth as auth_module
+
+    with (
+        patch.object(auth_module, "_get_sb", return_value=sb),
+        patch.object(api_server, "_sb", sb),
+        patch.object(api_server, "AUTORCA_API_KEY", ""),
+    ):
+        from httpx import ASGITransport, AsyncClient
+
+        transport = ASGITransport(app=api_server.app)
+        async with AsyncClient(transport=transport, base_url="http://test") as ac:
+            yield ac, sb
+
+
+# ── Auth value fixtures ───────────────────────────────────────────────────────
+
+
+@pytest.fixture
+def valid_raw_key():
+    """A freshly generated valid autorca_live_* key for use in tests."""
+    from auth import _generate_raw_key
+
+    return _generate_raw_key()
+
+
+@pytest.fixture
+def valid_register_payload():
+    """A complete valid registration request body."""
+    return {
+        "org_name": "Acme DevOps",
+        "email": "admin@acme.com",
+        "plan": "free",
+        "account_type": "biz",
+    }
 
 
 @pytest.fixture

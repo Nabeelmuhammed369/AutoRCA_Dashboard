@@ -13,12 +13,12 @@ v3.2 fixes:
 """
 
 import asyncio
+import hashlib
 import json
 import logging
 import os
 import re
 import time
-from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from typing import Optional
 
@@ -88,7 +88,10 @@ except Exception as e:
     logger.warning(f"Supabase init failed: {e}")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# AUTH  — FIX 1: don't 500 when key missing; treat unset key as dev mode
+# AUTH  — Dual-mode key verification
+#   MODE A (legacy/env): key matched against AUTORCA_API_KEY in .env
+#   MODE B (DB):         key hashed with SHA-256, looked up in api_keys table
+#   Both modes coexist — existing users keep working, new accounts use DB keys
 # ══════════════════════════════════════════════════════════════════════════════
 AUTORCA_API_KEY = os.getenv("AUTORCA_API_KEY", "")
 if not AUTORCA_API_KEY:
@@ -97,22 +100,97 @@ if not AUTORCA_API_KEY:
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 
+def _validate_db_key(raw_key: str) -> dict | None:
+    """
+    Hash the raw key and look it up in the Supabase api_keys table.
+    Returns org dict on success, None if not found or DB unavailable.
+    Raises HTTPException on found-but-inactive.
+    """
+    if _sb is None:
+        return None
+    try:
+        key_hash = hashlib.sha256(raw_key.encode("utf-8")).hexdigest()
+        result = (
+            _sb.table("api_keys")
+            .select("id, is_active, org_id, organizations(org_name, plan, status, email)")
+            .eq("key_hash", key_hash)
+            .single()
+            .execute()
+        )
+        row = result.data
+        if not row:
+            return None
+
+        if not row.get("is_active", False):
+            raise HTTPException(status_code=401, detail="This API key has been deactivated.")
+
+        org = row.get("organizations") or {}
+        if org.get("status") != "active":
+            raise HTTPException(status_code=403, detail="Your account has been suspended. Contact support.")
+
+        # Update last_used_at silently
+        try:
+            _sb.table("api_keys").update({"last_used_at": datetime.now(UTC).isoformat()}).eq("id", row["id"]).execute()
+        except Exception:
+            pass
+
+        return {"mode": "db", "org_id": row["org_id"], **org}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        err_str = str(e)
+        # .single() raises when no rows found
+        if "PGRST116" in err_str or "No rows" in err_str.lower() or "JSON object" in err_str:
+            return None
+        logger.warning(f"DB key lookup error (falling back to env mode): {e}")
+        return None
+
+
 def verify_api_key(key: str = Depends(api_key_header)):
     """
-    FIX: If AUTORCA_API_KEY is not set → dev mode, allow everything.
-    If it IS set, the header key must match. Returns 401 (not 500) on mismatch.
+    Dual-mode API key verification.
+
+    1. No key + no AUTORCA_API_KEY set  → dev mode, allow all
+    2. Key starts with autorca_live_/*test_* → validate via DB hash lookup
+    3. Key matches AUTORCA_API_KEY env var → legacy/env mode, allow
+    4. Everything else → HTTP 401
     """
-    if not AUTORCA_API_KEY:
-        return ""  # dev mode — no key required
-    if key != AUTORCA_API_KEY:
+    # Dev mode
+    if not AUTORCA_API_KEY and not key:
+        return {"mode": "dev", "org_name": "Dev", "plan": "free"}
+
+    if not key:
         raise HTTPException(status_code=401, detail="Invalid or missing API key.")
-    return key
+
+    # DB-backed key (new registration flow)
+    if key.startswith("autorca_live_") or key.startswith("autorca_test_"):
+        org = _validate_db_key(key)
+        if org is not None:
+            return org
+        # If DB returned None and env key is not set, reject
+        if not AUTORCA_API_KEY:
+            raise HTTPException(status_code=401, detail="Invalid API key.")
+
+    # Legacy .env key
+    if AUTORCA_API_KEY:
+        if key != AUTORCA_API_KEY:
+            raise HTTPException(status_code=401, detail="Invalid or missing API key.")
+        return {"mode": "env", "org_name": "Local", "plan": "free"}
+
+    raise HTTPException(status_code=401, detail="Invalid or missing API key.")
 
 
 def ok_key(k: str) -> bool:
     """For WebSocket and inline key checks (no Depends)."""
-    if not AUTORCA_API_KEY:
+    if not AUTORCA_API_KEY and not k:
         return True
+    if k.startswith("autorca_live_") or k.startswith("autorca_test_"):
+        try:
+            org = _validate_db_key(k)
+            return org is not None
+        except HTTPException:
+            return False
     return k == AUTORCA_API_KEY
 
 
@@ -120,40 +198,57 @@ def ok_key(k: str) -> bool:
 limiter = Limiter(key_func=get_remote_address)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# CORS — allow all origins. Security is handled by AUTORCA_API_KEY auth.
-# Using ["*"] with allow_origin_regex together causes Starlette to silently
-# drop the Access-Control-Allow-Origin header — so we use ["*"] only.
+# CORS  — v3.3 fix: never mix allow_origins=["*"] with allow_origin_regex.
+#   Strategy: always use allow_origin_regex for localhost/127.0.0.1 patterns,
+#   plus an explicit list of known file:// / null origins and any env override.
+#   When running on Render (IS_RENDER=true) also add the production domain.
 # ══════════════════════════════════════════════════════════════════════════════
+ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "")  # e.g. https://autorca.example.com
 
-
-# ── App lifespan (replaces deprecated @app.on_event("startup")) ───────────────
-@asynccontextmanager
-async def _lifespan(app):
-    logger.info("=" * 58)
-    logger.info("  AutoRCA API v3.3  →  http://0.0.0.0:8000")
-    logger.info("=" * 58)
-    logger.info(f"  Local modules : {'✓ loaded' if _local_ok else '✗ cloud-mode'}")
-    logger.info(f"  Supabase      : {'✓ connected' if _sb else '✗ not configured'}")
-    logger.info(f"  Auth          : {'✓ key set' if AUTORCA_API_KEY else '⚠ DEV MODE (no key required)'}")
-    logger.info("  CORS          : ✓ allow all origins (auth via API key)")
-    logger.info("  WebSocket     : ✓ /ws/logs  (key via ?key= query param)")
-    logger.info("=" * 58)
-    yield
-
+# Explicit origins that cannot be captured by the regex (file:// opens as "null")
+_EXPLICIT_ORIGINS = [
+    "null",  # file:// pages send Origin: null
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",  # VS Code Live Server
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",  # Vite
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",  # CRA
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",  # Angular
+    "https://autorca.netlify.app",  # AutoRCA frontend
+    "https://webportfoliobyme.netlify.app",  # Portfolio
+]
+if ALLOWED_ORIGIN:
+    _EXPLICIT_ORIGINS.append(ALLOWED_ORIGIN)
 
 # ── App ────────────────────────────────────────────────────────────────────────
-app = FastAPI(title="AutoRCA API", version="3.3.0", docs_url=None, redoc_url=None, lifespan=_lifespan)
+app = FastAPI(title="AutoRCA API", version="3.3.0", docs_url=None, redoc_url=None)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    # DO NOT use ["*"] here — it conflicts with allow_origin_regex in Starlette.
+    # Use the explicit list + regex together instead.
+    allow_origins=_EXPLICIT_ORIGINS,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=False,
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
     expose_headers=["*"],
     max_age=600,
 )
+
+# ── Mount auth router (/api/auth/register, /api/auth/validate-key, /api/auth/me)
+try:
+    from auth import router as _auth_router
+
+    app.include_router(_auth_router)
+    logger.info("Auth router mounted at /api/auth/*")
+except ImportError:
+    logger.warning("auth.py not found — /api/auth/* endpoints disabled. Place auth.py next to api_server.py")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -847,6 +942,22 @@ async def ws_logs(
             pass
     finally:
         _ACTIVE_WS.pop(ws_id, None)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STARTUP BANNER
+# ══════════════════════════════════════════════════════════════════════════════
+@app.on_event("startup")
+async def _startup():
+    logger.info("=" * 58)
+    logger.info("  AutoRCA API v3.3  →  http://0.0.0.0:8000")
+    logger.info("=" * 58)
+    logger.info(f"  Local modules : {'✓ loaded' if _local_ok else '✗ cloud-mode'}")
+    logger.info(f"  Supabase      : {'✓ connected' if _sb else '✗ not configured'}")
+    logger.info(f"  Auth          : {'✓ key set' if AUTORCA_API_KEY else '⚠ DEV MODE (no key required)'}")
+    logger.info("  CORS          : ✓ localhost regex + explicit origins (no wildcard conflict)")
+    logger.info("  WebSocket     : ✓ /ws/logs  (key via ?key= query param)")
+    logger.info("=" * 58)
 
 
 # ── Entry point ────────────────────────────────────────────────────────────────

@@ -2,7 +2,9 @@
 # Place this file in the same directory as api_server.py
 
 api:
-  url: "http://localhost:8000/api/health"
+  # Leave url empty to skip self-health check, or set to your production API URL.
+  # Override at runtime with the API_URL environment variable.
+  url: ""
   timeout: 5
 
 # NOTE: Both "log" and "logs" are now supported by the fixed api_server.py

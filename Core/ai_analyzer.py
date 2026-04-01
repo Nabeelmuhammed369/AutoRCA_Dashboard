@@ -33,7 +33,7 @@ def _call_groq(prompt: str) -> str:
     try:
         from groq import Groq
 
-        client = Groq(api_key=api_key)
+        client = Groq(api_key=api_key, timeout=30.0)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",  # best free model on Groq
             messages=[{"role": "user", "content": prompt}],

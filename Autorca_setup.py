@@ -32,9 +32,9 @@ else:
 if not os.path.exists(".env"):
     with open(".env", "w") as f:
         f.write("AUTORCA_API_KEY=dev-key-change-me\n")
-        f.write("ALLOWED_ORIGIN=http://localhost:5500\n")
+        f.write("ALLOWED_ORIGIN=\n")
     print("✓ Created .env with default API key: dev-key-change-me")
-    print("  ⚠ Change AUTORCA_API_KEY before production use!")
+    print("  ⚠ Set AUTORCA_API_KEY and ALLOWED_ORIGIN before production use!")
 else:
     print("✓ .env exists")
 

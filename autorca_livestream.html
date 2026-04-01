@@ -369,14 +369,14 @@ function scrollToBottom() {
 
 /* ── Navigation ── */
 function showConnect() {
-  document.getElementById('cfg-url').value = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  document.getElementById('cfg-url').value = localStorage.getItem('autorca_api_base') || '';
   document.getElementById('cfg-key').value = localStorage.getItem('autorca_api_key') || '';
   connectPanel.classList.remove('hidden');
   feedWrap.classList.add('hidden');
 }
 
 function doConnect() {
-  const base = (document.getElementById('cfg-url').value || '').trim() || 'http://localhost:8000';
+  const base = (document.getElementById('cfg-url').value || '').trim();
   const key = (document.getElementById('cfg-key').value || '').trim();
   const seek = parseInt(document.getElementById('cfg-seek').value) || 0;
   localStorage.setItem('autorca_api_base', base);
@@ -388,7 +388,7 @@ function doConnect() {
 function wsConnect(base, key, seek) {
   if (_ws && _ws.readyState <= 1) { showToast('Already connected', 'warn'); return; }
   
-  base = base || localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  base = base || localStorage.getItem('autorca_api_base') || '';
   key = key !== undefined ? key : (localStorage.getItem('autorca_api_key') || '');
   seek = seek !== undefined ? seek : 0;
   
@@ -735,7 +735,7 @@ function setState(s) {
 /* ── Persistence ── */
 async function saveSession() {
   if (_rows.length === 0) return;
-  const base = localStorage.getItem('autorca_api_base') || 'http://localhost:8000';
+  const base = localStorage.getItem('autorca_api_base') || '';
   const key = localStorage.getItem('autorca_api_key') || '';
   const rate = _total > 0 ? parseFloat((_errors / _total * 100).toFixed(2)) : 0;
   

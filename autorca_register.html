@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoRCA — Create Account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.427.0/dist/umd/lucide.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#c5dff8;--card:#ffffff;--text:#2d3a5e;--text2:#5a6a92;--text3:#8898c0;
+  --heading:#1a2340;--accent:#5b8ef0;--accent2:#7ba5f5;
+  --green:#22c55e;--green2:#4ade80;--purple:#8b5cf6;--red:#ef4444;--amber:#f59e0b;
+  --border:rgba(255,255,255,.60);
+  --clay-s:0 8px 40px rgba(100,130,200,.22),0 2px 10px rgba(100,130,200,.12),inset 0 1px 0 rgba(255,255,255,.90);
+  --clay-h:0 16px 56px rgba(100,130,200,.30),0 4px 18px rgba(100,130,200,.18),inset 0 1px 0 rgba(255,255,255,.95);
+  --clay-sm:0 4px 18px rgba(100,130,200,.18),0 1px 5px rgba(100,130,200,.10),inset 0 1px 0 rgba(255,255,255,.80);
+  --r:22px;--r-sm:14px;--r-xs:10px;
+}
+html,body{min-height:100%;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{background:linear-gradient(160deg,#d7fcd4 0%,#b8f5d9 50%,#54e776 100%) fixed;min-height:100vh;}
+
+/* clouds */
+.cloud{position:fixed;border-radius:50%;background:rgba(255,255,255,.22);filter:blur(40px);pointer-events:none;z-index:0;}
+.c1{width:500px;height:300px;top:-80px;left:-100px;}
+.c2{width:400px;height:250px;top:20%;right:-80px;}
+.c3{width:600px;height:350px;bottom:-100px;left:30%;}
+.c4{width:280px;height:200px;top:60%;left:-60px;}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.55);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.50);box-shadow:0 2px 20px rgba(100,130,200,.15);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:62px;}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo{width:36px;height:36px;background:linear-gradient(145deg,var(--accent2),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 14px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.30);}
+.nav-title{font-size:17px;font-weight:900;color:var(--heading);letter-spacing:-.03em;}
+.nav-ver{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:rgba(255,255,255,.60);border:1px solid rgba(255,255,255,.50);padding:2px 8px;border-radius:6px;box-shadow:var(--clay-sm);}
+.nav-back{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:10px;font-size:13px;font-weight:700;color:var(--text2);text-decoration:none;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.50);box-shadow:var(--clay-sm);transition:all .15s;}
+.nav-back:hover{background:rgba(255,255,255,.85);box-shadow:var(--clay-s);color:var(--heading);}
+
+/* page layout */
+.page{position:relative;z-index:1;display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:center;max-width:1080px;margin:0 auto;padding:100px 40px 60px;min-height:100vh;}
+
+/* hero left */
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.60);border-radius:100px;font-size:11px;font-weight:800;color:var(--text2);letter-spacing:.04em;margin-bottom:22px;box-shadow:var(--clay-sm);}
+.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 6px rgba(34,197,94,.6);animation:dp 2s infinite;}
+@keyframes dp{0%,100%{opacity:1;}50%{opacity:.35;}}
+h1{font-size:clamp(32px,4.5vw,50px);font-weight:900;letter-spacing:-.04em;line-height:1.06;color:var(--heading);margin-bottom:16px;}
+.h-green{color:var(--green);}
+.hero-sub{font-size:15px;font-weight:500;color:var(--text2);line-height:1.72;max-width:420px;margin-bottom:28px;}
+
+/* how-it-works steps */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;position:relative;}
+.step-item:not(:last-child)::after{content:'';position:absolute;left:15px;top:50px;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(34,197,94,.28),transparent);}
+.step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.s1n{background:rgba(91,142,240,.12);color:var(--accent);border:1.5px solid rgba(91,142,240,.28);}
+.s2n{background:rgba(34,197,94,.12);color:var(--green);border:1.5px solid rgba(34,197,94,.28);}
+.s3n{background:rgba(245,158,11,.12);color:var(--amber);border:1.5px solid rgba(245,158,11,.28);}
+.s4n{background:rgba(139,92,246,.12);color:var(--purple);border:1.5px solid rgba(139,92,246,.28);}
+.step-title{font-size:13px;font-weight:800;color:var(--heading);margin-bottom:2px;letter-spacing:-.01em;}
+.step-desc{font-size:11px;font-weight:500;color:var(--text3);line-height:1.55;}
+
+/* ══════════════════════════════════════
+   CLAY REGISTER CARD
+══════════════════════════════════════ */
+.reg-card{
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(28px) saturate(160%);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:28px;padding:36px 32px;
+  box-shadow:0 24px 80px rgba(100,130,200,.25),0 8px 24px rgba(100,130,200,.15),inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* stepper */
+.stepper{display:flex;align-items:center;margin-bottom:28px;}
+.sdw{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;}
+.sdt{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;transition:all .3s;}
+.sdt.done{background:linear-gradient(145deg,var(--green2),var(--green));color:#fff;box-shadow:0 3px 12px rgba(34,197,94,.38);}
+.sdt.active{background:linear-gradient(145deg,var(--accent2),var(--accent));color:#fff;box-shadow:0 3px 12px rgba(91,142,240,.38);}
+.sdt.idle{background:rgba(255,255,255,.70);color:var(--text3);border:1.5px solid rgba(100,130,200,.18);box-shadow:var(--clay-sm);}
+.sdlbl{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-align:center;}
+.sdlbl.done{color:var(--green);}
+.sdlbl.active{color:var(--accent);}
+.sdlbl.idle{color:var(--text3);}
+.sline{height:1px;flex:1;margin-bottom:20px;transition:background .4s;}
+.sline.done{background:linear-gradient(90deg,var(--green),var(--accent));}
+.sline.idle{background:rgba(100,130,200,.14);}
+
+/* card header */
+.ch{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.cico{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 5px 18px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.28);}
+.ci-blue{background:linear-gradient(145deg,var(--accent2),var(--accent));}
+.ci-amber{background:linear-gradient(145deg,#fbbf24,var(--amber));}
+.ci-green{background:linear-gradient(145deg,var(--green2),var(--green));}
+.card-title{font-size:19px;font-weight:900;color:var(--heading);letter-spacing:-.03em;margin-bottom:3px;}
+.card-sub{font-size:12px;font-weight:500;color:var(--text3);line-height:1.5;}
+
+/* fields */
+.field{margin-bottom:13px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:13px;}
+.flbl{display:block;font-size:10px;font-weight:800;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.flbl .opt{font-weight:600;color:var(--text3);text-transform:none;letter-spacing:0;font-size:9px;}
+.finp{width:100%;padding:10px 14px;background:rgba(255,255,255,.70);border:1px solid rgba(255,255,255,.60);border-radius:var(--r-xs);font-size:13px;font-weight:600;font-family:'Nunito',sans-serif;color:var(--heading);outline:none;box-shadow:inset 0 2px 6px rgba(100,130,200,.10);transition:all .15s;}
+.finp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,142,240,.18),inset 0 2px 6px rgba(100,130,200,.06);}
+.finp::placeholder{color:var(--text3);}
+.finp.ok{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12);}
+.finp.bad{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.12);}
+.fhint{margin-top:4px;font-size:10px;font-weight:600;color:var(--text3);}
+code{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(91,142,240,.10);padding:1px 5px;border-radius:4px;color:var(--accent);}
+
+/* type toggle */
+.type-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2px;}
+.type-opt{padding:13px 12px;border-radius:14px;background:rgba(255,255,255,.60);border:1.5px solid rgba(255,255,255,.55);cursor:pointer;transition:all .2s;box-shadow:var(--clay-sm);display:flex;flex-direction:column;gap:3px;position:relative;}
+.type-opt:hover{background:rgba(255,255,255,.85);}
+.type-opt.sel{border-color:var(--green);background:rgba(34,197,94,.06);box-shadow:0 0 0 2px rgba(34,197,94,.12),var(--clay-sm);}
+.type-name{font-size:13px;font-weight:800;color:var(--heading);}
+.type-desc{font-size:10px;color:var(--text3);}
+.type-tick{display:none;position:absolute;bottom:8px;right:8px;width:16px;height:16px;border-radius:50%;background:var(--green);align-items:center;justify-content:center;}
+.type-opt.sel .type-tick{display:flex;}
+
+/* plan toggle */
+.plan-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;}
+.plan-opt{padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.60);border:1.5px solid rgba(255,255,255,.55);cursor:pointer;transition:all .2s;box-shadow:var(--clay-sm);display:flex;flex-direction:column;gap:4px;position:relative;}
+.plan-opt:hover{background:rgba(255,255,255,.85);}
+.plan-opt.sel{border-color:var(--green);background:rgba(34,197,94,.06);box-shadow:0 0 0 2px rgba(34,197,94,.12),var(--clay-sm);}
+.plan-badge{position:absolute;top:-1px;right:-1px;padding:3px 10px;font-size:9px;font-weight:900;border-radius:0 14px 0 10px;letter-spacing:.05em;}
+.pb-free{background:rgba(91,142,240,.12);color:var(--accent);}
+.pb-pro{background:linear-gradient(135deg,var(--amber),#fbbf24);color:#fff;}
+.plan-name{font-size:14px;font-weight:900;color:var(--heading);}
+.plan-price{font-size:11px;font-weight:700;color:var(--text3);}
+.plan-feat{font-size:10px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:4px;margin-top:3px;}
+.plan-feat::before{content:'✓';color:var(--green);font-weight:900;font-size:10px;}
+.plan-tick{display:none;position:absolute;bottom:8px;right:8px;width:16px;height:16px;border-radius:50%;background:var(--green);align-items:center;justify-content:center;}
+.plan-opt.sel .plan-tick{display:flex;}
+
+/* plan summary */
+.plan-sum{padding:11px 14px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.55);border-radius:12px;margin-bottom:14px;box-shadow:var(--clay-sm);display:flex;align-items:center;justify-content:space-between;}
+.ps-label{font-size:13px;font-weight:700;color:var(--heading);}
+.ps-price{font-size:13px;font-weight:900;color:var(--green);}
+.ps-note{font-size:10px;font-weight:600;color:var(--text3);}
+
+/* notice */
+.notice{display:none;margin-bottom:13px;padding:10px 14px;background:rgba(91,142,240,.07);border:1px solid rgba(91,142,240,.20);border-radius:10px;font-size:11px;font-weight:700;color:var(--accent);}
+.notice.show{display:block;}
+
+/* error banner */
+.merr{display:none;margin-bottom:14px;padding:10px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.20);border-left:3px solid var(--red);border-radius:10px;font-size:12px;font-weight:600;color:var(--red);align-items:flex-start;gap:8px;}
+.merr.show{display:flex;}
+
+/* buttons */
+.btn-row{display:flex;gap:10px;margin-top:6px;}
+.btn-back{flex:1;padding:12px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.55);border-radius:var(--r-sm);color:var(--text2);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:var(--clay-sm);}
+.btn-back:hover{background:rgba(255,255,255,.90);box-shadow:var(--clay-s);}
+.btn-next{flex:2;padding:13px;background:linear-gradient(145deg,var(--green2),var(--green));color:#fff;font-weight:800;font-size:14px;border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;box-shadow:0 6px 22px rgba(34,197,94,.40),inset 0 1px 0 rgba(255,255,255,.25);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.01em;}
+.btn-next:hover:not(:disabled){box-shadow:0 8px 30px rgba(34,197,94,.55);transform:translateY(-2px);}
+.btn-next:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;display:none;}
+.btn-next.loading .spin{display:block;}
+.btn-next.loading .btn-text{display:none;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* panels */
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+
+/* ═══════ KEY REVEAL ═══════ */
+.kr-wrap{text-align:center;padding:8px 0;}
+.kr-icon{width:68px;height:68px;border-radius:20px;background:linear-gradient(145deg,var(--green2),var(--green));display:flex;align-items:center;justify-content:center;color:#fff;margin:0 auto 16px;box-shadow:0 10px 32px rgba(34,197,94,.42),inset 0 1px 0 rgba(255,255,255,.28);}
+.kr-title{font-size:21px;font-weight:900;color:var(--heading);letter-spacing:-.03em;margin-bottom:5px;}
+.kr-sub{font-size:13px;font-weight:500;color:var(--text2);line-height:1.6;margin-bottom:20px;}
+
+/* org summary */
+.org-pill{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(91,142,240,.06);border:1px solid rgba(91,142,240,.18);border-radius:12px;margin-bottom:14px;text-align:left;}
+.op-ico{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 3px 10px rgba(91,142,240,.28);}
+.op-name{font-size:13px;font-weight:800;color:var(--heading);}
+.op-email{font-size:11px;font-weight:600;color:var(--text3);}
+
+/* warning */
+.key-warn{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.24);border-left:3px solid var(--amber);border-radius:10px;margin-bottom:14px;text-align:left;}
+.kw-text{font-size:11px;font-weight:700;color:#92600a;line-height:1.55;}
+.kw-text strong{color:#7c4f08;}
+
+/* key box */
+.key-box{background:rgba(255,255,255,.55);border:1.5px solid rgba(34,197,94,.28);border-radius:14px;padding:16px 14px;margin-bottom:12px;box-shadow:inset 0 2px 8px rgba(34,197,94,.05),var(--clay-sm);}
+.kb-label{font-size:9px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.kb-label::after{content:'';flex:1;height:1px;background:rgba(100,130,200,.12);}
+.key-text{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--heading);word-break:break-all;line-height:1.7;background:none;border:none;width:100%;resize:none;outline:none;cursor:text;padding:0;}
+.key-actions{display:flex;gap:8px;margin-top:10px;}
+.kbtn{flex:1;padding:9px;border-radius:10px;font-size:12px;font-weight:800;font-family:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.65);color:var(--text2);box-shadow:var(--clay-sm);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.kbtn:hover{background:rgba(255,255,255,.90);box-shadow:var(--clay-s);transform:translateY(-1px);}
+.kbtn.copied{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.28);color:var(--green);}
+
+/* confirm check */
+.confirm-row{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.16);border-radius:10px;margin-bottom:14px;}
+.confirm-row input{margin-top:2px;width:15px;height:15px;accent-color:var(--green);cursor:pointer;flex-shrink:0;}
+.confirm-row label{font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;line-height:1.5;}
+
+/* go to login */
+.go-btn{width:100%;padding:13px;background:linear-gradient(145deg,var(--accent2),var(--accent));color:#fff;font-weight:800;font-size:14px;border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;box-shadow:0 6px 22px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.25);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;letter-spacing:.01em;}
+.go-btn:hover:not(:disabled){box-shadow:0 8px 30px rgba(91,142,240,.55);transform:translateY(-2px);}
+.go-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+.login-row{margin-top:14px;text-align:center;font-size:11px;font-weight:600;color:var(--text3);}
+.login-row a{color:var(--text2);text-decoration:none;font-weight:700;}
+.login-row a:hover{color:var(--accent);}
+
+/* toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,35,64,.92);color:#fff;padding:10px 20px;border-radius:12px;font-size:12px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.24);opacity:0;transition:all .3s;pointer-events:none;z-index:200;display:flex;align-items:center;gap:8px;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:960px){.page{grid-template-columns:1fr;gap:28px;}nav,.page{padding-left:20px;padding-right:20px;}.field-row{grid-template-columns:1fr;}}
+@media(max-width:480px){.type-toggle,.plan-toggle{grid-template-columns:1fr;}.btn-row{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-logo"><i data-lucide="zap" style="width:18px;height:18px;"></i></div>
+    <span class="nav-title">AutoRCA</span>
+    <span class="nav-ver">v2.1</span>
+  </a>
+  <a class="nav-back" href="index.html">
+    <i data-lucide="arrow-left" style="width:13px;height:13px;"></i>Back to Login
+  </a>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div>
+    <div class="hero-badge"><span class="live-dot"></span>Free to Start · No Credit Card Required</div>
+    <h1>Start resolving<br>incidents in <span class="h-green">60 seconds</span></h1>
+    <p class="hero-sub">Create your AutoRCA account, generate your API key, and connect your infrastructure. Your key is your identity — keep it safe.</p>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num s1n">01</div>
+        <div>
+          <div class="step-title">Create your organization</div>
+          <div class="step-desc">Enter your org name, email, and choose a plan. Takes 30 seconds.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num s2n">02</div>
+        <div>
+          <div class="step-title">Choose your plan</div>
+          <div class="step-desc">Start free. Upgrade to Pro when you need unlimited RCAs.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num s3n">03</div>
+        <div>
+          <div class="step-title">Receive your API key</div>
+          <div class="step-desc">A unique <code>autorca_live_*</code> key is generated. Copy it — shown only once.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num s4n">04</div>
+        <div>
+          <div class="step-title">Log in & start your first RCA</div>
+          <div class="step-desc">Paste your key on the login page. AI analysis in under 2 seconds.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Register card -->
+  <div class="reg-card">
+
+    <!-- Stepper -->
+    <div class="stepper" id="stepper">
+      <div class="sdw">
+        <div class="sdt active" id="sd1">1</div>
+        <div class="sdlbl active" id="sl1">Details</div>
+      </div>
+      <div class="sline idle" id="ln1"></div>
+      <div class="sdw">
+        <div class="sdt idle" id="sd2">2</div>
+        <div class="sdlbl idle" id="sl2">Plan</div>
+      </div>
+      <div class="sline idle" id="ln2"></div>
+      <div class="sdw">
+        <div class="sdt idle" id="sd3">3</div>
+        <div class="sdlbl idle" id="sl3">Your Key</div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="merr" id="merr">
+      <i data-lucide="alert-circle" style="width:13px;height:13px;flex-shrink:0;margin-top:1px;"></i>
+      <span id="merr-t">Something went wrong</span>
+    </div>
+
+    <!-- ══ STEP 1: Details ══ -->
+    <div class="step-panel active" id="p1">
+      <div class="ch">
+        <div class="cico ci-blue"><i data-lucide="building-2" style="width:22px;height:22px;"></i></div>
+        <div>
+          <div class="card-title">Create Account</div>
+          <div class="card-sub">Start by entering your organization details.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flbl">Account Type</label>
+        <div class="type-toggle">
+          <div class="type-opt sel" id="t-biz" onclick="selType('biz')">
+            <div class="type-name">Business</div>
+            <div class="type-desc">Team or company</div>
+            <div class="type-tick"><i data-lucide="check" style="width:9px;height:9px;color:#fff;"></i></div>
+          </div>
+          <div class="type-opt" id="t-ind" onclick="selType('ind')">
+            <div class="type-name">Individual</div>
+            <div class="type-desc">Solo developer</div>
+            <div class="type-tick"><i data-lucide="check" style="width:9px;height:9px;color:#fff;"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label class="flbl">Organization Name</label>
+          <input class="finp" id="orgName" type="text" placeholder="e.g. Acme DevOps" oninput="clearErr();vf(this,2)">
+        </div>
+        <div>
+          <label class="flbl">Website <span class="opt">(optional)</span></label>
+          <input class="finp" id="website" type="text" placeholder="yoursite.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flbl">Admin Email</label>
+        <input class="finp" id="adminEmail" type="email" placeholder="admin@company.com" oninput="clearErr();ve(this)">
+      </div>
+
+      <div class="field" style="margin-bottom:18px;">
+        <label class="flbl">Referral Code <span class="opt">(optional)</span></label>
+        <input class="finp" id="refCode" type="text" placeholder="AUTORCA-XXXX" style="letter-spacing:.05em;">
+      </div>
+
+      <button class="btn-next" onclick="step1Next()" style="width:100%;">
+        <span class="btn-text">Continue <i data-lucide="arrow-right" style="width:14px;height:14px;vertical-align:middle;margin-left:2px;"></i></span>
+      </button>
+
+      <div class="login-row" style="margin-top:14px;">Already have an account? <a href="index.html">Sign in →</a></div>
+    </div>
+
+    <!-- ══ STEP 2: Plan ══ -->
+    <div class="step-panel" id="p2">
+      <div class="ch">
+        <div class="cico ci-amber"><i data-lucide="layers" style="width:22px;height:22px;"></i></div>
+        <div>
+          <div class="card-title">Choose Your Plan</div>
+          <div class="card-sub">Start free. Upgrade whenever you need more.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flbl">Select Plan</label>
+        <div class="plan-toggle">
+          <div class="plan-opt sel" id="p-free" onclick="selPlan('free')">
+            <div class="plan-badge pb-free">FREE</div>
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">$0 / month</div>
+            <div class="plan-feat">50 RCAs / month</div>
+            <div class="plan-feat">1 API key</div>
+            <div class="plan-feat">Community support</div>
+            <div class="plan-tick"><i data-lucide="check" style="width:9px;height:9px;color:#fff;"></i></div>
+          </div>
+          <div class="plan-opt" id="p-pro" onclick="selPlan('pro')">
+            <div class="plan-badge pb-pro">⚡ PRO</div>
+            <div class="plan-name">Professional</div>
+            <div class="plan-price">$29 / month</div>
+            <div class="plan-feat">Unlimited RCAs</div>
+            <div class="plan-feat">5 API keys</div>
+            <div class="plan-feat">Priority support</div>
+            <div class="plan-tick"><i data-lucide="check" style="width:9px;height:9px;color:#fff;"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice" id="pro-notice">
+        <i data-lucide="info" style="width:11px;height:11px;vertical-align:middle;margin-right:4px;"></i>
+        Pro payments launching soon — you'll be enrolled in Starter now and upgraded automatically.
+      </div>
+
+      <div class="plan-sum">
+        <div>
+          <div class="ps-label" id="sum-plan">Starter Plan</div>
+          <div class="ps-note" id="sum-note">No credit card required.</div>
+        </div>
+        <div class="ps-price" id="sum-price">$0.00 / mo</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goStep(1)"><i data-lucide="arrow-left" style="width:12px;height:12px;"></i>Back</button>
+        <button class="btn-next" id="s2btn" onclick="step2Next()">
+          <div class="spin"></div>
+          <span class="btn-text">Create Account <i data-lucide="zap" style="width:14px;height:14px;vertical-align:middle;"></i></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ STEP 3: Key Reveal ══ -->
+    <div class="step-panel" id="p3">
+      <div class="kr-wrap">
+        <div class="kr-icon"><i data-lucide="key-round" style="width:34px;height:34px;"></i></div>
+        <div class="kr-title">Your API Key is Ready! 🎉</div>
+        <div class="kr-sub">Account created. Copy your key now — it will <strong>never be shown again</strong>.</div>
+      </div>
+
+      <div class="org-pill">
+        <div class="op-ico"><i data-lucide="building-2" style="width:16px;height:16px;"></i></div>
+        <div>
+          <div class="op-name" id="op-name">Your Organization</div>
+          <div class="op-email" id="op-email">admin@company.com</div>
+        </div>
+      </div>
+
+      <div class="key-warn">
+        <i data-lucide="triangle-alert" style="width:16px;height:16px;color:var(--amber);flex-shrink:0;margin-top:1px;"></i>
+        <div class="kw-text"><strong>Save this key immediately.</strong> It is displayed only once and cannot be recovered. Store it in a password manager or <code>.env</code> file.</div>
+      </div>
+
+      <div class="key-box">
+        <div class="kb-label"><i data-lucide="key-round" style="width:10px;height:10px;color:var(--green);"></i>API KEY</div>
+        <textarea class="key-text" id="key-disp" readonly rows="3" spellcheck="false"></textarea>
+        <div class="key-actions">
+          <button class="kbtn" id="copy-btn" onclick="copyKey()">
+            <i data-lucide="copy" style="width:12px;height:12px;" id="copy-ico"></i>
+            <span id="copy-lbl">Copy Key</span>
+          </button>
+          <button class="kbtn" onclick="dlKey()">
+            <i data-lucide="download" style="width:12px;height:12px;"></i>Download .txt
+          </button>
+        </div>
+      </div>
+
+      <div class="confirm-row">
+        <input type="checkbox" id="saved-ck" onchange="toggleGo()">
+        <label for="saved-ck">I have copied and saved my API key in a secure location</label>
+      </div>
+
+      <button class="go-btn" id="go-btn" onclick="goLogin()" disabled>
+        <i data-lucide="log-in" style="width:15px;height:15px;"></i>Go to Login
+      </button>
+
+      <div class="login-row" style="margin-top:14px;">
+        <i data-lucide="shield-check" style="width:11px;height:11px;color:var(--green);vertical-align:middle;margin-right:3px;"></i>
+        Key stored as SHA-256 hash in Supabase
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i data-lucide="check-circle" style="width:14px;height:14px;color:var(--green2);"></i>
+  <span id="toast-msg">Copied!</span>
+</div>
+
+<script>
+lucide.createIcons();
+
+var curStep=1, selTyp='biz', selPln='free', genKey='';
+var apiBase=(localStorage.getItem('autorca_api_base')||'https://autorca-api.onrender.com').replace(/\/+$/,'');
+
+/* type */
+function selType(t){
+  selTyp=t;
+  document.getElementById('t-biz').classList.toggle('sel',t==='biz');
+  document.getElementById('t-ind').classList.toggle('sel',t==='ind');
+  lucide.createIcons();
+}
+
+/* plan */
+function selPlan(p){
+  selPln=p;
+  document.getElementById('p-free').classList.toggle('sel',p==='free');
+  document.getElementById('p-pro').classList.toggle('sel',p==='pro');
+  document.getElementById('pro-notice').classList.toggle('show',p==='pro');
+  document.getElementById('sum-plan').textContent=p==='free'?'Starter Plan':'Professional Plan';
+  document.getElementById('sum-price').textContent=p==='free'?'$0.00 / mo':'$29.00 / mo*';
+  document.getElementById('sum-note').textContent=p==='free'?'No credit card required.':'* Enrolled as Starter until billing launches.';
+  lucide.createIcons();
+}
+
+/* validation helpers */
+function vf(el,n){var v=el.value.trim();el.classList.toggle('ok',v.length>=n);el.classList.toggle('bad',v.length>0&&v.length<n);}
+function ve(el){var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())&&el.value.trim().length>0;el.classList.toggle('ok',ok);el.classList.toggle('bad',!ok&&el.value.trim().length>0);}
+function clearErr(){document.getElementById('merr').classList.remove('show');}
+function showErr(m){document.getElementById('merr-t').textContent=m;document.getElementById('merr').classList.add('show');}
+
+/* stepper */
+function goStep(n){
+  document.querySelectorAll('.step-panel').forEach(function(p,i){p.classList.toggle('active',i+1===n);});
+  for(var i=1;i<=3;i++){
+    var d=document.getElementById('sd'+i), l=document.getElementById('sl'+i);
+    d.classList.remove('done','active','idle'); l.classList.remove('done','active','idle');
+    if(i<n){d.classList.add('done');l.classList.add('done');d.innerHTML='<i data-lucide="check" style="width:12px;height:12px;"></i>';}
+    else if(i===n){d.classList.add('active');l.classList.add('active');d.textContent=i;}
+    else{d.classList.add('idle');l.classList.add('idle');d.textContent=i;}
+    if(i<3){var ln=document.getElementById('ln'+i);ln.classList.toggle('done',i<n);ln.classList.toggle('idle',i>=n);}
+  }
+  curStep=n; clearErr(); lucide.createIcons();
+}
+
+/* step 1 */
+function step1Next(){
+  var nm=document.getElementById('orgName').value.trim();
+  var em=document.getElementById('adminEmail').value.trim();
+  if(!nm){showErr('Organization name is required.');document.getElementById('orgName').focus();return;}
+  if(nm.length<2){showErr('Name must be at least 2 characters.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showErr('Please enter a valid email address.');document.getElementById('adminEmail').focus();return;}
+  goStep(2);
+}
+
+/* step 2 → backend */
+async function step2Next(){
+  clearErr();
+  var btn=document.getElementById('s2btn');
+  btn.classList.add('loading'); btn.disabled=true;
+  var payload={
+    org_name:document.getElementById('orgName').value.trim(),
+    email:document.getElementById('adminEmail').value.trim(),
+    plan:selPln, account_type:selTyp,
+    website:document.getElementById('website').value.trim()||null,
+    ref_code:document.getElementById('refCode').value.trim()||null
+  };
+  try{
+    var res=await fetch(apiBase+'/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(12000)});
+    var data=await res.json();
+    if(res.ok&&data.api_key){
+      genKey=data.api_key;
+      fillReveal(payload,data);
+      goStep(3);
+    } else if(res.status===409){
+      showErr('This email is already registered. Please sign in instead.');
+    } else {
+      showErr(data.detail||'Registration failed. Please try again.');
+    }
+  } catch(e){
+    if(e.name==='TimeoutError'){showErr('Server is waking up. Please wait ~30 seconds and try again.');}
+    else{simulateKey(payload);}
+  } finally{btn.classList.remove('loading');btn.disabled=false;}
+}
+
+function fillReveal(payload,data){
+  document.getElementById('key-disp').value=genKey;
+  document.getElementById('op-name').textContent=payload.org_name;
+  document.getElementById('op-email').textContent=payload.email;
+  localStorage.setItem('autorca_org_name',payload.org_name);
+  if(data.org_id) localStorage.setItem('autorca_org_id',data.org_id);
+  localStorage.setItem('autorca_plan',payload.plan);
+}
+
+/* simulate key when backend not deployed yet */
+function simulateKey(payload){
+  var h='abcdef0123456789',r='';
+  for(var i=0;i<48;i++) r+=h[Math.floor(Math.random()*h.length)];
+  genKey='autorca_live_'+r;
+  fillReveal(payload,{});
+  showToast('Demo mode — backend not connected. Key is simulated.',3500);
+  goStep(3);
+}
+
+/* copy */
+async function copyKey(){
+  if(!genKey) return;
+  try{
+    await navigator.clipboard.writeText(genKey);
+    var b=document.getElementById('copy-btn'),l=document.getElementById('copy-lbl'),ic=document.getElementById('copy-ico');
+    b.classList.add('copied'); l.textContent='Copied!'; ic.setAttribute('data-lucide','check');
+    lucide.createIcons(); showToast('API key copied to clipboard!');
+    setTimeout(function(){b.classList.remove('copied');l.textContent='Copy Key';ic.setAttribute('data-lucide','copy');lucide.createIcons();},3000);
+  } catch(e){document.getElementById('key-disp').select();document.execCommand('copy');showToast('Key copied!');}
+}
+
+/* download */
+function dlKey(){
+  if(!genKey) return;
+  var nm=document.getElementById('op-name').textContent;
+  var em=document.getElementById('op-email').textContent;
+  var c='AutoRCA API Key\n===============\n\nOrganization : '+nm+'\nEmail        : '+em+'\nPlan         : '+selPln+'\nGenerated    : '+new Date().toISOString()+'\n\nAPI KEY:\n'+genKey+'\n\nINSTRUCTIONS:\n1. Go to index.html\n2. Paste key into the API KEY field\n3. Click Open Dashboard\n\nKEEP THIS SECRET — never share or commit to version control.\n';
+  var b=new Blob([c],{type:'text/plain'}), u=URL.createObjectURL(b), a=document.createElement('a');
+  a.href=u; a.download='autorca-api-key.txt'; a.click(); URL.revokeObjectURL(u);
+  showToast('Key file downloaded!');
+}
+
+function toggleGo(){
+  var c=document.getElementById('saved-ck').checked, b=document.getElementById('go-btn');
+  b.disabled=!c; b.style.opacity=c?'1':'.45';
+}
+
+function goLogin(){
+  if(!genKey){window.location.href='index.html';return;}
+  sessionStorage.setItem('autorca_prefill_key',genKey);
+  window.location.href='index.html?new=1';
+}
+
+function showToast(m,d){
+  var t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=m||'Done!';
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},d||2200);
+}
+</script>
+</body>
+</html>

@@ -1,15 +1,49 @@
 """
-tests/conftest.py — Shared fixtures for AutoRCA test suite
+conftest.py — Shared fixtures and helpers for AutoRCA test suite
 """
 
 import os
 import sqlite3
 import sys
+from uuid import uuid4
 
 import pytest
 
 # Insert project root at the front of sys.path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
+
+# ── Auth row factory helpers (used by tests/test_auth.py) ────────────────────
+
+
+def make_org_row(org_name="Acme DevOps", email="admin@acme.com", plan="free", status="active"):
+    """Build a dict that looks like an organizations table row."""
+    return {
+        "id": str(uuid4()),
+        "org_name": org_name,
+        "email": email,
+        "plan": plan,
+        "status": status,
+    }
+
+
+def make_api_key_row(is_active=True, org_status="active", org_name="Acme DevOps", plan="free"):
+    """Build a dict that looks like an api_keys row with nested organizations."""
+    return {
+        "id": str(uuid4()),
+        "org_id": str(uuid4()),
+        "is_active": is_active,
+        "label": "Default Key",
+        "organizations": {
+            "id": str(uuid4()),
+            "org_name": org_name,
+            "email": "admin@acme.com",
+            "plan": plan,
+            "status": org_status,
+        },
+    }
+
+
 # ── Log file fixtures ─────────────────────────────────────────────────────────
 
 

@@ -10,224 +10,104 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:       #c5dff8;
-  --card:     #ffffff;
-  --text:     #2d3a5e;
-  --text2:    #5a6a92;
-  --text3:    #8898c0;
-  --heading:  #1a2340;
-  --accent:   #5b8ef0;
-  --accent2:  #7ba5f5;
-  --green:    #22c55e;
-  --green2:   #4ade80;
-  --purple:   #8b5cf6;
-  --red:      #ef4444;
-  --amber:    #f59e0b;
-  --border:   rgba(255,255,255,.60);
-  --clay-s:   0 8px 40px rgba(100,130,200,.22), 0 2px 10px rgba(100,130,200,.12), inset 0 1px 0 rgba(255,255,255,.90);
-  --clay-s-h: 0 16px 56px rgba(100,130,200,.30), 0 4px 18px rgba(100,130,200,.18), inset 0 1px 0 rgba(255,255,255,.95);
-  --clay-s-sm:0 4px 18px rgba(100,130,200,.18), 0 1px 5px rgba(100,130,200,.10), inset 0 1px 0 rgba(255,255,255,.80);
-  --r:        22px;
-  --r-sm:     14px;
-  --r-xs:     10px;
+  --bg:#c5dff8;--card:#ffffff;--text:#2d3a5e;--text2:#5a6a92;--text3:#8898c0;
+  --heading:#1a2340;--accent:#5b8ef0;--accent2:#7ba5f5;
+  --green:#22c55e;--green2:#4ade80;--purple:#8b5cf6;--red:#ef4444;--amber:#f59e0b;
+  --border:rgba(255,255,255,.60);
+  --clay-s:0 8px 40px rgba(100,130,200,.22),0 2px 10px rgba(100,130,200,.12),inset 0 1px 0 rgba(255,255,255,.90);
+  --clay-h:0 16px 56px rgba(100,130,200,.30),0 4px 18px rgba(100,130,200,.18),inset 0 1px 0 rgba(255,255,255,.95);
+  --clay-sm:0 4px 18px rgba(100,130,200,.18),0 1px 5px rgba(100,130,200,.10),inset 0 1px 0 rgba(255,255,255,.80);
+  --r:22px;--r-sm:14px;--r-xs:10px;
 }
-html,body{
-  min-height:100%;
-  font-family:'Nunito',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-body{
-  background: linear-gradient(160deg, #d7fcd4 0%, #b8f5d9 50%, #54e776 100%) fixed;
-  min-height:100vh;
-}   
-/* ── Floating cloud shapes in background ────────────────────── */
-.cloud{
-  position:fixed;border-radius:50%;
-  background:rgba(255,255,255,.22);
-  filter:blur(40px);
-  pointer-events:none;z-index:0;
-}
+html,body{min-height:100%;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{background:linear-gradient(160deg,#d7fcd4 0%,#b8f5d9 50%,#54e776 100%) fixed;min-height:100vh;}
+
+/* clouds */
+.cloud{position:fixed;border-radius:50%;background:rgba(255,255,255,.22);filter:blur(40px);pointer-events:none;z-index:0;}
 .c1{width:500px;height:300px;top:-80px;left:-100px;}
 .c2{width:400px;height:250px;top:20%;right:-80px;}
 .c3{width:600px;height:350px;bottom:-100px;left:30%;}
 .c4{width:280px;height:200px;top:60%;left:-60px;}
 
-/* ── Nav ────────────────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(255,255,255,.55);
-  backdrop-filter:blur(20px) saturate(150%);
-  -webkit-backdrop-filter:blur(20px) saturate(150%);
-  border-bottom:1px solid rgba(255,255,255,.50);
-  box-shadow:0 2px 20px rgba(100,130,200,.15);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:62px;
-}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.55);backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.50);box-shadow:0 2px 20px rgba(100,130,200,.15);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:62px;}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-logo{
-  width:36px;height:36px;
-  background:linear-gradient(145deg,var(--accent2),var(--accent));
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;color:#fff;
-  box-shadow:0 4px 14px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.30);
-}
+.nav-logo{width:36px;height:36px;background:linear-gradient(145deg,var(--accent2),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 14px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.30);}
 .nav-title{font-size:17px;font-weight:900;color:var(--heading);letter-spacing:-.03em;}
-.nav-ver{
-  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);
-  background:rgba(255,255,255,.60);border:1px solid rgba(255,255,255,.50);
-  padding:2px 8px;border-radius:6px;box-shadow:var(--clay-s-sm);
-}
+.nav-ver{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);background:rgba(255,255,255,.60);border:1px solid rgba(255,255,255,.50);padding:2px 8px;border-radius:6px;box-shadow:var(--clay-sm);}
 .nav-links{display:flex;align-items:center;gap:6px;}
-.nav-a{
-  padding:7px 14px;border-radius:10px;font-size:13px;font-weight:700;color:var(--text2);
-  text-decoration:none;border:none;background:none;font-family:inherit;cursor:pointer;
-  transition:all .15s;
-}
+.nav-a{padding:7px 14px;border-radius:10px;font-size:13px;font-weight:700;color:var(--text2);text-decoration:none;border:none;background:none;font-family:inherit;cursor:pointer;transition:all .15s;}
 .nav-a:hover{color:var(--green2);background:rgba(255,255,255,.45);}
-.nav-cta{
-  padding:9px 20px;
-  background:linear-gradient(145deg,var(--green2),var(--green));
-  color:#fff;font-weight:800;font-size:13px;
-  border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;
-  box-shadow:0 4px 16px rgba(34,197,94,.40),inset 0 1px 0 rgba(255,255,255,.30);
-  transition:all .2s;
-}
+.nav-cta{padding:9px 20px;background:linear-gradient(145deg,var(--green2),var(--green));color:#fff;font-weight:800;font-size:13px;border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(34,197,94,.40),inset 0 1px 0 rgba(255,255,255,.30);transition:all .2s;}
 .nav-cta:hover{box-shadow:0 6px 24px rgba(34,197,94,.50);transform:translateY(-1px);}
 
-/* ── Page layout ────────────────────────────────────────────── */
-.page{
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 420px;
-  gap:60px;align-items:center;
-  max-width:1060px;margin:0 auto;
-  padding:100px 40px 60px;
-  min-height:100vh;
-}
+/* layout */
+.page{position:relative;z-index:1;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1060px;margin:0 auto;padding:100px 40px 60px;min-height:100vh;}
 
-/* ── Hero left ──────────────────────────────────────────────── */
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:6px 14px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.60);
-  border-radius:100px;
-  font-size:11px;font-weight:800;color:var(--text2);letter-spacing:.04em;
-  margin-bottom:22px;
-  box-shadow:var(--clay-s-sm);
-}
+/* hero left */
+.hero-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.60);border-radius:100px;font-size:11px;font-weight:800;color:var(--text2);letter-spacing:.04em;margin-bottom:22px;box-shadow:var(--clay-sm);}
 .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 6px rgba(34,197,94,.6);animation:dp 2s infinite;}
 @keyframes dp{0%,100%{opacity:1;}50%{opacity:.35;}}
-h1{
-  font-size:clamp(36px,5vw,56px);font-weight:900;
-  letter-spacing:-.04em;line-height:1.06;color:var(--heading);margin-bottom:18px;
-}
+h1{font-size:clamp(36px,5vw,56px);font-weight:900;letter-spacing:-.04em;line-height:1.06;color:var(--heading);margin-bottom:18px;}
 .h-blue{color:var(--accent);}
-.hero-sub{
-  font-size:16px;font-weight:500;color:var(--text2);
-  line-height:1.7;max-width:480px;margin-bottom:32px;
-}
+.hero-sub{font-size:16px;font-weight:500;color:var(--text2);line-height:1.7;max-width:480px;margin-bottom:32px;}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
-.btn-green{
-  padding:13px 26px;
-  background:linear-gradient(145deg,var(--green2),var(--green));
-  color:#fff;font-weight:800;font-size:14px;
-  border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;
-  box-shadow:0 4px 20px rgba(34,197,94,.40),inset 0 1px 0 rgba(255,255,255,.30);
-  transition:all .2s;display:flex;align-items:center;gap:8px;
-}
+.btn-green{padding:13px 26px;background:linear-gradient(145deg,var(--green2),var(--green));color:#fff;font-weight:800;font-size:14px;border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(34,197,94,.40),inset 0 1px 0 rgba(255,255,255,.30);transition:all .2s;display:flex;align-items:center;gap:8px;}
 .btn-green:hover{box-shadow:0 8px 28px rgba(34,197,94,.50);transform:translateY(-2px);}
-.btn-white{
-  padding:13px 26px;
-  background:rgba(255,255,255,.75);
-  color:var(--heading);font-weight:700;font-size:14px;
-  border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.60);cursor:pointer;font-family:inherit;
-  box-shadow:var(--clay-s-sm);transition:all .2s;
-  display:flex;align-items:center;gap:8px;
-}
+.btn-white{padding:13px 26px;background:rgba(255,255,255,.75);color:var(--heading);font-weight:700;font-size:14px;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.60);cursor:pointer;font-family:inherit;box-shadow:var(--clay-sm);transition:all .2s;display:flex;align-items:center;gap:8px;}
 .btn-white:hover{background:rgba(255,255,255,.90);box-shadow:var(--clay-s);transform:translateY(-1px);}
 .hero-note{font-size:11px;font-weight:600;color:var(--text3);display:flex;align-items:center;gap:5px;}
-
-/* ── Stats chips ────────────────────────────────────────────── */
-.stats-row{
-  display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;
-}
-.stat-chip{
-  padding:10px 16px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:var(--r-sm);
-  box-shadow:var(--clay-s-sm);
-  display:flex;flex-direction:column;gap:1px;
-  flex:1;min-width:90px;
-}
-.stat-n{
-  font-family:'JetBrains Mono',monospace;
-  font-size:20px;font-weight:700;color:var(--heading);letter-spacing:-.03em;
-}
+.stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;}
+.stat-chip{padding:10px 16px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.55);border-radius:var(--r-sm);box-shadow:var(--clay-sm);display:flex;flex-direction:column;gap:1px;flex:1;min-width:90px;}
+.stat-n{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--heading);letter-spacing:-.03em;}
 .stat-l{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
-
-/* ── Feature tags ───────────────────────────────────────────── */
 .feat-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
-.ftag{
-  padding:5px 12px;
-  background:rgba(255,255,255,.55);
-  border:1px solid rgba(255,255,255,.50);
-  border-radius:100px;
-  font-size:11px;font-weight:700;color:var(--text2);
-  box-shadow:var(--clay-s-sm);
-  display:flex;align-items:center;gap:5px;
-}
+.ftag{padding:5px 12px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.50);border-radius:100px;font-size:11px;font-weight:700;color:var(--text2);box-shadow:var(--clay-sm);display:flex;align-items:center;gap:5px;}
 
-/* ── Clay login card ────────────────────────────────────────── */
+/* ═══════════════════════════════════
+   CLAY LOGIN CARD
+═══════════════════════════════════ */
 .login-card{
   background:rgba(255,255,255,.80);
   backdrop-filter:blur(28px) saturate(160%);
   -webkit-backdrop-filter:blur(28px) saturate(160%);
   border:1px solid rgba(255,255,255,.70);
-  border-radius:28px;
-  padding:40px 34px;
-  box-shadow:
-    0 24px 80px rgba(100,130,200,.25),
-    0 8px 24px rgba(100,130,200,.15),
-    inset 0 1px 0 rgba(255,255,255,.95);
+  border-radius:28px;padding:40px 34px;
+  box-shadow:0 24px 80px rgba(100,130,200,.25),0 8px 24px rgba(100,130,200,.15),inset 0 1px 0 rgba(255,255,255,.95);
 }
-.card-icon{
-  width:54px;height:54px;
-  background:linear-gradient(145deg,var(--accent2),var(--accent));
-  border-radius:16px;
-  display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:18px;
-  box-shadow:0 6px 20px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.30);
-}
+.card-icon{width:54px;height:54px;background:linear-gradient(145deg,var(--accent2),var(--accent));border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:18px;box-shadow:0 6px 20px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.30);}
 .card-title{font-size:22px;font-weight:900;color:var(--heading);letter-spacing:-.03em;margin-bottom:4px;}
 .card-sub{font-size:13px;font-weight:500;color:var(--text3);margin-bottom:26px;line-height:1.5;}
+.card-sub.success{color:var(--green);font-weight:700;}
+
+/* fields */
 .field{margin-bottom:14px;}
-.flbl{display:block;font-size:10px;font-weight:800;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
-.finp{
-  width:100%;padding:11px 14px;
-  background:rgba(255,255,255,.70);
-  border:1px solid rgba(255,255,255,.60);
-  border-radius:var(--r-xs);
-  font-size:14px;font-weight:600;font-family:'Nunito',sans-serif;color:var(--heading);
-  outline:none;
-  box-shadow:inset 0 2px 6px rgba(100,130,200,.10);
-  transition:all .15s;
-}
-.finp:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(91,142,240,.20),inset 0 2px 6px rgba(100,130,200,.06);
-}
+.flbl{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:800;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.flbl a{font-size:10px;color:var(--text3);text-decoration:none;text-transform:none;letter-spacing:0;font-weight:700;transition:color .15s;}
+.flbl a:hover{color:var(--accent);}
+.fw{position:relative;}
+.finp{width:100%;padding:11px 14px;background:rgba(255,255,255,.70);border:1px solid rgba(255,255,255,.60);border-radius:var(--r-xs);font-size:14px;font-weight:600;font-family:'Nunito',sans-serif;color:var(--heading);outline:none;box-shadow:inset 0 2px 6px rgba(100,130,200,.10);transition:all .15s;}
+.finp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,142,240,.18),inset 0 2px 6px rgba(100,130,200,.06);}
 .finp::placeholder{color:var(--text3);}
+.finp.has-eye{padding-right:42px;}
+.finp.ok{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.14),inset 0 2px 6px rgba(34,197,94,.05);}
+.finp.bad{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.14),inset 0 2px 6px rgba(239,68,68,.05);}
+.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);padding:2px;transition:color .15s;display:flex;align-items:center;}
+.eye-btn:hover{color:var(--text2);}
 .fhint{margin-top:4px;font-size:10px;font-weight:600;color:var(--text3);}
 code{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(91,142,240,.10);padding:1px 5px;border-radius:4px;color:var(--accent);}
-.merr{
-  display:none;margin-bottom:14px;padding:10px 14px;
-  background:rgba(239,68,68,.08);
-  border:1px solid rgba(239,68,68,.20);
-  border-left:3px solid var(--red);
-  border-radius:10px;font-size:12px;font-weight:600;color:var(--red);
-}
-.merr.show{display:block;}
+
+/* inline validation msg */
+.val-msg{display:none;margin-top:5px;font-size:11px;font-weight:700;align-items:center;gap:4px;}
+.val-msg.show{display:flex;}
+.val-msg.ok{color:var(--green);}
+.val-msg.bad{color:var(--red);}
+
+/* error banner */
+.merr{display:none;margin-bottom:14px;padding:10px 14px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.20);border-left:3px solid var(--red);border-radius:10px;font-size:12px;font-weight:600;color:var(--red);align-items:flex-start;gap:8px;}
+.merr.show{display:flex;}
+
+/* login btn — starts disabled */
 .login-btn{
   width:100%;padding:13px;
   background:linear-gradient(145deg,var(--accent2),var(--accent));
@@ -235,92 +115,52 @@ code{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(91,142
   border-radius:var(--r-sm);border:none;cursor:pointer;font-family:inherit;
   box-shadow:0 6px 22px rgba(91,142,240,.40),inset 0 1px 0 rgba(255,255,255,.25);
   transition:all .2s;margin-top:4px;letter-spacing:.01em;
+  display:flex;align-items:center;justify-content:center;gap:8px;
 }
-.login-btn:hover{
-  box-shadow:0 8px 30px rgba(91,142,240,.55);transform:translateY(-2px);
-}
-.ordiv{display:flex;align-items:center;gap:10px;margin:16px 0;font-size:11px;font-weight:700;color:var(--text3);}
-.ordiv::before,.ordiv::after{content:'';flex:1;height:1px;background:rgba(100,130,200,.18);}
-.demo-btn{
-  width:100%;padding:12px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:var(--r-sm);color:var(--text2);font-size:13px;font-weight:700;
-  font-family:inherit;cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  box-shadow:var(--clay-s-sm);
-}
+.login-btn:hover:not(:disabled){box-shadow:0 8px 30px rgba(91,142,240,.55);transform:translateY(-2px);}
+.login-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;display:none;}
+.login-btn.loading .spin{display:block;}
+.login-btn.loading .btn-text{display:none;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.or-div{display:flex;align-items:center;gap:10px;margin:16px 0;font-size:11px;font-weight:700;color:var(--text3);}
+.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:rgba(100,130,200,.18);}
+.demo-btn{width:100%;padding:12px;background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.55);border-radius:var(--r-sm);color:var(--text2);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:var(--clay-sm);}
 .demo-btn:hover{background:rgba(255,255,255,.85);box-shadow:var(--clay-s);transform:translateY(-1px);}
-.card-footer{
-  margin-top:18px;font-size:11px;font-weight:600;color:var(--text3);
-  text-align:center;line-height:1.7;
-}
+
+/* card footer */
+.card-footer{margin-top:18px;font-size:11px;font-weight:600;color:var(--text3);text-align:center;line-height:1.7;}
 .card-footer a{color:var(--text2);text-decoration:none;}
 .card-footer a:hover{color:var(--accent);}
+.create-row{margin-top:14px;padding-top:14px;border-top:1px solid rgba(100,130,200,.12);display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.create-row span{font-size:11px;font-weight:600;color:var(--text3);}
+.create-link{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 16px;
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.55);
+  border-radius:var(--r-xs);font-size:12px;font-weight:800;color:var(--heading);
+  text-decoration:none;transition:all .18s;box-shadow:var(--clay-sm);
+}
+.create-link:hover{background:rgba(255,255,255,.90);box-shadow:var(--clay-s);transform:translateY(-1px);color:var(--accent);}
 
-/* ── Feature cards ──────────────────────────────────────────── */
-.features{
-  position:relative;z-index:1;
-  max-width:1060px;margin:0 auto;
-  padding:20px 40px 70px;
-}
-.sec-eyebrow{
-  text-align:center;font-size:10px;font-weight:900;color:var(--accent);
-  text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;
-}
-.sec-h{
-  text-align:center;font-size:clamp(24px,3vw,34px);font-weight:900;
-  letter-spacing:-.03em;color:var(--heading);margin-bottom:8px;
-}
-.sec-p{
-  text-align:center;font-size:14px;font-weight:500;color:var(--text2);
-  margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.65;
-}
+/* feature cards */
+.features{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:20px 40px 70px;}
+.sec-eyebrow{text-align:center;font-size:10px;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;}
+.sec-h{text-align:center;font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-.03em;color:var(--heading);margin-bottom:8px;}
+.sec-p{text-align:center;font-size:14px;font-weight:500;color:var(--text2);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.65;}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.fcard{
-  background:rgba(255,255,255,.72);
-  backdrop-filter:blur(16px) saturate(140%);
-  -webkit-backdrop-filter:blur(16px) saturate(140%);
-  border:1px solid rgba(255,255,255,.65);
-  border-radius:22px;
-  padding:26px 22px;
-  box-shadow:
-    0 8px 32px rgba(100,130,200,.16),
-    0 2px 8px rgba(100,130,200,.08),
-    inset 0 1px 0 rgba(255,255,255,.90);
-  transition:all .22s ease;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-}
-.fcard:hover{
-  transform:translateY(-5px) scale(1.01);
-  box-shadow:0 16px 50px rgba(100,130,200,.25),0 4px 16px rgba(100,130,200,.14),inset 0 1px 0 rgba(255,255,255,.95);
-}
-/* Top accent line */
-.fcard::before{
-  content:'';position:absolute;top:0;left:16px;right:16px;height:3px;border-radius:0 0 4px 4px;
-}
+.fcard{background:rgba(255,255,255,.72);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(255,255,255,.65);border-radius:22px;padding:26px 22px;box-shadow:0 8px 32px rgba(100,130,200,.16),0 2px 8px rgba(100,130,200,.08),inset 0 1px 0 rgba(255,255,255,.90);transition:all .22s ease;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.fcard:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 16px 50px rgba(100,130,200,.25),0 4px 16px rgba(100,130,200,.14),inset 0 1px 0 rgba(255,255,255,.95);}
+.fcard::before{content:'';position:absolute;top:0;left:16px;right:16px;height:3px;border-radius:0 0 4px 4px;}
 .fc1::before{background:linear-gradient(90deg,var(--accent),var(--accent2));}
 .fc2::before{background:linear-gradient(90deg,var(--purple),#a78bfa);}
 .fc3::before{background:linear-gradient(90deg,var(--green),var(--green2));}
 .fc4::before{background:linear-gradient(90deg,var(--amber),#fbbf24);}
 .fc5::before{background:linear-gradient(90deg,#06b6d4,#22d3ee);}
 .fc6::before{background:linear-gradient(90deg,var(--red),#f87171);}
-/* Badge */
-.card-badge{
-  position:absolute;top:-11px;left:18px;
-  padding:3px 11px;border-radius:20px;
-  font-size:9px;font-weight:900;letter-spacing:.07em;
-  background:linear-gradient(135deg,var(--amber),#fbbf24);color:#fff;
-  box-shadow:0 2px 8px rgba(245,158,11,.40);
-}
-/* Icon squares */
-.cicon{
-  width:48px;height:48px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:14px;color:#fff;
-  box-shadow:0 4px 14px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.25);
-}
+.card-badge{position:absolute;top:-11px;left:18px;padding:3px 11px;border-radius:20px;font-size:9px;font-weight:900;letter-spacing:.07em;background:linear-gradient(135deg,var(--amber),#fbbf24);color:#fff;box-shadow:0 2px 8px rgba(245,158,11,.40);}
+.cicon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.25);}
 .cicon svg{width:22px;height:22px;}
 .ci1{background:linear-gradient(145deg,var(--accent2),var(--accent));}
 .ci2{background:linear-gradient(145deg,#a78bfa,var(--purple));}
@@ -331,21 +171,9 @@ code{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(91,142
 .ctitle{font-size:15px;font-weight:800;color:var(--heading);letter-spacing:-.02em;margin-bottom:6px;}
 .cdesc{font-size:12px;font-weight:500;color:var(--text2);line-height:1.6;margin-bottom:14px;flex:1;}
 .clist{list-style:none;margin-bottom:18px;display:flex;flex-direction:column;gap:5px;}
-.clist li{
-  display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text2);
-}
-.clist li::before{
-  content:'';width:14px;height:14px;border-radius:50%;flex-shrink:0;
-  background:rgba(34,197,94,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%2316a34a' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
-  border:1px solid rgba(34,197,94,.22);
-}
-.cbtn{
-  padding:10px;border-radius:var(--r-xs);font-size:12px;font-weight:800;border:none;
-  cursor:pointer;font-family:inherit;width:100%;
-  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;
-  color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.20);
-  margin-top:auto;
-}
+.clist li{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--text2);}
+.clist li::before{content:'';width:14px;height:14px;border-radius:50%;flex-shrink:0;background:rgba(34,197,94,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%2316a34a' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;border:1px solid rgba(34,197,94,.22);}
+.cbtn{padding:10px;border-radius:var(--r-xs);font-size:12px;font-weight:800;border:none;cursor:pointer;font-family:inherit;width:100%;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.20);margin-top:auto;}
 .cbtn:hover{filter:brightness(1.08);transform:translateY(-1px);}
 .cb1{background:linear-gradient(145deg,var(--accent2),var(--accent));}
 .cb2{background:linear-gradient(145deg,#a78bfa,var(--purple));}
@@ -353,32 +181,16 @@ code{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(91,142
 .cb4{background:linear-gradient(145deg,#fbbf24,var(--amber));}
 .cb5{background:linear-gradient(145deg,#22d3ee,#06b6d4);}
 .cb6{background:linear-gradient(145deg,#f87171,var(--red));}
-
-/* ── Footer ────────────────────────────────────────────────── */
-footer{
-  position:relative;z-index:1;text-align:center;
-  padding:24px 40px;
-  font-size:11px;font-weight:600;color:var(--text3);
-  display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
-  border-top:1px solid rgba(255,255,255,.30);
-  background:rgba(255,255,255,.20);
-}
+footer{position:relative;z-index:1;text-align:center;padding:24px 40px;font-size:11px;font-weight:600;color:var(--text3);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.30);background:rgba(255,255,255,.20);}
 footer a{color:var(--text2);text-decoration:none;}
 footer a:hover{color:var(--accent);}
-
 @media(max-width:900px){.page{grid-template-columns:1fr;gap:32px;}.cards{grid-template-columns:1fr 1fr;}nav,footer,.features,.page{padding-left:20px;padding-right:20px;}}
 @media(max-width:560px){.cards{grid-template-columns:1fr;}.stats-row{flex-wrap:wrap;}}
 </style>
 </head>
 <body>
+<div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
 
-<!-- Background cloud blobs -->
-<div class="cloud c1"></div>
-<div class="cloud c2"></div>
-<div class="cloud c3"></div>
-<div class="cloud c4"></div>
-
-<!-- Nav -->
 <nav>
   <a class="nav-brand" href="#">
     <div class="nav-logo"><i data-lucide="zap" style="width:18px;height:18px;"></i></div>
@@ -388,20 +200,18 @@ footer a:hover{color:var(--accent);}
   <div class="nav-links">
     <button class="nav-a" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</button>
     <a class="nav-a" href="https://github.com/Nabeelmuhammed369/AutoRCA_Dashboard" target="_blank">GitHub</a>
-    <button class="nav-cta" onclick="openCard()">Open Dashboard →</button>
+    <button class="nav-cta" onclick="focusCard()">Open Dashboard →</button>
   </div>
 </nav>
 
-<!-- Hero + Login card -->
 <div class="page">
-
-  <!-- Left: Hero -->
+  <!-- Hero left -->
   <div>
     <div class="hero-badge"><span class="live-dot"></span>AI-Powered · Real-Time · 13 Features</div>
     <h1>Incident Analysis<br>in <span class="h-blue">Under 2 Seconds</span></h1>
     <p class="hero-sub">Upload logs, connect your infrastructure, and get a structured AI explanation of exactly what went wrong — with causality chain, remediation checklist, and runbook links.</p>
     <div class="hero-btns">
-      <button class="btn-green" onclick="openCard()"><i data-lucide="zap" style="width:15px;height:15px;"></i>Start Analysis</button>
+      <button class="btn-green" onclick="focusCard()"><i data-lucide="zap" style="width:15px;height:15px;"></i>Start Analysis</button>
       <button class="btn-white" onclick="enterDemo()"><i data-lucide="play-circle" style="width:15px;height:15px;"></i>Try Demo</button>
     </div>
     <div class="hero-note"><i data-lucide="lock" style="width:10px;height:10px;color:var(--green);"></i>Credentials stored locally · Never sent externally</div>
@@ -419,49 +229,78 @@ footer a:hover{color:var(--accent);}
     </div>
   </div>
 
-  <!-- Right: Clay login card -->
+  <!-- Login card -->
   <div class="login-card">
     <div class="card-icon"><i data-lucide="zap" style="width:24px;height:24px;"></i></div>
     <div class="card-title">Open AutoRCA</div>
-    <div class="card-sub">Enter your credentials to access the dashboard. Stored in your browser only.</div>
+    <div class="card-sub" id="card-sub">Enter your API key to access the dashboard.</div>
 
+    <!-- Error banner -->
     <div class="merr" id="merr">
-      <i data-lucide="alert-circle" style="width:11px;height:11px;vertical-align:middle;margin-right:4px;"></i>
+      <i data-lucide="alert-circle" style="width:13px;height:13px;flex-shrink:0;margin-top:1px;"></i>
       <span id="merr-t">Invalid API key</span>
     </div>
 
+    <!-- API Key -->
     <div class="field">
-      <label class="flbl">API KEY</label>
-      <input class="finp" id="ak" type="password" placeholder="Your AUTORCA_API_KEY" onkeydown="if(event.key==='Enter')doLogin()">
-      <div class="fhint">Set in <code>.env</code> as <code>AUTORCA_API_KEY</code></div>
+      <div class="flbl">
+        <span>API Key</span>
+        <a href="autorca_register.html">Get a key →</a>
+      </div>
+      <div class="fw">
+        <input class="finp has-eye" id="ak" type="password"
+          placeholder="autorca_live_••••••••••••"
+          autocomplete="current-password"
+          oninput="onKeyInput(this)"
+          onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="eye-btn" type="button" onclick="toggleEye()">
+          <i data-lucide="eye" style="width:14px;height:14px;" id="eye-icon"></i>
+        </button>
+      </div>
+      <div class="val-msg" id="key-val"></div>
+      <div class="fhint">Your <code>autorca_live_*</code> or <code>autorca_test_*</code> key</div>
     </div>
+
+    <!-- API URL -->
     <div class="field">
-      <label class="flbl">API SERVER URL</label>
-      <input class="finp" id="au" type="text" value="https://autorca-api.onrender.com">
+      <div class="flbl"><span>API Server URL</span></div>
+      <input class="finp" id="au" type="text" value="https://autorca-api.onrender.com" oninput="clearErr()">
       <div class="fhint">URL of your running <code>api_server.py</code></div>
     </div>
 
-    <button class="login-btn" id="mbtn" onclick="doLogin()">Open Dashboard</button>
-    <div class="ordiv">or</div>
+    <!-- Login button: disabled until key format is valid -->
+    <button class="login-btn" id="login-btn" onclick="doLogin()" disabled>
+      <div class="spin"></div>
+      <span class="btn-text">Open Dashboard</span>
+    </button>
+
+    <div class="or-div">or</div>
+
     <button class="demo-btn" onclick="enterDemo()">
       <i data-lucide="play-circle" style="width:13px;height:13px;"></i>Try without API server
     </button>
+
     <div class="card-footer">
-      Credentials stored in your browser only<br>
-      <a href="https://github.com/Nabeelmuhammed369/AutoRCA_Dashboard" target="_blank">GitHub</a>
-      &nbsp;·&nbsp;
-      <a href="#features" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});return false;">See all features</a>
+      <div>Credentials stored in your browser only &nbsp;·&nbsp;
+        <a href="https://github.com/Nabeelmuhammed369/AutoRCA_Dashboard" target="_blank">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="#features" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});return false;">See all features</a>
+      </div>
+      <div class="create-row">
+        <span>Don't have an API key?</span>
+        <a class="create-link" href="autorca_register.html">
+          <i data-lucide="plus-circle" style="width:12px;height:12px;"></i>Create Account
+        </a>
+      </div>
     </div>
   </div>
+</div>
 
-</div><!-- /page -->
-
-<!-- Feature cards -->
+<!-- Features -->
 <div class="features" id="features">
   <div class="sec-eyebrow">CAPABILITIES</div>
   <h2 class="sec-h">Everything you need to resolve incidents fast</h2>
   <p class="sec-p">From log upload to structured remediation — AutoRCA handles the full investigation workflow with AI precision.</p>
-
   <div class="cards">
     <div class="fcard fc1" style="position:relative;">
       <div class="card-badge">⚡ MOST USED</div>
@@ -469,42 +308,42 @@ footer a:hover{color:var(--accent);}
       <div class="ctitle">AI Root Cause Analysis</div>
       <div class="cdesc">Groq LLM explains the root cause in plain English with confidence score and full regeneration support.</div>
       <ul class="clist"><li>Plain-English explanation</li><li>Confidence score 0–100</li><li>Regenerate anytime</li></ul>
-      <button class="cbtn cb1" onclick="doLogin()">Start Analysis →</button>
+      <button class="cbtn cb1" onclick="focusCard()">Start Analysis →</button>
     </div>
     <div class="fcard fc2">
       <div class="cicon ci2"><i data-lucide="git-merge"></i></div>
       <div class="ctitle">Causality Chain SVG</div>
       <div class="cdesc">Visual left-to-right diagram showing failure origin with precise Δ timestamps between each event node.</div>
       <ul class="clist"><li>Interactive node click</li><li>Δ-time labels</li><li>Chain · List · Waterfall</li></ul>
-      <button class="cbtn cb2" onclick="doLogin()">View Chain →</button>
+      <button class="cbtn cb2" onclick="focusCard()">View Chain →</button>
     </div>
     <div class="fcard fc3">
       <div class="cicon ci3"><i data-lucide="fingerprint"></i></div>
       <div class="ctitle">Error Fingerprinting</div>
-      <div class="cdesc">Group thousands of raw errors into unique signatures by stripping timestamps and addresses — like Sentry, built-in.</div>
+      <div class="cdesc">Group thousands of raw errors into unique signatures by stripping timestamps — like Sentry, built-in.</div>
       <ul class="clist"><li>Unique error count</li><li>Deduplication %</li><li>djb2 hash clustering</li></ul>
-      <button class="cbtn cb3" onclick="doLogin()">See Fingerprints →</button>
+      <button class="cbtn cb3" onclick="focusCard()">See Fingerprints →</button>
     </div>
     <div class="fcard fc4">
       <div class="cicon ci4"><i data-lucide="layers"></i></div>
       <div class="ctitle">Multi-Source Merge</div>
       <div class="cdesc">Stitch 3 log sources into a unified correlated timeline with ±50ms deduplication across services.</div>
       <ul class="clist"><li>±50ms deduplication</li><li>Cross-service timeline</li><li>Source & level filters</li></ul>
-      <button class="cbtn cb4" onclick="doLogin()">Compare Sources →</button>
+      <button class="cbtn cb4" onclick="focusCard()">Compare Sources →</button>
     </div>
     <div class="fcard fc5">
       <div class="cicon ci5"><i data-lucide="activity"></i></div>
       <div class="ctitle">Live Streaming + Alerts</div>
       <div class="cdesc">WebSocket streaming with Loki, Elasticsearch, S3, and HTTP integrations. Pattern-based alert rules engine.</div>
       <ul class="clist"><li>WebSocket + 4 integrations</li><li>Alert rule engine</li><li>Real-time dashboard</li></ul>
-      <button class="cbtn cb5" onclick="doLogin()">Connect Source →</button>
+      <button class="cbtn cb5" onclick="focusCard()">Connect Source →</button>
     </div>
     <div class="fcard fc6">
       <div class="cicon ci6"><i data-lucide="clock"></i></div>
       <div class="ctitle">RCA History & Export</div>
       <div class="cdesc">Every investigation saved to Supabase. Search, filter, and export structured JSON with runbook links.</div>
       <ul class="clist"><li>Supabase persistence</li><li>Runbook links per step</li><li>JSON export + evidence</li></ul>
-      <button class="cbtn cb6" onclick="doLogin()">View History →</button>
+      <button class="cbtn cb6" onclick="focusCard()">View History →</button>
     </div>
   </div>
 </div>
@@ -518,31 +357,156 @@ footer a:hover{color:var(--accent);}
 
 <script>
 lucide.createIcons();
-function openCard(){ document.getElementById('ak').focus(); window.scrollTo({top:0,behavior:'smooth'}); }
-function doLogin(){
-  var k=document.getElementById('ak').value.trim();
-  var u=document.getElementById('au').value.trim()||'https://autorca-api.onrender.com';
-  var btn=document.getElementById('mbtn');
-  var err=document.getElementById('merr');
-  err.classList.remove('show');
-  if(!k){storeGo('',u);return;}
-  btn.textContent='Connecting…';btn.style.opacity='.7';
-  fetch(u+'/api/health',{headers:{'X-API-Key':k},signal:AbortSignal.timeout(5000)})
-  .then(function(r){
-    if(r.ok){storeGo(k,u);}
-    else if(r.status===401){document.getElementById('merr-t').textContent='Invalid API key — check AUTORCA_API_KEY in .env';err.classList.add('show');}
-    else{storeGo(k,u);}
-  })
-  .catch(function(){storeGo(k,u);})
-  .finally(function(){btn.textContent='Open Dashboard';btn.style.opacity='1';});
+
+/* ── Prefill from register ── */
+(function(){
+  var pf=sessionStorage.getItem('autorca_prefill_key');
+  var nw=new URLSearchParams(location.search).get('new');
+  if(pf&&nw){
+    var inp=document.getElementById('ak');
+    inp.value=pf; inp.type='text';
+    document.getElementById('eye-icon').setAttribute('data-lucide','eye-off');
+    onKeyInput(inp);
+    sessionStorage.removeItem('autorca_prefill_key');
+    lucide.createIcons();
+    var s=document.getElementById('card-sub');
+    s.textContent='Account created! Your key is pre-filled — click Open Dashboard.';
+    s.classList.add('success');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+})();
+
+function focusCard(){ document.getElementById('ak').focus(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* ── Eye toggle ── */
+function toggleEye(){
+  var i=document.getElementById('ak'), ic=document.getElementById('eye-icon');
+  if(i.type==='password'){ i.type='text'; ic.setAttribute('data-lucide','eye-off'); }
+  else { i.type='password'; ic.setAttribute('data-lucide','eye'); }
+  lucide.createIcons();
 }
-function enterDemo(){storeGo('','https://autorca-api.onrender.com');}
-function storeGo(k,u){
-  if(k)localStorage.setItem('autorca_api_key',k);
-  if(u)localStorage.setItem('autorca_api_base',u);
+
+/* ── Real-time key validation — controls button enabled state ── */
+function onKeyInput(el){
+  clearErr();
+  var v=el.value.trim();
+  var msg=document.getElementById('key-val');
+  var btn=document.getElementById('login-btn');
+
+  if(!v){
+    el.classList.remove('ok','bad'); msg.className='val-msg'; btn.disabled=true; return;
+  }
+
+  var valid=(v.startsWith('autorca_live_')||v.startsWith('autorca_test_'))&&v.length>=32;
+
+  if(valid){
+    el.classList.add('ok'); el.classList.remove('bad');
+    msg.className='val-msg show ok';
+    msg.innerHTML='<i data-lucide="check-circle" style="width:11px;height:11px;"></i> Key format looks good';
+    btn.disabled=false;
+  } else {
+    el.classList.add('bad'); el.classList.remove('ok');
+    msg.className='val-msg show bad';
+    msg.innerHTML='<i data-lucide="alert-circle" style="width:11px;height:11px;"></i> Must start with <code>autorca_live_</code>';
+    btn.disabled=true;
+  }
+  lucide.createIcons();
+}
+
+function clearErr(){ document.getElementById('merr').classList.remove('show'); }
+function showErr(m){ document.getElementById('merr-t').textContent=m; document.getElementById('merr').classList.add('show'); }
+function setLoad(on){ var b=document.getElementById('login-btn'); if(on){b.classList.add('loading');b.disabled=true;}else{b.classList.remove('loading');b.disabled=false;} }
+
+/* ════════════════════════════════════════════════════
+   STRICT LOGIN — key is required, no silent bypass
+════════════════════════════════════════════════════ */
+async function doLogin(){
+  var k=document.getElementById('ak').value.trim();
+  var u=(document.getElementById('au').value.trim()||'https://autorca-api.onrender.com').replace(/\/+$/,'');
+  clearErr();
+
+  /* Hard gate 1: key must be present */
+  if(!k){
+    showErr('An API key is required to open the dashboard.');
+    document.getElementById('ak').focus(); return;
+  }
+  /* Hard gate 2: format check */
+  if(!(k.startsWith('autorca_live_')||k.startsWith('autorca_test_'))||k.length<32){
+    showErr('Invalid key format — keys look like autorca_live_xxxxxxxx…');
+    return;
+  }
+
+  setLoad(true);
+
+  try {
+    /* Primary: new validate-key endpoint */
+    var res=await fetch(u+'/api/auth/validate-key',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({api_key:k}),
+      signal:AbortSignal.timeout(9000)
+    });
+
+    if(res.ok){
+      var d=await res.json();
+      if(d.valid){
+        storeAndGo(k,u,d);
+      } else {
+        showErr(d.detail||'Invalid or expired API key. Please try again.');
+      }
+    } else if(res.status===401){
+      showErr('Invalid API key. Check your key or generate a new one.');
+    } else if(res.status===404){
+      /* Endpoint not deployed yet — fallback to health check */
+      await legacyCheck(k,u);
+    } else {
+      showErr('Server error ('+res.status+'). Please try again in a moment.');
+    }
+  } catch(e){
+    if(e.name==='TimeoutError'){
+      showErr('Server is waking up (Render cold start). Please wait ~30 seconds and try again.');
+    } else {
+      /* Network error: try legacy health-check path */
+      await legacyCheck(k,u);
+    }
+  } finally {
+    setLoad(false);
+  }
+}
+
+/* Legacy fallback — only used until /api/auth/validate-key is deployed */
+async function legacyCheck(k,u){
+  try {
+    var r=await fetch(u+'/api/health',{headers:{'X-API-Key':k},signal:AbortSignal.timeout(6000)});
+    if(r.status===401){
+      showErr('Invalid API key — check AUTORCA_API_KEY in your .env file.');
+    } else if(r.ok||r.status===200){
+      storeAndGo(k,u,{});
+    } else {
+      showErr('Could not verify key. Server responded with status '+r.status+'.');
+    }
+  } catch(e){
+    showErr('Cannot reach API server. Check the URL and ensure the server is running.');
+  }
+}
+
+function storeAndGo(k,u,d){
+  localStorage.setItem('autorca_api_key',  k);
+  localStorage.setItem('autorca_api_base', u);
+  localStorage.setItem('autorca_org_name', d.org_name||'');
+  localStorage.setItem('autorca_org_id',   d.org_id||'');
+  localStorage.setItem('autorca_plan',     d.plan||'free');
+  localStorage.removeItem('autorca_demo_mode');
   window.location.href='autorca_dashboard.html';
 }
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){}});
+
+/* Demo: no key stored, sets demo flag */
+function enterDemo(){
+  localStorage.removeItem('autorca_api_key');
+  localStorage.setItem('autorca_api_base','https://autorca-api.onrender.com');
+  localStorage.setItem('autorca_demo_mode','1');
+  window.location.href='autorca_dashboard.html';
+}
 </script>
 </body>
 </html>
