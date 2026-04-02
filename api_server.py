@@ -90,21 +90,22 @@ except Exception as e:
 # ══════════════════════════════════════════════════════════════════════════════
 # AUTH  — Dual-mode key verification
 #   MODE A (legacy/env): key matched against AUTORCA_API_KEY in .env
-#   MODE B (DB):         key hashed with SHA-256, looked up in api_keys table
-#   Both modes coexist — existing users keep working, new accounts use DB keys
+#   MODE B (DB):         autorca_live_* / autorca_test_* keys validated
+#                        via SHA-256 hash lookup in Supabase api_keys table
+#   Both modes coexist — existing .env users keep working, new accounts use DB
 # ══════════════════════════════════════════════════════════════════════════════
 AUTORCA_API_KEY = os.getenv("AUTORCA_API_KEY", "")
 if not AUTORCA_API_KEY:
-    logger.warning("AUTORCA_API_KEY not set — running in DEV mode (all requests allowed).")
+    logger.warning("AUTORCA_API_KEY not set — running in DEV MODE (all requests allowed).")
 
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 
 def _validate_db_key(raw_key: str) -> dict | None:
     """
-    Hash the raw key and look it up in the Supabase api_keys table.
+    Hash the submitted key and look it up in Supabase api_keys table.
     Returns org dict on success, None if not found or DB unavailable.
-    Raises HTTPException on found-but-inactive.
+    Raises HTTPException 401/403 if found-but-inactive or org suspended.
     """
     if _sb is None:
         return None
@@ -120,75 +121,61 @@ def _validate_db_key(raw_key: str) -> dict | None:
         row = result.data
         if not row:
             return None
-
         if not row.get("is_active", False):
             raise HTTPException(status_code=401, detail="This API key has been deactivated.")
-
         org = row.get("organizations") or {}
         if org.get("status") != "active":
             raise HTTPException(status_code=403, detail="Your account has been suspended. Contact support.")
-
-        # Update last_used_at silently
+        # Update last_used_at silently — never fail the login over this
         try:
             _sb.table("api_keys").update({"last_used_at": datetime.now(UTC).isoformat()}).eq("id", row["id"]).execute()
         except Exception:
             pass
-
         return {"mode": "db", "org_id": row["org_id"], **org}
-
     except HTTPException:
         raise
     except Exception as e:
         err_str = str(e)
-        # .single() raises when no rows found
         if "PGRST116" in err_str or "No rows" in err_str.lower() or "JSON object" in err_str:
-            return None
+            return None  # key simply not found
         logger.warning(f"DB key lookup error (falling back to env mode): {e}")
         return None
 
 
 def verify_api_key(key: str = Depends(api_key_header)):
     """
-    Dual-mode API key verification.
-
-    1. No key + no AUTORCA_API_KEY set  → dev mode, allow all
-    2. Key starts with autorca_live_/*test_* → validate via DB hash lookup
-    3. Key matches AUTORCA_API_KEY env var → legacy/env mode, allow
-    4. Everything else → HTTP 401
+    Dual-mode verification:
+    1. No key + AUTORCA_API_KEY not set  → dev mode, allow all
+    2. autorca_live_* / autorca_test_*   → DB hash lookup (MODE B)
+    3. Matches AUTORCA_API_KEY .env var  → legacy env mode (MODE A)
+    4. Everything else                   → HTTP 401
     """
-    # Dev mode
     if not AUTORCA_API_KEY and not key:
         return {"mode": "dev", "org_name": "Dev", "plan": "free"}
-
     if not key:
         raise HTTPException(status_code=401, detail="Invalid or missing API key.")
-
-    # DB-backed key (new registration flow)
+    # MODE B — DB-backed autorca_live_* / autorca_test_* keys
     if key.startswith("autorca_live_") or key.startswith("autorca_test_"):
         org = _validate_db_key(key)
         if org is not None:
             return org
-        # If DB returned None and env key is not set, reject
         if not AUTORCA_API_KEY:
             raise HTTPException(status_code=401, detail="Invalid API key.")
-
-    # Legacy .env key
+    # MODE A — legacy .env key
     if AUTORCA_API_KEY:
         if key != AUTORCA_API_KEY:
             raise HTTPException(status_code=401, detail="Invalid or missing API key.")
         return {"mode": "env", "org_name": "Local", "plan": "free"}
-
     raise HTTPException(status_code=401, detail="Invalid or missing API key.")
 
 
 def ok_key(k: str) -> bool:
-    """For WebSocket and inline key checks (no Depends)."""
+    """WebSocket key check — mirrors verify_api_key logic without Depends."""
     if not AUTORCA_API_KEY and not k:
-        return True
+        return True  # dev mode
     if k.startswith("autorca_live_") or k.startswith("autorca_test_"):
         try:
-            org = _validate_db_key(k)
-            return org is not None
+            return _validate_db_key(k) is not None
         except HTTPException:
             return False
     return k == AUTORCA_API_KEY
@@ -241,14 +228,18 @@ app.add_middleware(
     max_age=600,
 )
 
-# ── Mount auth router (/api/auth/register, /api/auth/validate-key, /api/auth/me)
+# ── Mount auth router ─────────────────────────────────────────────────────────
+# Registers:  POST /api/auth/register
+#             POST /api/auth/validate-key
+#             GET  /api/auth/me
+# auth.py must be in the same directory as this file (project root).
 try:
     from auth import router as _auth_router
 
     app.include_router(_auth_router)
-    logger.info("Auth router mounted at /api/auth/*")
-except ImportError:
-    logger.warning("auth.py not found — /api/auth/* endpoints disabled. Place auth.py next to api_server.py")
+    logger.info("Auth router mounted → /api/auth/register, /api/auth/validate-key, /api/auth/me")
+except ImportError as _e:
+    logger.warning(f"auth.py not found — /api/auth/* endpoints disabled: {_e}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
