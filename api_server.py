@@ -19,7 +19,7 @@ import logging
 import os
 import re
 import time
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 import requests as _requests
@@ -128,7 +128,9 @@ def _validate_db_key(raw_key: str) -> dict | None:
             raise HTTPException(status_code=403, detail="Your account has been suspended. Contact support.")
         # Update last_used_at silently — never fail the login over this
         try:
-            _sb.table("api_keys").update({"last_used_at": datetime.now(UTC).isoformat()}).eq("id", row["id"]).execute()
+            _sb.table("api_keys").update({"last_used_at": datetime.now(timezone.utc).isoformat()}).eq(
+                "id", row["id"]
+            ).execute()
         except Exception:
             pass
         return {"mode": "db", "org_id": row["org_id"], **org}
@@ -818,7 +820,7 @@ def _make_live_line(i: int) -> dict:
     lvl = random.choice(_WS_LEVELS)
     src = random.choice(_WS_SOURCES)
     msg = random.choice(_WS_MSGS).format(ms=random.randint(45, 4500), uid=f"{i:04d}", pct=random.randint(40, 98))
-    ts = datetime.now(UTC).isoformat()
+    ts = datetime.now(timezone.utc).isoformat()
     return {
         "timestamp": ts,
         "level": lvl,
