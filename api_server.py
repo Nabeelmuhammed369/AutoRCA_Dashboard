@@ -239,8 +239,9 @@ try:
     from auth import router as _auth_router
     app.include_router(_auth_router)
     logger.info("Auth router mounted → /api/auth/register, /api/auth/validate-key, /api/auth/me")
-except ImportError as _e:
-    logger.warning(f"auth.py not found — /api/auth/* endpoints disabled: {_e}")
+except Exception as _e:
+    # Log the FULL traceback — visible in Render logs — so we can diagnose exactly what failed
+    logger.exception(f"FAILED to mount auth router — /api/auth/* endpoints disabled: {_e}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
