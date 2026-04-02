@@ -1,0 +1,31 @@
+# .gitattributes — enforce consistent line endings across OS
+# Prevents Windows CRLF from being committed into the repo
+# which can cause Ruff/Black to reformat files unexpectedly
+
+# Python files always use LF
+*.py    text eol=lf
+
+# Config files always use LF
+*.toml  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.json  text eol=lf
+*.env   text eol=lf
+*.txt   text eol=lf
+*.md    text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+
+# Windows batch files need CRLF
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Binary files — no conversion
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary

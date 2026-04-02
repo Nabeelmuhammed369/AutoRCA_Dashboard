@@ -128,9 +128,9 @@ def _validate_db_key(raw_key: str) -> dict | None:
             raise HTTPException(status_code=403, detail="Your account has been suspended. Contact support.")
         # Update last_used_at silently — never fail the login over this
         try:
-            _sb.table("api_keys").update({"last_used_at": datetime.now(timezone.utc).isoformat()}).eq(
-                "id", row["id"]
-            ).execute()
+            _sb.table("api_keys").update({
+                "last_used_at": datetime.now(timezone.utc).isoformat()
+            }).eq("id", row["id"]).execute()
         except Exception:
             pass
         return {"mode": "db", "org_id": row["org_id"], **org}
@@ -207,8 +207,8 @@ _EXPLICIT_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:4200",
     "http://127.0.0.1:4200",  # Angular
-    "https://autorca.netlify.app",  # AutoRCA frontend
-    "https://webportfoliobyme.netlify.app",  # Portfolio
+    "https://autorca.netlify.app",          # AutoRCA frontend
+    "https://webportfoliobyme.netlify.app", # Portfolio
 ]
 if ALLOWED_ORIGIN:
     _EXPLICIT_ORIGINS.append(ALLOWED_ORIGIN)
@@ -237,7 +237,6 @@ app.add_middleware(
 # auth.py must be in the same directory as this file (project root).
 try:
     from auth import router as _auth_router
-
     app.include_router(_auth_router)
     logger.info("Auth router mounted → /api/auth/register, /api/auth/validate-key, /api/auth/me")
 except ImportError as _e:
