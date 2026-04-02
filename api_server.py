@@ -231,17 +231,46 @@ app.add_middleware(
 )
 
 # ── Mount auth router ─────────────────────────────────────────────────────────
-# Registers:  POST /api/auth/register
-#             POST /api/auth/validate-key
-#             GET  /api/auth/me
-# auth.py must be in the same directory as this file (project root).
+import traceback as _traceback
+import sys as _sys
+
+logger.info("=" * 60)
+logger.info("DIAG: Python version = %s", _sys.version)
+logger.info("DIAG: sys.path = %s", _sys.path)
+
+# Step 1 — check auth.py is physically on disk
+import os as _os
+_auth_file = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "auth.py")
+logger.info("DIAG: Looking for auth.py at: %s", _auth_file)
+logger.info("DIAG: auth.py exists on disk = %s", _os.path.exists(_auth_file))
+
+# Step 2 — attempt import with full traceback on any failure
 try:
+    logger.info("DIAG: Attempting → import auth")
+    import auth as _auth_module
+    logger.info("DIAG: auth module imported OK")
+
+    logger.info("DIAG: Attempting → from auth import router")
     from auth import router as _auth_router
+    logger.info("DIAG: router object = %s", _auth_router)
+
+    logger.info("DIAG: Attempting → app.include_router(_auth_router)")
     app.include_router(_auth_router)
-    logger.info("Auth router mounted → /api/auth/register, /api/auth/validate-key, /api/auth/me")
-except Exception as _e:
-    # Log the FULL traceback — visible in Render logs — so we can diagnose exactly what failed
-    logger.exception(f"FAILED to mount auth router — /api/auth/* endpoints disabled: {_e}")
+
+    logger.info("=" * 60)
+    logger.info("✓ Auth router mounted → /api/auth/register, /api/auth/validate-key, /api/auth/me")
+    logger.info("=" * 60)
+
+except Exception as _mount_err:
+    logger.error("=" * 60)
+    logger.error("✗ FAILED to mount auth router")
+    logger.error("  Error type : %s", type(_mount_err).__name__)
+    logger.error("  Error msg  : %s", _mount_err)
+    logger.error("  Traceback  ↓")
+    for _line in _traceback.format_exc().splitlines():
+        logger.error("  %s", _line)
+    logger.error("=" * 60)
+    logger.error("  /api/auth/* endpoints are DISABLED until this is resolved")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -495,7 +524,7 @@ def health():
     key_ok = bool(AUTORCA_API_KEY)
     return {
         "status": "ok",
-        "version": "3.2.0",
+        "version": "3.3.0",
         "mode": "cloud" if IS_RENDER else "local",
         "dev_mode": not key_ok,
         "checks": {
